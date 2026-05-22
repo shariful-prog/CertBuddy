@@ -1,0 +1,337 @@
+# STUDY GUIDE: Introduction to End-to-End Analytics Using Microsoft Fabric
+
+> **Module for DP-700 (Microsoft Fabric Data Engineering) Exam Preparation**
+
+---
+
+
+
+## 1. Introduction to Microsoft Fabric
+
+
+### 1.1 The Problem Fabric Solves
+
+
+Organizations today face a common challenge: they need to ingest, prepare, govern, and analyze data at scale, but they often work across disconnected tools and teams. Increasingly, this same data also needs to be ready for AI workloads such as machine learning models, Copilots, and intelligent agents.
+
+**Managing these tasks across separate systems creates:**
+- Complexity in managing multiple tools
+- Governance gaps because data is scattered
+- Duplicated effort because teams repeat work across systems
+
+### 1.2 What is Microsoft Fabric?
+
+
+Microsoft Fabric is an end-to-end analytics platform that provides a single, integrated environment where data professionals and the business can collaborate on data projects.
+
+**Key characteristics:**
+- Built on a unified data lake called OneLake
+- Brings together all tools needed across the entire data lifecycle
+- All data is ingested, prepared, and governed within Fabric
+- The same data that powers reports and dashboards is also available to AI capabilities like Copilot, data agents, and Fabric IQ
+- The work you do to organize and govern data directly supports your organization's AI initiatives
+
+### 1.3 What This Module Covers
+
+
+- The Fabric platform and its architecture
+- Who Fabric is designed for
+- Fabric workloads and their capabilities
+- How Fabric supports both analytics and AI
+
+
+## 2. Exploring End-to-end Analytics with Microsoft Fabric
+
+
+### 2.1 Fabric as a Unified SaaS Platform
+
+
+Microsoft Fabric simplifies analytics by providing a single, easy-to-use product that integrates various tools and services into one platform. Key architectural features:
+
+- Fabric is a unified Software-as-a-Service (SaaS) platform
+- All data is stored in a single open format in OneLake
+- All analytics engines in the platform can access OneLake
+- This ensures scalability, cost-effectiveness, and accessibility from anywhere with an internet connection
+
+### 2.2 OneLake — Fabric's Centralized Data Storage
+
+
+OneLake is Fabric's centralized data storage architecture. It serves as the single source of truth for all data in Fabric.
+
+  **What OneLake Does:**
+  - Enables collaboration by eliminating the need to move or copy data between systems
+  - Unifies your data across regions and clouds into a single logical lake without moving or duplicating data
+
+  **How OneLake is Built:**
+  - Built on Azure Data Lake Storage Gen2 (ADLS Gen2)
+  - Supports various formats including Delta, Parquet, CSV, and JSON
+  - All compute engines in Fabric automatically store their data in OneLake
+  - Data is directly accessible without movement or duplication
+  - For tabular data, the analytical engines in Fabric write data in delta-parquet format and all engines interact with the format seamlessly
+
+  **Why OneLake Matters for AI:**
+  - Because all Fabric workloads store data in OneLake using an open format, AI capabilities like Copilot and data agents can access the same governed data as your reports and dashboards
+  - No separate data preparation pipelines are needed for AI
+  - The work you do to ingest, prepare, and govern data is what makes that data available for AI workloads
+
+### 2.3 Shortcuts
+
+
+Shortcuts are references to files or storage locations within OneLake or external data sources. They allow you to access existing data without copying it.
+
+  **Supported External Sources:**
+  - Azure Data Lake Storage
+  - Amazon S3
+  - Dataverse
+
+  **Key Benefits:**
+  - Access existing data without copying it
+  - Ensure data consistency
+  - Enable Fabric to stay in sync with the source
+
+### 2.4 Workspaces
+
+
+Workspaces in Microsoft Fabric serve as logical containers that help you organize and manage your data, reports, and other assets.
+
+  **Key Features:**
+  - Provide clear separation of resources
+  - Make it easier to control access and maintain security
+  - Each workspace has its own set of permissions
+  - Only authorized users can view or modify contents
+  - Support team collaboration while maintaining strict access control
+
+  **Compute and Version Control:**
+  - Workspaces allow you to manage compute resources
+  - Integrate with Git for version control
+  - Optimize performance and cost by configuring compute settings
+  - Git integration helps track changes, collaborate on code, and maintain a history of work
+
+### 2.5 Administration and Governance
+
+
+Fabric's OneLake is centrally governed and open for collaboration. Data is secured and governed in one place.
+
+  **Admin Portal:**
+  Fabric administration is centralized in the Admin portal, where you can:
+  - Manage groups and permissions
+  - Configure data sources and gateways
+  - Monitor usage and performance
+  - Access Fabric admin APIs and SDKs (to automate common tasks and integrate Fabric with other systems)
+
+  **OneLake Catalog:**
+  The OneLake catalog helps you analyze, monitor, and maintain data governance. It provides guidance on:
+  - Sensitivity labels
+  - Item metadata
+  - Data refresh status
+  - Governance status and recommended actions for improvement
+
+
+## 3. Data Teams and Microsoft Fabric
+
+
+### 3.1 Traditional Challenges in Data Teams
+
+
+In traditional analytics, data teams face several challenges:
+
+- **A)** DATA ENGINEERS
+    They process and curate data for analysts, who then create business reports. This requires extensive coordination, often leading to delays and misinterpretations.
+
+- **B)** DATA ANALYSTS
+    They often need to perform downstream data transformations before creating Power BI reports. This is time-consuming and can lack the necessary context, making it harder to connect directly with the data.
+
+- **C)** DATA SCIENTISTS
+    They face difficulties integrating native data science techniques with existing systems, which are often complex. This makes it challenging to efficiently provide data-driven insights.
+
+### 3.2 How Fabric Evolves Collaborative Workflows
+
+
+Microsoft Fabric simplifies the analytics development process by unifying tools into a SaaS platform. Different roles can collaborate effectively without duplicating efforts.
+
+- **A)** DATA ENGINEERS
+  - Ingest, transform, and load data directly into OneLake using Pipelines
+  - Automate workflows with scheduling
+  - Store data in lakehouses using Delta-Parquet format for efficient storage and versioning
+  - Use Notebooks for advanced scripting and complex transformations
+
+- **B)** ANALYTICS ENGINEERS
+  - Bridge the gap between data engineering and analysis
+  - Curate data assets in lakehouses
+  - Ensure data quality
+  - Enable self-service analytics
+  - Create semantic models in Power BI to organize and present data effectively
+
+- **C)** DATA ANALYSTS
+  - Transform data upstream using dataflows
+  - Connect directly to OneLake with Direct Lake mode (reduces the need for downstream transformations)
+  - Create interactive reports more efficiently using Power BI
+
+- **D)** DATA SCIENTISTS
+  - Use integrated notebooks with support for Python and Spark
+  - Build and test machine learning models
+  - Store and access data in lakehouses
+  - Integrate with Azure Machine Learning to operationalize and deploy models
+  - The predictions they generate can serve as grounding data for Copilot and AI agents
+
+- **E)** LOW-TO-NO-CODE USERS AND CITIZEN DEVELOPERS
+  - Discover curated datasets through the OneLake catalog
+  - Use Power BI templates to quickly create reports and dashboards
+  - Use dataflows to perform simple ETL tasks without relying on data engineers
+  - Ask questions of their data in natural language using Copilot
+
+### 3.3 How Every Role Supports AI
+
+
+Every role in the data team contributes to the organization's ability to use AI effectively:
+- Data engineers who maintain clean, well-governed data in OneLake build the foundation that Copilot and AI agents rely on
+- Analytics engineers who create consistent semantic models give AI tools the business context needed to generate accurate, meaningful answers
+
+
+## 4. Enabling and Using Microsoft Fabric
+
+
+### 4.1 Who Can Enable Fabric?
+
+
+To use Microsoft Fabric, it must first be enabled for your organization. The following roles can enable Fabric:
+
+- **A)** FABRIC ADMINISTRATOR
+    Manages Fabric settings and configurations.
+
+- **B)** POWER PLATFORM ADMINISTRATOR
+    Oversees Power Platform services, including Fabric.
+
+- **C)** GLOBAL ADMINISTRATOR
+    Has implicit Fabric admin rights through organization-wide permissions.
+
+### 4.2 How to Enable Fabric
+
+
+- Admins enable Fabric through the Admin portal > Tenant settings in the Power BI service
+- Fabric can be enabled for the entire organization OR for specific Microsoft 365 or Microsoft Entra security groups
+- Admins can delegate this ability to other users at the capacity level
+- If your organization isn't using Fabric or Power BI today, you can sign up for a free Fabric trial
+
+### 4.3 Creating Workspaces
+
+
+Workspaces are collaborative environments where you create and manage items like lakehouses, warehouses, and reports. All data is stored in OneLake and accessed through workspaces.
+
+  **Additional workspace feature:**
+  - Data lineage view: Provides a visual view of data flow and dependencies to enhance transparency and decision-making
+
+  **Workspace Settings You Can Configure:**
+  - License type to use Fabric features
+  - OneDrive access for the workspace
+  - Azure Data Lake Gen2 Storage connection
+  - Git integration for version control
+  - Spark workload settings for performance optimization
+
+  **Workspace Access Roles (4 roles):**
+  1. Admin — Full control over the workspace
+  2. Contributor — Can create and edit items
+  3. Member — Can participate in workspace activities
+  4. Viewer — Read-only access
+
+  Important: These roles apply to ALL items in a workspace and should be reserved for collaboration. For more granular access control, use item-level permissions based on business needs.
+
+### 4.4 Discovering Data with OneLake Catalog
+
+
+The OneLake catalog helps you find and access data sources within your organization.
+
+  **Key Features:**
+  - Explore and connect to data sources
+  - You only see items that have been shared with you (security is built in)
+
+  **Tips for Using OneLake Catalog:**
+  - Narrow results by workspaces or domains (if implemented)
+  - Explore default categories to quickly locate relevant data
+  - Filter by keyword or item type
+
+### 4.5 Fabric Workloads
+
+
+After creating a Fabric-enabled workspace, you can start creating items. Each workload offers different item types for storing, processing, and analyzing data.
+
+  **The Fabric Workloads:**
+
+- **A)** DATA ENGINEERING
+    Create lakehouses and operationalize workflows to build, transform, and share your data estate.
+
+- **B)** DATA FACTORY
+    Ingest, transform, and orchestrate data.
+
+- **C)** DATA WAREHOUSE
+    Combine multiple sources in a traditional warehouse for analytics.
+
+- **D)** REAL-TIME INTELLIGENCE
+    Process, monitor, and analyze streaming data.
+
+- **E)** INDUSTRY SOLUTIONS
+    Use out-of-the-box industry data solutions.
+
+- **F)** DATA SCIENCE
+    Detect trends, identify outliers, and predict values using machine learning.
+
+- **G)** DATABASES
+    Create and manage databases with tools to insert, query, and extract data.
+
+- **H)** IQ (PREVIEW)
+    Unify data across OneLake and organize it according to the language of your business using ontologies, graphs, and semantic models.
+
+- **I)** POWER BI
+    Create reports and dashboards to make data-driven decisions.
+
+  **Integration Note:**
+  Fabric integrates capabilities from existing Microsoft tools like Power BI, Azure Synapse Analytics, and Azure Data Factory into a unified platform. Fabric also supports a data mesh architecture, allowing decentralized data ownership while maintaining centralized governance. This eliminates the need for direct Azure resource access, simplifying data workflows.
+
+### 4.6 AI Capabilities in Microsoft Fabric
+
+
+Fabric includes features that support AI development as well as AI-powered productivity across workloads.
+
+- **A)** FABRIC IQ (PREVIEW)
+    A Fabric workload for unifying data across OneLake and organizing it according to the language of your business. Its core item is the ONTOLOGY, which defines your business concepts, relationships, and rules so that AI agents can reason across domains using consistent business language rather than raw table schemas.
+
+- **B)** THE THREE IQ WORKLOADS
+    Microsoft provides three IQ workloads to give agents access to different aspects of your organization:
+
+  1. Fabric IQ — Models business data (ontologies, semantic models, and graphs) so agents can reason over analytics in OneLake and Power BI.
+
+  2. Foundry IQ — Connects structured and unstructured data across Azure, SharePoint, OneLake, and the web so agents can access permission-aware enterprise knowledge.
+
+  3. Work IQ — Captures collaboration signals from documents, meetings, chats, and workflows, providing agents with insight into how your organization operates.
+
+    Each IQ workload is standalone, but you can use them together to provide comprehensive organizational context for agents.
+
+- **C)** FABRIC DATA AGENTS
+    Let you build conversational interfaces where users ask questions about organizational data in natural language. Agents translate those questions into structured queries across your lakehouses, warehouses, and semantic models.
+
+    In the Fabric IQ workload, data agents can connect to your ontology as a source, enabling them to understand and use your business concepts when answering questions.
+
+- **D)** COPILOT ACROSS WORKLOADS
+    Microsoft Copilot in Fabric is a generative AI assistant available across ALL Fabric workloads.
+
+    **Key Capabilities:**
+
+  1. Code Completion and Generation
+  - Provides intelligent code suggestions in notebooks
+  - Generates SQL queries from natural language descriptions
+  - Translates questions into Kusto Query Language (KQL) for real-time analysis
+
+  2. Data Transformation Guidance
+  - In Data Factory, supports both citizen and professional data wranglers
+  - Generates code for data transformation
+  - Provides plain-language explanations of complex logic
+
+  3. Report and Insight Generation
+  - In Power BI, generates reports automatically
+  - Creates page summaries
+  - Lets business users ask questions about data in natural language
+
+    **Important Note on Copilot:**
+  - Copilot in Microsoft Fabric is ENABLED BY DEFAULT
+  - Administrators can disable Copilot from the Admin portal > Tenant settings
+  - Access can be controlled for specific security groups or at the capacity level

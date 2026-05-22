@@ -1,0 +1,460 @@
+{
+  "module": "Use Apache Spark in Microsoft Fabric",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is the primary function of Apache Spark in Microsoft Fabric?",
+      "options": {
+        "A": "To create Power BI dashboards",
+        "B": "To act as a relational database management system",
+        "C": "To provide a distributed parallel processing framework for large-scale data analytics",
+        "D": "To manage Azure subscription billing"
+      },
+      "answer": "C",
+      "explanation": "Apache Spark is an open-source distributed data processing framework that enables large-scale data analytics by coordinating work across multiple processing nodes in a cluster.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In a Spark pool architecture, which type of node coordinates distributed processes through a driver program?",
+      "options": {
+        "A": "Worker node",
+        "B": "Head node",
+        "C": "Executor node",
+        "D": "Cluster node"
+      },
+      "answer": "B",
+      "explanation": "A head node in a Spark pool coordinates distributed processes through a driver program, while multiple worker nodes perform the actual data processing tasks.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which Spark pool configuration setting determines whether to automatically provision nodes based on workload demands?",
+      "options": {
+        "A": "Node Family",
+        "B": "Dynamic allocation",
+        "C": "Autoscale",
+        "D": "High Concurrency"
+      },
+      "answer": "C",
+      "explanation": "Autoscale determines whether or not to automatically provision nodes as needed, and if so, the initial and maximum number of nodes allocated to the pool.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does a Spark 'Runtime' define in Microsoft Fabric?",
+      "options": {
+        "A": "The billing rate for the Spark pool",
+        "B": "The version of Apache Spark, Delta Lake, Python, and other core software components installed",
+        "C": "The physical location of the data center hosting the pool",
+        "D": "The schedule for automated pipeline executions"
+      },
+      "answer": "B",
+      "explanation": "A Spark runtime determines the version of Apache Spark, Delta Lake, Python, and other core software components that are installed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which specific configuration optimizes Spark sessions by sharing them across multiple concurrent users or processes?",
+      "options": {
+        "A": "Autoscale",
+        "B": "High concurrency mode",
+        "C": "Native execution engine",
+        "D": "Dynamic allocation"
+      },
+      "answer": "B",
+      "explanation": "High concurrency mode allows you to optimize efficiency by sharing Spark sessions across multiple concurrent users or processes while ensuring isolation of code.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which feature is enabled by default in Microsoft Fabric to automatically log machine learning training and model deployment operations?",
+      "options": {
+        "A": "Automatic MLFlow logging",
+        "B": "Spark History Server",
+        "C": "Azure Monitor",
+        "D": "Git integration"
+      },
+      "answer": "A",
+      "explanation": "By default, Microsoft Fabric uses MLFlow to implicitly log machine learning experiment activity without requiring explicit code.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What happens to the underlying data when you delete a 'managed' table in the Spark catalog?",
+      "options": {
+        "A": "The data is moved to a recycle bin.",
+        "B": "The data is converted to CSV format.",
+        "C": "The underlying data is also deleted.",
+        "D": "The metadata is deleted, but the underlying data remains intact."
+      },
+      "answer": "C",
+      "explanation": "For managed tables, deleting the table also deletes its underlying data from the lakehouse storage location.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What happens to the underlying data when you delete an 'external' table in the Spark catalog?",
+      "options": {
+        "A": "The underlying data is permanently deleted.",
+        "B": "The underlying data is compressed into a zip file.",
+        "C": "Deleting an external table doesn't delete the underlying data.",
+        "D": "The data is moved to the bronze layer."
+      },
+      "answer": "C",
+      "explanation": "External tables define metadata in the catalog but get their underlying data from an external location. Deleting an external table does not delete the underlying data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is the preferred file format for tables in Microsoft Fabric due to its support for ACID transactions and versioning?",
+      "options": {
+        "A": "CSV",
+        "B": "JSON",
+        "C": "Delta",
+        "D": "Avro"
+      },
+      "answer": "C",
+      "explanation": "The preferred format in Microsoft Fabric is delta, which is the format for Delta Lake. Delta tables support transactions, versioning, and streaming data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "If you need to use Spark to ingest and transform data as part of an automated, scheduled process, what should you create?",
+      "options": {
+        "A": "An interactive Spark Notebook",
+        "B": "A Spark Job Definition",
+        "C": "A temporary Spark View",
+        "D": "A Power BI Dashboard"
+      },
+      "answer": "B",
+      "explanation": "To use Spark to ingest and transform data as part of an automated process, you can define a Spark job to run a script on-demand or based on a schedule.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which open-source framework does Microsoft Fabric utilize to provide basic charting capabilities inside a Python code cell?",
+      "options": {
+        "A": "D3.js",
+        "B": "Matplotlib",
+        "C": "Tableau",
+        "D": "Power BI Desktop"
+      },
+      "answer": "B",
+      "explanation": "Python supports a large selection of graphics packages; most of them built on the base Matplotlib library, which can be rendered directly in a Spark notebook.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the primary benefit of explicitly specifying a schema when loading data into a Spark Dataframe from a CSV file?",
+      "options": {
+        "A": "It automatically creates a Power BI report.",
+        "B": "It improves performance compared to having Spark infer the schema.",
+        "C": "It converts the CSV file into a Delta table instantly.",
+        "D": "It enables High Concurrency Mode."
+      },
+      "answer": "B",
+      "explanation": "While Spark can infer the schema, explicitly specifying a schema when loading data from a file improves performance.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the native vectorized processing engine in Microsoft Fabric that runs Spark operations directly on lakehouse infrastructure?",
+      "options": {
+        "A": "Photon Engine",
+        "B": "Native Execution Engine",
+        "C": "Spark MLlib",
+        "D": "GraphX"
+      },
+      "answer": "B",
+      "explanation": "The native execution engine in Microsoft Fabric is a vectorized processing engine that runs Spark operations directly on lakehouse infrastructure, significantly improving query performance for Parquet and Delta formats.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What command is used to tell a Spark notebook cell to interpret the code as pure SQL?",
+      "options": {
+        "A": "%%sql",
+        "B": "%%pyspark",
+        "C": "%%spark",
+        "D": "%%runsql"
+      },
+      "answer": "A",
+      "explanation": "In a notebook, you can use the %%sql magic to run SQL code that queries objects in the catalog natively.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which dataframe method is used to write data out to a directory in a partitioned structure?",
+      "options": {
+        "A": "splitBy()",
+        "B": "divideBy()",
+        "C": "partitionBy()",
+        "D": "groupBy()"
+      },
+      "answer": "C",
+      "explanation": "To save a dataframe as a partitioned set of files, use the partitionBy method when writing the data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer is working with massive datasets stored in Parquet format in a Fabric lakehouse. They notice that a specific set of complex read queries is running slowly. They want to boost performance by leveraging vectorized processing without rewriting their PySpark code. What should they do?",
+      "options": {
+        "A": "Convert the Parquet files to CSV format.",
+        "B": "Enable the native execution engine in the environment settings or via a notebook magic.",
+        "C": "Disable Autoscale on the Spark pool.",
+        "D": "Switch to writing the code in Scala instead of Python."
+      },
+      "answer": "B",
+      "explanation": "Using the native execution engine can significantly improve the performance of queries when working with large data sets in Parquet or Delta file formats. It can be enabled via environment settings or the %%configure magic.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An analytics team has ten data scientists who all need to run interactive queries simultaneously during business hours. To save compute costs, the administrator wants them to share a single Spark cluster session while ensuring that one scientist's Python variables do not interfere with another's. Which Fabric feature should the admin configure?",
+      "options": {
+        "A": "Dynamic allocation",
+        "B": "High concurrency mode",
+        "C": "A custom Python Environment",
+        "D": "Spark Job Definitions"
+      },
+      "answer": "B",
+      "explanation": "High concurrency mode shares Spark sessions across multiple concurrent users or processes, ensuring isolation of code to avoid variable conflicts between notebooks, thus optimizing resource usage.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You are writing a PySpark script to clean customer data. The data contains a column named 'Region'. You want to optimize future read queries so that analysts querying specific regions do not have to scan the entire dataset on disk. How should you save the cleaned dataframe?",
+      "options": {
+        "A": "Save it as a single CSV file.",
+        "B": "Use `.write.partitionBy(\"Region\").parquet(...)` to partition the output file by Region.",
+        "C": "Use `.groupBy(\"Region\")` before saving.",
+        "D": "Save it using the `createOrReplaceTempView` method."
+      },
+      "answer": "B",
+      "explanation": "Partitioning is an optimization technique that enables Spark to eliminate unnecessary disk IO when filtering data. Using `partitionBy(\"Region\")` creates a folder hierarchy that optimizes read queries.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineering team has two distinct workloads. Workload A requires an older version of Apache Spark to support a legacy Python package. Workload B requires the newest Spark runtime to use a newly released ML library. How can this be accommodated within a single Microsoft Fabric workspace?",
+      "options": {
+        "A": "Create two separate Fabric workspaces, one for each workload.",
+        "B": "Create custom Environments in the workspace, specifying the exact Spark runtime and libraries required for each workload.",
+        "C": "Install both libraries in the default starter pool and let Spark dynamically choose the runtime.",
+        "D": "Use High Concurrency mode to run both workloads simultaneously on the same runtime."
+      },
+      "answer": "B",
+      "explanation": "In Fabric, organizations can define multiple environments to support diverse tasks. Each environment defines a specific runtime version and the libraries installed. Data engineers can select which environment to attach to a pool for a particular task.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst is exploring data in a Spark Notebook using PySpark. They load a CSV into a dataframe and want to quickly verify the data by running a standard SQL query (`SELECT * FROM table WHERE sales > 100`) against it in the very next cell. What must they do first in their PySpark code to make the dataframe queryable via SQL?",
+      "options": {
+        "A": "Export the dataframe back to a CSV file.",
+        "B": "Use `df.createOrReplaceTempView(\"table_name\")` to register the dataframe in the Spark catalog.",
+        "C": "Convert the dataframe to a Pandas dataframe using `.toPandas()`.",
+        "D": "Enable the Native Execution Engine."
+      },
+      "answer": "B",
+      "explanation": "To make data in a dataframe available for querying via SQL in the Spark catalog, you must register it as a view (like a temporary view using `createOrReplaceTempView`) or save it as a table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data scientist runs a Spark Notebook that generates a complex visualization using the Matplotlib library. When they execute the code, they get an error stating that Matplotlib requires data in a different format. What step did they likely forget?",
+      "options": {
+        "A": "They forgot to install the Delta Lake package.",
+        "B": "They forgot to run `df.write.parquet()` before plotting.",
+        "C": "They forgot to convert the Spark dataframe to a Pandas dataframe using `.toPandas()`.",
+        "D": "They forgot to change the cell magic to `%%sql`."
+      },
+      "answer": "C",
+      "explanation": "The Matplotlib library requires data to be in a Pandas dataframe rather than a Spark dataframe. The `toPandas()` method must be used to convert the data before plotting.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "You create an external table named `ExtSales` using Spark SQL, pointing to a directory of Parquet files. A junior developer accidentally runs a `DROP TABLE ExtSales` command. What is the state of the underlying Parquet files?",
+      "options": {
+        "A": "The Parquet files are permanently deleted.",
+        "B": "The Parquet files remain intact and unaffected in the storage location.",
+        "C": "The Parquet files are moved to an archive folder.",
+        "D": "The Parquet files are converted to CSV files."
+      },
+      "answer": "B",
+      "explanation": "External tables define metadata in the catalog but get data from an external location. Deleting an external table drops the metadata definition but does NOT delete the underlying data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer needs to aggregate website clickstream data overnight every day at 1:00 AM. They have written a Python script to perform the aggregation. Which feature in Fabric should they use to orchestrate this automated execution?",
+      "options": {
+        "A": "An interactive Spark Notebook.",
+        "B": "A Spark Job Definition.",
+        "C": "A temporary Spark View.",
+        "D": "The Power BI service."
+      },
+      "answer": "B",
+      "explanation": "If you want to use Spark to ingest and transform data as part of an automated process, you can define a Spark job to run a script on-demand or based on a schedule.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric workspace is configured with a starter pool. A data engineer notices that during peak hours, data processing tasks are queuing because the cluster nodes are fully utilized. The engineer does not want to manually manage node counts. What pool setting should they verify is enabled?",
+      "options": {
+        "A": "Dynamic allocation",
+        "B": "Node Family",
+        "C": "Autoscale",
+        "D": "High concurrency mode"
+      },
+      "answer": "C",
+      "explanation": "Autoscale dictates whether to automatically provision nodes as needed. If enabled, the cluster will automatically scale out up to a maximum number of nodes during peak workloads and scale in when idle.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You load a dataframe from a directory partitioned by `Year` and `Month` (e.g., `/sales/Year=2023/Month=10/`). When you display the resulting dataframe, you notice that the `Year` and `Month` columns are missing from the schema. Why does this happen?",
+      "options": {
+        "A": "This is a bug in the Spark Parquet reader.",
+        "B": "You must explicitly cast partitioned directory names to strings.",
+        "C": "The partitioning columns specified in the file path are intentionally omitted from the resulting dataframe.",
+        "D": "The data is corrupted."
+      },
+      "answer": "C",
+      "explanation": "When reading partitioned data into a dataframe by specifying the explicit partition path (e.g., `/Category=Road Bikes`), the partitioning columns specified in the path are omitted in the resulting dataframe.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team of data scientists creates an Environment in Fabric to run custom ML models. They need to upload a proprietary reference file (a `.whl` package) containing utility functions not available on PyPI. Where do they configure this?",
+      "options": {
+        "A": "In the Spark pool settings under Node Family.",
+        "B": "In the Environment configuration by installing custom libraries/uploading resource files.",
+        "C": "Inside the `%%sql` magic block.",
+        "D": "By submitting a support ticket to Microsoft to update the Runtime."
+      },
+      "answer": "B",
+      "explanation": "When creating a custom environment, you can install custom libraries by uploading a package file (like a `.whl` file) and upload resource files that need to be available in the environment.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You are writing a Notebook that defaults to PySpark. For one specific cell, you need to execute a Scala snippet to utilize a Scala-specific API. How do you override the notebook language for just that cell?",
+      "options": {
+        "A": "Change the global notebook setting to Scala, run the cell, then change it back.",
+        "B": "Use the `%%spark` magic at the beginning of the cell.",
+        "C": "Write `import scala` at the top of the PySpark cell.",
+        "D": "Create a new Spark Job Definition specifically for the Scala code."
+      },
+      "answer": "B",
+      "explanation": "You can select a default language for the notebook, and then use a magic to override that choice for a specific cell. The `%%spark` magic is used to specify that the cell contains Scala code.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to create a new managed Delta table in their lakehouse named 'Orders'. They have a cleaned PySpark dataframe named `df_orders`. What is the correct method to persist this dataframe as a managed table?",
+      "options": {
+        "A": "`df_orders.createOrReplaceTempView(\"Orders\")`",
+        "B": "`df_orders.write.format(\"delta\").saveAsTable(\"Orders\")`",
+        "C": "`spark.catalog.createExternalTable(\"Orders\", path)`",
+        "D": "`df_orders.write.parquet(\"Files/Orders\")`"
+      },
+      "answer": "B",
+      "explanation": "To save a dataframe as a persistent managed table in the catalog, you use the `saveAsTable` method. Specifying `.format(\"delta\")` ensures it is stored as a Delta table, the preferred format in Fabric.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A business analyst runs a SQL query in a Notebook that outputs 50 rows of monthly sales data. They want to instantly see a bar chart of the sales trend without writing Python graphing code. How can they achieve this?",
+      "options": {
+        "A": "They must write a Matplotlib script.",
+        "B": "They can export the data to Excel and generate the chart there.",
+        "C": "They can change the results view under the code cell from 'Table' to 'Chart' using the built-in UI.",
+        "D": "They must import the data into Power BI Desktop."
+      },
+      "answer": "C",
+      "explanation": "Notebooks provide built-in charting capabilities. When results are displayed under a code cell, you can easily toggle the view from a table to a chart and customize it directly in the UI without writing code.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric administrator wants to enforce cost controls by preventing data engineering teams from provisioning expensive custom Spark pools with excessive nodes. How can the admin enforce this restriction across all workspaces?",
+      "options": {
+        "A": "By deleting the default starter pool.",
+        "B": "By removing Python access from all users.",
+        "C": "By managing Spark capacity administration settings at the Fabric Capacity level to restrict overrides.",
+        "D": "By disabling the Native Execution Engine."
+      },
+      "answer": "C",
+      "explanation": "Administrators can manage Spark settings at a Fabric capacity level, enabling them to restrict and override Spark settings (like pool customization and node scaling) in workspaces within the organization.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Data Logistics is migrating their ETL pipelines to Microsoft Fabric. Their primary process involves loading historical transaction logs (CSV format) into a Spark dataframe, applying complex transformations using PySpark, and writing the result out for downstream analytics.\n\nThe lead data engineer observes the following challenges during migration testing:\n1. Reading the initial 50GB CSV file is extremely slow, and Spark frequently guesses the column data types incorrectly, causing downstream transformation errors.\n2. Once transformed, querying the data by 'TransactionDate' requires full table scans, taking over 10 minutes.\n3. Two data scientists attempting to query the cleaned data simultaneously in separate notebooks are experiencing cluster contention and slow session startup times.\n\nWhich combination of solutions addresses all three of Contoso's challenges most effectively?",
+      "options": {
+        "A": "1) Use `inferSchema=True` to fix the data types. 2) Save the output as a JSON file. 3) Configure Autoscale on the Spark pool.",
+        "B": "1) Define an explicit `StructType` schema when calling `spark.read.load()`. 2) Save the output as a Delta table partitioned by `partitionBy(\"TransactionDate\")`. 3) Enable High Concurrency mode in the workspace settings.",
+        "C": "1) Define an explicit `StructType` schema. 2) Create an external table over the CSV data. 3) Use MLFlow logging to track the sessions.",
+        "D": "1) Convert the CSV to Parquet before loading. 2) Enable the Native Execution Engine. 3) Create a custom Environment for each data scientist."
+      },
+      "answer": "B",
+      "explanation": "Challenge 1 is solved by defining an explicit schema, which stops incorrect guessing and improves read performance. Challenge 2 is solved by writing to Delta format (for analytics) and partitioning by the query column (`TransactionDate`) to eliminate disk IO. Challenge 3 is solved by High Concurrency mode, which shares sessions to reduce startup times and contention while maintaining isolation.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer writes the following PySpark code to load data into a dataframe:\n\n```python\nfrom pyspark.sql.types import *\n\ncustom_schema = StructType([\n    StructField(\"ID\", IntegerType()),\n    StructField(\"Name\", StringType())\n])\n\ndf = spark.read.load('Files/data/users.csv', format='csv', schema=custom_schema, header=False)\n```\n\nWhat is the functional purpose of utilizing the `custom_schema` in this `load` method?",
+      "options": {
+        "A": "It creates a temporary view in the Spark catalog automatically.",
+        "B": "It specifies an explicit schema, assigning data types to columns when headers are absent, which also improves read performance.",
+        "C": "It filters the dataframe to only include the 'ID' and 'Name' columns, discarding others.",
+        "D": "It partitions the output data by the 'ID' column."
+      },
+      "answer": "B",
+      "explanation": "Using an explicit schema via `StructType` assigns proper data types when headers are missing from a file. As stated in the module, specifying an explicit schema also improves read performance.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Review the following PySpark dataframe manipulation code:\n\n```python\nfiltered_df = df.select(\"EmployeeName\", \"Department\", \"Salary\") \\\n    .where(df[\"Department\"] == \"IT\")\n```\n\nWhich of the following lines of code achieves the exact same column selection using the shorter bracket syntax?",
+      "options": {
+        "A": "`filtered_df = df(\"EmployeeName\", \"Department\", \"Salary\").where...`",
+        "B": "`filtered_df = df[\"EmployeeName\", \"Department\", \"Salary\"].where...`",
+        "C": "`filtered_df = df.columns[\"EmployeeName\", \"Department\", \"Salary\"].where...`",
+        "D": "`filtered_df = df.filter(\"EmployeeName\", \"Department\", \"Salary\").where...`"
+      },
+      "answer": "B",
+      "explanation": "Selecting a subset of columns from a dataframe is a common operation, which can be achieved by using the shorter bracket syntax: `df[\"Column1\", \"Column2\"]`.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "You have a Spark dataframe named `sales_df`. You want to query this dataframe using pure SQL in the next notebook cell using the `%%sql` magic. \n\nWhich line of PySpark code must you run FIRST?",
+      "options": {
+        "A": "`sales_df.write.format(\"sql\").save()`",
+        "B": "`spark.sql.register(sales_df)`",
+        "C": "`sales_df.createOrReplaceTempView(\"sales_view\")`",
+        "D": "`sales_df.toPandas()`"
+      },
+      "answer": "C",
+      "explanation": "To make a dataframe available for querying via SQL within the Spark catalog, you must register it. Creating a temporary view using `createOrReplaceTempView` is the simplest way to achieve this.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "You wish to enable the Native Execution Engine for a specific notebook to speed up queries on Parquet files. You add the following configuration cell at the top of your notebook:\n\n```json\n%%configure\n{\n    \"conf\": {\n        \"spark.native.enabled\": \"true\",\n        \"spark.shuffle.manager\": \"org.apache.spark.shuffle.sort.ColumnarShuffleManager\"\n    }\n}\n```\n\nWhat is the primary technical benefit of adding this code?",
+      "options": {
+        "A": "It switches the notebook language from PySpark to Scala natively.",
+        "B": "It enables a vectorized processing engine that runs operations directly on the lakehouse infrastructure, improving performance.",
+        "C": "It automatically scales the number of worker nodes up to 100.",
+        "D": "It forces the dataframe to be stored in RAM instead of on disk."
+      },
+      "answer": "B",
+      "explanation": "The native execution engine in Microsoft Fabric is a vectorized processing engine that runs Spark operations directly on lakehouse infrastructure, significantly improving the performance of queries when working with large data sets.",
+      "difficulty": "Medium"
+    }
+  ]
+}

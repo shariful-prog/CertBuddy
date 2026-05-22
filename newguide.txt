@@ -1,0 +1,119 @@
+Redesign the existing study guide page UI without changing functionality.
+
+Current problems:
+
+- Header section is too tall and wastes vertical space.
+- Large amount of content appears before the actual study material.
+- Users must scroll unnecessarily before reaching lesson content.
+- Layout feels like an old LMS rather than a modern learning platform.
+- Visual hierarchy is weak.
+- Too many borders and container sections.
+- Content area does not feel focused.
+
+Keep all existing functionality:
+- Certification progress tracking
+- Chapter navigation
+- Learn Guide tab
+- Practice Quiz tab
+- Best Score
+- Progress indicators
+- Study guide content
+
+Design goals:
+
+1. Content-first experience
+The lesson content should be visible immediately after page load.
+
+2. Reduce vertical space
+Compress all header elements into a compact area.
+
+3. Modern SaaS appearance
+Inspired by:
+- Linear
+- Notion
+- Microsoft Learn
+- Stripe Dashboard
+- Coursera
+
+4. Better visual hierarchy
+The lesson title should be the primary focus.
+
+Required layout changes:
+
+Top Navigation:
+- Keep existing CertBuddy logo
+- Keep certification badge
+- Reduce height to 64px
+- Sticky header with subtle blur
+
+Sidebar:
+- Width: 280px
+- Collapsible
+- Modern chapter list styling
+- Active lesson highlighted with subtle accent background
+- Show completion percentage as small pills
+- Cleaner spacing
+- Sticky while scrolling
+
+Main Content:
+
+Replace large header section with compact header card:
+
+Breadcrumb:
+Exams / DP-700
+
+Title:
+Ingest Data with Dataflows Gen2 in Microsoft Fabric
+
+Metadata row:
+35 Questions • Best Score 20% • Estimated Time 15 min
+
+Actions:
+[Study Guide] [Practice Quiz]
+
+Everything should fit within 120px height maximum.
+
+Remove excessive whitespace.
+
+Content Area:
+
+- Large readable typography
+- Max width 900px
+- Better paragraph spacing
+- Better heading hierarchy
+- Notion-style reading experience
+- Soft section cards
+- Modern callout boxes
+- Code blocks with syntax highlighting
+- Key points cards
+- Important exam tips cards
+
+Add:
+
+Right floating utility panel:
+- Reading progress
+- Bookmark lesson
+- Notes
+- Quick navigation
+
+Visual Style:
+
+- White background
+- Very light gray page background
+- Soft shadows only
+- Rounded corners 16px
+- Minimal borders
+- Purple-blue accent system
+- Modern Inter typography
+
+Avoid:
+
+- Giant hero sections
+- Large empty areas
+- Multiple stacked containers
+- Thick borders
+- LMS style appearance
+- Dashboard clutter
+
+Goal:
+Make the page feel like a premium modern learning platform optimized for long reading sessions and certification preparation.

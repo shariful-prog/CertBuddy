@@ -1,0 +1,144 @@
+================================================================================
+  STUDY GUIDE: Organize a Fabric lakehouse using medallion architecture design
+  Module for DP-700 (Microsoft Fabric Data Engineering) Exam Preparation
+================================================================================
+
+
+1. INTRODUCTION TO MEDALLION ARCHITECTURE
+================================================================================
+
+1.1 What is the Medallion Architecture?
+
+The medallion architecture has become an industry standard for lakehouse-based analytics. It is a recommended data design pattern used to logically organize data in a lakehouse, with the primary goal of improving data quality as data moves through different layers.
+
+  Key Characteristics:
+  - It is a framework for data cleaning, rather than a rigid data architecture or model.
+  - Also known as a "multi-hop" architecture (data moves between layers as needed).
+  - It ensures data is reliable, consistent, and safely stored in a way that makes analysis easier and faster.
+  - It complements existing data organization methods rather than replacing them.
+
+1.2 Fabric Lakehouses and Delta Lake
+
+Data lakehouses in Microsoft Fabric are built on the Delta Lake format.
+  - Delta Lake natively supports ACID (Atomicity, Consistency, Isolation, Durability) transactions.
+  - This robust foundation makes implementing the medallion architecture highly effective.
+
+
+2. THE THREE MEDALLION LAYERS
+================================================================================
+
+The standard medallion architecture consists of three core layers: Bronze, Silver, and Gold. Each layer represents a higher level of data quality.
+
+2.1 Bronze Layer (Raw)
+
+The bronze or raw layer is the first layer of the lakehouse.
+  - Purpose: It serves as the landing zone for all data.
+  - Data Types: Handles structured, semi-structured, and unstructured data.
+  - State of Data: Data is stored in its original, raw format.
+  - Changes: NO changes or transformations are made to the data in this layer.
+
+2.2 Silver Layer (Validated)
+
+The silver or validated layer is the second layer.
+  - Purpose: Validating, refining, and cleaning the data.
+  - Activities: Combining data, merging data, enforcing validation rules (e.g., removing nulls, deduplicating).
+  - State of Data: Cleaned enough to be in a consistent format across the organization.
+  - Role: Serves as a central repository accessible by multiple teams. It prepares data to be refined and modeled in the gold layer.
+
+2.3 Gold Layer (Enriched)
+
+The gold or enriched layer is the third and final core layer.
+  - Purpose: Aligning data with specific business and analytics needs.
+  - Activities: Aggregating data to a particular granularity (e.g., daily/hourly), enriching with external information, and dimensional modeling (Star Schema).
+  - State of Data: Presentation-ready and optimized for reporting.
+  - Role: Ready for downstream teams (analytics, data science, MLOps).
+
+2.4 Customizing the Architecture
+
+The medallion architecture is flexible. Organizations can add layers:
+  - "Raw" layer: An extra landing zone before Bronze.
+  - "Platinum" layer: Even further refined data for highly specific use cases.
+  - Multiple Gold layers: You can have different Gold layers for different audiences (e.g., Finance, Sales, Data Science).
+
+
+3. IMPLEMENTING THE ARCHITECTURE IN FABRIC
+================================================================================
+
+3.1 Designing the Flow
+
+The most straightforward implementation:
+  - Bronze = Raw layer
+  - Silver = Curated layer
+  - Gold = Presentation layer (modeled in a star schema, optimized for reporting)
+
+3.2 Tools for Moving Data Between Layers
+
+To move data across layers, you must choose between Data Transformation and Data Orchestration tools.
+
+  A) Data Transformation (Altering structure/content):
+     - Dataflows (Gen2): Best for smaller semantic models and simple transformations.
+     - Notebooks: Best for larger semantic models and complex transformations. Notebooks can save transformed data as managed Delta tables.
+
+  B) Data Orchestration (Coordinating/managing processes):
+     - Pipelines: The primary orchestration tool. They move data from one layer to the next and can be automated via schedules or event triggers.
+
+3.3 Implementation Steps by Layer
+
+  1. Ingest Data into Bronze:
+     - Tool: Pipelines, Dataflows, or Notebooks.
+  2. Transform and Load to Silver:
+     - Tool: Dataflows or Notebooks.
+     - Focus: Data quality and consistency (not modeling).
+  3. Generate the Gold Layer:
+     - Focus: Modeling data for reporting (Dimensional Model/Star Schema). Define relationships and measures.
+     - Tool: Dataflows or Notebooks to load into a Gold Delta table. Then, use the SQL analytics endpoint or Power BI semantic models for reporting.
+     - Note: You can use a Data Warehouse as your gold layer if it fits your needs.
+
+
+4. QUERYING AND REPORTING
+================================================================================
+
+Once the gold layer is built, Fabric provides tools to query and report on the data.
+
+4.1 SQL Analytics Endpoint
+
+  - Enables querying data using the T-SQL language.
+  - Operates in READ-ONLY mode over lakehouse delta tables. (To modify data, you must use dataflows, notebooks, or pipelines).
+  - Allows you to save functions, generate views, and apply SQL security.
+  - Can connect your lakehouse to external querying tools and applications.
+
+4.2 Power BI Semantic Models
+
+  - A semantic model views data using business-friendly terminology (typically a star schema with facts and dimensions).
+  - Default semantic model: Created automatically when you create a lakehouse.
+  - Custom semantic model: Can be created manually.
+  - Direct Lake mode: Data analysts can connect Power BI using Direct Lake mode, which accesses data directly from Delta tables without needing to import or duplicate it.
+
+
+5. MANAGING AND GOVERNING THE LAKEHOUSE
+================================================================================
+
+5.1 Securing Your Lakehouse
+
+Security is managed by ensuring only authorized users have access. In Fabric, permissions are set at two levels:
+  - Workspace level: Controls access to ALL items within a workspace.
+  - Item level: Controls access to specific items (useful for sharing single items with colleagues outside the workspace).
+
+  Strategic Workspace Separation:
+  You can store different medallion layers in separate workspaces. This improves security and efficient capacity management.
+
+  Access Control Best Practices:
+  - Gold Layer: Restrict to read-only purposes for business users.
+  - Silver Layer: Decide if users are allowed to build upon it, balancing flexibility and security.
+  - Bronze Layer: Restrict to read-only purposes; only data engineers usually need access here.
+
+5.2 CI/CD and Git Integration
+
+Continuous Integration and Continuous Delivery (CI/CD) ensures a smooth deployment process, reducing manual errors and keeping data reliable.
+
+  - Git Integration: Fabric natively supports Git integration. It enables data teams to back up and version work, revert to previous stages, collaborate using branches, and manage Fabric items.
+  - Importance at Gold Layer: CI/CD is crucial at the gold layer because it ensures that only high-quality, validated, and reliable data reaches end-users for decision-making.
+
+================================================================================
+  END OF STUDY GUIDE
+================================================================================

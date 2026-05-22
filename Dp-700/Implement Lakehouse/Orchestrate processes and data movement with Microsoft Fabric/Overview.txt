@@ -1,0 +1,132 @@
+================================================================================
+  STUDY GUIDE: Orchestrate processes and data movement with Microsoft Fabric
+  Module for DP-700 (Microsoft Fabric Data Engineering) Exam Preparation
+================================================================================
+
+
+1. INTRODUCTION TO DATA PIPELINES
+================================================================================
+
+1.1 What Are Data Pipelines?
+
+Data pipelines define a sequence of activities that orchestrate an overall process. They typically work by:
+  - Extracting data from one or more sources
+  - Loading it into a destination
+  - Often transforming it along the way
+
+Pipelines are commonly used to automate ETL (Extract, Transform, and Load) processes that ingest transactional data from operational data stores into an analytical data store, such as a lakehouse, data warehouse, or SQL database.
+
+1.2 Familiar Architecture
+
+If you are familiar with Azure Data Factory, then data pipelines in Microsoft Fabric will be immediately familiar.
+  - They use the same architecture of connected activities to define a process.
+  - The process can include multiple kinds of data processing tasks and control flow logic.
+  - You can run pipelines interactively in the Microsoft Fabric user interface, or schedule them to run automatically.
+
+
+2. UNDERSTAND PIPELINES
+================================================================================
+
+2.1 Pipeline Basics
+
+Pipelines in Microsoft Fabric encapsulate a sequence of activities that perform data movement and processing tasks.
+  - You use a pipeline to define data transfer and transformation activities.
+  - You orchestrate these activities through control flow activities that manage branching, looping, and other typical processing logic.
+  - The graphical pipeline CANVAS in the Fabric user interface enables you to build complex pipelines with minimal or no coding required.
+
+2.2 Core Pipeline Concepts
+
+Before building pipelines in Microsoft Fabric, you need to understand three core concepts: Activities, Parameters, and Pipeline runs.
+
+A) ACTIVITIES
+Activities are the executable tasks in a pipeline. You can define a flow of activities by connecting them in a sequence. The outcome of a particular activity (success, failure, or completion) can be used to direct the flow to the next activity in the sequence.
+
+There are two broad categories of activity in a pipeline:
+
+  1. Data Transformation Activities
+     Activities that encapsulate data transfer operations. Examples include:
+       - Copy Data: Extract data from a source and load it to a destination.
+       - Data Flow: Encapsulate dataflows (Gen2) that apply transformations to the data as it is transferred.
+       - Notebook: Run a Spark notebook.
+       - Stored procedure: Run SQL code.
+       - Delete data: Delete existing data.
+     In OneLake, you can configure the destination to a lakehouse, warehouse, SQL database, or other options.
+
+  2. Control Flow Activities
+     Activities that you can use to implement loops, conditional branching, or manage variable and parameter values. The wide range of control flow activities enables you to implement complex pipeline logic to orchestrate data ingestion and transformation flow.
+
+B) PARAMETERS
+Pipelines can be parameterized. This enables you to provide specific values to be used each time a pipeline is run.
+  - Example: You might want to use a pipeline to save ingested data in a folder, but have the flexibility to specify a folder name each time the pipeline is run.
+  - Why it matters: Using parameters increases the reusability of your pipelines, enabling you to create flexible data ingestion and transformation processes.
+
+C) PIPELINE RUNS
+Each time a pipeline is executed, a data pipeline run is initiated.
+  - Runs can be initiated on-demand in the Fabric user interface or scheduled to start at a specific frequency.
+  - You can use the unique run ID to review run details to confirm they completed successfully and investigate the specific settings used for each execution.
+
+
+3. USE THE COPY DATA ACTIVITY
+================================================================================
+
+3.1 What is the Copy Data Activity?
+
+The Copy Data activity is one of the most common uses of a data pipeline. Many pipelines consist of a single Copy Data activity that is used to ingest data from an external source into a lakehouse file or table.
+
+3.2 Combining Activities for Repeatable Ingestion
+
+You can combine the Copy Data activity with other activities to create a repeatable data ingestion process.
+  - Example workflow:
+    1. Delete data activity: Removes existing data
+    2. Copy Data activity: Replaces the deleted data with a file containing data from an external source
+    3. Notebook activity: Runs Spark code that transforms the data in the file and loads it into a table
+
+3.3 The Copy Data Tool
+
+When you add a Copy Data activity to a pipeline, a graphical tool takes you through the steps required to configure the data source and destination for the copy operation.
+  - A wide range of source connections is supported, making it possible to ingest data from most common sources.
+  - In OneLake, this includes support for lakehouse, warehouse, SQL Database, and others.
+  - After adding it, you can select it in the pipeline canvas and edit its settings in the pane underneath.
+
+3.4 When to Use the Copy Data Activity
+
+  USE Copy Data When:
+  - You need to copy data directly between a supported source and destination without applying any transformations.
+  - You want to import raw data and apply transformations in later pipeline activities.
+
+  USE Data Flow Activity When:
+  - You need to apply transformations to the data as it is ingested.
+  - You need to merge data from multiple sources.
+  - In this case, you use a Data Flow activity to run a dataflow (Gen2) defined using the Power Query user interface.
+
+
+4. USE PIPELINE TEMPLATES
+================================================================================
+
+4.1 Predefined Pipeline Templates
+
+While you can define custom data ingestion and transformation processes from any combination of activities, there are many common pipeline scenarios. Microsoft Fabric includes predefined pipeline templates that you can use and customize as required.
+
+4.2 How to Use Templates
+
+  - To create a pipeline based on a template, select the "Templates" tile in a new pipeline.
+  - This displays a selection of pipeline templates.
+  - You select the most appropriate template for your needs, and then edit the pipeline in the pipeline canvas to customize it.
+
+
+5. RUN AND MONITOR PIPELINES
+================================================================================
+
+5.1 Validating and Running
+
+When you have completed a pipeline, you can use the "Validate" option to check that the configuration is valid. Then, you can either run it interactively or specify a schedule.
+
+5.2 Viewing Run History
+
+You can view the run history for a pipeline to see details of each run. This can be done:
+  - From the pipeline canvas
+  - From the pipeline item listed in the page for the workspace
+
+================================================================================
+  END OF STUDY GUIDE
+================================================================================

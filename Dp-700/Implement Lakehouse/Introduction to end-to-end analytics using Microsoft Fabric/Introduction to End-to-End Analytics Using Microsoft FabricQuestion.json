@@ -1,0 +1,460 @@
+{
+  "module": "Introduction to End-to-End Analytics Using Microsoft Fabric",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is the underlying centralized data storage architecture for Microsoft Fabric?",
+      "options": {
+        "A": "Azure Blob Storage",
+        "B": "OneLake",
+        "C": "Dataverse",
+        "D": "Amazon S3"
+      },
+      "answer": "B",
+      "explanation": "OneLake is Fabric's centralized data storage architecture that enables collaboration by eliminating the need to move or copy data between systems. It serves as the single source of truth for all data in Fabric.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What type of platform model does Microsoft Fabric use?",
+      "options": {
+        "A": "Infrastructure-as-a-Service (IaaS)",
+        "B": "Platform-as-a-Service (PaaS)",
+        "C": "Software-as-a-Service (SaaS)",
+        "D": "On-premises software"
+      },
+      "answer": "C",
+      "explanation": "Fabric is a unified Software-as-a-Service (SaaS) platform where all data is stored in a single open format in OneLake.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which underlying Azure technology is OneLake built upon?",
+      "options": {
+        "A": "Azure SQL Database",
+        "B": "Azure Data Lake Storage Gen2",
+        "C": "Azure Cosmos DB",
+        "D": "Azure Synapse Analytics"
+      },
+      "answer": "B",
+      "explanation": "OneLake is built on Azure Data Lake Storage Gen2 (ADLS Gen2) and supports various formats, including Delta, Parquet, CSV, and JSON.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What format do the analytical engines in Fabric use to write tabular data to OneLake?",
+      "options": {
+        "A": "CSV",
+        "B": "JSON",
+        "C": "Delta-Parquet",
+        "D": "Avro"
+      },
+      "answer": "C",
+      "explanation": "For tabular data, the analytical engines in Fabric write data in delta-parquet format and all engines interact with the format seamlessly.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What are Shortcuts in Microsoft Fabric?",
+      "options": {
+        "A": "Keyboard combinations to navigate the Fabric UI",
+        "B": "References to files or storage locations that allow access to existing data without copying it",
+        "C": "Pre-built templates for Power BI reports",
+        "D": "Automated scripts for data transformation"
+      },
+      "answer": "B",
+      "explanation": "Shortcuts are references to files or storage locations within OneLake or external data sources (like Azure Data Lake Storage, Amazon S3, or Dataverse). They allow you to access existing data without copying it, ensuring data consistency.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the primary function of workspaces in Microsoft Fabric?",
+      "options": {
+        "A": "To provide a physical server for data processing",
+        "B": "To serve as logical containers to organize and manage data, reports, and other assets",
+        "C": "To write machine learning algorithms",
+        "D": "To configure tenant-level security settings"
+      },
+      "answer": "B",
+      "explanation": "In Microsoft Fabric, workspaces serve as logical containers that help you organize and manage your data, reports, and other assets. They provide a clear separation of resources and make it easier to control access.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Where is Microsoft Fabric administration centralized?",
+      "options": {
+        "A": "The Azure Portal",
+        "B": "The Microsoft 365 Admin Center",
+        "C": "The Admin portal in the Power BI service",
+        "D": "The OneLake catalog"
+      },
+      "answer": "C",
+      "explanation": "Fabric administration is centralized in the Admin portal. Admins can enable Fabric in the Admin portal > Tenant settings in the Power BI service.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which tool helps you analyze, monitor, and maintain data governance in Fabric?",
+      "options": {
+        "A": "Fabric Data Factory",
+        "B": "OneLake catalog",
+        "C": "Fabric IQ",
+        "D": "Direct Lake"
+      },
+      "answer": "B",
+      "explanation": "The OneLake catalog helps you analyze, monitor, and maintain data governance. It provides guidance on sensitivity labels, item metadata, and data refresh status.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What role bridges the gap between data engineering and analysis by curating data assets in lakehouses and creating semantic models?",
+      "options": {
+        "A": "Data Engineer",
+        "B": "Data Scientist",
+        "C": "Analytics Engineer",
+        "D": "Fabric Administrator"
+      },
+      "answer": "C",
+      "explanation": "Analytics engineers bridge the gap between data engineering and analysis by curating data assets in lakehouses, ensuring data quality, and creating semantic models in Power BI.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which connection mode allows data analysts to connect Power BI directly to OneLake, reducing the need for downstream transformations?",
+      "options": {
+        "A": "Import mode",
+        "B": "DirectQuery mode",
+        "C": "Direct Lake mode",
+        "D": "Live Connection mode"
+      },
+      "answer": "C",
+      "explanation": "Data analysts can connect directly to OneLake with Direct Lake mode, reducing the need for downstream transformations and creating interactive reports more efficiently.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which role manages Fabric settings and configurations across the organization?",
+      "options": {
+        "A": "Workspace Admin",
+        "B": "Analytics Engineer",
+        "C": "Fabric Administrator",
+        "D": "Data Engineer"
+      },
+      "answer": "C",
+      "explanation": "A Fabric administrator manages Fabric settings and configurations. They can enable Fabric, manage groups and permissions, and monitor usage in the Admin portal.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is NOT one of the four workspace access roles in Fabric?",
+      "options": {
+        "A": "Admin",
+        "B": "Contributor",
+        "C": "Editor",
+        "D": "Viewer"
+      },
+      "answer": "C",
+      "explanation": "The four workspace access roles in Fabric are admin, contributor, member, and viewer. 'Editor' is not one of the standard Fabric workspace roles.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which Fabric workload is used to process, monitor, and analyze streaming data?",
+      "options": {
+        "A": "Data Engineering",
+        "B": "Data Factory",
+        "C": "Real-Time Intelligence",
+        "D": "Data Science"
+      },
+      "answer": "C",
+      "explanation": "The Real-Time Intelligence workload is used to process, monitor, and analyze streaming data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the core item of the Fabric IQ workload that defines business concepts, relationships, and rules?",
+      "options": {
+        "A": "Semantic model",
+        "B": "Ontology",
+        "C": "Lakehouse",
+        "D": "Data pipeline"
+      },
+      "answer": "B",
+      "explanation": "The core item of the Fabric IQ workload is the ontology, which defines your business concepts, relationships, and rules so that AI agents can reason across domains using consistent business language.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which generative AI assistant is available across all Fabric workloads and enabled by default?",
+      "options": {
+        "A": "ChatGPT",
+        "B": "Fabric IQ",
+        "C": "Microsoft Copilot",
+        "D": "Foundry IQ"
+      },
+      "answer": "C",
+      "explanation": "Microsoft Copilot in Fabric is a generative AI assistant available across all Fabric workloads. It is enabled by default and helps data professionals complete tasks more efficiently.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A company has data stored in an Amazon S3 bucket that they want to analyze in Microsoft Fabric. They have a strict requirement not to duplicate this data into another cloud environment due to compliance reasons. Which Fabric feature should they use?",
+      "options": {
+        "A": "Data Factory Copy activity",
+        "B": "Shortcuts",
+        "C": "Direct Lake mode",
+        "D": "Fabric IQ ontology"
+      },
+      "answer": "B",
+      "explanation": "Shortcuts are references to external data sources, including Amazon S3. They allow you to access existing data without copying or duplicating it, which perfectly meets the company's compliance requirement.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to track changes to the notebooks and pipelines they create in their Fabric workspace and collaborate with other developers. Which workspace setting should they configure?",
+      "options": {
+        "A": "OneDrive access",
+        "B": "Spark workload settings",
+        "C": "Git integration",
+        "D": "License type"
+      },
+      "answer": "C",
+      "explanation": "Workspaces allow you to integrate with Git for version control. Git integration helps track changes, collaborate on code with other developers, and maintain a history of your work.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team of data scientists needs an environment within Fabric where they can use Python to build and test machine learning models on data stored in OneLake. Which Fabric tool should they primarily use?",
+      "options": {
+        "A": "Power BI semantic models",
+        "B": "Integrated notebooks",
+        "C": "Dataflows Gen2",
+        "D": "SQL analytics endpoint"
+      },
+      "answer": "B",
+      "explanation": "Data scientists use integrated notebooks with support for Python and Spark to build and test machine learning models in Fabric. Notebooks provide the advanced scripting capabilities needed for data science workflows.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A business user wants to find a specific dataset related to 'Q3 Sales' that a colleague shared with them in Fabric. They don't know which workspace it is in. Which feature should they use to quickly locate this data?",
+      "options": {
+        "A": "The Admin portal",
+        "B": "Data Factory pipelines",
+        "C": "The OneLake catalog",
+        "D": "Azure Data Lake Storage Gen2 explorer"
+      },
+      "answer": "C",
+      "explanation": "The OneLake catalog helps you find and access data sources within your organization. You can filter by keyword (like 'Q3 Sales') to explore and discover items that have been shared with you across workspaces.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An IT administrator needs to disable Microsoft Copilot for all users in the organization due to a new corporate policy. Where in Fabric can they make this change?",
+      "options": {
+        "A": "Workspace settings > AI options",
+        "B": "Admin portal > Tenant settings",
+        "C": "OneLake catalog > Governance tab",
+        "D": "Power BI Desktop > Options"
+      },
+      "answer": "B",
+      "explanation": "Copilot in Microsoft Fabric is enabled by default. Administrators can disable Copilot for the entire organization from the Admin portal > Tenant settings.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer is designing a data architecture in Fabric. They want to ensure that the data they ingest and prepare can be utilized by Fabric AI agents to answer business questions without creating separate, specialized datasets. How should they approach this?",
+      "options": {
+        "A": "Store all data as CSV files in the Files section of the lakehouse.",
+        "B": "Create specialized dataflows that export data to a separate AI database.",
+        "C": "Maintain clean, well-governed data in OneLake, as the same data used for analytics is available to AI capabilities.",
+        "D": "Purchase the Foundry IQ add-on to automatically convert data into AI-readable formats."
+      },
+      "answer": "C",
+      "explanation": "Because all data is ingested, prepared, and governed within Fabric's OneLake in an open format, the same data that powers reports is directly available to AI capabilities. No separate data pipelines are needed; maintaining clean, governed data is sufficient.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A project requires combining historical sales data from an on-premises system with streaming data from IoT sensors. Which two Fabric workloads will primarily be used to handle these distinct data ingestion needs?",
+      "options": {
+        "A": "Data Science and Power BI",
+        "B": "Data Factory and Real-Time Intelligence",
+        "C": "Fabric IQ and Databases",
+        "D": "Data Warehouse and Work IQ"
+      },
+      "answer": "B",
+      "explanation": "Data Factory is used to ingest, transform, and orchestrate batch data (like historical sales data), while Real-Time Intelligence is used to process, monitor, and analyze streaming data (like IoT sensors).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A new developer joins a team and needs to be able to create new lakehouses and edit existing pipelines in the team's workspace, but should not have full administrative control to manage user access. Which workspace role should they be assigned?",
+      "options": {
+        "A": "Admin",
+        "B": "Contributor",
+        "C": "Member",
+        "D": "Viewer"
+      },
+      "answer": "B",
+      "explanation": "The Contributor role allows users to create and edit items (like lakehouses and pipelines) within a workspace. The Admin role is required to manage workspace access, which the developer should not have.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A company wants to implement a decentralized data ownership model where individual departments manage their own data products, but IT maintains centralized governance over security and compliance. How does Fabric support this?",
+      "options": {
+        "A": "By requiring each department to purchase their own Fabric tenant",
+        "B": "Through the Data Mesh architecture supported by Fabric and OneLake",
+        "C": "By forcing all data to be stored in a single, monolithic Data Warehouse workload",
+        "D": "Fabric does not support decentralized data ownership"
+      },
+      "answer": "B",
+      "explanation": "Fabric supports a data mesh architecture, allowing decentralized data ownership (departments can manage their own workspaces and data products) while maintaining centralized governance (through OneLake and the Admin portal).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An analytics engineer has curated a clean dataset in a lakehouse. They now need to organize this data, define relationships, and add business context so that AI tools can generate accurate answers. What should they create?",
+      "options": {
+        "A": "A Python notebook",
+        "B": "A Data Factory pipeline",
+        "C": "A semantic model in Power BI",
+        "D": "An Azure Data Lake Storage Gen2 shortcut"
+      },
+      "answer": "C",
+      "explanation": "Analytics engineers create semantic models in Power BI to organize and present data effectively. Consistent semantic models give AI tools (like Copilot) the business context needed to generate accurate, meaningful answers.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data professional is writing a complex SQL query to analyze sales trends but is struggling with the syntax. They want assistance within the Fabric interface. Which feature should they use?",
+      "options": {
+        "A": "The OneLake catalog",
+        "B": "Microsoft Copilot in Fabric",
+        "C": "Dataflows Gen2",
+        "D": "Fabric IQ"
+      },
+      "answer": "B",
+      "explanation": "Microsoft Copilot in Fabric provides code completion and generation. It can generate SQL queries from natural language descriptions and provide intelligent code suggestions, making it the right tool for assistance with syntax.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants to build conversational AI agents that understand their specific industry terminology, such as distinguishing between 'gross revenue' and 'net revenue' based on specific business rules. Which Fabric feature should they configure?",
+      "options": {
+        "A": "An ontology in Fabric IQ",
+        "B": "A real-time intelligence dashboard",
+        "C": "A semantic model in Power BI",
+        "D": "A Dataverse shortcut"
+      },
+      "answer": "A",
+      "explanation": "In Fabric IQ, the core item is the ontology. An ontology defines your business concepts, relationships, and rules so that AI agents can reason across domains using consistent business language rather than raw table schemas.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to analyze collaboration signals from documents, meetings, and chats to gain insight into how their organization operates. Which IQ workload in Fabric provides this capability?",
+      "options": {
+        "A": "Fabric IQ",
+        "B": "Foundry IQ",
+        "C": "Work IQ",
+        "D": "Copilot IQ"
+      },
+      "answer": "C",
+      "explanation": "Work IQ captures collaboration signals from documents, meetings, chats, and workflows, providing agents with insight into how your organization operates.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer is building a pipeline and needs to understand the flow of data from the source systems, through transformations, and into final Power BI reports to troubleshoot an issue. Which workspace feature provides this visualization?",
+      "options": {
+        "A": "Data lineage view",
+        "B": "Git integration",
+        "C": "OneLake catalog",
+        "D": "Admin portal"
+      },
+      "answer": "A",
+      "explanation": "Workspaces support data lineage view, providing a visual view of data flow and dependencies to enhance transparency and decision-making, which is perfect for understanding the end-to-end flow and troubleshooting.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A citizen developer with limited coding experience wants to ingest a small dataset from a SharePoint folder, filter out empty rows, and load it into a lakehouse table without asking the data engineering team for help. Which tool should they use?",
+      "options": {
+        "A": "PySpark Notebooks",
+        "B": "Dataflows Gen2",
+        "C": "Fabric IQ",
+        "D": "Direct Lake mode"
+      },
+      "answer": "B",
+      "explanation": "Low-to-no-code users and citizen developers can use dataflows to perform simple ETL tasks (like ingesting from SharePoint and filtering rows) without relying on data engineers.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "Northwind Traders is migrating their disparate data systems to Microsoft Fabric to improve collaboration between their data teams and leverage AI capabilities.\n\nCurrently, the data engineers spend weeks building complex ETL pipelines to move data from their Azure SQL databases into an on-premises data warehouse. The data analysts then export this data into Excel to perform their own transformations before building Power BI reports. The data science team works in a completely separate environment, copying subsets of the warehouse data to train machine learning models.\n\nThe Director of Data outlines the following goals for the migration to Fabric:\n1. Establish a single source of truth for all data to eliminate copying.\n2. Allow data scientists to access the governed data directly using Python.\n3. Enable business analysts to connect Power BI directly to the data without complex downstream transformations.\n4. Build an AI agent that can answer business questions using the company's specific terminology and rules.\n5. Maintain strict access control using workspace roles.\n\nBased on Fabric's capabilities, which of the following statements about how Northwind Traders will achieve these goals is INCORRECT?",
+      "options": {
+        "A": "Goal 1 will be achieved by storing all data in OneLake using the Delta-Parquet format, allowing all compute engines to access the same data.",
+        "B": "Goal 2 will be achieved by data scientists using integrated Notebooks with PySpark to query the data stored in lakehouses on OneLake.",
+        "C": "Goal 3 will be achieved by analysts using Dataflows Gen2 to perform upstream transformations and connecting Power BI via Direct Lake mode.",
+        "D": "Goal 4 will be achieved by building an ontology in the Work IQ workload to define business rules and terminology."
+      },
+      "answer": "D",
+      "explanation": "This statement is incorrect because building an ontology to define business concepts, relationships, and rules is done within the Fabric IQ workload, not the Work IQ workload. Work IQ is used for capturing collaboration signals from documents and meetings. All other statements are correct applications of Fabric's capabilities: OneLake provides the single source of truth (A), integrated notebooks support data science workloads (B), and Direct Lake mode with Dataflows Gen2 streamlines analyst workflows (C).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer is working in a Fabric workspace. They have a raw data file located at an external Azure Data Lake Storage path: `abfss://rawdata@contosostorage.dfs.core.windows.net/sales/2023/`. They want to access this data in their Fabric lakehouse (named `SalesLakehouse`) without copying the files into OneLake.\n\nWhat mechanism should the data engineer implement?",
+      "options": {
+        "A": "Write a PySpark script to run a `spark.read.load()` command and write the dataframe to a Delta table.",
+        "B": "Create a Shortcut in the `SalesLakehouse` pointing to the external ADLS Gen2 path.",
+        "C": "Use a Data Factory Copy activity to move the files into the `Files` section of the lakehouse.",
+        "D": "Configure Git integration in the workspace settings to point to the storage account."
+      },
+      "answer": "B",
+      "explanation": "Shortcuts are references to external storage locations (like Azure Data Lake Storage). Creating a shortcut allows you to access existing data without copying it, ensuring data consistency and eliminating data duplication. Options A and C would involve copying or rewriting the data into the lakehouse, violating the requirement not to copy files.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An analytics engineer is designing a semantic model in Power BI based on data stored in a Fabric lakehouse. The tables are stored in OneLake using the Delta-Parquet format. They want to ensure the Power BI reports query the data as fast as possible without requiring scheduled data refreshes to import the data into Power BI.\n\nWhich connection mode should they configure for the semantic model?",
+      "options": {
+        "A": "Import Mode",
+        "B": "DirectQuery Mode",
+        "C": "Direct Lake Mode",
+        "D": "Live Connection Mode"
+      },
+      "answer": "C",
+      "explanation": "Direct Lake mode allows Power BI to connect directly to OneLake, reading the Delta-Parquet files natively. This reduces the need for downstream transformations and importing data, providing fast performance without scheduled refreshes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A data scientist is writing a Python script in a Fabric notebook to train a machine learning model. They need to read data from a lakehouse table named `customer_churn` located in the same workspace.\n\nWhich of the following describes the interaction between the notebook and the data architecture?",
+      "options": {
+        "A": "The notebook connects to a dedicated SQL Server provisioned for the data science workload.",
+        "B": "The notebook must use a REST API to query the OneLake catalog before accessing data.",
+        "C": "The notebook reads the data directly from OneLake, where it is stored in an open format like Delta-Parquet.",
+        "D": "The notebook first copies the data into an isolated local storage container before training."
+      },
+      "answer": "C",
+      "explanation": "Fabric is built on OneLake, and all compute engines (including notebooks used by data scientists) automatically store and access their data in OneLake in an open format (Delta-Parquet for tabular data). Data is directly accessible without the need for movement, copying, or dedicated SQL servers.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer is working with the Fabric REST API to automate administrative tasks. They want to use the API to assign a user to the 'Contributor' role for a specific workspace. \n\nAccording to the Fabric administration architecture described in the module, where are these permissions managed and monitored?",
+      "options": {
+        "A": "The Azure Portal Access Control (IAM) blade",
+        "B": "The Fabric Admin portal",
+        "C": "The OneLake catalog",
+        "D": "The Power BI Desktop settings"
+      },
+      "answer": "B",
+      "explanation": "Fabric administration is centralized in the Admin portal. In the admin portal, administrators manage groups and permissions, configure data sources, and monitor usage. The Fabric admin APIs also interact with these centralized administrative settings.",
+      "difficulty": "Medium"
+    }
+  ]
+}

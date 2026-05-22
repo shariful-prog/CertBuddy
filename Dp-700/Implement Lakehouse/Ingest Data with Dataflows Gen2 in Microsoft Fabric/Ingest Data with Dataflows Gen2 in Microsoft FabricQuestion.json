@@ -1,0 +1,460 @@
+{
+  "module": "Ingest Data with Dataflows Gen2 in Microsoft Fabric",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What type of tool are Dataflows Gen2 in Microsoft Fabric?",
+      "options": {
+        "A": "A cloud-based data warehouse tool",
+        "B": "A cloud-based ETL (Extract, Transform, Load) tool",
+        "C": "A real-time streaming analytics tool",
+        "D": "A machine learning model training tool"
+      },
+      "answer": "B",
+      "explanation": "Dataflows Gen2 are a type of cloud-based ETL (Extract, Transform, Load) tool for building and executing scalable data transformation processes.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What visual interface does Dataflows Gen2 use to perform ETL tasks?",
+      "options": {
+        "A": "Azure Data Studio",
+        "B": "SQL Server Management Studio",
+        "C": "Power Query Online",
+        "D": "Apache Spark UI"
+      },
+      "answer": "C",
+      "explanation": "Dataflows Gen2 use Power Query Online to provide a visual interface for performing ETL tasks including extracting data from sources, transforming it, and loading it to destinations.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is NOT a supported data destination within Fabric for Dataflows Gen2?",
+      "options": {
+        "A": "Lakehouse",
+        "B": "Warehouse",
+        "C": "SQL database",
+        "D": "Cosmos DB"
+      },
+      "answer": "D",
+      "explanation": "The supported data destinations within Fabric for Dataflows Gen2 are Lakehouse, Warehouse, and SQL database. Cosmos DB is not listed as a supported destination.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Is adding a data destination to a Dataflow Gen2 required?",
+      "options": {
+        "A": "Yes, a destination is required before saving the dataflow",
+        "B": "No, adding a data destination is optional and the dataflow preserves all transformation steps",
+        "C": "Yes, but only if the dataflow is part of a pipeline",
+        "D": "No, but transformation steps are lost without a destination"
+      },
+      "answer": "B",
+      "explanation": "Adding a data destination to your dataflow is optional. The dataflow preserves all transformation steps regardless of whether a destination is configured.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is a limitation of Dataflows Gen2?",
+      "options": {
+        "A": "They cannot connect to cloud data sources",
+        "B": "They do not support data transformations",
+        "C": "Row-level security is not supported",
+        "D": "They cannot be included in data pipelines"
+      },
+      "answer": "C",
+      "explanation": "Row-level security is not supported in Dataflows Gen2. This is explicitly listed as one of the limitations of Dataflows Gen2.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What are the three stated limitations of Dataflows Gen2?",
+      "options": {
+        "A": "No cloud support, no scheduling, no Power Query",
+        "B": "Not a data warehouse replacement, no row-level security, requires Fabric capacity workspace",
+        "C": "No SQL support, limited transformations, no automation",
+        "D": "No on-premises sources, no M code, no pipeline integration"
+      },
+      "answer": "B",
+      "explanation": "The three limitations are: (1) Dataflows are not a replacement for a data warehouse, (2) Row-level security is not supported, (3) Fabric capacity workspace is required.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Where can you create a Dataflow Gen2 in Microsoft Fabric?",
+      "options": {
+        "A": "Only in the Data Factory workload",
+        "B": "In the Data Factory workload, Power BI workspace, or directly in the lakehouse",
+        "C": "Only in a Power BI workspace",
+        "D": "Only in a lakehouse"
+      },
+      "answer": "B",
+      "explanation": "You can create a Dataflow Gen2 in the Data Factory workload, a Power BI workspace, or directly in the lakehouse.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the Applied Steps section in the Query Settings pane represent?",
+      "options": {
+        "A": "The list of data sources connected to the dataflow",
+        "B": "Each transformation represented as a step, some automatically applied when connecting a data source",
+        "C": "The list of data destinations configured for the dataflow",
+        "D": "The schedule for when the dataflow runs"
+      },
+      "answer": "B",
+      "explanation": "Each transformation is represented as a step in the Applied Steps section. Some steps are automatically applied when you connect a data source, and each step can be modified via a gear icon or deleted.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the purpose of the Diagram View in the Dataflows Gen2 interface?",
+      "options": {
+        "A": "To write M code for transformations",
+        "B": "To visually see how data sources are connected and the different applied transformations",
+        "C": "To configure data destination settings",
+        "D": "To schedule dataflow refresh times"
+      },
+      "answer": "B",
+      "explanation": "The Diagram View allows you to visually see how data sources are connected and the different applied transformations. Each query is represented as a shape with all applied transformations.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the Data Preview pane in Dataflows Gen2 show?",
+      "options": {
+        "A": "All data from the source in full",
+        "B": "Only the schema of the data without any values",
+        "C": "A subset of data to see which transformations to make and how they affect the data",
+        "D": "Only the data that will be loaded to the destination"
+      },
+      "answer": "C",
+      "explanation": "The Data Preview pane shows only a subset of data to allow you to see which transformations you should make and how they affect the data. You can interact with it by dragging columns or right-clicking to filter.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What can you do when you duplicate a query in the Queries pane?",
+      "options": {
+        "A": "It creates a backup of the dataflow for version control",
+        "B": "It creates multiple copies of the same data, useful for star schema design and splitting data into separate tables",
+        "C": "It merges two data sources into one query",
+        "D": "It exports the query as a SQL script"
+      },
+      "answer": "B",
+      "explanation": "You can duplicate or reference a query if you need multiple copies of the same data, such as creating a star schema and splitting data into separate, smaller tables.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the Advanced Editor in Dataflows Gen2 used for?",
+      "options": {
+        "A": "Writing Python transformation scripts",
+        "B": "Viewing and editing the underlying M code",
+        "C": "Configuring pipeline triggers and schedules",
+        "D": "Managing workspace permissions"
+      },
+      "answer": "B",
+      "explanation": "While the visual interface is helpful, you can also view the M code through the Advanced Editor. This allows you to see or edit the Power Query M language code behind the transformations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is NOT a common pipeline activity mentioned for data pipelines?",
+      "options": {
+        "A": "Copy data",
+        "B": "Incorporate Dataflow",
+        "C": "Add Notebook",
+        "D": "Train ML model"
+      },
+      "answer": "D",
+      "explanation": "The common pipeline activities mentioned are: Copy data, Incorporate Dataflow, Add Notebook, Get metadata, and Execute a script or stored procedure. Training ML models is not listed as a common pipeline activity.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What happens to queries in the Queries pane when they are loaded to a data store?",
+      "options": {
+        "A": "They are deleted from the Queries pane",
+        "B": "They become stored procedures",
+        "C": "They become tables",
+        "D": "They become views"
+      },
+      "answer": "C",
+      "explanation": "Queries in the Queries pane are called tables when loaded to your data store. They represent the data sources and their transformations.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How can a pipeline be triggered to run a dataflow?",
+      "options": {
+        "A": "Only manually by a user",
+        "B": "Only on a fixed hourly schedule",
+        "C": "By a schedule or activated by a trigger",
+        "D": "Only through Power BI Desktop"
+      },
+      "answer": "C",
+      "explanation": "Pipelines can be scheduled or activated by a trigger to run your dataflow. This enables automation so the data is refreshed when needed instead of manual runs.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A retail company has sales data in an on-premises SQL Server database, product data in an Excel file on SharePoint, and customer data in a SalesForce instance. A data engineer needs to consolidate and transform all this data into a unified format for reporting. They prefer a visual, low-code approach. Which Microsoft Fabric feature should they use?",
+      "options": {
+        "A": "Apache Spark notebook",
+        "B": "Dataflows Gen2",
+        "C": "Data Factory Copy activity only",
+        "D": "SQL analytics endpoint"
+      },
+      "answer": "B",
+      "explanation": "Dataflows Gen2 support a wide variety of data source connectors including on-premises relational databases, Excel, SharePoint, and SalesForce. They provide a low-to-no-code visual interface using Power Query Online for transforming and consolidating data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer has created a Dataflow Gen2 that transforms sales data. After the dataflow completes, they need to execute a stored procedure in the warehouse to update aggregated summary tables. What should they do?",
+      "options": {
+        "A": "Add the stored procedure execution step directly inside the Dataflow Gen2",
+        "B": "Incorporate the Dataflow Gen2 into a data pipeline and add an 'Execute script or stored procedure' activity after it",
+        "C": "Schedule the stored procedure separately and hope it runs after the dataflow",
+        "D": "Rewrite the dataflow as a Spark notebook"
+      },
+      "answer": "B",
+      "explanation": "The combination of dataflows and pipelines is useful when you need to perform additional operations. You can incorporate the dataflow into a pipeline and add pipeline activities (like executing stored procedures) that run after the dataflow completes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data analyst team frequently builds Power BI reports and needs to connect to pre-transformed data. The data engineering team has created a Dataflow Gen2 with all the necessary transformations. How can the analysts easily access this transformed data?",
+      "options": {
+        "A": "They must recreate the same transformations in each Power BI report",
+        "B": "The data engineering team should make the dataflow discoverable so analysts can connect to it through Power BI Desktop",
+        "C": "They must query the raw data sources directly",
+        "D": "They need to write their own Spark notebooks"
+      },
+      "answer": "B",
+      "explanation": "You can make your dataflow discoverable so data analysts can connect to the dataflow through Power BI Desktop. This reduces the data preparation needed for report development and promotes reuse.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants to build a star schema for their data warehouse. They have one data source that needs to be split into a fact table and several dimension tables. Which feature of the Queries pane in Dataflows Gen2 supports this approach?",
+      "options": {
+        "A": "Merging queries to combine all data into one table",
+        "B": "Duplicating a query to create multiple copies for splitting into separate, smaller tables",
+        "C": "Disabling the load to prevent any tables from being created",
+        "D": "Using the Diagram View to rearrange tables visually"
+      },
+      "answer": "B",
+      "explanation": "You can duplicate or reference a query if you need multiple copies of the same data, such as creating a star schema and splitting data into separate, smaller tables. Each duplicate can then have different transformations applied.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer has raw data that needs to be loaded into a lakehouse first, and then cleansed and transformed after loading. They want to provide the transformed data as a curated semantic model for analysts. Which design pattern should they follow?",
+      "options": {
+        "A": "ETL pattern using only Dataflows Gen2",
+        "B": "ELT pattern using a Pipeline to extract and load, then a Dataflow Gen2 to transform",
+        "C": "Use only a Spark notebook for everything",
+        "D": "Load data directly into Power BI without transformation"
+      },
+      "answer": "B",
+      "explanation": "This describes the ELT (Extract, Load, Transform) pattern. You use a Pipeline to extract and load raw data into the lakehouse, then create a Dataflow Gen2 to connect to the lakehouse data for cleansing and transformation, and offer the Dataflow as a curated semantic model.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A company needs to extract data from a slow-performing external API. Multiple teams need this same data for their own reports. Currently, each team extracts the data separately, causing excessive API calls and long refresh times. How can Dataflows Gen2 improve this?",
+      "options": {
+        "A": "By caching API responses in Azure Blob Storage",
+        "B": "By extracting data once for reuse, reducing data refresh time for slower sources",
+        "C": "By parallelizing API calls across multiple notebooks",
+        "D": "By replacing the API with a direct database connection"
+      },
+      "answer": "B",
+      "explanation": "One of the key benefits of Dataflows Gen2 is that they optimize performance by enabling extracting data once for reuse, which reduces data refresh time for slower sources. Multiple teams can then consume from the single dataflow.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A security-conscious organization wants to implement row-level security on the data processed by their Dataflow Gen2. Is this possible?",
+      "options": {
+        "A": "Yes, Dataflows Gen2 fully support row-level security",
+        "B": "Yes, but only when the dataflow is part of a pipeline",
+        "C": "No, row-level security is not supported in Dataflows Gen2",
+        "D": "Yes, but only for lakehouse destinations"
+      },
+      "answer": "C",
+      "explanation": "Row-level security is explicitly listed as a limitation of Dataflows Gen2. It is not supported. Organizations needing RLS should implement it at the destination level (e.g., through the SQL analytics endpoint).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to verify how a particular transformation step is changing the data before finalizing the dataflow. They want to see a preview of the data after that step. Which component of the Dataflows Gen2 interface should they use?",
+      "options": {
+        "A": "The Advanced Editor to review M code",
+        "B": "The Diagram View to see connected shapes",
+        "C": "The Data Preview pane, which shows a subset of data with transformations applied",
+        "D": "The Power Query ribbon to check connector settings"
+      },
+      "answer": "C",
+      "explanation": "The Data Preview pane shows a subset of data to allow you to see which transformations you should make and how they affect the data. It shows all transformations for the selected query.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineering team has enterprise data that changes frequently throughout the day. They want the dataflow to refresh automatically at specific intervals without manual intervention. What approach should they use?",
+      "options": {
+        "A": "Manually run the dataflow every time data changes",
+        "B": "Use a pipeline to schedule or trigger the dataflow to run automatically",
+        "C": "Set up email alerts and manually trigger refreshes",
+        "D": "Export the dataflow as a script and run it via cron job"
+      },
+      "answer": "B",
+      "explanation": "Pipelines can be scheduled or activated by a trigger to run your dataflow. When dealing with enterprise or frequently changing data, automation allows you to focus on other responsibilities instead of manually running refreshes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to modify an applied step in their dataflow but notices the step doesn't have a gear icon. What should they do?",
+      "options": {
+        "A": "Double-click the step to modify it",
+        "B": "Delete the step and repeat the transformation",
+        "C": "Use the Power Query ribbon to access the step settings",
+        "D": "Export the step to a notebook for editing"
+      },
+      "answer": "B",
+      "explanation": "Most steps have a gear icon that allows you to modify them. However, if a step doesn't have a gear icon, you must delete and repeat the transformation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer has a complex dataflow with many transformation steps. They want to see the underlying query language code to understand or fine-tune the logic. What feature should they use?",
+      "options": {
+        "A": "The Diagram View",
+        "B": "The Data Preview pane",
+        "C": "The Advanced Editor to view the M code",
+        "D": "The Queries pane"
+      },
+      "answer": "C",
+      "explanation": "While the visual interface is helpful, you can view the M code through the Advanced Editor. This gives you access to the Power Query M language code behind the transformations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer has created a Dataflow Gen2 and wants to load the transformed data into an Azure SQL Database that is outside of Microsoft Fabric. Is this possible?",
+      "options": {
+        "A": "No, Dataflows Gen2 can only load to Fabric destinations",
+        "B": "Yes, Dataflows Gen2 can load data to Azure SQL Database as an external destination",
+        "C": "Only if the Azure SQL Database is connected through a shortcut",
+        "D": "Only through a pipeline, not directly from the dataflow"
+      },
+      "answer": "B",
+      "explanation": "In addition to Fabric destinations (Lakehouse, Warehouse, SQL database), Dataflows Gen2 also support loading data to Azure SQL Database, Azure Data Explorer, and Azure Synapse Analytics.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A company has multiple analyst groups. The data engineering team wants to simplify the complexity of the underlying data sources and only expose clean, transformed data to the analysts. How can Dataflows Gen2 help?",
+      "options": {
+        "A": "By giving analysts direct access to all raw data sources",
+        "B": "By simplifying data source complexity and only exposing dataflows to larger analyst groups",
+        "C": "By requiring analysts to learn M code",
+        "D": "By creating separate data warehouses for each analyst group"
+      },
+      "answer": "B",
+      "explanation": "One of the key benefits of Dataflows Gen2 is that they simplify data source complexity by only exposing dataflows to larger analyst groups. This hides the complexity of the underlying sources.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer imports a data source into a Dataflow Gen2 but only needs it for a one-time analysis. They don't want this query to load data into the destination table every time the dataflow runs. What should they do?",
+      "options": {
+        "A": "Delete the query after the first run",
+        "B": "Disable the load of the query in the Queries pane",
+        "C": "Remove the data destination from the entire dataflow",
+        "D": "Convert the query to a notebook"
+      },
+      "answer": "B",
+      "explanation": "You can disable the load of a query in the Queries pane in case you only need the one-time import. This keeps the query available but prevents it from loading to the destination.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to check if query folding is being applied for their data source in a Dataflow Gen2. Where can they view this information?",
+      "options": {
+        "A": "In the Data Preview pane",
+        "B": "In the Power Query ribbon settings",
+        "C": "By right-clicking a step in the Applied Steps and viewing the data source query",
+        "D": "In the Diagram View"
+      },
+      "answer": "C",
+      "explanation": "Each step has a contextual menu when you right-click, which allows you to rename, reorder, or delete steps. You can also view the data source query when connecting to a data source that supports query folding.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "case-study",
+      "question": "GlobalMart is a multinational retail company with stores in 15 countries. Their data landscape includes:\n- An on-premises SQL Server with transactional sales data\n- Excel files on SharePoint with product catalogs from each region\n- A SalesForce instance with customer relationship data\n\nThe data engineering team decides to use Dataflows Gen2 to consolidate all data. Their plan includes:\n1. Create a Dataflow Gen2 in the Data Factory workload\n2. Connect to all three data sources\n3. Merge the product catalogs and remove duplicates\n4. Unpivot regional sales columns into a normalized format\n5. Duplicate the main query to create separate fact and dimension tables (star schema)\n6. Load all tables into a Fabric lakehouse\n7. Incorporate the dataflow into a pipeline that runs a stored procedure after loading\n8. Schedule the pipeline to run every 6 hours\n9. Make the dataflow discoverable for Power BI Desktop users\n10. Implement row-level security directly in the dataflow\n\nWhich step in GlobalMart's plan will FAIL?",
+      "options": {
+        "A": "Step 3: Merging product catalogs and removing duplicates is not supported in Dataflows Gen2",
+        "B": "Step 5: Duplicating queries for star schema design is not possible in the Queries pane",
+        "C": "Step 7: Dataflows Gen2 cannot be incorporated into data pipelines",
+        "D": "Step 10: Row-level security is not supported in Dataflows Gen2"
+      },
+      "answer": "D",
+      "explanation": "Row-level security is explicitly listed as a limitation of Dataflows Gen2. All other steps are valid: merging queries and removing duplicates are supported transformations (Step 3), duplicating queries for star schema is a documented feature (Step 5), and incorporating dataflows into pipelines is a core integration capability (Step 7). GlobalMart would need to implement RLS at the destination level, such as the SQL analytics endpoint.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer is reviewing the M code in the Advanced Editor of a Dataflow Gen2. They see the following steps:\n\n```\nlet\n    Source = Sql.Database(\"server.database.windows.net\", \"SalesDB\"),\n    Sales_Table = Source{[Schema=\"dbo\", Item=\"Sales\"]}[Data],\n    Filtered_Rows = Table.SelectRows(Sales_Table, each [Region] = \"North America\"),\n    Removed_Columns = Table.RemoveColumns(Filtered_Rows, {\"InternalCode\", \"TempFlag\"}),\n    Changed_Type = Table.TransformColumnTypes(Removed_Columns, {{\"OrderDate\", type date}, {\"Amount\", type number}})\nin\n    Changed_Type\n```\n\nWhat is the correct order of transformation steps this M code performs?",
+      "options": {
+        "A": "Connect to source → Remove columns → Filter rows → Change data types",
+        "B": "Connect to source → Filter rows → Remove columns → Change data types",
+        "C": "Connect to source → Change data types → Filter rows → Remove columns",
+        "D": "Connect to source → Filter rows → Change data types → Remove columns"
+      },
+      "answer": "B",
+      "explanation": "The M code follows this order: (1) Connect to SQL Database source, (2) Select the Sales table, (3) Filter rows where Region equals 'North America' (Table.SelectRows), (4) Remove InternalCode and TempFlag columns (Table.RemoveColumns), (5) Change OrderDate to date type and Amount to number type (Table.TransformColumnTypes). Each step in M code corresponds to an Applied Step in the Query Settings pane.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer is building a Dataflow Gen2 that connects to two CSV files — one with customer data and one with order data. They need to combine these into a single table. In the Power Query interface, they use the following approach:\n\n```\n// Step 1: Load Customers from CSV\nCustomers = Csv.Document(File.Contents(\"customers.csv\"), [Delimiter=\",\", Encoding=1252]),\n\n// Step 2: Load Orders from CSV  \nOrders = Csv.Document(File.Contents(\"orders.csv\"), [Delimiter=\",\", Encoding=1252]),\n\n// Step 3: Combine\nMerged = Table.NestedJoin(Customers, {\"CustomerID\"}, Orders, {\"CustomerID\"}, \"OrderDetails\", JoinKind.LeftOuter),\n\n// Step 4: Expand\nExpanded = Table.ExpandTableColumn(Merged, \"OrderDetails\", {\"OrderID\", \"Amount\", \"OrderDate\"})\n```\n\nWhich Power Query transformation operation does Step 3 correspond to in the Dataflows Gen2 ribbon?",
+      "options": {
+        "A": "Append queries",
+        "B": "Merge queries",
+        "C": "Split and Conditional split",
+        "D": "Pivot and Unpivot"
+      },
+      "answer": "B",
+      "explanation": "Table.NestedJoin performs a Merge operation, which combines two tables based on matching key columns (CustomerID in this case). Merge queries join tables horizontally (adding columns from another table), while Append queries stack tables vertically (adding rows). The ribbon lists 'Merge and Append queries' as available transformations.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer has a Dataflow Gen2 that loads data into a lakehouse. They want to automate the process by adding a pipeline. The pipeline should:\n1. Run the Dataflow Gen2 first\n2. Execute a SQL stored procedure after the dataflow completes\n3. Send an email notification\n\nThey write a pipeline JSON definition:\n\n```json\n{\n  \"activities\": [\n    {\n      \"name\": \"RunDataflow\",\n      \"type\": \"DataflowActivity\",\n      \"dependsOn\": []\n    },\n    {\n      \"name\": \"RunStoredProc\",\n      \"type\": \"SqlServerStoredProcedure\",\n      \"dependsOn\": [\n        { \"activity\": \"RunDataflow\", \"conditions\": [\"Succeeded\"] }\n      ]\n    },\n    {\n      \"name\": \"SendNotification\",\n      \"type\": \"WebActivity\",\n      \"dependsOn\": [\n        { \"activity\": \"RunStoredProc\", \"conditions\": [\"Succeeded\"] }\n      ]\n    }\n  ]\n}\n```\n\nBased on the module content about pipelines and dataflows integration, which of the following statements is TRUE about this pipeline?",
+      "options": {
+        "A": "This pipeline is invalid because Dataflows Gen2 cannot be included as a pipeline activity",
+        "B": "This pipeline demonstrates the correct pattern of incorporating a dataflow into a pipeline to orchestrate additional activities in a specific order",
+        "C": "The stored procedure will run before the dataflow because pipelines always run activities in alphabetical order",
+        "D": "This pipeline requires the dataflow to have a data destination configured or it will fail"
+      },
+      "answer": "B",
+      "explanation": "This pipeline correctly demonstrates incorporating a Dataflow Gen2 into a pipeline for orchestration. Pipelines provide a visual way to complete activities in a specific order. The module states you can incorporate the dataflow into a pipeline to orchestrate extra activities like executing scripts or stored procedures after the dataflow completes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer is reviewing M code in the Advanced Editor and sees the following transformation:\n\n```\nlet\n    Source = Excel.Workbook(File.Contents(\"sales_by_region.xlsx\")),\n    SalesSheet = Source{[Item=\"Sales\", Kind=\"Sheet\"]}[Data],\n    PromotedHeaders = Table.PromoteHeaders(SalesSheet),\n    Unpivoted = Table.UnpivotOtherColumns(PromotedHeaders, {\"Product\"}, \"Region\", \"SalesAmount\"),\n    ChangedType = Table.TransformColumnTypes(Unpivoted, {{\"SalesAmount\", type number}})\nin\n    ChangedType\n```\n\nThe original Excel sheet has columns: Product, North, South, East, West (where North, South, East, West contain sales values). What will the output table look like after the Unpivot step?",
+      "options": {
+        "A": "One row per product with columns Product, North, South, East, West",
+        "B": "Three columns: Product, Region, SalesAmount — with one row for each product-region combination",
+        "C": "Two columns: Region and TotalSales — with one row per region",
+        "D": "Four columns: Product, Region, SalesAmount, Rank"
+      },
+      "answer": "B",
+      "explanation": "Table.UnpivotOtherColumns keeps the 'Product' column fixed and unpivots all other columns (North, South, East, West) into two new columns: 'Region' (containing the original column names) and 'SalesAmount' (containing the values). This normalizes the data from a wide format to a tall format with one row per product-region combination. Unpivot is listed as a supported transformation in the Dataflows Gen2 ribbon.",
+      "difficulty": "Hard"
+    }
+  ]
+}

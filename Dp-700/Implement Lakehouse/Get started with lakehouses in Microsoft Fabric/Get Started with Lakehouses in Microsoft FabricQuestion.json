@@ -1,0 +1,460 @@
+{
+  "module": "Get Started with Lakehouses in Microsoft Fabric",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What two traditional data architectures does a lakehouse in Microsoft Fabric combine?",
+      "options": {
+        "A": "Data lake and data warehouse",
+        "B": "Data warehouse and relational database",
+        "C": "Data lake and NoSQL database",
+        "D": "Relational database and graph database"
+      },
+      "answer": "A",
+      "explanation": "A lakehouse combines the flexible and scalable storage of a data lake with the querying and analytical capabilities of a data warehouse, unified on OneLake.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the underlying storage layer for all data in a Microsoft Fabric lakehouse?",
+      "options": {
+        "A": "Azure Blob Storage",
+        "B": "OneLake",
+        "C": "Azure SQL Database",
+        "D": "Azure Cosmos DB"
+      },
+      "answer": "B",
+      "explanation": "All data in a lakehouse is stored in the OneLake storage layer, which is Microsoft Fabric's centralized data storage built on Azure Data Lake Storage Gen2.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What are the two main storage areas in a lakehouse?",
+      "options": {
+        "A": "Databases and Containers",
+        "B": "Schemas and Views",
+        "C": "Tables and Files",
+        "D": "Partitions and Buckets"
+      },
+      "answer": "C",
+      "explanation": "A lakehouse organizes data into two main storage areas: the Tables folder (for Delta Lake tables) and the Files folder (for raw or semi-structured data in native format).",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the default schema created automatically when a new lakehouse is provisioned?",
+      "options": {
+        "A": "public",
+        "B": "default",
+        "C": "dbo",
+        "D": "main"
+      },
+      "answer": "C",
+      "explanation": "When you create a lakehouse, schemas are enabled by default and a schema named 'dbo' is created automatically.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which open-source storage layer is used by lakehouse tables to bring reliability to data lakes?",
+      "options": {
+        "A": "Apache Iceberg",
+        "B": "Apache Hudi",
+        "C": "Delta Lake",
+        "D": "Apache ORC"
+      },
+      "answer": "C",
+      "explanation": "Delta Lake is the open-source storage layer used by lakehouse tables. It brings reliability to data lakes by supporting ACID transactions, schema enforcement, and time travel.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the 'time travel' feature of Delta Lake allow you to do?",
+      "options": {
+        "A": "Schedule queries to run at future times",
+        "B": "Query previous versions of your data or roll back changes",
+        "C": "Automatically migrate data to newer formats",
+        "D": "Move data between time zones"
+      },
+      "answer": "B",
+      "explanation": "Delta Lake maintains a transaction log that records every change. Time travel allows you to query previous versions of your data or roll back to an earlier state.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What are the two compute engines used by a lakehouse to process and analyze data?",
+      "options": {
+        "A": "Apache Spark and Apache Kafka",
+        "B": "Apache Spark and SQL",
+        "C": "Apache Flink and SQL",
+        "D": "Apache Hive and SQL"
+      },
+      "answer": "B",
+      "explanation": "A lakehouse uses Apache Spark and SQL compute engines to process and analyze data at scale.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What mode does Power BI use by default when building reports on a lakehouse semantic model?",
+      "options": {
+        "A": "Import mode",
+        "B": "DirectQuery mode",
+        "C": "Direct Lake mode",
+        "D": "Live Connection mode"
+      },
+      "answer": "C",
+      "explanation": "When you build reports on a lakehouse semantic model, Power BI uses Direct Lake mode by default. Direct Lake reads data directly from Delta Lake Parquet files without importing or copying data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the SQL analytics endpoint's access mode for lakehouse tables?",
+      "options": {
+        "A": "Read-write",
+        "B": "Write-only",
+        "C": "Read-only",
+        "D": "Admin-only"
+      },
+      "answer": "C",
+      "explanation": "The SQL analytics endpoint provides read-only access to lakehouse tables using T-SQL queries. You can create views and functions, but you cannot modify the underlying data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which ingestion method allows you to create a Delta table from a file without writing any code?",
+      "options": {
+        "A": "Notebooks",
+        "B": "Data Factory pipelines",
+        "C": "Load to Table",
+        "D": "Dataflows Gen2"
+      },
+      "answer": "C",
+      "explanation": "The 'Load to Table' feature lets you select a file or folder in the lakehouse explorer and create a Delta table without writing code. It supports Parquet and CSV files.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the four-part namespace format used for cross-workspace queries in a lakehouse?",
+      "options": {
+        "A": "server.database.schema.table",
+        "B": "workspace.lakehouse.schema.table",
+        "C": "tenant.workspace.database.table",
+        "D": "region.workspace.lakehouse.table"
+      },
+      "answer": "B",
+      "explanation": "Schema-enabled lakehouses support cross-workspace queries using the four-part namespace: workspace.lakehouse.schema.table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What does a shortcut in a lakehouse do?",
+      "options": {
+        "A": "Creates a compressed copy of data from another location",
+        "B": "References data in external storage without copying it",
+        "C": "Generates a summary index of external data sources",
+        "D": "Migrates data permanently from one lakehouse to another"
+      },
+      "answer": "B",
+      "explanation": "Shortcuts let you integrate data into your lakehouse without copying it. A shortcut references data in external storage and makes it appear as a folder in your lakehouse.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Each Delta table consists of which two components?",
+      "options": {
+        "A": "JSON data files and an index file",
+        "B": "CSV data files and a metadata catalog",
+        "C": "Parquet data files and a transaction log",
+        "D": "Avro data files and a schema registry"
+      },
+      "answer": "C",
+      "explanation": "Each Delta table consists of Parquet data files plus a transaction log that tracks all changes. This architecture enables both batch and streaming workloads.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which file formats does the 'Load to Table' no-code option support?",
+      "options": {
+        "A": "JSON and XML",
+        "B": "Parquet and CSV",
+        "C": "Avro and ORC",
+        "D": "CSV and JSON"
+      },
+      "answer": "B",
+      "explanation": "The Load to Table no-code option supports Parquet and CSV files and lets you append or overwrite data in new or existing tables.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which granular security features does the SQL analytics endpoint support?",
+      "options": {
+        "A": "Table-level and database-level security",
+        "B": "Row-level and column-level security",
+        "C": "File-level and folder-level security",
+        "D": "Workspace-level and tenant-level security"
+      },
+      "answer": "B",
+      "explanation": "The SQL analytics endpoint supports row-level security (RLS) and column-level security (CLS), allowing you to restrict what specific users see when they query through SQL.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A retail company has structured sales transaction data, semi-structured application logs in JSON, and unstructured product images. Currently, these are stored in three separate systems causing data silos. Which Microsoft Fabric feature would best unify all these data types in a single platform?",
+      "options": {
+        "A": "A dedicated SQL data warehouse",
+        "B": "A Fabric lakehouse",
+        "C": "A Power BI semantic model",
+        "D": "An Azure Blob Storage container"
+      },
+      "answer": "B",
+      "explanation": "A lakehouse in Microsoft Fabric combines the flexible storage of a data lake (which supports any file format including JSON and images) with the analytical capabilities of a data warehouse, eliminating data silos by unifying all data types in a single platform.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to store raw CSV files that will be cleaned and transformed later, while also maintaining finalized sales data that business analysts query using SQL. How should they organize data in the lakehouse?",
+      "options": {
+        "A": "Store both raw CSVs and finalized data in the Tables folder",
+        "B": "Store raw CSVs in the Files folder and finalized data as Delta tables in the Tables folder",
+        "C": "Store everything in the Files folder and use Spark for all queries",
+        "D": "Create two separate lakehouses — one for raw data and one for finalized data"
+      },
+      "answer": "B",
+      "explanation": "The lakehouse separates data into Tables (for structured, queryable Delta tables) and Files (for raw or semi-structured data). Raw CSVs belong in Files for staging, while finalized data should be loaded into Delta tables for SQL querying and reporting.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team discovers that a recent data transformation introduced incorrect values into a Delta table. They need to restore the table to its state from before the transformation. Which Delta Lake feature should they use?",
+      "options": {
+        "A": "Schema enforcement",
+        "B": "ACID transactions",
+        "C": "Time travel",
+        "D": "Efficient updates"
+      },
+      "answer": "C",
+      "explanation": "Delta Lake's time travel feature maintains a transaction log that records every change. This allows the team to query previous versions of the data or roll back to an earlier state before the faulty transformation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization has a lakehouse with customer data. The HR department should only see employee records, while the sales department should see customer purchase history. Both departments query through the SQL analytics endpoint. What security feature should the data engineer implement?",
+      "options": {
+        "A": "Item-level sharing",
+        "B": "Row-level security",
+        "C": "Workspace roles",
+        "D": "Sensitivity labels"
+      },
+      "answer": "B",
+      "explanation": "Row-level security (RLS) on the SQL analytics endpoint restricts what specific users see when they query through SQL. This allows different departments to see only the rows relevant to their role.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to bring data from an external Azure Data Lake Storage Gen2 account into their Fabric lakehouse without duplicating the data. Which feature should they use?",
+      "options": {
+        "A": "Data Factory pipeline with Copy data activity",
+        "B": "Upload through lakehouse explorer",
+        "C": "A lakehouse shortcut",
+        "D": "Dataflows Gen2"
+      },
+      "answer": "C",
+      "explanation": "Shortcuts let you integrate data into your lakehouse without copying it. A shortcut references data in external storage (like Azure Data Lake Storage Gen2) and makes it appear as a folder in your lakehouse, reducing data duplication.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A business analyst familiar with Power BI and Excel needs to import data from multiple sources, apply transformations, and load the results into a lakehouse. They prefer a visual, no-code approach. Which tool should they use?",
+      "options": {
+        "A": "Apache Spark notebooks",
+        "B": "Data Factory pipelines",
+        "C": "Dataflows Gen2",
+        "D": "SQL analytics endpoint"
+      },
+      "answer": "C",
+      "explanation": "Dataflows Gen2 use the Power Query interface, making them ideal for users familiar with Power BI or Excel. They allow importing and transforming data visually without writing code.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer has multiple ETL activities that need to run in a specific sequence, with some activities running in parallel. They want a visual interface to orchestrate the entire process. Which tool is most appropriate?",
+      "options": {
+        "A": "Spark notebooks",
+        "B": "Dataflows Gen2",
+        "C": "Data Factory pipelines",
+        "D": "SQL analytics endpoint"
+      },
+      "answer": "C",
+      "explanation": "Pipelines provide a visual interface to orchestrate ETL processes. They can include multiple activities that run in sequence or in parallel, making them ideal for complex orchestration workflows.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A report author needs to create a Power BI report that always shows the latest data from the lakehouse without importing or copying data. Which Power BI connection mode achieves this?",
+      "options": {
+        "A": "Import mode",
+        "B": "DirectQuery mode",
+        "C": "Direct Lake mode",
+        "D": "Dual mode"
+      },
+      "answer": "C",
+      "explanation": "Direct Lake mode reads data directly from Delta Lake Parquet files without importing or copying data. Reports always reflect the current lakehouse data with fast query performance. This is the default mode for lakehouse semantic models.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to organize lakehouse tables by business domain (sales, marketing, hr) and apply different access permissions to each group. What lakehouse feature supports this?",
+      "options": {
+        "A": "Sensitivity labels",
+        "B": "Workspace roles",
+        "C": "Schemas with schema-level permissions",
+        "D": "Item-level sharing"
+      },
+      "answer": "C",
+      "explanation": "Schemas let you organize tables into logical groups based on business domains. Schema-enabled lakehouses support schema-level permissions, allowing you to control access by business domain.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data analyst needs to quickly verify that a recent data transformation loaded the correct data into a lakehouse table. They want to run SQL queries without affecting the underlying data. What should they use?",
+      "options": {
+        "A": "Spark notebook with PySpark",
+        "B": "The SQL analytics endpoint",
+        "C": "Power BI Direct Lake report",
+        "D": "Data Factory pipeline"
+      },
+      "answer": "B",
+      "explanation": "The SQL analytics endpoint provides read-only T-SQL access to lakehouse tables. Data validation — verifying transformation results after loading or processing data — is one of its common use cases.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants Fabric IQ data agents to accurately answer natural language questions by querying their lakehouse. What data engineering practice is most important to enable this?",
+      "options": {
+        "A": "Store all data as raw files in the Files folder",
+        "B": "Create tables with clear schemas, consistent naming conventions, and descriptive column names",
+        "C": "Use only Spark notebooks for all queries",
+        "D": "Enable sensitivity labels on all tables"
+      },
+      "answer": "B",
+      "explanation": "Fabric IQ data agents translate natural language questions into SQL queries against lakehouse tables. The quality of answers depends directly on how well you structure and document your data — clear schemas, consistent naming, and descriptive columns are essential.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to create a reusable SQL query that joins the sales and product tables and filters for active products only. This curated dataset will be consumed by multiple report authors. What SQL object should they create?",
+      "options": {
+        "A": "A stored procedure",
+        "B": "A temporary table",
+        "C": "A SQL view",
+        "D": "A materialized view"
+      },
+      "answer": "C",
+      "explanation": "SQL views store reusable query logic. Views are useful for applying business rules, simplifying complex joins, or providing curated data for downstream consumers. The module specifically describes creating views to join tables and filter data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team has a lakehouse in Workspace A and needs to query tables from a lakehouse in Workspace B within a single Spark notebook. What feature enables this?",
+      "options": {
+        "A": "Data Factory pipelines",
+        "B": "Cross-workspace queries using the four-part namespace",
+        "C": "Lakehouse shortcuts",
+        "D": "Dataflows Gen2"
+      },
+      "answer": "B",
+      "explanation": "Spark notebooks support cross-workspace queries using the four-part namespace (workspace.lakehouse.schema.table) to join data across multiple lakehouses in a single query.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer uploads a CSV file with 15 columns to the Files folder, but one of the columns contains data that doesn't match the schema of the target Delta table. What happens when they try to load this data into the Delta table?",
+      "options": {
+        "A": "The mismatched column is silently dropped",
+        "B": "Delta Lake's schema enforcement prevents the write and raises an error",
+        "C": "The data is loaded with NULL values for the mismatched column",
+        "D": "A new column is automatically added to the table"
+      },
+      "answer": "B",
+      "explanation": "Delta Lake validates that the data you write matches the table schema through schema enforcement. This prevents corrupt or mismatched data from being written to the table.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to map an entire schema of Delta tables from a secondary lakehouse so that all referenced tables appear as local tables in the primary lakehouse. What should they create?",
+      "options": {
+        "A": "Individual table shortcuts for each table",
+        "B": "A schema shortcut",
+        "C": "A Data Factory pipeline",
+        "D": "A cross-workspace Spark query"
+      },
+      "answer": "B",
+      "explanation": "Schema shortcuts map an entire schema to a folder of Delta tables in another lakehouse or in Azure Data Lake Storage Gen2. All referenced tables appear as local tables within the schema.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Retail has been using separate systems for their data: an Azure SQL Database for structured sales transactions, a blob storage account for semi-structured application logs (JSON), and file shares for unstructured product images. This has led to data silos, duplication, and complex integration pipelines.\n\nThe company decides to migrate to Microsoft Fabric. The data engineering team creates a lakehouse and plans the following:\n1. Organize tables by business domain using schemas (sales, marketing, inventory)\n2. Upload raw JSON log files to the Files folder and transform them using Spark notebooks\n3. Load structured sales data directly into Delta tables using Data Factory pipelines\n4. Create shortcuts to reference product images from the existing Azure Data Lake Storage Gen2 account\n5. Set up row-level security so regional managers only see data from their region\n6. Build a Power BI semantic model with Direct Lake mode for real-time reporting\n7. Ensure tables have clear naming conventions so Fabric IQ data agents can serve natural language queries\n\nBased on this scenario, which of the following statements is INCORRECT?",
+      "options": {
+        "A": "The SQL analytics endpoint allows regional managers to query lakehouse tables in read-only mode while row-level security restricts their data visibility.",
+        "B": "Product image shortcuts in the lakehouse will create copies of the images in OneLake to improve query performance.",
+        "C": "Loading raw JSON files to the Files folder first and then transforming them with notebooks follows a valid staging pattern for lakehouse data ingestion.",
+        "D": "Direct Lake mode in Power BI will read data directly from Delta Lake Parquet files, ensuring reports always reflect the latest lakehouse data without importing it."
+      },
+      "answer": "B",
+      "explanation": "This is incorrect because shortcuts reference data in external storage WITHOUT copying it. They make data appear as a folder in the lakehouse but do not create copies. All other statements accurately describe lakehouse capabilities: the SQL analytics endpoint is read-only with RLS support (A), staging raw files before transformation is a valid pattern (C), and Direct Lake reads directly from Parquet files without importing (D).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer writes the following PySpark code in a Fabric notebook:\n\n```python\ndf = spark.read.format(\"csv\").option(\"header\", \"true\").load(\"Files/raw/sales_data.csv\")\ndf_filtered = df.filter(df[\"region\"] == \"West\")\ndf_filtered.write.format(\"delta\").mode(\"overwrite\").saveAsTable(\"sales.west_sales\")\n```\n\nWhat does this code accomplish in the lakehouse?",
+      "options": {
+        "A": "It reads a CSV file from the Tables folder, filters it, and saves it as a Parquet file in the Files folder.",
+        "B": "It reads a CSV file from the Files folder, filters for the 'West' region, and overwrites a Delta table named 'west_sales' in the 'sales' schema.",
+        "C": "It reads a Delta table, converts it to CSV, and uploads it to the Files folder.",
+        "D": "It reads a CSV file from the Files folder and appends filtered data to an existing Delta table."
+      },
+      "answer": "B",
+      "explanation": "The code reads a CSV file from Files/raw/sales_data.csv (the Files folder), filters rows where region equals 'West' using df.filter(), and writes the result as a Delta table named 'west_sales' under the 'sales' schema using overwrite mode. This is a typical ETL pattern: staging raw files, transforming with PySpark, and loading into Delta tables.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer runs the following Spark SQL query in a notebook:\n\n```sql\nSELECT * FROM workspace_b.lakehouse_inventory.dbo.products\nWHERE category = 'Electronics'\n```\n\nWhat feature of Fabric lakehouses does this query demonstrate?",
+      "options": {
+        "A": "A shortcut referencing external storage",
+        "B": "A cross-workspace query using the four-part namespace",
+        "C": "A query through the SQL analytics endpoint",
+        "D": "A Direct Lake query from Power BI"
+      },
+      "answer": "B",
+      "explanation": "The query uses the four-part namespace format (workspace.lakehouse.schema.table) — workspace_b.lakehouse_inventory.dbo.products — which enables cross-workspace queries. This allows joining data across multiple lakehouses in a single Spark notebook query.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer writes the following PySpark code:\n\n```python\ndf = spark.read.format(\"delta\").load(\"Tables/sales/transactions\")\ndf_agg = df.groupBy(\"product_id\").agg(\n    {\"quantity\": \"sum\", \"revenue\": \"sum\"}\n)\ndf_agg.write.format(\"delta\").mode(\"overwrite\").saveAsTable(\"sales.product_summary\")\n```\n\nWhich of the following best describes what this code does?",
+      "options": {
+        "A": "It reads raw CSV files, groups them by product_id, and saves the result as a Parquet file.",
+        "B": "It reads a Delta table, calculates total quantity and total revenue per product, and writes the aggregated result as a new Delta table in the sales schema.",
+        "C": "It creates a SQL view that aggregates product data for use in Power BI.",
+        "D": "It reads a Delta table and deletes all records that have duplicate product_id values."
+      },
+      "answer": "B",
+      "explanation": "The code reads from a Delta table (Tables/sales/transactions), performs a groupBy aggregation on product_id to calculate the sum of quantity and revenue, and writes the result as a Delta table named 'product_summary' in the 'sales' schema. This is a common transformation pattern — creating summary tables from detailed transactional data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer needs to validate data loaded into a lakehouse Delta table. They run the following T-SQL query through the SQL analytics endpoint:\n\n```sql\nSELECT region, COUNT(*) AS record_count, SUM(revenue) AS total_revenue\nFROM sales.transactions\nGROUP BY region\nHAVING COUNT(*) > 1000\nORDER BY total_revenue DESC;\n```\n\nThe engineer then tries to run the following statement:\n\n```sql\nDELETE FROM sales.transactions WHERE region = 'Unknown';\n```\n\nWhat will happen when the DELETE statement is executed?",
+      "options": {
+        "A": "The DELETE will succeed and remove all rows where region is 'Unknown'.",
+        "B": "The DELETE will fail because the SQL analytics endpoint only supports read-only access.",
+        "C": "The DELETE will succeed but only remove the rows from the SQL view, not the underlying data.",
+        "D": "The DELETE will be queued and executed during the next scheduled pipeline run."
+      },
+      "answer": "B",
+      "explanation": "The SQL analytics endpoint provides read-only access to lakehouse tables. You can run SELECT queries, create views, and apply security, but you cannot modify the underlying data. The SELECT query for validation would succeed, but the DELETE statement would fail because data modification is not supported through this endpoint.",
+      "difficulty": "Hard"
+    }
+  ]
+}
