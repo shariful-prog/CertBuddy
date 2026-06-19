@@ -1,0 +1,265 @@
+{
+  "module": "Practice Exam 3",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "In Microsoft Fabric, which statement correctly distinguishes a Warehouse from a Lakehouse SQL analytics endpoint regarding T-SQL data modification?",
+      "options": {
+        "A": "Both support full read/write T-SQL DML (INSERT, UPDATE, DELETE)",
+        "B": "The Warehouse supports full read/write T-SQL DML, while the Lakehouse SQL analytics endpoint is read-only for T-SQL",
+        "C": "The Lakehouse SQL analytics endpoint supports full DML, while the Warehouse is read-only",
+        "D": "Neither supports T-SQL; both require Spark for writes"
+      },
+      "answer": "B",
+      "explanation": "The Fabric Warehouse is a fully transactional T-SQL engine that supports INSERT, UPDATE, DELETE, and DDL. The Lakehouse SQL analytics endpoint is read-only over the Delta tables; you write to a Lakehouse via Spark, dataflows, or pipelines, not via T-SQL DML.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which T-SQL command is the recommended high-throughput method to ingest data from Parquet or CSV files in OneLake or Azure storage directly into a Fabric Warehouse table?",
+      "options": {
+        "A": "BULK INSERT",
+        "B": "COPY INTO",
+        "C": "OPENROWSET with BULK",
+        "D": "bcp utility"
+      },
+      "answer": "B",
+      "explanation": "COPY INTO is the recommended, high-throughput T-SQL command for ingesting Parquet and CSV files from storage into a Fabric Warehouse. It supports parallel loading, error file handling, and flexible authentication. BULK INSERT and the bcp utility are not supported for Fabric Warehouse ingestion.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which Fabric Warehouse security feature allows you to automatically obfuscate sensitive column values (such as email or credit card numbers) for unauthorized users without changing the stored data?",
+      "options": {
+        "A": "Row-level security (RLS)",
+        "B": "Column-level security (CLS)",
+        "C": "Dynamic data masking (DDM)",
+        "D": "Transparent data encryption (TDE)"
+      },
+      "answer": "C",
+      "explanation": "Dynamic data masking applies a masking rule (default, email, partial, or random) at query time so unauthorized users see obfuscated values while the underlying data is unchanged. RLS filters rows, CLS denies access to entire columns, and TDE encrypts data at rest.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When designing a star schema in a Fabric Warehouse, which load strategy is most appropriate for creating a new dimension table from a query against staging tables in a single, fully-logged-free, fast operation?",
+      "options": {
+        "A": "INSERT INTO ... SELECT row by row",
+        "B": "CREATE TABLE AS SELECT (CTAS)",
+        "C": "MERGE with OUTPUT",
+        "D": "SELECT INTO with a cursor"
+      },
+      "answer": "B",
+      "explanation": "CTAS (CREATE TABLE AS SELECT) creates and populates a new table from a SELECT in one optimized, parallelized operation, making it ideal for building dimension or fact tables from staging data. INSERT row-by-row is slow, and Fabric Warehouse does not support cursors in this pattern efficiently.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which T-SQL permission statement explicitly blocks a principal from accessing an object, taking precedence over any GRANT they may also hold in the Fabric Warehouse?",
+      "options": {
+        "A": "REVOKE",
+        "B": "DENY",
+        "C": "GRANT WITH GRANT OPTION",
+        "D": "ALTER ROLE ... DROP MEMBER"
+      },
+      "answer": "B",
+      "explanation": "DENY explicitly prohibits access and overrides any GRANT a principal receives directly or through group membership. REVOKE merely removes a previously granted or denied permission without explicitly blocking. The precedence order is DENY > GRANT.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "In a Fabric Warehouse, what is the primary purpose of using staging tables during a data load?",
+      "options": {
+        "A": "To permanently store historical snapshots for auditing",
+        "B": "To land raw data temporarily so it can be cleansed, transformed, and validated before loading into final star-schema tables",
+        "C": "To enforce row-level security on incoming data",
+        "D": "To compress data into Parquet before it reaches OneLake"
+      },
+      "answer": "B",
+      "explanation": "Staging tables provide a temporary landing zone where raw ingested data can be deduplicated, type-cast, validated, and transformed before being loaded (often via CTAS or INSERT...SELECT) into the production dimension and fact tables. This decouples ingestion from transformation.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which distribution and indexing characteristic is true of tables in a Fabric Warehouse compared to dedicated SQL pools in Azure Synapse?",
+      "options": {
+        "A": "Fabric Warehouse requires you to manually choose hash, round-robin, or replicated distribution",
+        "B": "Fabric Warehouse automatically manages data distribution and storage; you do not specify distribution or create traditional indexes",
+        "C": "Fabric Warehouse only supports clustered columnstore indexes that you must define explicitly",
+        "D": "Fabric Warehouse requires CREATE INDEX statements before querying any table"
+      },
+      "answer": "B",
+      "explanation": "Unlike Synapse dedicated SQL pools, the Fabric Warehouse abstracts physical distribution and storage. You do not specify distribution methods (hash/round-robin/replicated) or create traditional indexes; the engine optimizes storage in Delta-Parquet automatically.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "A Fabric Warehouse table needs only specific salary columns hidden from a group of analysts while leaving all rows visible. Which feature should you implement?",
+      "options": {
+        "A": "Row-level security with a security predicate",
+        "B": "Column-level security using GRANT/DENY on specific columns",
+        "C": "Dynamic data masking with a random() mask",
+        "D": "A separate filtered view with DENY SELECT on the base table"
+      },
+      "answer": "B",
+      "explanation": "Column-level security restricts access to specific columns by granting SELECT only on permitted columns or issuing DENY on the sensitive columns. This keeps all rows visible while blocking access to the salary columns entirely. RLS filters rows, and masking obfuscates rather than blocks.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A retail company ingests daily sales files into a Fabric Warehouse. Analysts query both the Warehouse and a Lakehouse in the same workspace. The team needs to JOIN a Warehouse dimension table with a Lakehouse fact table in a single T-SQL query without copying data. What is the recommended approach?",
+      "options": {
+        "A": "Export the Lakehouse table to CSV and import it into the Warehouse",
+        "B": "Create cross-database queries by adding both the Warehouse and the Lakehouse SQL analytics endpoint to the same query scope within the workspace",
+        "C": "Use a Spark notebook because T-SQL cannot join across a Warehouse and a Lakehouse",
+        "D": "Create a linked server connection between the two items"
+      },
+      "answer": "B",
+      "explanation": "Fabric supports cross-database (cross-item) T-SQL queries within a workspace. Because the Warehouse and the Lakehouse SQL analytics endpoint share the same SQL engine surface, you can write a three-part-name query joining tables across them without moving data. Linked servers are not used in Fabric.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer must load 200 GB of daily Parquet files into a Warehouse fact table with the fastest possible throughput and the ability to redirect malformed rows to an error location. Which COPY INTO configuration is most appropriate?",
+      "options": {
+        "A": "COPY INTO with FILE_TYPE = 'CSV' and no error handling",
+        "B": "COPY INTO with FILE_TYPE = 'PARQUET', appropriate credential, and the ERRORFILE option set to a storage location",
+        "C": "A series of single-row INSERT statements wrapped in a transaction",
+        "D": "CTAS reading directly from the Parquet path with TRY_CAST on every column"
+      },
+      "answer": "B",
+      "explanation": "COPY INTO with FILE_TYPE = 'PARQUET' provides high-throughput parallel ingestion, and the ERRORFILE (rejected rows) option redirects malformed rows to a specified storage location so the load can continue. This is purpose-built for large-scale bulk ingestion with error tolerance.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A healthcare analytics team stores patient records in a Fabric Warehouse. Regulations require that nurses only see patients from their assigned department, while administrators see all rows. The data must remain in a single shared table. What should you implement?",
+      "options": {
+        "A": "Dynamic data masking on the department column",
+        "B": "Row-level security using an inline table-valued function as a security predicate bound via a security policy",
+        "C": "Column-level security denying SELECT on the department column",
+        "D": "Separate tables per department with GRANT per nurse"
+      },
+      "answer": "B",
+      "explanation": "Row-level security restricts which rows a user can see based on a security predicate. You create an inline table-valued function that filters rows by the user's department and bind it with a CREATE SECURITY POLICY filter predicate. This keeps all data in one table while enforcing per-department visibility.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An enterprise is modeling a sales data warehouse in Fabric. The fact table will be very large and join to several dimension tables on surrogate keys. To optimize query performance for star-schema joins, what is the recommended modeling practice in a Fabric Warehouse?",
+      "options": {
+        "A": "Store all data in one wide denormalized table and avoid dimensions entirely",
+        "B": "Use integer surrogate keys on dimensions and reference them in the fact table, keeping the star schema clean and joins narrow",
+        "C": "Use GUID natural keys for all joins to guarantee uniqueness",
+        "D": "Create foreign key constraints that are enforced to speed up joins"
+      },
+      "answer": "B",
+      "explanation": "A clean star schema with narrow integer surrogate keys on dimensions and corresponding key columns in the fact table produces efficient joins and smaller storage. GUIDs are wide and degrade join performance. In Fabric Warehouse, foreign keys can be declared but are not enforced, so they do not accelerate joins.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer issued GRANT SELECT on a Warehouse table to the 'Analysts' role and separately issued DENY SELECT on the same table to user 'Bob', who is a member of 'Analysts'. What can Bob do?",
+      "options": {
+        "A": "Bob can SELECT because GRANT through the role wins",
+        "B": "Bob cannot SELECT because DENY overrides the role's GRANT",
+        "C": "Bob can SELECT only the unmasked columns",
+        "D": "The permissions conflict, so Bob gets an error on connection"
+      },
+      "answer": "B",
+      "explanation": "DENY always takes precedence over GRANT, whether the GRANT was direct or inherited through role membership. Because Bob has an explicit DENY SELECT, he cannot select from the table even though his role was granted SELECT.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs to perform an incremental upsert into a Warehouse dimension table each night: update existing rows that changed and insert new rows. Which T-SQL approach best implements this slowly-changing-dimension Type 1 load?",
+      "options": {
+        "A": "TRUNCATE the table and reload it fully every night",
+        "B": "Use a MERGE statement matching on the business key to UPDATE on match and INSERT when not matched",
+        "C": "Use COPY INTO which automatically performs upserts",
+        "D": "Use CTAS to overwrite the dimension each run"
+      },
+      "answer": "B",
+      "explanation": "A MERGE statement keyed on the business key updates changed rows WHEN MATCHED and inserts new rows WHEN NOT MATCHED, implementing an SCD Type 1 upsert in one statement. COPY INTO only appends/loads files and does not perform upserts; full reloads waste resources and break referential history.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A workspace has a Lakehouse with Delta tables and a Warehouse. A report author must build a Power BI model in Direct Lake mode over curated star-schema tables that combine cleansed Lakehouse data with Warehouse-managed conformed dimensions. Which design satisfies this with the least data duplication?",
+      "options": {
+        "A": "Copy the Warehouse dimensions into the Lakehouse as Delta tables, then build Direct Lake over the Lakehouse only",
+        "B": "Keep dimensions in the Warehouse and facts in the Lakehouse, and build the semantic model using cross-item references so Direct Lake reads the underlying Delta/Parquet",
+        "C": "Switch the report to Import mode and schedule hourly refresh",
+        "D": "Use DirectQuery against both items because Direct Lake cannot span items"
+      },
+      "answer": "B",
+      "explanation": "Both Warehouse and Lakehouse persist data as Delta/Parquet in OneLake, so a Direct Lake semantic model can reference tables across items without duplicating data. Keeping conformed dimensions in the Warehouse and facts in the Lakehouse avoids copying while still enabling Direct Lake performance.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "After enabling dynamic data masking on an Email column with the email() mask, a privileged ETL service principal reports it now sees masked values and the downstream merge fails. What is the correct remediation?",
+      "options": {
+        "A": "Remove the mask from the column permanently",
+        "B": "GRANT UNMASK to the service principal so it sees the actual values while other users remain masked",
+        "C": "Switch the column to column-level security instead",
+        "D": "Recreate the table without the masked column"
+      },
+      "answer": "B",
+      "explanation": "Dynamic data masking obscures values for all users without UNMASK permission. Granting UNMASK to the ETL service principal lets it read the real values needed for merges, while regular analysts continue to see masked output. Removing the mask defeats the security goal.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Given a Fabric Warehouse table Sales(Region NVARCHAR, Amount INT), what does this query return?\n\nSELECT Region, SUM(Amount) AS Total\nFROM Sales\nGROUP BY Region\nHAVING SUM(Amount) > 1000\nORDER BY Total DESC;",
+      "options": {
+        "A": "Every individual row where Amount > 1000",
+        "B": "One row per Region whose summed Amount exceeds 1000, sorted by Total descending",
+        "C": "All regions with their totals regardless of the 1000 threshold",
+        "D": "A syntax error because HAVING cannot use an aggregate"
+      },
+      "answer": "B",
+      "explanation": "GROUP BY aggregates rows per Region; HAVING filters the grouped results to those whose SUM(Amount) exceeds 1000 (HAVING is the correct clause for filtering on aggregates), and ORDER BY Total DESC sorts the surviving groups from highest to lowest total.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "What is the result of running this T-SQL in a Fabric Warehouse?\n\nSELECT COUNT(*) AS C1, COUNT(BonusAmount) AS C2\nFROM Employees;\n\n-- Employees has 10 rows; 3 rows have BonusAmount = NULL.",
+      "options": {
+        "A": "C1 = 10, C2 = 10",
+        "B": "C1 = 10, C2 = 7",
+        "C": "C1 = 7, C2 = 7",
+        "D": "C1 = 7, C2 = 10"
+      },
+      "answer": "B",
+      "explanation": "COUNT(*) counts all rows including those with NULLs, returning 10. COUNT(column) ignores NULLs, so COUNT(BonusAmount) counts only the 7 non-NULL bonus values. Hence C1 = 10 and C2 = 7.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A developer wants to create and populate a new aggregated table in one statement from staging data. Which statement is valid and does this correctly in a Fabric Warehouse?",
+      "options": {
+        "A": "SELECT Region, SUM(Amount) AS Total INTO dbo.SalesAgg FROM dbo.Staging GROUP BY Region;  -- using CREATE TABLE AS SELECT syntax",
+        "B": "CREATE TABLE dbo.SalesAgg AS SELECT Region, SUM(Amount) AS Total FROM dbo.Staging GROUP BY Region;",
+        "C": "CREATE TABLE dbo.SalesAgg (Region NVARCHAR, Total INT) SELECT ...;",
+        "D": "INSERT TABLE dbo.SalesAgg AS SELECT Region, SUM(Amount) FROM dbo.Staging;"
+      },
+      "answer": "B",
+      "explanation": "Fabric Warehouse supports CTAS using the syntax CREATE TABLE <name> AS SELECT ...;, which creates the table with inferred column types and populates it from the query in one operation. The other options use invalid or unsupported syntax for Fabric Warehouse CTAS.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Examine this masking definition in a Fabric Warehouse:\n\nALTER TABLE Customers\nALTER COLUMN Phone ADD MASKED WITH (FUNCTION = 'partial(0,\"XXX-XXX-\",4)');\n\nIf the stored value is '5551234567', what does an unprivileged user see?",
+      "options": {
+        "A": "5551234567",
+        "B": "XXX-XXX-4567",
+        "C": "XXX-XXX-5551",
+        "D": "5551234XXX"
+      },
+      "answer": "B",
+      "explanation": "The partial(prefix, padding, suffix) mask exposes the first 0 characters, replaces the middle with the literal padding 'XXX-XXX-', and exposes the last 4 characters. For '5551234567' that yields 'XXX-XXX-4567' for users without UNMASK permission.",
+      "difficulty": "Hard"
+    }
+  ]
+}

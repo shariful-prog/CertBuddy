@@ -1,0 +1,590 @@
+{
+  "module": "Get Started with Data Warehouses",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is the primary purpose of a data warehouse?",
+      "options": {
+        "A": "Handle day-to-day business transactions at high speed",
+        "B": "Centralize data from multiple sources for analytical queries and reporting",
+        "C": "Process real-time event streams from IoT devices",
+        "D": "Manage NoSQL document-based storage"
+      },
+      "answer": "B",
+      "explanation": "A data warehouse is a centralized, structured store designed specifically for analytical queries and reporting. Unlike operational databases (which handle day-to-day transactions), it consolidates data from multiple sources into a format optimized for analysis.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In dimensional modeling, what do fact tables primarily contain?",
+      "options": {
+        "A": "Descriptive information about entities such as customer names and addresses",
+        "B": "Unique key columns used to join dimension tables",
+        "C": "Numerical data (measures) to be analyzed, such as sales amounts",
+        "D": "Metadata about the warehouse schema and object definitions"
+      },
+      "answer": "C",
+      "explanation": "Fact tables contain the numerical data (measures) that you want to analyze. They typically have a large number of rows and are the primary source of data for analysis — for example, storing sales amounts per order.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a surrogate key in a dimension table?",
+      "options": {
+        "A": "A natural business key imported directly from the source system",
+        "B": "A unique integer identifier generated automatically by the database when a row is inserted",
+        "C": "A composite key made from combining multiple business columns",
+        "D": "A foreign key in the fact table pointing to the dimension table"
+      },
+      "answer": "B",
+      "explanation": "A surrogate key is a unique identifier for each row in the dimension table, typically an integer value generated automatically by the database. It is specific to the data warehouse and helps maintain consistency and accuracy within it.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the purpose of an alternate key in a dimension table?",
+      "options": {
+        "A": "To serve as a backup in case the surrogate key is deleted",
+        "B": "To maintain traceability between the warehouse and the source system",
+        "C": "To uniquely identify rows using a warehouse-generated integer",
+        "D": "To act as the primary key for the fact table"
+      },
+      "answer": "B",
+      "explanation": "An alternate key is a natural or business key from the source system (such as a product code or customer ID). Its purpose is to maintain traceability between the data warehouse and the originating source system.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the key structural difference between a star schema and a snowflake schema?",
+      "options": {
+        "A": "Star schemas support more fact tables than snowflake schemas",
+        "B": "Snowflake schemas further normalize dimension tables into sub-dimension tables",
+        "C": "Star schemas do not support foreign key relationships",
+        "D": "Snowflake schemas require fewer joins to query data"
+      },
+      "answer": "B",
+      "explanation": "In a snowflake schema, dimension tables are further normalized into separate sub-dimension tables. For example, a DimProduct table might split into DimProduct, DimCategory, and DimSupplier. A star schema keeps all dimension attributes in a single table, connecting directly to the fact table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "In what data format does Microsoft Fabric store data warehouse data on OneLake?",
+      "options": {
+        "A": "CSV (Comma-Separated Values)",
+        "B": "Avro",
+        "C": "Delta (Parquet)",
+        "D": "ORC (Optimized Row Columnar)"
+      },
+      "answer": "C",
+      "explanation": "Fabric warehouse data is stored in open Delta format on OneLake. This means other Fabric workloads can access the same data without duplication, and Power BI semantic models can read it directly via Direct Lake mode.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which capability is available in a Fabric data warehouse but NOT in the SQL analytics endpoint?",
+      "options": {
+        "A": "Reading data using SELECT statements",
+        "B": "Creating views and stored procedures",
+        "C": "Writing data using INSERT, UPDATE, DELETE, and MERGE",
+        "D": "Connecting via TDS (Tabular Data Stream) connections"
+      },
+      "answer": "C",
+      "explanation": "The SQL analytics endpoint is read-only — it does not support INSERT, UPDATE, DELETE, or MERGE (DML write operations). A Fabric warehouse supports full read/write T-SQL capabilities including all DML and DDL statements.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the COPY INTO command do in a Fabric data warehouse?",
+      "options": {
+        "A": "Creates a copy of a warehouse in a different workspace",
+        "B": "Bulk loads data from external files (CSV or Parquet) in Azure storage into warehouse tables",
+        "C": "Creates a zero-copy clone of a table referencing the same OneLake files",
+        "D": "Migrates an entire data warehouse to a different Fabric capacity"
+      },
+      "answer": "B",
+      "explanation": "COPY INTO is a T-SQL command used to bulk load data from external files (CSV, Parquet) stored in Azure storage into warehouse tables. It is the most efficient method for large-volume file-based ingestion.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a table clone in Microsoft Fabric?",
+      "options": {
+        "A": "A full copy of a table with all data physically duplicated in new storage",
+        "B": "A view that mirrors a table's structure and refreshes automatically",
+        "C": "A zero-copy copy that references the same underlying OneLake data files without duplicating them",
+        "D": "A backup of a table exported to Azure Blob Storage"
+      },
+      "answer": "C",
+      "explanation": "A table clone copies table metadata but still references the same underlying OneLake data files. No data is physically duplicated, which keeps storage costs low. It is useful for development, testing, and preserving data at a point in time.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "How long does Query insights retain historical query data in a Fabric data warehouse?",
+      "options": {
+        "A": "7 days",
+        "B": "14 days",
+        "C": "30 days",
+        "D": "90 days"
+      },
+      "answer": "C",
+      "explanation": "Query insights retains historical query data for 30 days. It provides a central location for historical query data and actionable performance information, helping you identify long-running queries and understand resource consumption.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which workspace role is required to run the KILL command to terminate long-running sessions in a Fabric warehouse?",
+      "options": {
+        "A": "Contributor",
+        "B": "Member",
+        "C": "Viewer",
+        "D": "Admin"
+      },
+      "answer": "D",
+      "explanation": "Only workspace Admins can run the KILL command to terminate long-running sessions. Members, Contributors, and Viewers can only see their own query results and cannot terminate other users' sessions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a slowly changing dimension (SCD)?",
+      "options": {
+        "A": "A dimension table that is created very slowly due to large data volumes",
+        "B": "A dimension that tracks changes to attributes over time, such as a customer's address changing",
+        "C": "A dimension table with only a few rows that rarely needs querying",
+        "D": "A dimension containing only numeric values that changes infrequently"
+      },
+      "answer": "B",
+      "explanation": "A slowly changing dimension tracks changes to dimension attributes over time, such as a customer's address or a product's price. They are important in data warehouses because they allow you to analyze historical data accurately and understand how things have changed.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In Fabric, how does Direct Lake mode for semantic models access warehouse data?",
+      "options": {
+        "A": "By importing data into Power BI memory on a scheduled refresh",
+        "B": "By reading data directly from OneLake Parquet files without copying",
+        "C": "By executing live T-SQL queries through the SQL analytics endpoint",
+        "D": "By caching data in Azure Redis Cache for fast retrieval"
+      },
+      "answer": "B",
+      "explanation": "Direct Lake mode reads data directly from OneLake Parquet files. Unlike Import mode, which copies data into Power BI memory, Direct Lake means reports always reflect the latest warehouse data without requiring scheduled refreshes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which T-SQL command is used to perform upsert operations (update existing rows or insert new ones) in a Fabric data warehouse?",
+      "options": {
+        "A": "UPSERT",
+        "B": "INSERT OR UPDATE",
+        "C": "MERGE",
+        "D": "SYNC"
+      },
+      "answer": "C",
+      "explanation": "The MERGE statement is the T-SQL command for upsert scenarios — it can update rows that already exist and insert rows that do not exist in a single operation. Fabric warehouse supports full MERGE with MATCHED and NOT MATCHED conditions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the item permission 'ReadAll' grant in a Fabric data warehouse?",
+      "options": {
+        "A": "Full administrative access to all items in the workspace",
+        "B": "The ability to read raw Parquet files in OneLake directly",
+        "C": "Permission to read all stored procedures and execute them",
+        "D": "Read access to all workspaces in the Fabric tenant"
+      },
+      "answer": "B",
+      "explanation": "The ReadAll item permission allows users to read raw Parquet files in OneLake directly. This is more permissive than ReadData, which only allows reading through tables and views in the warehouse.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A retail analytics team needs to analyze total monthly sales broken down by product category, store location, and customer region across hundreds of millions of rows. Which design pattern is most appropriate for this warehouse?",
+      "options": {
+        "A": "A fully normalized OLTP schema with many joined tables",
+        "B": "A star schema with a central FactSales table and surrounding dimension tables",
+        "C": "A single flat table containing all columns in one place",
+        "D": "A graph database with nodes representing sales events"
+      },
+      "answer": "B",
+      "explanation": "A star schema is the recommended design for analytical workloads. The fact table holds numerical sales data (measures), while dimension tables provide context (product category, store location, customer region). It minimizes joins and allows efficient aggregation at scale.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Your DimProduct dimension table is growing complex because supplier and category attributes are shared across many products. Normalizing these into separate tables would reduce redundancy. Which schema design should you use?",
+      "options": {
+        "A": "Star schema — keep all attributes in the single DimProduct table",
+        "B": "Snowflake schema — normalize into DimCategory and DimSupplier sub-dimension tables",
+        "C": "A single flat fact table that includes all product, category, and supplier columns",
+        "D": "A time dimension that tracks attribute changes for products"
+      },
+      "answer": "B",
+      "explanation": "When there are many levels or shared attributes across dimension tables, a snowflake schema is appropriate. DimProduct would contain keys to DimCategory and DimSupplier, reducing duplication and keeping attribute management centralized.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to load a 10 GB CSV file from Azure Blob Storage directly into a Fabric warehouse table with no transformation required. Which ingestion method is most appropriate?",
+      "options": {
+        "A": "OPENROWSET — query the file directly for ad hoc exploration",
+        "B": "Dataflows Gen2 — design a transformation pipeline",
+        "C": "COPY INTO — bulk load the CSV file into the warehouse table",
+        "D": "Cross-database query — reference the file from a lakehouse"
+      },
+      "answer": "C",
+      "explanation": "COPY INTO is the most appropriate method for bulk loading large external files (CSV, Parquet) from Azure storage directly into warehouse tables. It is fast, efficient, and designed for this exact scenario without requiring transformation logic.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A user reports they can connect to the warehouse SQL analytics endpoint but receive an error when trying to SELECT data from tables. Which permission is most likely missing?",
+      "options": {
+        "A": "ReadAll — to access raw Parquet files in OneLake",
+        "B": "Write — to insert and update warehouse data",
+        "C": "ReadData — to read data from tables and views in the warehouse",
+        "D": "Admin workspace role — to run all warehouse operations"
+      },
+      "answer": "C",
+      "explanation": "The ReadData permission allows users to read data from any table or view in the warehouse. Without it, the user can connect (Read permission allows the SQL connection) but cannot actually retrieve table data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Analysts on your team constantly write the same JOIN between FactSales and DimCustomer every time they query sales data. You want to standardize this logic so all analysts use a consistent, pre-joined dataset. What is the best approach?",
+      "options": {
+        "A": "Create a stored procedure that returns the joined data",
+        "B": "Create a view that encapsulates the JOIN logic and expose it as a reusable query object",
+        "C": "Copy the joined result into a new physical table daily",
+        "D": "Use OPENROWSET each time to query both tables simultaneously"
+      },
+      "answer": "B",
+      "explanation": "Views encapsulate JOIN logic, filters, and column selections into a reusable query that consumers can reference like a table. This standardizes access, eliminates repetition, and ensures consistency. Copilot and Fabric IQ data agents can also query views like tables.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer's warehouse model view is cluttered with staging tables, surrogate key columns, and ETL flags that analysts should never see. What is the correct course of action?",
+      "options": {
+        "A": "Drop the staging tables and ETL columns permanently from the warehouse",
+        "B": "Move the staging tables to a separate workspace",
+        "C": "Hide internal objects, rename technical columns to business-friendly names, and add descriptions",
+        "D": "Create a second warehouse with only the analyst-facing tables"
+      },
+      "answer": "C",
+      "explanation": "In the model view, you can hide internal objects (staging tables, surrogate key columns, ETL artifacts) and rename columns to business-friendly names. Adding descriptions also helps Copilot and data agents generate more accurate natural language queries.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A new business requirement states that regional sales managers should only see rows in the FactSales table for their own sales region. Which security feature should be implemented?",
+      "options": {
+        "A": "Dynamic data masking — to obscure region values from other managers",
+        "B": "Column-level security — to hide the Region column from unauthorized users",
+        "C": "Row-level security (RLS) — to restrict which rows each user can see based on their region",
+        "D": "Object-level security — to deny access to the entire FactSales table"
+      },
+      "answer": "C",
+      "explanation": "Row-level security (RLS) restricts which rows a user can see using WHERE clause predicates tied to the user's identity or role. This allows each regional manager to query FactSales but only see rows belonging to their region.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A financial services company requires that non-privileged warehouse users can still run queries against the customer table, but must see 'XXXX-XXXX' instead of real account numbers in query results. Which security feature is appropriate?",
+      "options": {
+        "A": "Row-level security — to hide all rows containing account numbers",
+        "B": "Column-level security — to deny any SELECT on the account number column",
+        "C": "Dynamic data masking — to show masked values to non-privileged users while real values remain stored",
+        "D": "Object-level security — to revoke access to the customer table entirely"
+      },
+      "answer": "C",
+      "explanation": "Dynamic data masking (DDM) masks sensitive data values (like account numbers) from non-privileged users in query results. The real values remain unchanged in storage — only the presentation is masked. Users can still run queries but see obscured output.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to test a breaking schema change on a production warehouse table (adding a NOT NULL column) without duplicating storage costs or affecting live data. What should they use?",
+      "options": {
+        "A": "Use INSERT INTO ... SELECT to copy the full table into a new test table",
+        "B": "Create a table clone that references the same OneLake files without duplicating data",
+        "C": "Export the table to CSV, modify it, and re-import after testing",
+        "D": "Create a linked service to a staging environment"
+      },
+      "answer": "B",
+      "explanation": "Table clones in Fabric create a zero-copy copy that references the same underlying OneLake data files — no data is physically duplicated. This makes them ideal for development and testing scenarios, including testing schema changes without affecting production or incurring extra storage costs.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A company's Power BI reports built on a Fabric warehouse currently use Import mode, resulting in stale data and growing storage costs from duplicate data copies. What is the most effective solution?",
+      "options": {
+        "A": "Switch to DirectQuery mode to run live SQL queries on every visual interaction",
+        "B": "Create a semantic model from the warehouse using Direct Lake mode",
+        "C": "Schedule more frequent data refreshes (every 15 minutes)",
+        "D": "Use OPENROWSET in Power BI Desktop to query warehouse files directly"
+      },
+      "answer": "B",
+      "explanation": "Direct Lake mode reads data directly from OneLake Parquet files without importing or duplicating data. Reports always reflect the latest warehouse data without scheduled refreshes, eliminating both the staleness problem and the storage overhead of Import mode.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer suspects certain queries are degrading warehouse performance. They need to identify which queries have been running the longest over the past two weeks. Which system view should they query?",
+      "options": {
+        "A": "queryinsights.exec_requests_history — for all completed SQL requests",
+        "B": "queryinsights.long_running_queries — for queries ranked by execution time",
+        "C": "queryinsights.exec_sessions_history — for completed session information",
+        "D": "sys.dm_exec_requests — for currently running queries in real time"
+      },
+      "answer": "B",
+      "explanation": "queryinsights.long_running_queries returns queries ranked by execution time. It is designed specifically for identifying the slowest queries over the historical retention window (30 days), making it the right tool for this performance investigation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data analyst in your organization needs read-only SQL access to lakehouse Delta tables but should not have access to the Fabric warehouse tables or the overall workspace. What is the most appropriate solution?",
+      "options": {
+        "A": "Grant the user ReadData permission on the warehouse",
+        "B": "Assign the user the Viewer workspace role",
+        "C": "Grant the user Read permission on the SQL analytics endpoint of the lakehouse",
+        "D": "Grant the user ReadAll permission on the warehouse to access OneLake files"
+      },
+      "answer": "C",
+      "explanation": "The SQL analytics endpoint provides read-only SQL access specifically to lakehouse Delta tables. Granting Read permission on the SQL analytics endpoint gives the analyst SQL access to the lakehouse data without exposing the warehouse or the full workspace.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Your organization needs to track how customers' shipping addresses have changed over the past five years, so that historical orders are always associated with the address at the time of purchase. Which dimension type enables this?",
+      "options": {
+        "A": "A time dimension with yearly date columns",
+        "B": "A fact table that includes the shipping address as a measure column",
+        "C": "A slowly changing dimension that tracks attribute changes over time",
+        "D": "A bridge table linking customers to multiple addresses"
+      },
+      "answer": "C",
+      "explanation": "Slowly changing dimensions (SCDs) track changes to dimension attributes over time, such as a customer's address or price changes. They ensure that historical data retains the correct attribute values at the time of each event, enabling accurate historical reporting.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data team wants Copilot and Fabric IQ data agents to generate more accurate SQL and natural language responses when querying the warehouse. What preparation step will have the greatest positive impact?",
+      "options": {
+        "A": "Grant Copilot the Admin workspace role for full access",
+        "B": "Add business-friendly column names and meaningful descriptions to tables and columns",
+        "C": "Create additional stored procedures for Copilot to call",
+        "D": "Increase the warehouse compute capacity to reduce query latency"
+      },
+      "answer": "B",
+      "explanation": "Copilot in Power BI and Fabric IQ data agents use table names, column names, and descriptions to interpret natural language questions and generate accurate SQL. Business-friendly names like 'Customer Region' with descriptive metadata produce far better AI results than technical or abbreviated names.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to load raw transactional data from multiple source systems into a warehouse, apply business rules and surrogate key lookups, and then populate final dimension and fact tables. What is the recommended warehouse pattern?",
+      "options": {
+        "A": "Load directly into fact and dimension tables using COPY INTO without staging",
+        "B": "Land raw data in staging tables first, then transform and load into final tables with key lookups",
+        "C": "Use OPENROWSET to query source files and insert simultaneously into fact tables",
+        "D": "Use cross-database querying from a lakehouse to populate warehouse tables"
+      },
+      "answer": "B",
+      "explanation": "The staging table pattern is a standard data warehouse approach: load raw data into staging tables first (keeping source data intact), then apply business rules and surrogate key lookups when inserting into final dimension and fact tables. This ensures traceability and data quality.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants to define a 'Total Revenue' calculation that all Power BI reports and dashboards use consistently, so that changing the formula only requires a single update. What should be created?",
+      "options": {
+        "A": "A stored procedure called CalculateTotalRevenue that each report calls",
+        "B": "A separate view per report that calculates revenue differently",
+        "C": "A DAX measure in the warehouse model view that defines the Total Revenue calculation",
+        "D": "A calculated column added to the FactSales table with the revenue formula"
+      },
+      "answer": "C",
+      "explanation": "A DAX measure in the warehouse model view becomes the single source of truth for a business calculation. All Power BI reports that use this measure will always apply the same formula. When the business changes the revenue definition, you update it in one place.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "In a Fabric warehouse star schema, a relationship is created between FactSales and DimCustomer through the CustomerKey column. What cardinality setting is appropriate for this relationship?",
+      "options": {
+        "A": "One-to-one — each fact row maps to exactly one unique customer row",
+        "B": "Many-to-many — multiple fact rows and multiple customer rows can match",
+        "C": "Many-to-one — many fact rows map to a single dimension row",
+        "D": "One-to-many — each dimension row maps to exactly one fact row"
+      },
+      "answer": "C",
+      "explanation": "In a star schema, fact-to-dimension relationships are typically many-to-one: many rows in FactSales (many sales) can map to a single row in DimCustomer (one customer). This is the standard cardinality setting for all fact-to-dimension table relationships.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to make a repeatable ETL transformation — specifically loading staging sales data into the final FactSales table — available for team members to execute without rewriting the SQL each time. What should be created?",
+      "options": {
+        "A": "A view that wraps the INSERT logic",
+        "B": "A stored procedure containing the T-SQL transformation logic",
+        "C": "A table clone that automatically updates with new data",
+        "D": "A DAX measure that executes the INSERT operation"
+      },
+      "answer": "B",
+      "explanation": "Stored procedures contain T-SQL logic that can be executed on demand. They are the appropriate object for repeatable transformation tasks like loading staging data into final tables, applying business rules, or performing scheduled ETL operations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to identify all queries currently running in a Fabric warehouse to troubleshoot a sudden performance slowdown in real time. Which approach is correct?",
+      "options": {
+        "A": "Query queryinsights.long_running_queries for historical data",
+        "B": "Query queryinsights.exec_requests_history for completed requests",
+        "C": "Query sys.dm_exec_requests with a WHERE status = 'running' filter",
+        "D": "Check the Fabric monitoring hub for capacity-level alerts"
+      },
+      "answer": "C",
+      "explanation": "sys.dm_exec_requests is a Dynamic Management View (DMV) that returns information about currently active requests (queries in flight). Filtering by status = 'running' and ordering by total_elapsed_time identifies the longest-running active queries in real time.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A company's data lakehouse contains a large DimProduct table in Delta format. The warehouse team wants to join this lakehouse table with their FactSales warehouse table in a single SQL query, without copying the lakehouse data into the warehouse. How should this be done?",
+      "options": {
+        "A": "Use COPY INTO to load DimProduct from the lakehouse into the warehouse first",
+        "B": "Create a Dataflow Gen2 pipeline to replicate the lakehouse data nightly",
+        "C": "Use cross-database querying with three-part naming: LakehouseName.dbo.DimProduct",
+        "D": "Export DimProduct to a CSV and reload it using OPENROWSET"
+      },
+      "answer": "C",
+      "explanation": "Fabric supports cross-database querying using three-part naming (database.schema.table). You can join warehouse tables with lakehouse tables in a single SQL query without copying any data, using syntax like MyLakehouse.dbo.DimProduct in your T-SQL.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "AdventureRetail is a mid-size retail chain building a modern analytics platform on Microsoft Fabric. Their data engineer, Sarah, has been given the following requirements:\n\n1. Load daily sales CSV files from Azure Blob Storage into the warehouse\n2. Design a star schema with FactSales, DimCustomer, DimProduct, and DimDate tables\n3. Ensure regional sales managers only see sales rows for their own region\n4. Mask sensitive customer email addresses from non-admin users while still allowing queries\n5. Ensure Power BI reports always reflect the latest warehouse data without scheduled refreshes\n6. Enable Copilot and data agents to generate accurate natural language queries\n7. Monitor historical query performance over the past 30 days\n\nWhich combination of features and approaches meets ALL of these requirements correctly?",
+      "options": {
+        "A": "COPY INTO for file loading | Star schema design | Row-level security for regional filtering | Dynamic data masking for email addresses | Direct Lake semantic model for Power BI | Business-friendly column names and descriptions for Copilot | Query insights for 30-day monitoring",
+        "B": "OPENROWSET for file loading | Snowflake schema design | Column-level security for regional filtering | Workspace Viewer role for email masking | Import mode for Power BI | Default technical column names | DMV-only monitoring",
+        "C": "Pipelines for file loading | Star schema design | Object-level security for regional filtering | No data masking applied | Scheduled Power BI refresh (hourly) | Technical column names | Query insights for monitoring",
+        "D": "COPY INTO for file loading | Flat single-table design | Dynamic data masking for regional filtering | Column-level security for emails | Live connection Power BI mode | No column descriptions | DMVs for monitoring"
+      },
+      "answer": "A",
+      "explanation": "Option A satisfies all requirements: COPY INTO bulk loads CSV files efficiently; a star schema supports the dimensional model; RLS restricts row visibility by region; DDM masks email values without blocking queries; Direct Lake mode gives always-fresh Power BI data with no refresh overhead; business-friendly names and descriptions maximize Copilot accuracy; and Query insights provides 30-day historical query monitoring. Options B, C, and D each fail on multiple requirements (wrong security feature for the requirement, wrong Power BI mode, or missing email masking).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "What type of warehouse object does the following T-SQL create, and what is its primary purpose?\n\nCREATE TABLE dbo.FactSales (\n    SalesKey    INT           NOT NULL,\n    CustomerKey INT           NOT NULL,\n    SalesAmount DECIMAL(10,2) NOT NULL,\n    Quantity    INT           NOT NULL\n);",
+      "options": {
+        "A": "A dimension table that stores descriptive customer and product attributes",
+        "B": "A fact table that stores numerical measures (sales amounts and quantities) for analysis",
+        "C": "A staging table used as a temporary holding area during ETL processing",
+        "D": "A view that aggregates sales data across multiple dimension tables"
+      },
+      "answer": "B",
+      "explanation": "The table is named FactSales and contains numerical measure columns (SalesAmount, Quantity) along with foreign key columns (CustomerKey, SalesKey). These characteristics identify it as a fact table — the primary source of quantitative data for analysis in a dimensional model.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "In the following COPY INTO statement, what is the effect of specifying FIRSTROW = 2?\n\nCOPY INTO dbo.Region\nFROM 'https://mystorageaccount.blob.core.windows.net/data/Region.csv'\nWITH (\n    FILE_TYPE = 'CSV',\n    FIRSTROW = 2\n);",
+      "options": {
+        "A": "Load exactly 2 rows from the CSV file and stop",
+        "B": "Skip the first row (header row) and begin loading data from row 2 onwards",
+        "C": "Load data starting from the second partition of the CSV file",
+        "D": "Duplicate the first row twice before loading into the table"
+      },
+      "answer": "B",
+      "explanation": "FIRSTROW = 2 tells COPY INTO to skip row 1 (typically the header row containing column names in a CSV file) and start loading actual data from row 2. Without this setting, the header row would be loaded as a data row, causing type mismatches.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "What does the following T-SQL statement create, and what is the storage behavior?\n\nCREATE TABLE dbo.Employee AS CLONE OF dbo.EmployeeUSA;",
+      "options": {
+        "A": "A full physical copy of EmployeeUSA with all data duplicated into new storage files",
+        "B": "A view that dynamically mirrors EmployeeUSA and refreshes on every query",
+        "C": "A zero-copy table clone that references the same underlying OneLake data files as EmployeeUSA",
+        "D": "A backup of EmployeeUSA exported to Azure Blob Storage for disaster recovery"
+      },
+      "answer": "C",
+      "explanation": "CREATE TABLE ... AS CLONE OF creates a table clone in Fabric. It copies table metadata but does not duplicate the underlying OneLake data files — both the original and the clone reference the same files. Storage costs remain low because no data is physically copied.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "What does the following view accomplish when referenced by analysts or AI tools?\n\nCREATE VIEW dbo.vw_SalesByRegion AS\nSELECT c.Region,\n       SUM(f.SalesAmount) AS TotalSales,\n       COUNT(f.OrderID)   AS OrderCount\nFROM dbo.FactSales AS f\nINNER JOIN dbo.DimCustomer AS c ON f.CustomerKey = c.CustomerKey\nGROUP BY c.Region;",
+      "options": {
+        "A": "Creates a stored procedure that aggregates total sales and must be called with EXEC",
+        "B": "Creates a reusable, queryable object that returns total sales amount and order count grouped by customer region",
+        "C": "Creates a new physical fact table combining sales and customer data",
+        "D": "Creates a time dimension that partitions sales data by region for historical analysis"
+      },
+      "answer": "B",
+      "explanation": "This creates a view (dbo.vw_SalesByRegion) that joins FactSales to DimCustomer, aggregates SalesAmount and OrderID counts, and groups results by Region. Analysts and AI tools (Copilot, Fabric IQ data agents) can query it like a table without writing the JOIN and aggregation logic themselves.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "What does the following DMV query return and when would you use it?\n\nSELECT request_id, session_id, start_time, total_elapsed_time\nFROM sys.dm_exec_requests\nWHERE status = 'running'\nORDER BY total_elapsed_time DESC;",
+      "options": {
+        "A": "Returns completed query history from the past 30 days, ordered by slowest first",
+        "B": "Returns currently active (running) queries in the warehouse, sorted longest-running first",
+        "C": "Returns all sessions including idle, sleeping, and waiting states",
+        "D": "Returns failed queries sorted by error code in descending order"
+      },
+      "answer": "B",
+      "explanation": "sys.dm_exec_requests is a Dynamic Management View that returns currently active requests. The WHERE status = 'running' filter restricts to in-flight queries, and ORDER BY total_elapsed_time DESC surfaces the longest-running ones first — ideal for real-time troubleshooting of active performance issues.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "What is the outcome of executing the following INSERT statement?\n\nINSERT INTO dbo.FactSales (SalesKey, CustomerKey, ProductKey, DateKey, SalesAmount, Quantity)\nSELECT s.OrderID, c.CustomerKey, p.ProductKey, d.DateKey, s.Amount, s.Qty\nFROM dbo.StgSales AS s\nINNER JOIN dbo.DimCustomer AS c ON s.CustomerID = c.CustomerAltKey\nINNER JOIN dbo.DimProduct  AS p ON s.ProductID  = p.ProductAltKey\nINNER JOIN dbo.DimDate     AS d ON s.OrderDate  = d.DateValue;",
+      "options": {
+        "A": "Loads raw CSV data directly from Azure Blob Storage into FactSales",
+        "B": "Creates DimCustomer, DimProduct, and DimDate tables from the staging data",
+        "C": "Loads rows from the staging table into FactSales, resolving surrogate keys by joining to dimension tables",
+        "D": "Creates a materialized view of the staging data joined to dimension tables"
+      },
+      "answer": "C",
+      "explanation": "This is the staging-to-fact load pattern. It reads from dbo.StgSales (staging) and joins to dimension tables using alternate keys (CustomerAltKey, ProductAltKey, DateValue) to look up the correct surrogate keys (CustomerKey, ProductKey, DateKey) before inserting into the final FactSales table.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A security administrator writes the following T-SQL statement. Which security feature does this implement, and what is its effect?\n\nDENY SELECT ON dbo.SensitivePayroll TO [AnalystRole];",
+      "options": {
+        "A": "Dynamic data masking — it masks payroll values for the AnalystRole",
+        "B": "Row-level security — it restricts which payroll rows AnalystRole can see",
+        "C": "Object-level security — it completely denies SELECT access to the SensitivePayroll table for AnalystRole",
+        "D": "Column-level security — it hides specific columns in the SensitivePayroll table from AnalystRole"
+      },
+      "answer": "C",
+      "explanation": "This implements object-level security by using DENY SELECT on the table object. Members of AnalystRole will receive an error if they try to SELECT from dbo.SensitivePayroll. This is different from CLS (which restricts specific columns) or DDM (which masks values but allows queries).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Review the following MERGE statement. What scenario is it designed to handle?\n\nMERGE INTO dbo.DimCustomer AS target\nUSING dbo.StgCustomer AS source\nON target.CustomerAltKey = source.CustomerID\nWHEN MATCHED THEN\n    UPDATE SET target.CustomerName = source.Name,\n               target.Region = source.Region\nWHEN NOT MATCHED THEN\n    INSERT (CustomerAltKey, CustomerName, Region)\n    VALUES (source.CustomerID, source.Name, source.Region);",
+      "options": {
+        "A": "Deletes all customers from DimCustomer that are not present in StgCustomer",
+        "B": "Creates a new staging table from the current DimCustomer data",
+        "C": "Performs an upsert: updates existing customers if matched, inserts new customers if not matched",
+        "D": "Creates a zero-copy clone of DimCustomer using StgCustomer as the source"
+      },
+      "answer": "C",
+      "explanation": "This MERGE statement performs a classic upsert operation: when a row in StgCustomer matches an existing row in DimCustomer (by CustomerAltKey), it updates the customer's name and region. When no match is found, it inserts the new customer record. This is a common pattern for keeping dimension tables current.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "What will the following cross-database query return in a Fabric workspace?\n\nSELECT w.ProductKey, w.SalesAmount, l.ProductName\nFROM MyWarehouse.dbo.FactSales AS w\nINNER JOIN MyLakehouse.dbo.DimProduct AS l\n    ON w.ProductKey = l.ProductKey;",
+      "options": {
+        "A": "An error because Fabric warehouses cannot query lakehouse tables",
+        "B": "Sales data joined with product names from the lakehouse, without copying any data",
+        "C": "Only warehouse data, because the lakehouse join clause will be silently ignored",
+        "D": "A full copy of the DimProduct lakehouse table loaded into the warehouse before the join executes"
+      },
+      "answer": "B",
+      "explanation": "Fabric supports cross-database querying using three-part naming (database.schema.table). This query joins the FactSales table from MyWarehouse with the DimProduct table from MyLakehouse in a single SQL statement. No data is copied — Fabric resolves the references at query time, making it an efficient way to combine warehouse and lakehouse data.",
+      "difficulty": "Hard"
+    }
+  ]
+}

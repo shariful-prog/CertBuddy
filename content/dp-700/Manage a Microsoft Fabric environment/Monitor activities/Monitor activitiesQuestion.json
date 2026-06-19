@@ -1,0 +1,577 @@
+{
+  "module": "Monitor activities",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is the primary purpose of monitoring in Microsoft Fabric?",
+      "options": {
+        "A": "To manage user licenses and assign workspace permissions",
+        "B": "To collect data about system activities to determine whether they succeed, fail, or degrade over time",
+        "C": "To deploy content between development and production environments",
+        "D": "To configure tenant-wide settings in the Fabric admin portal"
+      },
+      "answer": "B",
+      "explanation": "The module defines monitoring as the process of collecting data about your system's activities so you can determine whether those activities succeed, fail, or degrade over time.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How do you open the monitoring hub in the Microsoft Fabric portal?",
+      "options": {
+        "A": "Select 'Settings' from the top navigation bar",
+        "B": "Select 'Monitor' from the navigation pane on the left side of the Fabric portal",
+        "C": "Open the Fabric admin portal and navigate to the Monitoring section",
+        "D": "Navigate to workspace settings and select the Monitoring tab"
+      },
+      "answer": "B",
+      "explanation": "To open the monitoring hub, select 'Monitor' from the navigation pane on the left side of the Fabric portal. The main view displays a table of recent activities.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is NOT a valid activity status shown in the Fabric monitoring hub?",
+      "options": {
+        "A": "Succeeded",
+        "B": "Failed",
+        "C": "Pending review",
+        "D": "Cancelled"
+      },
+      "answer": "C",
+      "explanation": "The four valid statuses in the monitoring hub are Succeeded, Failed, In progress, and Cancelled. 'Pending review' is not a status described in the module.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the 'Cancelled' status in the monitoring hub indicate?",
+      "options": {
+        "A": "The activity encountered a fatal error and did not complete",
+        "B": "Someone or something stopped the activity before it finished",
+        "C": "The activity completed without any errors",
+        "D": "The activity is currently running and consuming resources"
+      },
+      "answer": "B",
+      "explanation": "Cancelled means someone or something stopped the activity before it finished. The module advises checking whether the cancellation was intentional or caused by a timeout or capacity limit.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How many days of run history does the monitoring hub retain for a specific activity?",
+      "options": {
+        "A": "7 days",
+        "B": "14 days",
+        "C": "30 days",
+        "D": "90 days"
+      },
+      "answer": "C",
+      "explanation": "The monitoring hub displays up to 30 days of run history for a specific item when you select 'Historical runs' via the More options menu.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What minimum workspace role is required to configure failure notifications on the monitoring hub's Schedule failures page?",
+      "options": {
+        "A": "Viewer",
+        "B": "Contributor",
+        "C": "Member",
+        "D": "Admin"
+      },
+      "answer": "B",
+      "explanation": "You need at least the Contributor role in the workspace to configure notifications on the Schedule failures page.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does enabling Workspace Monitoring create in your Fabric workspace?",
+      "options": {
+        "A": "A new deployment pipeline for log shipping",
+        "B": "An Eventhouse database that continuously collects diagnostic logs and metrics from your Fabric items",
+        "C": "A new Power BI report dashboard showing recent activity",
+        "D": "A Git repository connection for audit history"
+      },
+      "answer": "B",
+      "explanation": "When you enable workspace monitoring, Fabric creates an Eventhouse database in your workspace that continuously collects diagnostic logs and metrics from your Fabric items.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which query languages can be used to analyze data in the workspace monitoring Eventhouse database?",
+      "options": {
+        "A": "Python and R",
+        "B": "KQL or SQL",
+        "C": "DAX and M",
+        "D": "JSON and XML"
+      },
+      "answer": "B",
+      "explanation": "Workspace monitoring stores raw log data that you can query with KQL or SQL, enabling advanced analysis beyond what the monitoring hub's visual dashboard provides.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Under which tab in workspace settings is Workspace Monitoring enabled?",
+      "options": {
+        "A": "Git integration",
+        "B": "License",
+        "C": "Monitoring",
+        "D": "Security"
+      },
+      "answer": "C",
+      "explanation": "You enable workspace monitoring in the workspace settings under the Monitoring tab.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which optional monitoring hub column shows who or what triggered an activity run?",
+      "options": {
+        "A": "Duration",
+        "B": "Submitted by",
+        "C": "End time",
+        "D": "Location"
+      },
+      "answer": "B",
+      "explanation": "The 'Submitted by' column shows who or what triggered the activity — a user, a schedule, or a pipeline. It can be added via the Column options button.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the key difference between the monitoring hub and workspace monitoring?",
+      "options": {
+        "A": "The monitoring hub requires a Premium license; workspace monitoring does not",
+        "B": "The monitoring hub provides a visual dashboard for recent activities; workspace monitoring stores raw log data for advanced querying and analysis",
+        "C": "The monitoring hub shows only failed activities; workspace monitoring shows all activity types",
+        "D": "The monitoring hub is for Fabric admins only; workspace monitoring is accessible to all users"
+      },
+      "answer": "B",
+      "explanation": "The monitoring hub provides a real-time visual dashboard for recent activity. Workspace monitoring stores raw log data in an Eventhouse queryable with KQL or SQL, enabling advanced analysis like identifying long-term performance trends.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "According to the module, what does a semantic model refresh that regularly retries before succeeding indicate?",
+      "options": {
+        "A": "The semantic model is too large and needs to be partitioned",
+        "B": "A transient connectivity issue with the data source that may eventually become a full failure",
+        "C": "The workspace has exceeded its capacity limits",
+        "D": "The semantic model's data source has been permanently deleted"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'A model that retries three times before succeeding might indicate a transient issue. If the retry count increases over time, investigate the underlying data source connection before the refresh starts failing entirely.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What makes Eventstreams different from other Fabric activity types in terms of monitoring?",
+      "options": {
+        "A": "Eventstreams run once per day on a fixed schedule",
+        "B": "Eventstreams process batch data from OneLake files",
+        "C": "Eventstreams are designed to run continuously, ingesting real-time data rather than completing a run",
+        "D": "Eventstreams refresh semantic models on demand"
+      },
+      "answer": "C",
+      "explanation": "Unlike batch activities that run and complete, Eventstreams are designed to run continuously, ingesting real-time data from sources like IoT devices, Azure Event Hubs, and custom applications. You monitor throughput, latency, and error rates rather than individual run completions.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What monitoring hub filter would you apply to focus only on failed activities?",
+      "options": {
+        "A": "Item type filter set to 'Failed'",
+        "B": "Status filter set to 'Failed'",
+        "C": "Submitted by filter set to 'System'",
+        "D": "Location filter set to the target workspace"
+      },
+      "answer": "B",
+      "explanation": "The Status filter can be used to show only failed activities to focus on problems, or only succeeded activities to verify routine operations.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the module say about a data pipeline that shows 'Succeeded' overall?",
+      "options": {
+        "A": "If the pipeline shows Succeeded, all internal activities also succeeded without exception",
+        "B": "A pipeline might show as Succeeded even if an optional activity inside it failed — review individual activity statuses for the full picture",
+        "C": "A Succeeded pipeline means no retries occurred during execution",
+        "D": "Succeeded pipelines should be archived and removed from the monitoring hub view"
+      },
+      "answer": "B",
+      "explanation": "The module explicitly warns: 'A pipeline might show as succeeded even if an optional activity failed, so review individual activity statuses to get the full picture.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer at a retail company discovers that the product catalog in Power BI reports is missing new items. After investigation, a Dataflow Gen2 failed three days ago due to a source schema change, but nobody was notified. What monitoring practice would have detected this failure immediately?",
+      "options": {
+        "A": "Deploying a second copy of the dataflow as a failover",
+        "B": "Configuring failure notifications in the monitoring hub's Schedule failures page",
+        "C": "Enabling Git integration for the dataflow to track version changes",
+        "D": "Moving the dataflow to a capacity with more compute resources"
+      },
+      "answer": "B",
+      "explanation": "The module's introduction scenario describes exactly this problem. Configuring failure notifications through the Schedule failures page or Activator ensures the right people are notified immediately when a scheduled item fails.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Spark notebook that typically finishes in 4 minutes is now taking 20 minutes, but the monitoring hub still shows 'Succeeded.' Should this be investigated?",
+      "options": {
+        "A": "No — since the status shows Succeeded, the job completed without errors and needs no investigation",
+        "B": "Yes — a sudden increase in duration can indicate a data volume spike or resource contention even for successful runs",
+        "C": "No — duration increases are expected and normal for all Spark notebooks over time",
+        "D": "Yes — but only if the notebook has been running over 1 hour continuously"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'A sudden increase in duration, even for a succeeded activity, can indicate a data volume spike or resource contention.' Long-running Spark jobs might indicate a data skew problem or an inefficient transformation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data team needs to understand long-term performance trends across Fabric items, correlate failures across pipelines and notebooks over months, and build custom Real-Time dashboards. The monitoring hub does not support this. What should they enable?",
+      "options": {
+        "A": "Additional deployment pipeline stages for tracking",
+        "B": "Git integration for historical change tracking",
+        "C": "Workspace monitoring, which stores raw log data in an Eventhouse queryable with KQL or SQL",
+        "D": "The Microsoft Fabric Capacity Metrics app"
+      },
+      "answer": "C",
+      "explanation": "Unlike the monitoring hub which provides a visual dashboard for recent activity, workspace monitoring stores raw log data that you can query with KQL or SQL, enabling advanced analysis like identifying long-term performance trends and building custom dashboards.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to find the specific error details for a Dataflow Gen2 that failed yesterday. They can see the activity in the monitoring hub. What is the correct next step?",
+      "options": {
+        "A": "Delete and recreate the dataflow, then re-run it to generate new logs",
+        "B": "Hover over the activity name and select the 'View details' (i) symbol to open the details pane with error messages and codes",
+        "C": "Open the deployment pipeline to find the error in its stage history",
+        "D": "Contact Microsoft Support immediately with the workspace ID"
+      },
+      "answer": "B",
+      "explanation": "To investigate a specific activity, hover over the activity name and select the 'View details' symbol (i). The details pane shows start time, end time, duration, status details including error messages and error codes for failed activities.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to receive an email whenever a scheduled data pipeline fails. What is the correct tool and location for configuring this centrally for all scheduled items in a workspace?",
+      "options": {
+        "A": "Set up an Activator alert in Real-Time hub with an Email action",
+        "B": "Use the Schedule failures page in the monitoring hub and select 'Configure notifications'",
+        "C": "Configure a webhook notification in the Fabric admin portal",
+        "D": "Write a Spark notebook that sends email on detecting a failed status"
+      },
+      "answer": "B",
+      "explanation": "The monitoring hub's Schedule failures page lets you configure email alerts for scheduled item failures across your entire workspace from one place, rather than opening each item individually.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data team wants to automatically run a cleanup notebook whenever a critical data pipeline fails, removing partial data without waiting for a human response. Which tool should they use?",
+      "options": {
+        "A": "Schedule failures page — configure it to trigger notebook runs on failure",
+        "B": "Activator — set up an alert that runs a Fabric activity (the cleanup notebook) when a Job failed event occurs",
+        "C": "Deployment pipelines — chain the cleanup notebook as a post-deployment step",
+        "D": "Workspace monitoring — use KQL to trigger notebook execution"
+      },
+      "answer": "B",
+      "explanation": "Activator can trigger a 'Run a Fabric activity' action — such as running a cleanup notebook — when a specific job event occurs. This is identified in the module as Activator's key differentiator from Schedule failures notifications.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A semantic model that powers executive dashboards has been retrying its refresh 3-4 times before succeeding for two weeks. What should the data team do?",
+      "options": {
+        "A": "Ignore it since the model eventually succeeds and reports show current data",
+        "B": "Investigate the underlying data source connection, as increasing retry counts signal an emerging issue that may eventually cause full failure",
+        "C": "Delete the semantic model and recreate it from scratch",
+        "D": "Increase the capacity SKU to provide more compute resources"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'If the retry count increases over time, investigate the underlying data source connection before the refresh starts failing entirely.' Repeated retries are a warning sign, not something to ignore.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric workspace has 50 scheduled activities. A data engineer wants to see only failed Dataflow Gen2 activities. Which combination of monitoring hub features should they use?",
+      "options": {
+        "A": "Filter by Status = Failed AND Item type = Dataflow Gen2",
+        "B": "Open the Fabric admin portal and filter audit logs",
+        "C": "Use the Git status API to check for failed commits",
+        "D": "Enable workspace monitoring and write a KQL query for failed dataflows"
+      },
+      "answer": "A",
+      "explanation": "The monitoring hub provides both Status and Item type filters. Applying Status = Failed and Item type = Dataflow Gen2 narrows the view to exactly the activities of interest.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After noticing a dataflow failed today, a data engineer wants to know if this is an isolated incident or part of a recurring pattern. What monitoring hub feature provides this information?",
+      "options": {
+        "A": "The deployment pipeline's stage comparison view",
+        "B": "Historical runs — accessible via 'More options' (...) → 'Historical runs' for up to 30 days of run history",
+        "C": "The workspace monitoring Eventhouse recent logs",
+        "D": "The Fabric admin portal's audit log section"
+      },
+      "answer": "B",
+      "explanation": "Historical runs let you view up to 30 days of run history for a specific activity. The module says this helps answer questions like 'When did this start failing?' and 'Is it getting slower?'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineering team wants to set up Activator to post a Teams message to their on-call channel whenever a critical pipeline's job fails. What is the correct sequence of steps?",
+      "options": {
+        "A": "Fabric admin portal → Tenant settings → Create alert for Teams",
+        "B": "Real-Time hub → Fabric events → Job events → Set alert → Select 'Job failed' event → Choose workspace and item → Set Action = Teams",
+        "C": "Monitoring hub → Schedule failures → Configure Teams webhook",
+        "D": "Workspace settings → Monitoring → Enable Activator Teams alerts"
+      },
+      "answer": "B",
+      "explanation": "The module describes this exact flow: In Fabric, select Real-Time → Fabric events → Job events → Set alert. In the Monitor section, select source events and choose the event type (e.g., Microsoft.Fabric.JobEvents.ItemJobFailed), then select workspace and item. In the Action section, choose Teams.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team lead wants to establish a monitoring baseline for Dataflow Gen2 activities. According to the module, which metric should be tracked over time to detect anomalies?",
+      "options": {
+        "A": "Number of workspace users active during each run",
+        "B": "Duration of each run, compared to established expected ranges from historical data",
+        "C": "Number of Git commits made during the run period",
+        "D": "Capacity CU consumption only, not individual run metrics"
+      },
+      "answer": "B",
+      "explanation": "The module recommends tracking duration consistently over time and defining normal behavior. 'After collecting a few weeks of data, establish expected ranges for duration and resource consumption. A dataflow that usually takes 3–5 minutes but suddenly takes 15 is worth investigating.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization deploys Activator to automatically retry a data pipeline after a failure. The pipeline keeps failing because of a code error in the transformation logic. What does the module say about this approach?",
+      "options": {
+        "A": "Activator is ideal for this scenario and should be configured with unlimited retries",
+        "B": "Activator works best for automated coordination, not as a substitute for fixing root causes — retrying a job that fails due to a code error just fails again",
+        "C": "Activator should be replaced by deployment pipelines for automated retry logic",
+        "D": "The pipeline should be deleted and rebuilt before Activator can help"
+      },
+      "answer": "B",
+      "explanation": "The module explicitly states: 'If a job failed because of a code error or a source schema change, running a pipeline again just fails again. Activator works best for automated coordination... not as a substitute for investigating and fixing the root cause.'",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data team wants to be notified when a semantic model refresh succeeds (not just on failures), so downstream analysts know data is ready. Which tool supports reacting to job success events?",
+      "options": {
+        "A": "The Schedule failures page, which handles both success and failure events",
+        "B": "Activator, which can react to 'Job succeeded' events as well as failures",
+        "C": "Deployment pipelines, which track stage completion status",
+        "D": "The monitoring hub's filter by Status = Succeeded"
+      },
+      "answer": "B",
+      "explanation": "Activator connects to Fabric job events including 'Job succeeded.' The module's comparison table explicitly shows 'Notify analysts when a semantic model refresh succeeds' as an Activator use case.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to know whether a specific activity was started manually, by a schedule, or triggered by a parent pipeline. Which column should they add in the monitoring hub?",
+      "options": {
+        "A": "Duration",
+        "B": "Location",
+        "C": "Refresh type",
+        "D": "End time"
+      },
+      "answer": "C",
+      "explanation": "The 'Refresh type' column can be added via Column options and shows whether the run was scheduled, manual, or triggered by a pipeline.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineering manager needs to manage failure notification recipients for 30 scheduled items across a workspace from one central location. Which monitoring hub feature supports this?",
+      "options": {
+        "A": "The workspace monitoring Eventhouse database settings",
+        "B": "The Schedule failures page in the monitoring hub",
+        "C": "The Activator alert wizard in Real-Time hub for each item",
+        "D": "The Fabric admin portal monitoring section"
+      },
+      "answer": "B",
+      "explanation": "The monitoring hub includes a Schedule failures page where you can configure email alerts for scheduled item failures across your entire workspace from one place, rather than opening each item individually.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization needs to send a Teams notification to a specific channel when a Dataflow Gen2 fails, but wants to use the Schedule failures page. Is this possible?",
+      "options": {
+        "A": "Yes — the Schedule failures page supports both email and Teams notifications",
+        "B": "No — the Schedule failures page supports email alerts only; Teams notifications require Activator",
+        "C": "Yes — but only if the workspace is connected to Microsoft Teams via the admin portal",
+        "D": "No — Teams notifications are not supported in any Fabric monitoring feature"
+      },
+      "answer": "B",
+      "explanation": "The module's comparison table shows: 'Teams notification to a channel when a job fails → Use Activator.' The Schedule failures page is for email alerts. Teams notifications require Activator configured through Real-Time hub.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data pipeline in the monitoring hub has been showing 'In progress' for 3 hours. It normally completes in 15 minutes. What does the module suggest this might indicate?",
+      "options": {
+        "A": "The pipeline has been intentionally cancelled by an upstream process",
+        "B": "The activity might be stuck or processing an unusually large dataset",
+        "C": "The pipeline is automatically retrying failed sub-activities",
+        "D": "The workspace has run out of OneLake storage space"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'If an activity stays in the In progress state longer than expected, it might be stuck or processing an unusually large dataset.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data team has run their Fabric environment for 2 months and wants to set meaningful alert thresholds for dataflow durations. What monitoring practice does the module recommend?",
+      "options": {
+        "A": "Set all thresholds to 30 minutes regardless of the activity type",
+        "B": "Track metrics consistently over weeks to establish expected duration ranges, then set notifications and adjust thresholds periodically as volumes change",
+        "C": "Use only the default thresholds provided by Microsoft Fabric out of the box",
+        "D": "Never set duration-based thresholds; only alert on explicit failure statuses"
+      },
+      "answer": "B",
+      "explanation": "The module recommends: 'After collecting a few weeks of data, establish expected ranges for duration and resource consumption.' It also says to 'Review and adjust — As your data volumes and pipelines evolve, your baselines change too. Revisit your monitoring thresholds periodically.'",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to trigger a follow-up pipeline automatically when an upstream pipeline completes successfully. According to the module, which tool handles this use case?",
+      "options": {
+        "A": "Schedule failures page — configure it to trigger a pipeline on success events",
+        "B": "Activator — configure it to run a Fabric activity when a Job succeeded event occurs for the upstream pipeline",
+        "C": "Workspace monitoring — use KQL queries with auto-execute rules",
+        "D": "Git integration — use post-commit hooks to trigger the pipeline"
+      },
+      "answer": "B",
+      "explanation": "The module's comparison table explicitly lists 'Trigger a follow-up pipeline when an upstream job completes → Activator.' Activator can run a Fabric activity (including pipelines) in response to any job event.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "case-study",
+      "question": "Northwind Analytics is a retail company with a Fabric workspace containing these daily scheduled activities: (1) A Dataflow Gen2 ingests product data from an external API at 6 AM. (2) A Spark notebook transforms the product data at 7 AM. (3) A semantic model refreshes at 8 AM. (4) Power BI executive dashboards display the refreshed data. Recently, executives reported stale data. Investigation revealed the Dataflow Gen2 silently failed for 3 days due to an API schema change. The team needs a monitoring strategy that: detects failures immediately, provides historical trend analysis for long-term performance review, automatically triggers a cleanup notebook when the Dataflow Gen2 fails, and sends Teams alerts to the data engineering channel for any pipeline failure.\n\nWhich combination of Fabric monitoring tools best addresses all four requirements?",
+      "options": {
+        "A": "Use only the Schedule failures page for email alerts; manually check historical runs weekly; use deployment pipelines for cleanup logic",
+        "B": "Enable workspace monitoring for historical log data queryable by KQL; configure Activator from Real-Time hub to trigger the cleanup notebook on 'Job failed' for the dataflow and post Teams alerts for pipeline failures; use the monitoring hub for operational failure detection and 30-day historical runs",
+        "C": "Use only Activator for all monitoring needs; disable the monitoring hub to reduce noise; use Git for failure history tracking",
+        "D": "Configure daily manual reviews of the monitoring hub; send email alerts via Schedule failures page; avoid automation to prevent unintended pipeline triggering"
+      },
+      "answer": "B",
+      "explanation": "Requirement 1 (immediate failure detection) → Monitoring hub + Activator Teams alerts. Requirement 2 (historical trend analysis) → Workspace monitoring Eventhouse with KQL/SQL. Requirement 3 (cleanup notebook on failure) → Activator 'Run a Fabric activity' action on Job failed event. Requirement 4 (Teams alerts) → Activator Teams action. Option B addresses all four requirements using the specific tools described in the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer runs the following KQL query against the workspace monitoring Eventhouse:\n\nFabricActivityLogs\n| where Status == 'Failed'\n| where TimeGenerated >= ago(24h)\n| summarize FailureCount = count() by ItemType, ItemName\n| order by FailureCount desc\n\nWhat does this query return?",
+      "options": {
+        "A": "All successful activities from the last 24 hours, grouped by item type and name",
+        "B": "A count of failed activities in the last 24 hours, grouped by item type and name, sorted by most failures first",
+        "C": "The average duration of all activities in the last 7 days",
+        "D": "The list of workspace users who submitted jobs in the last 24 hours"
+      },
+      "answer": "B",
+      "explanation": "The query filters to Status == 'Failed' within the last 24 hours (ago(24h)), then groups and counts failures by ItemType and ItemName, ordering by failure count descending — providing a ranked view of the most problematic items.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Examine this KQL query:\n\nFabricActivityLogs\n| where ItemType == 'DataflowGen2'\n| where ItemName == 'ProductDataflow'\n| project TimeGenerated, Status, DurationMs\n| order by TimeGenerated desc\n\nWhat is the primary purpose of this query?",
+      "options": {
+        "A": "Listing all Dataflow Gen2 item types available in the workspace",
+        "B": "Viewing the run history (timestamps, statuses, and durations) of a specific Dataflow Gen2 called 'ProductDataflow'",
+        "C": "Configuring failure notifications for the ProductDataflow item",
+        "D": "Checking whether the dataflow is connected to a Git repository"
+      },
+      "answer": "B",
+      "explanation": "This query filters workspace monitoring logs to a specific Dataflow Gen2 item by name and projects timestamp, status, and duration ordered from most recent — providing the same historical run analysis as the monitoring hub but through KQL for deeper inspection.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer writes this KQL query to investigate performance trends:\n\nFabricActivityLogs\n| where ItemName == 'NightlyTransformNotebook'\n| where Status == 'Succeeded'\n| extend DurationMinutes = DurationMs / 60000.0\n| summarize\n    AvgDuration = avg(DurationMinutes),\n    MaxDuration = max(DurationMinutes),\n    MinDuration = min(DurationMinutes)\n    by bin(TimeGenerated, 7d)\n| order by TimeGenerated asc\n\nWhich monitoring best practice does this query support?",
+      "options": {
+        "A": "Detecting which users submitted the most jobs per week",
+        "B": "Establishing a monitoring baseline by tracking average, max, and min duration over weekly intervals",
+        "C": "Identifying all failed activities across all item types in the workspace",
+        "D": "Monitoring capacity unit consumption for the notebook's compute"
+      },
+      "answer": "B",
+      "explanation": "This query computes weekly aggregates of duration statistics (avg, max, min) for a specific notebook — directly supporting the module's recommendation to 'establish expected ranges for duration' as part of building a monitoring baseline.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A monitoring engineer runs this KQL query:\n\nFabricActivityLogs\n| where Status == 'Failed'\n| where TimeGenerated >= ago(7d)\n| where ItemType in ('DataflowGen2', 'SparkNotebook')\n| project TimeGenerated, ItemName, ItemType, ErrorMessage\n| order by TimeGenerated desc\n\nWhich monitoring hub filter combination would return equivalent results in the UI?",
+      "options": {
+        "A": "Status = In Progress; Item type = All",
+        "B": "Status = Failed; Item type = Dataflow Gen2 and Notebook; date range = last 7 days",
+        "C": "Status = Cancelled; Item type = All item types",
+        "D": "Status = Failed; Item type = Semantic Model only"
+      },
+      "answer": "B",
+      "explanation": "The KQL query filters to Status = Failed, within the last 7 days, for DataflowGen2 and SparkNotebook item types — the equivalent of applying Status = Failed and Item type filters for those two types in the monitoring hub UI.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer writes this KQL query:\n\nFabricActivityLogs\n| where ItemName == 'SalesModelRefresh'\n| where Status in ('Succeeded', 'Failed')\n| summarize\n    RetrySuccesses = countif(Status == 'Succeeded' and PreviousAttempts > 0),\n    DirectSuccesses = countif(Status == 'Succeeded' and PreviousAttempts == 0),\n    Failures = countif(Status == 'Failed')\n    by bin(TimeGenerated, 1d)\n| order by TimeGenerated desc\n\nWhat monitoring problem is this query designed to detect?",
+      "options": {
+        "A": "Whether the semantic model is connected to the correct data source",
+        "B": "Whether the semantic model refresh is frequently retrying before succeeding — a sign of a transient connectivity issue",
+        "C": "The total number of workspace users currently viewing the related report",
+        "D": "Whether the model refresh duration exceeds a defined threshold"
+      },
+      "answer": "B",
+      "explanation": "By counting daily retried successes (PreviousAttempts > 0) alongside direct successes and failures, this query tracks the retry pattern the module warns about: 'A model that retries three times before succeeding might indicate a transient issue. If the retry count increases over time, investigate.'",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A monitoring engineer writes this KQL query:\n\nFabricActivityLogs\n| where TimeGenerated >= ago(30d)\n| summarize\n    TotalRuns = count(),\n    Failures = countif(Status == 'Failed'),\n    FailureRate = round(100.0 * countif(Status == 'Failed') / count(), 2)\n    by ItemName, ItemType\n| where FailureRate > 10\n| order by FailureRate desc\n\nWhat is the output of this query?",
+      "options": {
+        "A": "All activities with a duration greater than 10 minutes in the last 30 days",
+        "B": "Items where more than 10% of runs in the last 30 days have failed, sorted by highest failure rate",
+        "C": "Activities that failed more than 10 times total in the last 30 days",
+        "D": "Items where the success rate is above 10% across all runs"
+      },
+      "answer": "B",
+      "explanation": "The query computes a failure rate percentage (failures/total × 100) for each item over 30 days, then filters to items where this rate exceeds 10%, ordered by highest failure rate — identifying chronically unreliable activities for prioritized investigation.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data team monitors an Eventstream using this KQL query:\n\nEventstreamLogs\n| where TimeGenerated >= ago(1h)\n| summarize\n    AvgLatencyMs = avg(IngestionLatencyMs),\n    ErrorCount = countif(Status == 'Error'),\n    ThroughputEventsPerSec = sum(EventsIngested) / 3600.0\n\nAccording to the module, which key Eventstream monitoring metrics does this query measure?",
+      "options": {
+        "A": "Duration, retry count, and semantic model refresh rate",
+        "B": "Ingestion throughput, latency, and error count — the key Eventstream metrics described in the module",
+        "C": "Git commit frequency and deployment pipeline stage counts",
+        "D": "Workspace user activity and capacity unit consumption"
+      },
+      "answer": "B",
+      "explanation": "The module states that for Eventstreams, the key metrics to monitor are 'ingestion throughput, latency, and error rates.' This query directly measures all three: throughput (events per second), latency (average ingestion latency), and errors (error count).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer runs this KQL query to compare two time windows:\n\nlet baseline = FabricActivityLogs\n    | where ItemName == 'MorningETL'\n    | where TimeGenerated between (ago(14d) .. ago(7d))\n    | summarize BaselineAvgMin = avg(DurationMs) / 60000.0;\n\nlet current = FabricActivityLogs\n    | where ItemName == 'MorningETL'\n    | where TimeGenerated >= ago(7d)\n    | summarize CurrentAvgMin = avg(DurationMs) / 60000.0;\n\nbaseline\n| join current on $left.$table == $right.$table\n| extend DegradationPct = round(100.0 * (CurrentAvgMin - BaselineAvgMin) / BaselineAvgMin, 1)\n\nWhat monitoring concern does this query address?",
+      "options": {
+        "A": "Whether the ETL pipeline has been cancelled by a user in the last 7 days",
+        "B": "Whether recent average run duration has degraded compared to the prior week baseline, expressed as a percentage",
+        "C": "Whether the ETL pipeline is currently in the 'In progress' state",
+        "D": "Whether the pipeline's workspace monitoring is enabled"
+      },
+      "answer": "B",
+      "explanation": "This query computes average duration for the prior week (baseline) and the current week (current), then calculates the percentage change. This directly implements the module's recommendation to 'Compare durations across runs' to detect slowdowns over time.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer adds the 'Refresh type' column to the monitoring hub view. A Dataflow Gen2 activity shows 'Refresh type: Via Pipeline' for a failed run. What does this tell the engineer about the failure?",
+      "options": {
+        "A": "The dataflow was triggered manually by an individual user",
+        "B": "The dataflow ran as a step within a parent data pipeline orchestration, not directly on its own schedule",
+        "C": "The dataflow failed due to a capacity unit throttle",
+        "D": "The dataflow is connected to a Git branch named 'Pipeline'"
+      },
+      "answer": "B",
+      "explanation": "'Via Pipeline' as the Refresh type means the dataflow was triggered as part of a parent data pipeline orchestration. This helps the engineer identify whether the failure is isolated to the dataflow itself or part of a larger pipeline failure that needs investigation at the parent pipeline level.",
+      "difficulty": "Medium"
+    }
+  ]
+}

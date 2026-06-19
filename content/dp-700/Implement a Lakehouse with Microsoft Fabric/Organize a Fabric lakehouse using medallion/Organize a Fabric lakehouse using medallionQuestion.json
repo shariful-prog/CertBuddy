@@ -1,0 +1,403 @@
+{
+  "module": "Organize a Fabric lakehouse using medallion",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "How many progressive layers make up the standard medallion architecture?",
+      "options": {"A": "Two", "B": "Three", "C": "Four", "D": "Five"},
+      "answer": "B",
+      "explanation": "The medallion architecture organizes a lakehouse into three progressive layers: bronze, silver, and gold, creating a clear path from raw ingestion to analytics-ready data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which medallion layer is the raw landing zone that stores data in its original format without modification?",
+      "options": {"A": "Bronze", "B": "Silver", "C": "Gold", "D": "Platinum"},
+      "answer": "A",
+      "explanation": "The bronze layer is the landing zone for all data (structured, semi-structured, or unstructured) and stores data in its original format without modification, so you can always reprocess from bronze if a transformation goes wrong.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which layer is described as a clean, integrated dataset intended for analysts and data scientists?",
+      "options": {"A": "Bronze", "B": "Silver", "C": "Gold", "D": "Landing"},
+      "answer": "B",
+      "explanation": "The silver layer is where data is validated and refined into a consistent, integrated dataset that analysts and data scientists can use directly, and that feeds the gold layer.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How is the gold layer typically modeled for business use?",
+      "options": {"A": "As a flat raw file dump", "B": "As a star schema with facts and dimensions", "C": "As an unstructured blob store", "D": "As a normalized OLTP schema"},
+      "answer": "B",
+      "explanation": "The gold layer is where data is modeled for business use, typically as a star schema with fact tables and dimension tables, ready for downstream consumers.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What underlying storage format do all Fabric lakehouse tables use, enabling change tracking for the medallion architecture?",
+      "options": {"A": "CSV", "B": "Parquet without a transaction log", "C": "Delta Lake (Delta format)", "D": "Avro"},
+      "answer": "C",
+      "explanation": "The medallion pattern maps naturally onto the Delta Lake-based Fabric lakehouse. All Fabric tables are stored in Delta format, which tracks every change as it happens.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In what mode does the SQL analytics endpoint operate over lakehouse Delta tables?",
+      "options": {"A": "Read-write", "B": "Read-only", "C": "Append-only", "D": "Write-only"},
+      "answer": "B",
+      "explanation": "The SQL analytics endpoint operates in read-only mode over lakehouse Delta tables, allowing T-SQL queries, saved functions, views, and SQL security without moving data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which mode do Power BI semantic models use to connect to the gold layer so reports always show current data without a separate refresh?",
+      "options": {"A": "Import mode", "B": "DirectQuery mode", "C": "Direct Lake mode", "D": "Live connection to a cube"},
+      "answer": "C",
+      "explanation": "Semantic models connect to the gold layer using Direct Lake mode, which reads directly from the Delta files in OneLake instead of importing a copy, so reports always show current data without a separate refresh step.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Are schemas enabled by default when you create a lakehouse in Fabric?",
+      "options": {"A": "No, you must manually enable them", "B": "Yes, schemas are enabled by default", "C": "Only when separate workspaces are used", "D": "Only in a Data Warehouse"},
+      "answer": "B",
+      "explanation": "Schemas are enabled by default when you create a lakehouse in Fabric. Creating schemas named bronze, silver, and gold keeps tables grouped by layer.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which OneLake feature references data already in cloud storage in place, keeping bronze in sync with the source without copying or ingestion code?",
+      "options": {"A": "A OneLake shortcut", "B": "A Dataflow Gen2", "C": "A materialized lake view", "D": "A deployment pipeline"},
+      "answer": "A",
+      "explanation": "If the source is already in cloud storage (OneLake, ADLS Gen2, Amazon S3, or Google Cloud Storage), a OneLake shortcut references it in place without copying and keeps the bronze layer in sync automatically, with no pipeline or ingestion code.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which built-in OneLake data access role grants all ReadAll users access to all data in a lakehouse?",
+      "options": {"A": "DefaultWriter", "B": "DefaultReader", "C": "AdminAll", "D": "PublicReader"},
+      "answer": "B",
+      "explanation": "Every lakehouse comes with a built-in DefaultReader role that grants all ReadAll users access to all data; you modify or delete it to restrict default access.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of these is a low-code transformation option in Fabric for straightforward operations like filtering, renaming columns, and changing data types?",
+      "options": {"A": "Notebooks", "B": "Dataflows (Gen2)", "C": "SQL analytics endpoint", "D": "Deployment pipelines"},
+      "answer": "B",
+      "explanation": "Dataflows (Gen2) are a low-code option that work well for straightforward transformations such as filtering, renaming columns, and changing data types without writing code.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which four workspace roles apply to everything in a Fabric workspace?",
+      "options": {"A": "Owner, Editor, Reader, Guest", "B": "Admin, Member, Contributor, Viewer", "C": "Reader, Writer, Approver, Auditor", "D": "Root, User, Service, Anonymous"},
+      "answer": "B",
+      "explanation": "Workspace roles are Admin, Member, Contributor, and Viewer, and they apply to everything in that workspace. Item permissions are more targeted than workspace roles.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What capability lets you version notebooks, pipelines, and lakehouse definitions together and revert if a change breaks a layer?",
+      "options": {"A": "OneLake shortcuts", "B": "Fabric Git integration", "C": "Direct Lake mode", "D": "DefaultReader role"},
+      "answer": "B",
+      "explanation": "Fabric's Git integration connects your workspace to a Git repository so notebooks, pipelines, and lakehouse definitions are versioned together; if a change breaks the silver layer you can revert to a previous commit.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which Fabric item can serve as the gold layer instead of a lakehouse when a team primarily works in SQL?",
+      "options": {"A": "A KQL database", "B": "A Fabric Data Warehouse", "C": "A Dataflow Gen2", "D": "A OneLake shortcut"},
+      "answer": "B",
+      "explanation": "If your team primarily works in SQL, a Fabric Data Warehouse can serve as the gold layer instead of a lakehouse.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the primary purpose of keeping data raw and unmodified in the bronze layer?",
+      "options": {"A": "To reduce storage costs", "B": "To allow reprocessing from bronze if a downstream transformation goes wrong", "C": "To make it queryable by Power BI directly", "D": "To enforce a star schema"},
+      "answer": "B",
+      "explanation": "Keeping data raw in bronze is intentional: if a downstream transformation goes wrong, you can always reprocess from bronze rather than going back to the source system.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A small early-stage team wants the simplest medallion setup to manage. Which lakehouse structuring option best fits their needs?",
+      "options": {"A": "Separate workspaces per layer", "B": "Separate lakehouses per layer", "C": "A single lakehouse with bronze, silver, and gold schemas", "D": "A separate Data Warehouse for each layer"},
+      "answer": "C",
+      "explanation": "A single lakehouse with schemas is simpler to manage and good for smaller teams or early-stage projects, while still letting you group tables by layer and set per-layer permissions.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization operates under strict regulatory requirements that demand the strongest possible isolation between medallion layers, including separate capacity. Which structuring approach should they choose?",
+      "options": {"A": "Single lakehouse with schemas", "B": "Separate lakehouses in one workspace", "C": "Separate workspaces per layer", "D": "OneLake shortcuts between layers"},
+      "answer": "C",
+      "explanation": "Separate workspaces provide the strongest isolation and are required for regulatory or compliance scenarios; each layer gets its own capacity, role assignments, and ownership boundary.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Source data for the bronze layer already resides in Amazon S3 and the team wants it to stay in sync automatically without writing any ingestion code. What should they use?",
+      "options": {"A": "A pipeline copy activity scheduled hourly", "B": "A OneLake shortcut to the S3 location", "C": "A Dataflow Gen2 import", "D": "A materialized lake view over S3"},
+      "answer": "B",
+      "explanation": "When the source is already in cloud storage such as Amazon S3, a OneLake shortcut references it in place without copying and keeps bronze in sync automatically, with no pipeline or ingestion code.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to load data into bronze from an on-premises source that is NOT in cloud storage. Which approach is appropriate?",
+      "options": {"A": "Only a OneLake shortcut", "B": "Pipelines, dataflows, or notebooks", "C": "A Power BI semantic model", "D": "The SQL analytics endpoint"},
+      "answer": "B",
+      "explanation": "For sources that are not already in cloud storage, you use pipelines, dataflows, or notebooks to load data into the bronze layer. Shortcuts are only for sources already in cloud storage.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs to apply complex custom calculations and API calls during a silver-layer transformation on a very large dataset. Which Fabric tool is the right choice?",
+      "options": {"A": "Dataflows (Gen2)", "B": "Notebooks", "C": "A regular SQL view", "D": "A Power BI semantic model"},
+      "answer": "B",
+      "explanation": "Notebooks give full control using Python or SQL and are the right choice for large datasets, complex logic, custom calculations, API calls, or complex joins that a dataflow can't handle.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to define a silver transformation in SQL and have Fabric automatically keep the resulting table current as new bronze data arrives, updating only changed rows. Which feature fits?",
+      "options": {"A": "A regular SQL view", "B": "A materialized lake view", "C": "A Dataflow Gen2 on a schedule", "D": "A OneLake shortcut"},
+      "answer": "B",
+      "explanation": "A materialized lake view lets you define a transformation in SQL; Fabric saves the results as a real table and, leveraging Delta change tracking, updates only the rows that changed when new bronze data arrives, with no scheduling needed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A transformation logic requires Python and cannot be expressed purely in SQL. What is the recommended alternative to a materialized lake view?",
+      "options": {"A": "A regular SQL view", "B": "A notebook", "C": "A semantic model", "D": "A deployment pipeline"},
+      "answer": "B",
+      "explanation": "The tradeoff of a materialized lake view is that the transformation must be expressible as SQL. If you need Python logic, use a notebook instead.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Analysts who only know SQL need direct access to query the modeled gold layer tables without anyone building a separate query layer. What should they use?",
+      "options": {"A": "The SQL analytics endpoint", "B": "A OneLake shortcut", "C": "A Dataflow Gen2", "D": "The bronze layer directly"},
+      "answer": "A",
+      "explanation": "The SQL analytics endpoint gives any team member with SQL knowledge direct read-only access to the gold layer, allowing T-SQL queries, saved functions, views, and SQL security without moving data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Power BI report author needs to build reports on the gold layer. According to the guidance, what should the report connect to?",
+      "options": {"A": "The raw Delta tables directly", "B": "The bronze schema", "C": "A Power BI semantic model", "D": "A OneLake shortcut"},
+      "answer": "C",
+      "explanation": "For Power BI users, the gold layer is surfaced through a semantic model. Power BI reports connect to the semantic model, not directly to the raw Delta tables.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Multiple teams share one workspace, but a gold-layer consumer must be able to query gold tables while being blocked from seeing bronze and silver, without creating separate workspaces. What should be configured?",
+      "options": {"A": "Workspace Viewer role for everyone", "B": "OneLake data access roles scoped to specific tables or folders", "C": "Deployment pipelines", "D": "A semantic model per team"},
+      "answer": "B",
+      "explanation": "OneLake data access roles give granular control within a single lakehouse without separate workspaces; you can scope a role to specific tables or folders so a gold consumer can query gold but not see bronze or silver.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data science team wants a flat, wide table optimized for feature engineering, while finance wants pre-aggregated summaries, both from the same refined data. What does the module say is possible?",
+      "options": {"A": "Only one gold model can exist per lakehouse", "B": "You can have multiple gold layers, same silver underneath, each modeled for a team's needs", "C": "Each team must maintain its own silver layer", "D": "Feature engineering must use bronze data directly"},
+      "answer": "B",
+      "explanation": "You can have multiple gold layers serving different audiences using the same silver data underneath, each gold layer modeled differently (for example, a wide table for data science and pre-aggregated summaries for finance).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An administrator wants to configure granular table-level security within a single lakehouse. Where do they start in the Fabric UI?",
+      "options": {"A": "Open the lakehouse and select Manage OneLake security", "B": "Open the workspace settings and assign Admin role", "C": "Open Power BI and create a semantic model", "D": "Open Git integration settings"},
+      "answer": "A",
+      "explanation": "To configure OneLake security, you open the lakehouse and select Manage OneLake security, then create a role, define its scope, and assign members.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs to promote their medallion workspace from development to test to production in a controlled sequence, comparing environments to catch differences before they reach production data. Which capability supports this?",
+      "options": {"A": "OneLake shortcuts", "B": "Deployment pipelines", "C": "Direct Lake mode", "D": "Materialized lake views"},
+      "answer": "B",
+      "explanation": "Deployment pipelines let you promote a medallion workspace from development to test to production in a controlled sequence, with the ability to compare environments and catch differences before they reach production.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A bad deployment corrupted a transformation in the silver layer. The team had connected the workspace to Git. What is the fastest path to recovery described in the content?",
+      "options": {"A": "Re-ingest from the source system manually", "B": "Revert to the previous commit", "C": "Delete the lakehouse and rebuild", "D": "Switch the semantic model to Import mode"},
+      "answer": "B",
+      "explanation": "With Git integration, if a transformation change breaks the silver layer, you can revert to the previous commit. Teams can also work in branches and merge through pull requests.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An architect wants clearer separation between layers and the ability to apply different permissions per layer, but does not need separate capacities or compliance-grade isolation. Which option best matches?",
+      "options": {"A": "Single lakehouse with schemas", "B": "Separate lakehouses", "C": "Separate workspaces", "D": "A single Data Warehouse"},
+      "answer": "B",
+      "explanation": "Separate lakehouses are best for clearer separation and applying different permissions per layer, sitting between a single lakehouse (simplicity) and separate workspaces (strongest isolation).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst complains that a Power BI report on the gold layer requires a manual refresh to see new data. The semantic model uses Direct Lake mode. What is the expected behavior?",
+      "options": {"A": "Direct Lake requires nightly imports", "B": "Reports always show current data without a separate refresh step", "C": "Direct Lake only works on bronze data", "D": "A scheduled dataflow must refresh the model"},
+      "answer": "B",
+      "explanation": "Direct Lake reads directly from the Delta files in OneLake instead of importing a copy, so reports always show current data without a separate refresh step.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Why does a materialized lake view avoid reprocessing the entire silver table each time new bronze data arrives?",
+      "options": {"A": "It caches query results in Power BI", "B": "Delta format tracks every change, so Fabric updates only the new rows", "C": "It reruns the query on every read like a regular view", "D": "It copies all data to a separate warehouse"},
+      "answer": "B",
+      "explanation": "Because all Fabric tables are stored in Delta format which tracks every change, Fabric checks the change log and updates only the new rows in silver, rather than reprocessing the whole table.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to grant a colleague access to one specific lakehouse without giving access to the entire workspace. What mechanism should they use?",
+      "options": {"A": "Workspace Admin role", "B": "Item permissions", "C": "DefaultReader modification only", "D": "A deployment pipeline"},
+      "answer": "B",
+      "explanation": "Item permissions are more targeted than workspace roles; you can share a specific lakehouse with a colleague without giving them access to the whole workspace.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "What is the key difference between a regular SQL view and a materialized lake view in Fabric?",
+      "options": {"A": "A regular view stores results as a table; a materialized view recomputes each query", "B": "A regular view reruns its query on every read; a materialized lake view saves results as a real table", "C": "Both store results identically", "D": "A materialized lake view can only read from gold"},
+      "answer": "B",
+      "explanation": "A regular view reruns its query every time someone queries it, whereas a materialized lake view saves the results as a real table and keeps it current automatically using Delta change tracking.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Which statement best reflects how the medallion layers map to audiences in the content?",
+      "options": {"A": "Bronze for business users, silver for engineers, gold for analysts", "B": "Bronze for data engineers, silver for analysts and data scientists, gold for business users", "C": "All layers serve business users equally", "D": "Gold for data engineers, bronze for business users"},
+      "answer": "B",
+      "explanation": "Bronze is the raw landing zone for data engineers, silver is a clean integrated dataset for analysts and data scientists, and gold is a dimensional model for business users.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization argues the three-layer pattern is too rigid and wants a domain-specific layer for one team beyond gold, plus a landing zone before bronze. According to the content, is this acceptable?",
+      "options": {"A": "No, exactly three layers are mandatory", "B": "Yes, the names and number of layers are flexible as long as each has a clear purpose and audience", "C": "Only if separate workspaces are used", "D": "Only the SQL endpoint allows this"},
+      "answer": "B",
+      "explanation": "The three-layer pattern is a starting point, not a strict rule. You can add a landing zone before bronze or a domain-specific layer beyond gold; the names and number of layers are flexible as long as each has a clear purpose and audience.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Typical silver-layer activities include which of the following?",
+      "options": {"A": "Storing data exactly as received with no changes", "B": "Combining sources, removing nulls, deduplicating, standardizing formats", "C": "Building Power BI dashboards", "D": "Defining workspace roles"},
+      "answer": "B",
+      "explanation": "Silver-layer transformations focus on quality and consistency: standardizing formats, removing nulls, deduplicating records, and joining data from multiple bronze sources into a unified dataset.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Which tools are used to build the gold layer, and what coordinates them?",
+      "options": {"A": "Only the SQL analytics endpoint, coordinated by Power BI", "B": "Dataflows, notebooks, or materialized lake views, coordinated by pipelines", "C": "Only shortcuts, coordinated by Git", "D": "Only semantic models, coordinated by deployment pipelines"},
+      "answer": "B",
+      "explanation": "You build the gold layer using the same tools as silver (dataflows, notebooks, or materialized lake views), coordinated by pipelines.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "To create a Power BI semantic model over the gold layer, what step does the content describe?",
+      "options": {"A": "Enable Direct Lake on bronze tables", "B": "Select New semantic model from the lakehouse and choose which gold tables to include", "C": "Run a CREATE SEMANTIC MODEL SQL statement", "D": "Add a OneLake shortcut to Power BI"},
+      "answer": "B",
+      "explanation": "To create a semantic model, you select New semantic model from the lakehouse and choose which gold layer tables to include.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Retail collects raw sales transactions, clickstream events, and product catalog updates in varied formats arriving at different rates. They plan a Fabric medallion lakehouse. Sales data already lives in ADLS Gen2 and must stay in sync without ingestion code. The silver layer needs a SQL-defined sales table that standardizes region casing, casts order dates, computes total_amount, drops rows with missing order IDs, and auto-updates as new bronze rows arrive. The finance team needs pre-aggregated gold summaries while data science needs a wide flat table, both from the same refined data. Analysts query gold via T-SQL and business users use Power BI reports that must always show current data. Finally, gold consumers in a shared workspace must be blocked from bronze and silver. Which combination of choices correctly satisfies ALL of these requirements?",
+      "options": {
+        "A": "OneLake shortcut for ADLS Gen2 sales; a materialized lake view for the silver sales table; multiple gold layers (wide for data science, summaries for finance); SQL analytics endpoint for analysts; a Direct Lake semantic model for Power BI; OneLake data access roles scoping gold consumers away from bronze/silver",
+        "B": "A scheduled pipeline copy for ADLS Gen2 sales; a regular SQL view for silver; a single gold layer reused by both teams; Import-mode Power BI; workspace Admin role for all gold consumers",
+        "C": "OneLake shortcut for sales; a notebook-only silver because SQL cannot standardize text; one gold layer; DirectQuery semantic model; separate workspaces are the only way to block bronze access",
+        "D": "Dataflow Gen2 to copy ADLS Gen2 sales nightly; materialized lake view in gold only; bronze queried directly by Power BI; DefaultReader left unchanged for all users"
+      },
+      "answer": "A",
+      "explanation": "A OneLake shortcut syncs cloud-storage sales without ingestion code; a materialized lake view defines the SQL transformation and auto-updates only changed rows via Delta tracking; multiple gold layers can serve finance and data science from the same silver; the SQL analytics endpoint serves analysts; a Direct Lake semantic model keeps Power BI reports current without manual refresh; and OneLake data access roles scope gold consumers away from bronze/silver within a shared workspace. The other options misuse tools (regular views recompute, Import/DirectQuery don't match Direct Lake's always-current behavior, leaving DefaultReader unchanged exposes all data, and SQL can standardize text so a notebook is not required).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Consider this Fabric SQL statement:\n\nCREATE MATERIALIZED LAKE VIEW silver.sales AS\nSELECT order_id, customer_id,\n       UPPER(TRIM(region)) AS region,\n       CAST(order_date AS DATE) AS order_date,\n       unit_price * quantity AS total_amount\nFROM bronze.sales\nWHERE order_id IS NOT NULL;\n\nWhich statement correctly describes its behavior?",
+      "options": {
+        "A": "It creates a regular view that reruns the query on every read", "B": "It saves results as a real silver table and, as new bronze rows arrive, Fabric updates only the changed rows automatically", "C": "It copies all bronze data into a Power BI semantic model", "D": "It requires a scheduled pipeline trigger to refresh"},
+      "answer": "B",
+      "explanation": "A materialized lake view saves results as a real table. Leveraging Delta change tracking, when new rows arrive in bronze Fabric updates only the new rows in silver automatically, with no schedule or trigger needed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "In the materialized lake view that builds silver.sales, what is the effect of the predicate WHERE order_id IS NOT NULL?",
+      "options": {"A": "It deduplicates rows by order_id", "B": "It filters out (removes) rows that have a missing order ID", "C": "It replaces null order IDs with zero", "D": "It joins bronze.sales to a dimension table"},
+      "answer": "B",
+      "explanation": "The WHERE order_id IS NOT NULL clause filters out rows with a missing order ID, a typical silver-layer data quality activity that produces a cleaner integrated dataset.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "Given input bronze.sales rows where region is '  east ' and '  East ', what value does the expression UPPER(TRIM(region)) AS region produce for both?",
+      "options": {"A": "'  east '", "B": "'East'", "C": "'EAST'", "D": "NULL"},
+      "answer": "C",
+      "explanation": "TRIM removes the surrounding spaces and UPPER converts to uppercase, so both '  east ' and '  East ' standardize to 'EAST', enforcing consistent formatting in the silver layer.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A PySpark notebook builds a silver table from bronze:\n\ndf = spark.read.table(\"bronze.orders\")\nsilver = (df.dropna(subset=[\"order_id\"])\n            .dropDuplicates([\"order_id\"]))\nsilver.write.format(\"delta\").mode(\"overwrite\").saveAsTable(\"silver.orders\")\n\nWhich silver-layer responsibilities does this code implement?",
+      "options": {"A": "Star-schema modeling and aggregation for business users", "B": "Removing nulls and deduplicating records to produce a clean dataset", "C": "Raw landing of unmodified source data", "D": "Creating a Power BI semantic model"},
+      "answer": "B",
+      "explanation": "dropna(subset=['order_id']) removes rows with null order IDs and dropDuplicates(['order_id']) deduplicates records. These are classic silver-layer data quality activities; the result is written back as a Delta table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A notebook builds a gold star-schema fact table:\n\ngold_fact = (spark.read.table(\"silver.sales\")\n  .groupBy(\"customer_id\", \"order_date\")\n  .agg(F.sum(\"total_amount\").alias(\"daily_total\")))\ngold_fact.write.format(\"delta\").mode(\"overwrite\").saveAsTable(\"gold.fact_sales\")\n\nWhich medallion principle does this best illustrate?",
+      "options": {"A": "Bronze stores raw data unmodified", "B": "Gold aggregates refined silver data to the granularity needed for reporting", "C": "Shortcuts keep data in sync with the source", "D": "DefaultReader grants ReadAll access"},
+      "answer": "B",
+      "explanation": "The gold layer is shaped for business consumption, often aggregated to the granularity needed for reporting. Here silver.sales is aggregated to a daily total per customer and written as a gold fact table, consistent with star-schema modeling.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Two SQL objects are defined over the same query:\n\n-- Object 1\nCREATE VIEW silver.v_sales AS SELECT ... FROM bronze.sales;\n-- Object 2\nCREATE MATERIALIZED LAKE VIEW silver.m_sales AS SELECT ... FROM bronze.sales;\n\nA report queries each object 1000 times a day. What is the key performance difference?",
+      "options": {"A": "Object 1 saves results as a table; Object 2 recomputes each time", "B": "Object 1 recomputes the query on every read; Object 2 serves a saved table kept current incrementally", "C": "Both recompute on every read", "D": "Both save results and never update"},
+      "answer": "B",
+      "explanation": "A regular view (Object 1) reruns its query every time it is queried. A materialized lake view (Object 2) saves results as a real table and updates only changed rows incrementally via Delta, so repeated queries read the saved table rather than recomputing.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A Spark SQL statement attempts to enforce silver-layer integration by joining two bronze sources:\n\nCREATE MATERIALIZED LAKE VIEW silver.customer_orders AS\nSELECT o.order_id, o.customer_id, c.customer_name, o.total_amount\nFROM bronze.orders o\nJOIN bronze.customers c ON o.customer_id = c.customer_id;\n\nWhich silver-layer goal does this primarily achieve?",
+      "options": {"A": "Storing raw unmodified data", "B": "Combining and integrating data from multiple bronze sources into a unified dataset", "C": "Serving a Power BI semantic model in Direct Lake", "D": "Applying workspace role security"},
+      "answer": "B",
+      "explanation": "Joining data from multiple bronze sources into a unified dataset is a core silver-layer activity, producing a consistent integrated dataset that analysts and data scientists can use directly.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A developer writes a gold transformation in SQL but the logic also needs to call an external REST API to enrich records mid-transformation. Which Fabric tool should implement this, and why?",
+      "options": {"A": "A materialized lake view, because it supports arbitrary Python", "B": "A notebook, because API calls and custom logic exceed what a SQL-expressible materialized view can do", "C": "A regular SQL view, because views can call APIs", "D": "A OneLake shortcut, because it transforms data in place"},
+      "answer": "B",
+      "explanation": "A materialized lake view's transformation must be expressible as SQL. API calls and custom logic require a notebook, which gives full control using Python or SQL for complex scenarios.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An administrator scripts OneLake security so that only gold tables are visible to a consumer role. Conceptually, the role is created, scoped to the gold tables/folders, and members assigned, while DefaultReader is restricted. What outcome does this achieve?",
+      "options": {"A": "Gold consumers can read gold but cannot see bronze or silver, within a single shared lakehouse", "B": "Gold consumers gain workspace Admin rights", "C": "All ReadAll users automatically see every layer", "D": "It forces every layer into a separate workspace"},
+      "answer": "A",
+      "explanation": "OneLake data access roles can be scoped to specific tables or folders so a gold consumer can query gold tables but cannot see bronze or silver, all within a single lakehouse. Restricting the built-in DefaultReader role prevents the default all-data access.",
+      "difficulty": "Hard"
+    }
+  ]
+}

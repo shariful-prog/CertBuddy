@@ -1,0 +1,642 @@
+{
+  "module": "Use Activator",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is Activator in Microsoft Fabric?",
+      "options": {
+        "A": "A batch data warehousing engine for historical reporting",
+        "B": "Microsoft Fabric's event detection and rules engine within Real-Time Intelligence",
+        "C": "A data modeling tool for creating star schemas",
+        "D": "A service for managing OneLake storage permissions"
+      },
+      "answer": "B",
+      "explanation": "Activator is described as Microsoft Fabric's event detection and rules engine within Real-Time Intelligence. It connects to real-time data, evaluates conditions through rules, and triggers actions when those conditions are met.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In what order do you use Activator to respond to streaming data?",
+      "options": {
+        "A": "Create actions, then connect data sources, then build rules",
+        "B": "Connect to real-time data sources, create rules to check conditions, then execute actions when conditions are met",
+        "C": "Build dashboards, then export data, then configure alerts",
+        "D": "Define properties, then run notebooks, then connect data sources"
+      },
+      "answer": "B",
+      "explanation": "To use Activator you first connect to real-time data sources, then create rules to check for specific conditions, and when those conditions are met Activator executes actions such as sending alerts or running workflows.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is an example action that Activator can execute when a rule condition is met?",
+      "options": {
+        "A": "Compiling a Spark job into a JAR file",
+        "B": "Sending email alerts, posting Teams messages, starting Power Automate flows, or running Fabric notebooks",
+        "C": "Provisioning a new capacity unit",
+        "D": "Encrypting OneLake files at rest"
+      },
+      "answer": "B",
+      "explanation": "When conditions are met, Activator executes actions like sending email alerts, posting Teams messages, starting Power Automate flows, or running Fabric notebooks.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In the Activator business objects model, what does an 'object' represent?",
+      "options": {
+        "A": "The data source connection string",
+        "B": "An individual instance of a real-world thing you want to monitor, such as Package001 or Package002",
+        "C": "A single column header in an eventstream",
+        "D": "The action triggered when a rule fires"
+      },
+      "answer": "B",
+      "explanation": "Objects represent individual instances of the real-world things you want to monitor, like Package001, Package002, and Package003.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In Activator's business objects model, what are 'properties'?",
+      "options": {
+        "A": "The actions that run when a rule fires",
+        "B": "The specific data attributes for each instance, such as Temperature, City, DeliveryState, and HoursInTransit",
+        "C": "The workspace permissions granted to users",
+        "D": "The historical window size used for summarization"
+      },
+      "answer": "B",
+      "explanation": "Properties represent the data attributes for each instance, such as Temperature, City, DeliveryState, and HoursInTransit.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What do 'events' contain in the Activator business objects model?",
+      "options": {
+        "A": "The rule definitions and action configurations",
+        "B": "The actual data values that flow in from your data sources",
+        "C": "The list of users authorized to view an object",
+        "D": "The summarization window and step size settings"
+      },
+      "answer": "B",
+      "explanation": "Events contain the actual data values that flow in from your data sources. Activator uses this incoming data to automatically update property values for each object.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which three sections of the rule Definition pane are configured before Actions?",
+      "options": {
+        "A": "Source, Schema, and Output",
+        "B": "Monitor, Condition, and Property filter",
+        "C": "Trigger, Schedule, and Notification",
+        "D": "Attribute, Window, and Step"
+      },
+      "answer": "B",
+      "explanation": "When creating a rule, the Definition pane opens with sections to configure. The module focuses on the first three - Monitor, Condition, and Property filter - and covers Actions separately.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is configured in the Monitor section of a rule?",
+      "options": {
+        "A": "The email recipients for the alert",
+        "B": "An Attribute (the specific property from your event data) and optional Summarization",
+        "C": "The Power Automate flow to start",
+        "D": "The number of objects allowed in the workspace"
+      },
+      "answer": "B",
+      "explanation": "The Monitor section directs Activator to watch specific data properties. You select an Attribute - the specific property from your event data - and can add Summarization.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which summarization option is described as useful for detecting sensor failures by tracking how many readings you are getting?",
+      "options": {
+        "A": "Average",
+        "B": "Total",
+        "C": "Count",
+        "D": "Minimum/Maximum"
+      },
+      "answer": "C",
+      "explanation": "Count tracks how many readings you are getting, which is useful for detecting sensor failures.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In summarization timing settings, what does 'Window size' control?",
+      "options": {
+        "A": "How often Activator recalculates the value",
+        "B": "How much historical data to include, for example 10 minutes of temperature readings",
+        "C": "The maximum number of filters allowed",
+        "D": "The threshold value that triggers the alert"
+      },
+      "answer": "B",
+      "explanation": "Window size controls how much historical data to include, such as 10 minutes of temperature readings. Step size controls how often to recalculate.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does 'Step size' control in summarization?",
+      "options": {
+        "A": "How much historical data to include",
+        "B": "How often to recalculate the value, for example every 5 minutes",
+        "C": "The number of objects created per stream",
+        "D": "The email frequency for alerts"
+      },
+      "answer": "B",
+      "explanation": "Step size controls how often to recalculate the value, for example every 5 minutes for near real-time monitoring.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How many filters can you combine in the Property filter section to create precise targeting?",
+      "options": {
+        "A": "Up to one",
+        "B": "Up to two",
+        "C": "Up to three",
+        "D": "Unlimited"
+      },
+      "answer": "C",
+      "explanation": "You can combine up to three filters in the Property filter section to create precise targeting of which events get evaluated.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How many types of actions does Activator offer?",
+      "options": {
+        "A": "Two",
+        "B": "Three",
+        "C": "Four",
+        "D": "Five"
+      },
+      "answer": "C",
+      "explanation": "Activator offers four types of actions: Email actions, Teams actions, Power Automate actions, and Fabric item actions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What do Fabric item actions execute?",
+      "options": {
+        "A": "Email messages to distribution lists",
+        "B": "Teams channel posts",
+        "C": "Data pipelines or notebooks for further processing and analysis",
+        "D": "SQL stored procedures in a warehouse"
+      },
+      "answer": "C",
+      "explanation": "Fabric item actions execute data pipelines or notebooks for other processing and analysis, used when you need to process more data or perform advanced analysis in response to conditions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Besides business objects, which alternative alerting approaches use the same Activator engine?",
+      "options": {
+        "A": "Dashboard alerts from Real-Time Dashboard visualizations, system event alerts, and query alerts from KQL Queryset results",
+        "B": "Power BI subscriptions and report bookmarks only",
+        "C": "Azure Monitor metric alerts and log analytics",
+        "D": "Data warehouse maintenance jobs and statistics updates"
+      },
+      "answer": "A",
+      "explanation": "The Activator engine also supports creating dashboard alerts from Real-Time Dashboard visualizations, system event alerts to monitor Fabric workspace activities and OneLake file operations, and query alerts from KQL Queryset results and visualizations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A logistics company transports temperature-sensitive medicines and must take immediate action when temperature variances threaten medicine safety. Which Fabric capability best matches this need?",
+      "options": {
+        "A": "A Lakehouse for batch storage of shipment archives",
+        "B": "Activator, to automatically evaluate conditions and trigger actions like alerting dispatch when problems occur",
+        "C": "A Dataflow Gen2 for nightly ETL of delivery records",
+        "D": "A semantic model for monthly delivery reporting"
+      },
+      "answer": "B",
+      "explanation": "Activator automatically evaluates conditions on real-time data and triggers actions such as alerting the dispatch team or starting workflows when temperature variances threaten medicine safety.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A manufacturing plant wants maintenance teams alerted automatically when equipment temperatures exceed safe operating ranges. Which approach aligns with Activator's intended use?",
+      "options": {
+        "A": "Manually reviewing daily batch reports for high temperatures",
+        "B": "Creating a rule that detects when temperature exceeds the safe range and triggers an alert action",
+        "C": "Exporting telemetry to a CSV and emailing it weekly",
+        "D": "Disabling sensors that report high values"
+      },
+      "answer": "B",
+      "explanation": "Activator is designed for scenarios where timely responses matter, such as automatically alerting maintenance teams when equipment temperatures exceed safe operating ranges through a rule that triggers an action.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A retail operations team wants inventory reorders triggered automatically when stock levels fall below a critical threshold in real time. How would Activator support this?",
+      "options": {
+        "A": "By scheduling a weekly stock report",
+        "B": "By creating a threshold rule on the stock level property that triggers an action when the value falls below the limit",
+        "C": "By manually checking dashboards each morning",
+        "D": "By archiving stock data to OneLake without alerting"
+      },
+      "answer": "B",
+      "explanation": "Activator can trigger inventory reorders when stock levels fall below critical thresholds. A threshold rule on the stock-level property fires an action automatically when the condition is met.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "You are configuring Activator as a destination for an eventstream carrying package data with fields PackageId, Temperature, City, DeliveryState, and HoursInTransit. You want a separate object created for each package. Which field should be the unique identifier?",
+      "options": {
+        "A": "Temperature",
+        "B": "City",
+        "C": "PackageId",
+        "D": "DeliveryState"
+      },
+      "answer": "C",
+      "explanation": "You choose the field that uniquely identifies the object. PackageId uniquely identifies each package, so it should be the unique identifier, letting Activator create separate package objects automatically.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After choosing PackageId as the unique identifier, which fields would you most likely select as properties to monitor temperature problems and transit duration?",
+      "options": {
+        "A": "PackageId and City",
+        "B": "Temperature and HoursInTransit",
+        "C": "DeliveryState and City",
+        "D": "PackageId only"
+      },
+      "answer": "B",
+      "explanation": "To monitor temperature problems and how long packages are in transit, you would select Temperature and HoursInTransit as the properties to evaluate.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "As new events arrive in the eventstream feeding Activator, what happens to objects and properties?",
+      "options": {
+        "A": "Objects are deleted and recreated on every event",
+        "B": "New events update existing object properties, new unique identifiers create new objects, and property values reflect the most recent data",
+        "C": "Only the first event is ever processed; later events are ignored",
+        "D": "Properties accumulate every historical value with no overwrite"
+      },
+      "answer": "B",
+      "explanation": "Once configured, new events update existing object properties, new unique identifiers automatically create new objects, and property values always reflect the most recent data from the stream.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Package sensors produce noisy readings with brief spikes when packages are moved. You want to catch sustained temperature problems while ignoring brief fluctuations. What should you configure in the Monitor section?",
+      "options": {
+        "A": "A Property filter on City",
+        "B": "Summarization using Average over a window, recalculated on a step interval",
+        "C": "A Teams action with immediate delivery",
+        "D": "Missing data detection only"
+      },
+      "answer": "B",
+      "explanation": "Summarization smooths out noise. Monitoring the Average temperature over a window (e.g., 10 minutes) updating on a step (e.g., every 5 minutes) catches sustained problems while ignoring brief fluctuations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You want Activator to fire only when a package's temperature stays above the safe limit for a sustained period rather than on every momentary spike. Which Occurrence setting should you choose?",
+      "options": {
+        "A": "Every time",
+        "B": "When it has been true for a duration (for example, stays high for 15 minutes)",
+        "C": "Once per object lifetime",
+        "D": "Only at midnight"
+      },
+      "answer": "B",
+      "explanation": "The 'When it has been true for' Occurrence option identifies persistent problems, such as a value staying high for 15 minutes, instead of alerting on every momentary reading.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs an immediate alert every single time a critical safety threshold is crossed, with no waiting period. Which Occurrence behavior fits?",
+      "options": {
+        "A": "When it has been true for 30 minutes",
+        "B": "Every time, for immediate alerts",
+        "C": "Range monitoring",
+        "D": "Count summarization"
+      },
+      "answer": "B",
+      "explanation": "The 'Every time' Occurrence behavior is used for immediate alerts, firing each time the condition is met.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You want to be notified when a temperature sensor stops reporting, indicating a possible sensor failure. Which detection approach in the Condition section should you use?",
+      "options": {
+        "A": "Threshold monitoring",
+        "B": "Change detection",
+        "C": "Range monitoring",
+        "D": "Missing data (No new events for more than a set duration)"
+      },
+      "answer": "D",
+      "explanation": "Missing data detection catches sensor failures, for example 'No new events for more than 30 minutes', signaling the sensor has stopped reporting.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You want an alert when a package's temperature crosses a fixed safety limit such as greater than 68 degrees F. Which Condition detection approach should you use?",
+      "options": {
+        "A": "Threshold monitoring",
+        "B": "Missing data",
+        "C": "Change detection",
+        "D": "Count summarization"
+      },
+      "answer": "A",
+      "explanation": "Threshold monitoring alerts when values cross your safety limits, such as Temperature is greater than 68 degrees F.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst wants to be alerted when a metric rises above its normal baseline trend rather than a fixed number. Which Condition detection approach matches?",
+      "options": {
+        "A": "Threshold monitoring",
+        "B": "Change detection (monitor trends, such as temperature increases above baseline)",
+        "C": "Missing data",
+        "D": "Property filter"
+      },
+      "answer": "B",
+      "explanation": "Change detection monitors trends, such as a temperature increasing above baseline, rather than against a fixed threshold value.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You only want a temperature rule to evaluate packages classified as medicine. How do you restrict which events are evaluated?",
+      "options": {
+        "A": "Delete all non-medicine objects from the eventstream",
+        "B": "Add a Property filter such as ColdChainType equals 'medicine'",
+        "C": "Change the summarization to Count",
+        "D": "Use a Power Automate action instead of a rule"
+      },
+      "answer": "B",
+      "explanation": "The Property filter section narrows which events get evaluated. A filter like ColdChainType equals 'medicine' limits the rule to cold chain medicine packages.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A dispatch team needs to discuss and coordinate a quick response among themselves the moment a problem occurs. Which Activator action type is most appropriate?",
+      "options": {
+        "A": "Email actions",
+        "B": "Teams actions",
+        "C": "Fabric item actions",
+        "D": "Power Automate actions"
+      },
+      "answer": "B",
+      "explanation": "Teams actions send immediate messages to channels or individuals and are used when you need quick responses and team coordination, letting teams discuss and coordinate their response.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A compliance officer needs comprehensive context about a flagged shipment and can respond within hours, not seconds. Which action type best fits?",
+      "options": {
+        "A": "Teams actions",
+        "B": "Email actions",
+        "C": "Power Automate actions",
+        "D": "Fabric item actions"
+      },
+      "answer": "B",
+      "explanation": "Email actions send detailed information that people can review and respond to within hours or days, ideal when the recipient needs comprehensive context and immediate response is not critical.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "When a rule fires, you need to automatically run a multi-step business process that updates a CRM, creates a ticket, and notifies a partner system. Which action type is designed for this?",
+      "options": {
+        "A": "Email actions",
+        "B": "Teams actions",
+        "C": "Power Automate actions",
+        "D": "Fabric item actions"
+      },
+      "answer": "C",
+      "explanation": "Power Automate actions execute multi-step business processes across different systems, automatically performing a series of tasks that would normally require manual steps across multiple applications.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "When a condition is detected, you want Activator to trigger heavier downstream data processing and advanced analysis on the incoming data. Which action type should you choose?",
+      "options": {
+        "A": "Email actions",
+        "B": "Fabric item actions that execute data pipelines or notebooks",
+        "C": "Teams actions",
+        "D": "Power Automate actions"
+      },
+      "answer": "B",
+      "explanation": "Fabric item actions execute data pipelines or notebooks for other processing and analysis, used when you need to process more data or perform advanced analysis in response to conditions.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer already has KQL Queryset results visualizing anomalies and wants alerts without building a full business objects model. What can they do?",
+      "options": {
+        "A": "Nothing; Activator only supports business objects",
+        "B": "Create query alerts from KQL Queryset results and visualizations using the same Activator engine",
+        "C": "Convert the queryset into an eventstream destination first",
+        "D": "Email the queryset manually on a schedule"
+      },
+      "answer": "B",
+      "explanation": "The Activator engine supports creating query alerts from KQL Queryset results and visualizations, an alternative approach that uses the same engine but interprets data differently than the business objects model.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An operations lead wants to be alerted about Fabric workspace activities and OneLake file operations. Which Activator capability supports this?",
+      "options": {
+        "A": "Business objects from eventstreams only",
+        "B": "System event alerts that monitor Fabric workspace activities and OneLake file operations",
+        "C": "Property filters on package objects",
+        "D": "Summarization with Count"
+      },
+      "answer": "B",
+      "explanation": "System event alerts monitor Fabric workspace activities and OneLake file operations, one of the alternative alerting approaches that use the Activator engine.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A user wants alerts directly from a Real-Time Dashboard visualization without configuring eventstream objects. What is the correct approach?",
+      "options": {
+        "A": "Create dashboard alerts directly from the Real-Time Dashboard visualizations",
+        "B": "Rebuild the dashboard as a Power BI report",
+        "C": "Export the visualization to PDF and email it",
+        "D": "Add a Property filter to the dashboard"
+      },
+      "answer": "A",
+      "explanation": "You can create dashboard alerts directly from Real-Time Dashboard visualizations, which use the same Activator engine as an alternative to the business objects model.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Before Activator can evaluate conditions and trigger actions, what must you do regarding your data?",
+      "options": {
+        "A": "Convert all data to Parquet",
+        "B": "Configure how Activator should interpret your data for rule evaluation, for example via business objects",
+        "C": "Disable summarization globally",
+        "D": "Grant every user admin rights"
+      },
+      "answer": "B",
+      "explanation": "Before evaluating conditions and triggering actions, you must configure how Activator should interpret your data for rule evaluation, and one approach is using business objects.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A supply chain manager wants to be notified when shipments deviate from planned routes or experience unexpected delays. How does this map to Activator concepts?",
+      "options": {
+        "A": "It cannot be done because Activator only handles temperature",
+        "B": "Create rules on shipment properties (route/delay) that trigger notification actions when deviations occur",
+        "C": "Use a semantic model to score deviations nightly",
+        "D": "Schedule a pipeline to email a daily report"
+      },
+      "answer": "B",
+      "explanation": "Activator supports supply chain scenarios where managers are notified when shipments deviate from planned routes or experience delays, accomplished by rules on shipment properties that trigger actions.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An IT operations team wants services automatically restarted when performance metrics indicate degradation. Which combination of Activator features supports this?",
+      "options": {
+        "A": "A rule detecting the degradation condition plus an action that runs an automated workflow or Fabric item",
+        "B": "Only an email action with no rule",
+        "C": "A Property filter with no Condition",
+        "D": "A dashboard alert that cannot trigger any action"
+      },
+      "answer": "A",
+      "explanation": "IT operations teams can automatically restart services when performance metrics indicate degradation. This requires a rule that detects the condition and an action (such as a Power Automate flow) that performs the automated remediation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A financial institution wants unusual transaction patterns flagged for immediate review. Which Activator pattern fits best?",
+      "options": {
+        "A": "A rule detecting unusual patterns that triggers a Teams or email action for immediate review",
+        "B": "Archiving transactions to OneLake without any rule",
+        "C": "Disabling alerts to reduce noise",
+        "D": "A static threshold that never changes regardless of data"
+      },
+      "answer": "A",
+      "explanation": "Financial institutions can flag unusual transaction patterns for immediate review. A rule detecting the pattern combined with a notification action delivers this immediate review capability.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "ColdChain Logistics ships temperature-sensitive medicines and streams sensor data (PackageId, Temperature, City, DeliveryState, HoursInTransit, ColdChainType) into a Fabric eventstream. They need: (1) a separate monitored entity per shipment, (2) alerts only on medicine shipments, (3) tolerance for brief temperature spikes when packages are handled, (4) escalation only when temperature stays unsafe for a sustained period, (5) immediate team coordination when triggered, and (6) automatic launch of a downstream notebook to recompute spoilage risk. Which end-to-end configuration satisfies ALL requirements?",
+      "options": {
+        "A": "Use PackageId as the unique identifier to create per-package objects; add a Property filter ColdChainType equals 'medicine'; in Monitor use Average summarization over a window with a step; in Condition use Threshold monitoring with Occurrence 'When it has been true for' a sustained duration; configure a Teams action plus a Fabric item action that runs the notebook",
+        "B": "Use Temperature as the unique identifier; no Property filter; Count summarization; Occurrence 'Every time'; only an email action",
+        "C": "Create no objects; rely solely on a dashboard alert; use Change detection with no filter; trigger only a Power Automate flow",
+        "D": "Use City as the unique identifier; filter on DeliveryState; Minimum summarization; Missing data condition; only a Fabric item action"
+      },
+      "answer": "A",
+      "explanation": "PackageId as the unique identifier creates a separate object per shipment (req 1). A Property filter ColdChainType equals 'medicine' restricts evaluation to medicine shipments (req 2). Average summarization over a window with a step smooths out brief spikes (req 3). Threshold monitoring with the 'When it has been true for' occurrence escalates only on sustained unsafe temperature (req 4). A Teams action enables immediate team coordination (req 5), and a Fabric item action runs the notebook for downstream spoilage analysis (req 6). Only option A satisfies every requirement.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Express the threshold condition for the rule 'alert when package temperature exceeds the safe limit of 68 degrees F.' Which expression matches the threshold monitoring approach described?",
+      "options": {
+        "A": "Temperature is greater than 68",
+        "B": "Temperature equals 'medicine'",
+        "C": "HoursInTransit is greater than 68",
+        "D": "No new events for more than 68"
+      },
+      "answer": "A",
+      "explanation": "Threshold monitoring alerts when values cross safety limits. The condition 'Temperature is greater than 68' (degrees F) matches the documented threshold example.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "You want a missing-data rule that fires when a sensor has not reported for over 30 minutes. Which condition expression represents this?",
+      "options": {
+        "A": "Temperature is greater than 30",
+        "B": "No new events for more than 30 minutes",
+        "C": "Average over 30 minutes is less than baseline",
+        "D": "City equals '30'"
+      },
+      "answer": "B",
+      "explanation": "Missing data detection catches sensor failures with a condition such as 'No new events for more than 30 minutes', firing when no events arrive within the specified duration.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A medicine cold-chain rule should evaluate only events where ColdChainType is medicine AND City is Seattle. Using the Property filter capability, which configuration is valid?",
+      "options": {
+        "A": "Combine two filters: ColdChainType equals 'medicine' and City equals 'Seattle'",
+        "B": "Combine four filters because only four are allowed",
+        "C": "Use a single filter that concatenates both fields into one string",
+        "D": "Filters cannot reference City, only Temperature"
+      },
+      "answer": "A",
+      "explanation": "The Property filter section lets you combine up to three filters. Combining ColdChainType equals 'medicine' with City equals 'Seattle' is a valid two-filter configuration for precise targeting.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "You configure Monitor to track the Average of Temperature over a 10-minute window recalculated every 5 minutes. Which pair of settings did you set?",
+      "options": {
+        "A": "Window size = 5 minutes, Step size = 10 minutes",
+        "B": "Window size = 10 minutes, Step size = 5 minutes",
+        "C": "Window size = 0, Step size = 0",
+        "D": "Window size and Step size are not used with Average"
+      },
+      "answer": "B",
+      "explanation": "Window size is how much historical data to include (10 minutes) and Step size is how often to recalculate (every 5 minutes). The example monitors the average over 10-minute windows updating every 5 minutes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "To detect possible sensor failures by counting how many readings arrive over a period, which summarization aggregation should the Monitor attribute use?",
+      "options": {
+        "A": "Average",
+        "B": "Total",
+        "C": "Count",
+        "D": "Maximum"
+      },
+      "answer": "C",
+      "explanation": "Count tracks how many readings you are getting and is specifically called out as useful for detecting sensor failures.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "A rule must trigger only when the summarized unsafe temperature persists for 15 minutes rather than on each evaluation. Which Occurrence setting encodes that logic?",
+      "options": {
+        "A": "Every time",
+        "B": "When it has been true for 15 minutes",
+        "C": "No new events for more than 15 minutes",
+        "D": "Total over 15 minutes"
+      },
+      "answer": "B",
+      "explanation": "The 'When it has been true for' occurrence identifies persistent problems, such as a condition staying true (high) for 15 minutes, instead of firing every time.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Map the requirement 'add up values when counting events rather than measuring a level' to the correct summarization function.",
+      "options": {
+        "A": "Average",
+        "B": "Minimum/Maximum",
+        "C": "Total",
+        "D": "Count"
+      },
+      "answer": "C",
+      "explanation": "Total adds up values when you are counting events rather than measuring levels, per the summarization options described.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "You need a rule that captures the extreme high temperature value within each evaluation window, since extremes matter most for spoilage. Which summarization should you select?",
+      "options": {
+        "A": "Average",
+        "B": "Maximum",
+        "C": "Count",
+        "D": "Total"
+      },
+      "answer": "B",
+      "explanation": "Minimum/Maximum summarization catches the extreme values that matter most. To capture the highest temperature in each window, select Maximum.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given the eventstream fields PackageId, Temperature, City, DeliveryState, HoursInTransit, you want one object per shipment with Temperature and HoursInTransit monitored. Which setup correctly maps unique identifier and properties?",
+      "options": {
+        "A": "Unique identifier = PackageId; properties = Temperature, HoursInTransit",
+        "B": "Unique identifier = Temperature; properties = PackageId, City",
+        "C": "Unique identifier = City; properties = DeliveryState only",
+        "D": "Unique identifier = HoursInTransit; properties = PackageId"
+      },
+      "answer": "A",
+      "explanation": "PackageId uniquely identifies each shipment, creating one object per package, and Temperature plus HoursInTransit are selected as the properties to monitor, exactly matching the documented example.",
+      "difficulty": "Medium"
+    }
+  ]
+}

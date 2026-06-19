@@ -1,0 +1,616 @@
+{
+  "module": "Create Real-Time Dashboards",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What type of data source do Real-Time Dashboards in Microsoft Fabric connect to in order to display automatically refreshing visualizations?",
+      "options": {
+        "A": "KQL databases in eventhouses",
+        "B": "SQL Server linked servers",
+        "C": "Excel workbooks stored in OneLake",
+        "D": "Power BI semantic models only"
+      },
+      "answer": "A",
+      "explanation": "Real-Time Dashboards connect to KQL databases in eventhouses and display visualizations that refresh automatically to show current data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How do Real-Time Dashboards differ from traditional reports?",
+      "options": {
+        "A": "They can only display a single static chart",
+        "B": "They show historical snapshots that never change",
+        "C": "They can be configured to refresh frequently to monitor changing conditions",
+        "D": "They require manual reload before any data updates appear"
+      },
+      "answer": "C",
+      "explanation": "Unlike traditional reports that show historical snapshots, Real-Time Dashboards can be configured to refresh frequently, enabling you to monitor changing conditions and respond to current information.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the fundamental building block that a Real-Time Dashboard is composed of?",
+      "options": {
+        "A": "Workspaces",
+        "B": "Tiles",
+        "C": "Pipelines",
+        "D": "Notebooks"
+      },
+      "answer": "B",
+      "explanation": "Each dashboard consists of one or more tiles, each displaying a real-time data visualization.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is displayed inside a dashboard tile?",
+      "options": {
+        "A": "The results of a KQL query",
+        "B": "A raw connection string",
+        "C": "The eventhouse configuration settings",
+        "D": "A list of all dashboard users"
+      },
+      "answer": "A",
+      "explanation": "A dashboard contains at least one tile, in which the results of a KQL query are displayed.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Under the 'Pass-through identity' authorization option, whose permissions are used when a person views the dashboard?",
+      "options": {
+        "A": "The dashboard creator's permissions",
+        "B": "The Fabric capacity administrator's permissions",
+        "C": "Each viewer's own permissions",
+        "D": "A shared service account's permissions"
+      },
+      "answer": "C",
+      "explanation": "With Pass-through identity, each person viewing the dashboard accesses data using their own permissions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Under the 'Dashboard editor's identity' authorization option, whose permissions are used to access the data?",
+      "options": {
+        "A": "Each viewer's own permissions",
+        "B": "The dashboard creator's permissions",
+        "C": "The eventhouse owner's permissions",
+        "D": "The workspace member's permissions"
+      },
+      "answer": "B",
+      "explanation": "With Dashboard editor's identity, everyone viewing the dashboard accesses data using the dashboard creator's permissions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "By default, how many pages does a Real-Time Dashboard have?",
+      "options": {
+        "A": "Zero",
+        "B": "One",
+        "C": "Three",
+        "D": "Unlimited"
+      },
+      "answer": "B",
+      "explanation": "By default, a Real-Time Dashboard has one page, but you can add more pages as containers for more tiles.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the primary purpose of adding multiple pages to a Real-Time Dashboard?",
+      "options": {
+        "A": "To increase the auto refresh rate automatically",
+        "B": "To organize related content into logical groups",
+        "C": "To bypass data source authorization",
+        "D": "To convert tiles into text tiles"
+      },
+      "answer": "B",
+      "explanation": "Pages act as containers for more tiles and help you organize related content into logical groups, such as separate pages for different data sources or subject areas.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What do parameters add to a Real-Time Dashboard?",
+      "options": {
+        "A": "Automatic creation of new eventhouses",
+        "B": "Flexibility by allowing users to filter the data displayed in tiles",
+        "C": "Permanent storage of historical snapshots",
+        "D": "The ability to write data back to the source table"
+      },
+      "answer": "B",
+      "explanation": "Parameters add flexibility to your dashboard by allowing users to filter the data displayed in tiles, such as viewing a specific time period or subset of data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How do you reference a parameter's variable name within a tile query?",
+      "options": {
+        "A": "Using an underscore prefix",
+        "B": "Using a dollar sign prefix",
+        "C": "Using double curly braces",
+        "D": "Using an at-sign prefix"
+      },
+      "answer": "A",
+      "explanation": "Each parameter has a variable name that you can reference in your tile queries using an underscore prefix.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "On what can parameter values be based?",
+      "options": {
+        "A": "Only on the current system clock",
+        "B": "Only on hard-coded numeric constants",
+        "C": "Specific text or the results of a query",
+        "D": "Only on the dashboard's refresh rate"
+      },
+      "answer": "C",
+      "explanation": "Parameter values can be based on specific text or on the results of a query.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the Auto refresh feature do for a Real-Time Dashboard?",
+      "options": {
+        "A": "It exports the dashboard to PDF on a schedule",
+        "B": "It automatically updates dashboard data without needing to manually reload the page",
+        "C": "It deletes stale tiles from the dashboard",
+        "D": "It rewrites the underlying KQL queries"
+      },
+      "answer": "B",
+      "explanation": "Auto refresh automatically updates your dashboard data without needing to manually reload the page.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Why might a dashboard editor set a minimum refresh rate?",
+      "options": {
+        "A": "To force all viewers to use pass-through identity",
+        "B": "To manage system performance and prevent users from refreshing too frequently",
+        "C": "To disable auto refresh entirely",
+        "D": "To add additional pages automatically"
+      },
+      "answer": "B",
+      "explanation": "Editors can set a minimum refresh rate to manage system performance and prevent users from refreshing too frequently.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the main benefit of defining base queries in a Real-Time Dashboard?",
+      "options": {
+        "A": "They increase the maximum number of dashboard pages",
+        "B": "They avoid duplicating the same logic across multiple tiles",
+        "C": "They automatically grant editor permissions to all viewers",
+        "D": "They convert KQL queries into SQL"
+      },
+      "answer": "B",
+      "explanation": "Base queries retrieve a general set of records relevant for multiple tiles and help you avoid duplicating the same logic across multiple tiles by referencing one base query.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In addition to data visualization tiles, what other kind of tile can you add to provide additional information on a dashboard?",
+      "options": {
+        "A": "Text tiles",
+        "B": "Pipeline tiles",
+        "C": "Notebook tiles",
+        "D": "Storage tiles"
+      },
+      "answer": "A",
+      "explanation": "You can also add text tiles to provide additional information on a dashboard.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst at a bike sharing company needs to monitor current bike availability and dock capacity so operations staff can redistribute bikes to high-demand areas during the day. Which Microsoft Fabric capability is most appropriate for monitoring this constantly changing data?",
+      "options": {
+        "A": "A traditional paginated report refreshed nightly",
+        "B": "A Real-Time Dashboard connected to a KQL database",
+        "C": "A static Excel export emailed each morning",
+        "D": "A data pipeline that loads a warehouse once per day"
+      },
+      "answer": "B",
+      "explanation": "Real-Time Dashboards connect to KQL databases in eventhouses and refresh automatically, making them ideal for monitoring changing conditions like current bike availability and dock capacity.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "You are building a Real-Time Dashboard but have not yet created an eventhouse or KQL database. What must you have before you can create the dashboard's data source?",
+      "options": {
+        "A": "A Power BI Premium capacity",
+        "B": "A source of real-time data, such as a KQL database in an eventhouse",
+        "C": "A published semantic model",
+        "D": "A Dataflow Gen2"
+      },
+      "answer": "B",
+      "explanation": "To create a Real-Time Dashboard you need a source of real-time data, such as a KQL database in an eventhouse, which the dashboard's data source references.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "Your organization requires that each dashboard viewer only see data they are individually authorized to access at the source. Which data source authorization option should you configure?",
+      "options": {
+        "A": "Dashboard editor's identity",
+        "B": "Pass-through identity",
+        "C": "Service principal authentication",
+        "D": "Anonymous access"
+      },
+      "answer": "B",
+      "explanation": "Pass-through identity ensures each person viewing the dashboard accesses data using their own permissions, enforcing per-viewer authorization.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team lead wants all dashboard viewers to see the same complete dataset regardless of their individual source permissions, relying on the creator's access. Which authorization option meets this requirement?",
+      "options": {
+        "A": "Pass-through identity",
+        "B": "Dashboard editor's identity",
+        "C": "Row-level security only",
+        "D": "Capacity admin identity"
+      },
+      "answer": "B",
+      "explanation": "With Dashboard editor's identity, everyone viewing the dashboard accesses data using the dashboard creator's permissions, so all viewers see the same data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After adding a tile, you notice the bike data is shown as a plain table, but stakeholders prefer to compare the number of bikes and empty docks across neighborhoods visually. What should you do?",
+      "options": {
+        "A": "Delete the tile and recreate the dashboard",
+        "B": "Edit the tile to define a visual such as a bar chart",
+        "C": "Switch the data source authorization mode",
+        "D": "Add a new dashboard page"
+      },
+      "answer": "B",
+      "explanation": "After creating a tile, you can edit it to define a visual in which the data is represented as a chart, map, or other visualization; a bar chart is well suited to comparing bikes and empty docks per neighborhood.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A dashboard has grown to include tiles for bike availability, dock capacity, weather, and revenue. The editor wants to keep weather-related tiles separate from operational tiles for clarity. What is the best approach using built-in features?",
+      "options": {
+        "A": "Create separate dashboards for each subject",
+        "B": "Add multiple pages and group related tiles by subject area",
+        "C": "Convert the weather tiles into text tiles",
+        "D": "Lower the auto refresh rate for weather tiles"
+      },
+      "answer": "B",
+      "explanation": "You can add more pages as containers for tiles to organize related content into logical groups, such as separate pages for different subject areas.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Viewers of a bike rental dashboard want to focus on only one or two specific neighborhoods at a time without the editor creating a separate tile for each. What feature should the editor implement?",
+      "options": {
+        "A": "A base query",
+        "B": "A parameter that lets users filter by neighborhood",
+        "C": "A text tile",
+        "D": "A minimum refresh rate"
+      },
+      "answer": "B",
+      "explanation": "Parameters let users filter the data displayed in tiles; a neighborhood parameter allows viewers to focus on a particular subset of the data interactively.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An editor created a parameter named selected_neighbourhoods to filter tiles. When writing the tile query, how must the parameter be referenced?",
+      "options": {
+        "A": "As selected_neighbourhoods with no prefix",
+        "B": "As _selected_neighbourhoods with an underscore prefix",
+        "C": "As @selected_neighbourhoods",
+        "D": "As {{selected_neighbourhoods}}"
+      },
+      "answer": "B",
+      "explanation": "Parameters are referenced in tile queries using an underscore prefix, so the variable would be referenced as _selected_neighbourhoods.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "During peak hours, several viewers keep manually refreshing a dashboard, putting load on the system. The editor wants viewers to be able to adjust refresh during their session but not refresh too aggressively. What should the editor configure?",
+      "options": {
+        "A": "Disable auto refresh entirely",
+        "B": "Set a default refresh rate and a minimum refresh rate",
+        "C": "Switch to pass-through identity",
+        "D": "Remove all parameters from the dashboard"
+      },
+      "answer": "B",
+      "explanation": "Editors can set a default refresh rate and viewers can adjust it during their session, while a minimum refresh rate prevents refreshing too frequently to manage system performance.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A dashboard has five tiles that all start by retrieving the latest observation per neighborhood within the last 30 minutes, then each tile filters or projects differently. The editor wants to reduce duplicated query logic. What is the recommended approach?",
+      "options": {
+        "A": "Copy the query text into every tile manually",
+        "B": "Define a base query and reference it from each tile",
+        "C": "Create a separate KQL database per tile",
+        "D": "Convert each tile into a text tile"
+      },
+      "answer": "B",
+      "explanation": "Base queries retrieve a general set of records relevant for multiple tiles; tile-specific queries then filter or group that data, avoiding duplicated logic across tiles.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An editor defines a base query and assigns it the variable name _base_bike_data. How would an individual tile query use this base query?",
+      "options": {
+        "A": "By copying the base query's full text into the tile",
+        "B": "By starting the tile query with _base_bike_data and then adding project/order operators",
+        "C": "By naming the tile the same as the base query",
+        "D": "By enabling auto refresh on the tile"
+      },
+      "answer": "B",
+      "explanation": "Tile queries reference the base query by its variable name, for example starting with _base_bike_data and then applying project and order by operators for the specific visualization.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A viewer selects no neighborhoods in the neighborhood parameter control. Given a tile query that uses isempty(_selected_neighbourhoods) or Neighbourhood in (_selected_neighbourhoods), what data is shown?",
+      "options": {
+        "A": "No data at all",
+        "B": "Only the first neighborhood alphabetically",
+        "C": "Data for all neighborhoods",
+        "D": "An error is returned"
+      },
+      "answer": "C",
+      "explanation": "The filter checks whether the parameter is empty (no neighborhoods selected) and, if so, shows all neighborhoods; otherwise it shows only the selected ones.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst wants a tile that shows only the most recent record ingested for each neighborhood in the bikes table. Which KQL pattern from the dashboard examples achieves this?",
+      "options": {
+        "A": "summarize count() by Neighbourhood",
+        "B": "summarize latest_observation = arg_max(ingestion_time(), *) by Neighbourhood",
+        "C": "distinct Neighbourhood",
+        "D": "top 1 by Neighbourhood"
+      },
+      "answer": "B",
+      "explanation": "The example uses summarize latest_observation = arg_max(ingestion_time(), *) by Neighbourhood to retrieve the most recent observation (latest record ingested) for each neighborhood.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A dashboard tile must show data only from the last 30 minutes of ingested bike records. Which KQL clause from the examples implements this time window?",
+      "options": {
+        "A": "where ingestion_time() between (ago(30min) .. now())",
+        "B": "where Timestamp > 30",
+        "C": "take 30",
+        "D": "limit 30min"
+      },
+      "answer": "A",
+      "explanation": "The dashboard examples use where ingestion_time() between (ago(30min) .. now()) to restrict records to those ingested within the last 30 minutes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An editor wants tile results ordered so neighborhoods appear alphabetically from A to Z in the visualization. Which operator and direction should be appended to the tile query?",
+      "options": {
+        "A": "order by Neighbourhood desc",
+        "B": "order by Neighbourhood asc",
+        "C": "sort by No_Bikes asc",
+        "D": "top 10 by Neighbourhood"
+      },
+      "answer": "B",
+      "explanation": "The example tile query ends with order by Neighbourhood asc to display neighborhoods in ascending (A to Z) order.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A stakeholder asks whether viewers can change how often a dashboard updates after the editor has set it up. Based on the auto refresh behavior, what is true?",
+      "options": {
+        "A": "Only the editor can ever change the refresh rate",
+        "B": "Viewers can adjust the refresh rate during their session, bounded by the editor's minimum rate",
+        "C": "Refresh rate cannot be changed once published",
+        "D": "Viewers can disable the editor's minimum refresh rate"
+      },
+      "answer": "B",
+      "explanation": "Editors set a default refresh rate, viewers can adjust this rate during their session, and the editor's minimum refresh rate prevents refreshing too frequently.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An editor wants to add explanatory context, such as a heading and notes describing what each chart means, directly on a dashboard page without querying any data. What should they use?",
+      "options": {
+        "A": "A base query",
+        "B": "A parameter",
+        "C": "A text tile",
+        "D": "An additional KQL database"
+      },
+      "answer": "C",
+      "explanation": "Text tiles can be added to provide additional information on a dashboard and do not display query results.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "When you first add a data visualization tile to a dashboard, what should you do before the visualization is finalized?",
+      "options": {
+        "A": "Publish the dashboard immediately",
+        "B": "Enter and test the KQL query you want to use against the data source",
+        "C": "Set the minimum refresh rate to zero",
+        "D": "Convert it to a text tile"
+      },
+      "answer": "B",
+      "explanation": "When you first add a tile, you can enter and test the query you want to use to query the underlying data source before visualizing the results.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A retail operations team uses an eventhouse fed by streaming POS events. They want a dashboard where one parameter filters by store region and the same filter applies consistently to several tiles. What design lets a single parameter influence multiple tiles?",
+      "options": {
+        "A": "Hard-code the region in each tile query",
+        "B": "Create one dashboard parameter and reference its underscore-prefixed variable in each tile query",
+        "C": "Create one parameter per tile",
+        "D": "Use a separate dashboard per region"
+      },
+      "answer": "B",
+      "explanation": "A single dashboard parameter can be referenced in multiple tile queries using its underscore-prefixed variable name, so changing it filters all those tiles consistently.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A dashboard editor combines a base query and a parameter. The base query returns the latest observation per neighborhood, and a parameter filters neighborhoods. What is the correct relationship between them in tile design?",
+      "options": {
+        "A": "Parameters cannot be used together with base queries",
+        "B": "Tile queries reference the base query variable and apply the parameter filter to refine results",
+        "C": "Base queries override all parameter selections",
+        "D": "The parameter must be defined inside the base query's variable name"
+      },
+      "answer": "B",
+      "explanation": "Base queries provide shared general records referenced by variable name, while parameters add interactive filtering; tile queries can reference the base query and incorporate parameter-based filters to refine what is shown.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants to ensure that even if a careless viewer tries, the dashboard cannot be refreshed faster than every 30 seconds, while still allowing viewers some control. Which combination of settings achieves this?",
+      "options": {
+        "A": "Disable auto refresh and set pass-through identity",
+        "B": "Set a default refresh rate and a minimum refresh rate of 30 seconds",
+        "C": "Remove auto refresh and rely on manual reload",
+        "D": "Set the editor identity and add more pages"
+      },
+      "answer": "B",
+      "explanation": "Setting a default refresh rate gives a baseline, while a minimum refresh rate prevents viewers from refreshing more frequently than allowed, managing system performance.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A new analyst asks why the dashboard's bike numbers keep changing on screen without anyone clicking reload. What is the correct explanation?",
+      "options": {
+        "A": "The KQL database is being rebuilt continuously",
+        "B": "Auto refresh updates dashboard data automatically without manual reload",
+        "C": "Each viewer's pass-through identity reruns queries",
+        "D": "Text tiles regenerate the data"
+      },
+      "answer": "B",
+      "explanation": "Auto refresh automatically updates dashboard data without needing to manually reload the page, which is why values change on screen on their own.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "case-study",
+      "question": "CityBikes operates a bike-sharing service across many neighborhoods. Streaming telemetry (bikes available, empty docks, ingestion time) flows into a KQL database in an eventhouse. The operations team needs a Real-Time Dashboard that: (1) shows the latest observation per neighborhood from the last 30 minutes, (2) lets operators interactively filter to specific neighborhoods, (3) groups operational tiles separately from a planned revenue section, (4) avoids duplicating identical query logic across five operational tiles, (5) ensures each operator only sees neighborhoods they are authorized for, and (6) prevents viewers from hammering the system with overly frequent refreshes. Which combination of Fabric Real-Time Dashboard features correctly satisfies ALL six requirements?",
+      "options": {
+        "A": "A single static page with five copied queries; editor's identity; no parameters; auto refresh with no minimum; manual filtering",
+        "B": "A base query (e.g., _base_bike_data) referenced by the five tiles; a neighborhood parameter referenced as _selected_neighbourhoods; multiple pages to separate operations and revenue; pass-through identity for per-operator authorization; a default plus minimum refresh rate",
+        "C": "Pass-through identity; one page; five independent KQL databases; no base query; no minimum refresh rate; a text tile for filtering",
+        "D": "Editor's identity; parameters defined with an @ prefix; a single page; auto refresh disabled; one giant tile showing all neighborhoods"
+      },
+      "answer": "B",
+      "explanation": "A base query referenced by multiple tiles avoids duplicated logic (req 4); a neighborhood parameter referenced with the underscore prefix enables interactive filtering (req 2) and supports the latest-observation-per-neighborhood pattern over the 30-minute window (req 1); multiple pages group operational versus revenue tiles (req 3); pass-through identity enforces per-operator authorization (req 5); and setting a default plus minimum refresh rate manages performance while allowing viewer adjustment (req 6). Option B is the only choice that uses each feature correctly.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Consider the following dashboard tile query:\n\nbikes\n| where ingestion_time() between (ago(30min) .. now())\n| summarize latest_observation = arg_max(ingestion_time(), *) by Neighbourhood\n| project Neighbourhood, latest_observation, No_Bikes, No_Empty_Docks\n| order by Neighbourhood asc\n\nWhat does this query return?",
+      "options": {
+        "A": "All bike records from the entire history of the table",
+        "B": "One row per neighborhood with its most recent observation from the last 30 minutes, ordered alphabetically",
+        "C": "A count of bikes per neighborhood with no time filter",
+        "D": "Only neighborhoods that currently have zero empty docks"
+      },
+      "answer": "B",
+      "explanation": "The where clause limits to the last 30 minutes, arg_max(ingestion_time(), *) by Neighbourhood returns the latest record per neighborhood, project selects key columns, and order by Neighbourhood asc sorts alphabetically.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A dashboard parameter named _selected_neighbourhoods drives this tile query:\n\nbikes\n| where ingestion_time() between (ago(30min) .. now())\n    and (isempty(_selected_neighbourhoods) or Neighbourhood in (_selected_neighbourhoods))\n| summarize latest_observation = arg_max(ingestion_time(), *) by Neighbourhood\n\nIf a viewer selects 'Downtown' and 'Harbor', which rows appear?",
+      "options": {
+        "A": "All neighborhoods, because the parameter is ignored",
+        "B": "Only the latest observations for Downtown and Harbor within the last 30 minutes",
+        "C": "Downtown and Harbor records from all time",
+        "D": "No rows, because two values cannot be passed"
+      },
+      "answer": "B",
+      "explanation": "Since the parameter is not empty, the isempty branch is false and Neighbourhood in (_selected_neighbourhoods) restricts to Downtown and Harbor; the time filter limits to the last 30 minutes and arg_max returns each one's latest observation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given a base query defined with variable name _base_bike_data:\n\n// Base query\nbikes\n| where ingestion_time() between (ago(30min) .. now())\n| summarize latest_observation = arg_max(ingestion_time(), *) by Neighbourhood\n\nWhich tile query correctly reuses the base query to project key columns sorted alphabetically?",
+      "options": {
+        "A": "bikes | project Neighbourhood, No_Bikes | order by Neighbourhood asc",
+        "B": "_base_bike_data | project Neighbourhood, latest_observation, No_Bikes, No_Empty_Docks | order by Neighbourhood asc",
+        "C": "@base_bike_data | take 10",
+        "D": "summarize _base_bike_data by Neighbourhood"
+      },
+      "answer": "B",
+      "explanation": "Tile queries reference the base query by its variable name, so the tile begins with _base_bike_data and then applies project and order by operators to shape the visualization.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An editor wants a tile that shows, for each neighborhood, the number of available bikes from the most recent observation, but only for neighborhoods where fewer than 3 bikes remain (low-supply alert). Building on the latest-observation pattern, which query is correct?",
+      "options": {
+        "A": "bikes | summarize arg_max(ingestion_time(), *) by Neighbourhood | where No_Bikes < 3 | project Neighbourhood, No_Bikes",
+        "B": "bikes | where No_Bikes < 3 | take 1",
+        "C": "bikes | project No_Bikes | order by No_Bikes desc",
+        "D": "bikes | summarize count() by No_Bikes"
+      },
+      "answer": "A",
+      "explanation": "First reduce to the latest observation per neighborhood with arg_max(ingestion_time(), *) by Neighbourhood, then apply where No_Bikes < 3 to keep only low-supply neighborhoods, and project the relevant columns. The other options do not compute the latest per-neighborhood value or filter correctly.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A parameter _time_window is defined to let users choose a lookback duration (for example, a timespan value). Which tile query correctly applies it to the ingestion-time filter, consistent with the dashboard parameter pattern?",
+      "options": {
+        "A": "bikes | where ingestion_time() between (ago(_time_window) .. now()) | summarize arg_max(ingestion_time(), *) by Neighbourhood",
+        "B": "bikes | where _time_window = 30min",
+        "C": "bikes | take _time_window",
+        "D": "bikes | where ingestion_time() > _time_window ago"
+      },
+      "answer": "A",
+      "explanation": "Parameters are referenced by their underscore-prefixed variable name inside the query, so ago(_time_window) substitutes the user-selected timespan into the time-window filter while keeping the latest-observation summarization.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An editor writes the following filter expression in a tile query to support an optional multi-select parameter:\n\n| where isempty(_selected_neighbourhoods) or Neighbourhood in (_selected_neighbourhoods)\n\nWhat is the design intent of including the isempty() check?",
+      "options": {
+        "A": "To raise an error when no value is selected",
+        "B": "To show all neighborhoods when nothing is selected and only chosen ones when values are provided",
+        "C": "To permanently default the dashboard to a single neighborhood",
+        "D": "To disable auto refresh while the parameter is empty"
+      },
+      "answer": "B",
+      "explanation": "The isempty() branch makes the filter pass-through (show all neighborhoods) when no selection exists; otherwise the in() clause restricts results to the selected neighborhoods.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An editor wants a tile that visualizes total available bikes across the whole city from the latest observations. Building on the per-neighborhood latest pattern, which query produces a single citywide total?",
+      "options": {
+        "A": "bikes | where ingestion_time() between (ago(30min) .. now()) | summarize arg_max(ingestion_time(), *) by Neighbourhood | summarize TotalBikes = sum(No_Bikes)",
+        "B": "bikes | summarize sum(No_Bikes) by ingestion_time()",
+        "C": "bikes | project No_Bikes | count",
+        "D": "bikes | order by No_Bikes desc | take 1"
+      },
+      "answer": "A",
+      "explanation": "First obtain the latest observation per neighborhood with arg_max over the 30-minute window, then a second summarize with sum(No_Bikes) aggregates those per-neighborhood latest values into one citywide total. The other options do not first reduce to the latest per neighborhood before summing.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Two tiles share identical leading logic that returns the latest observation per neighborhood over the last 30 minutes. To follow the dashboard maintainability guidance, how should this be structured in KQL across the base query and tiles?",
+      "options": {
+        "A": "Repeat the full where/summarize logic verbatim in both tiles",
+        "B": "Place the shared where/summarize in a base query named _base_bike_data and have each tile start from _base_bike_data, then add tile-specific project or summarize operators",
+        "C": "Move the logic into the parameter definition",
+        "D": "Create two separate KQL databases, one per tile"
+      },
+      "answer": "B",
+      "explanation": "The guidance is to define a base query holding the shared general logic and reference it by its variable name (_base_bike_data) from each tile, where tile-specific queries then filter, project, or group the data, avoiding duplication.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given the tile query below, which line is responsible for collapsing multiple ingested rows per neighborhood down to just the single most recent one?\n\nbikes\n| where ingestion_time() between (ago(30min) .. now())   // line 1\n| summarize latest_observation = arg_max(ingestion_time(), *) by Neighbourhood   // line 2\n| project Neighbourhood, No_Bikes, No_Empty_Docks   // line 3\n| order by Neighbourhood asc   // line 4",
+      "options": {
+        "A": "Line 1",
+        "B": "Line 2",
+        "C": "Line 3",
+        "D": "Line 4"
+      },
+      "answer": "B",
+      "explanation": "Line 2 uses summarize with arg_max(ingestion_time(), *) by Neighbourhood, which returns the row having the maximum ingestion time per neighborhood, collapsing multiple rows to the single most recent observation. Line 1 filters time, line 3 selects columns, and line 4 sorts.",
+      "difficulty": "Medium"
+    }
+  ]
+}

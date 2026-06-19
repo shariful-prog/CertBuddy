@@ -1,0 +1,577 @@
+{
+  "module": "Orchestrate processes and data movement",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What does a data pipeline define?",
+      "options": {
+        "A": "A single SQL query against a warehouse",
+        "B": "A sequence of activities that orchestrate an overall process, usually extracting data from one or more sources and loading it into a destination, often transforming it along the way",
+        "C": "A row-level security rule set",
+        "D": "A Power BI report layout"
+      },
+      "answer": "B",
+      "explanation": "Data pipelines define a sequence of activities that orchestrate an overall process, usually by extracting data from sources and loading it into a destination, often transforming it along the way.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Pipelines in Microsoft Fabric are commonly used to automate which type of process?",
+      "options": {
+        "A": "Report rendering",
+        "B": "Extract, transform, and load (ETL) processes that ingest transactional data into an analytical data store",
+        "C": "User license assignment",
+        "D": "Tenant security configuration"
+      },
+      "answer": "B",
+      "explanation": "Pipelines are commonly used to automate ETL processes that ingest transactional data from operational data stores into an analytical data store, such as a lakehouse, data warehouse, or SQL database.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which existing Azure service shares the same architecture of connected activities as Fabric data pipelines?",
+      "options": {
+        "A": "Azure Data Factory",
+        "B": "Azure Active Directory",
+        "C": "Azure Functions",
+        "D": "Azure Key Vault"
+      },
+      "answer": "A",
+      "explanation": "If you're already familiar with Azure Data Factory, data pipelines in Microsoft Fabric will be immediately familiar; they use the same architecture of connected activities.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What are 'activities' in a Fabric pipeline?",
+      "options": {
+        "A": "The graphical canvas elements only",
+        "B": "The executable tasks in a pipeline",
+        "C": "The security roles assigned to users",
+        "D": "The scheduled refresh times"
+      },
+      "answer": "B",
+      "explanation": "Activities are the executable tasks in a pipeline; you define a flow of activities by connecting them in a sequence.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What are the two broad categories of activity in a pipeline?",
+      "options": {
+        "A": "Source activities and destination activities",
+        "B": "Data transformation activities and control flow activities",
+        "C": "Manual activities and scheduled activities",
+        "D": "Internal activities and external activities"
+      },
+      "answer": "B",
+      "explanation": "There are two broad categories of activity in a pipeline: data transformation activities and control flow activities.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is described as a data transformation activity?",
+      "options": {
+        "A": "A loop that iterates over a list of files",
+        "B": "A Copy Data activity that extracts data from a source and loads it to a destination",
+        "C": "A conditional branch activity",
+        "D": "A variable assignment activity"
+      },
+      "answer": "B",
+      "explanation": "Data transformation activities encapsulate data transfer operations, including simple Copy Data activities that extract data from a source and load it to a destination.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the purpose of control flow activities in a pipeline?",
+      "options": {
+        "A": "To implement loops, conditional branching, or manage variable and parameter values",
+        "B": "To copy data between sources and destinations",
+        "C": "To run Spark notebooks",
+        "D": "To apply row-level security"
+      },
+      "answer": "A",
+      "explanation": "Control flow activities are used to implement loops, conditional branching, or manage variable and parameter values, enabling complex pipeline logic.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What can the outcome of a particular activity (success, failure, or completion) be used to do?",
+      "options": {
+        "A": "Delete the pipeline",
+        "B": "Direct the flow to the next activity in the sequence",
+        "C": "Change the workspace permissions",
+        "D": "Refresh a Power BI dataset"
+      },
+      "answer": "B",
+      "explanation": "The outcome of a particular activity (success, failure, or completion) can be used to direct the flow to the next activity in the sequence.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the benefit of parameterizing a pipeline?",
+      "options": {
+        "A": "It disables scheduling",
+        "B": "It increases the reusability of pipelines, enabling flexible data ingestion and transformation processes by providing specific values each run",
+        "C": "It removes the need for activities",
+        "D": "It enforces row-level security"
+      },
+      "answer": "B",
+      "explanation": "Using parameters increases the reusability of your pipelines, enabling flexible data ingestion and transformation processes by providing specific values each time the pipeline runs.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is initiated each time a pipeline is executed?",
+      "options": {
+        "A": "A new workspace",
+        "B": "A data pipeline run, identified by a unique run ID",
+        "C": "A new semantic model",
+        "D": "A new Spark pool"
+      },
+      "answer": "B",
+      "explanation": "Each time a pipeline is executed, a data pipeline run is initiated; you use the unique run ID to review run details.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How can pipeline runs be initiated?",
+      "options": {
+        "A": "Only on a fixed daily schedule",
+        "B": "On-demand in the Fabric user interface or scheduled to start at a specific frequency",
+        "C": "Only through the Fabric admin portal",
+        "D": "Only by an external trigger from Azure"
+      },
+      "answer": "B",
+      "explanation": "Runs can be initiated on-demand in the Fabric user interface or scheduled to start at a specific frequency.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which activity is described as one of the most common uses of a data pipeline?",
+      "options": {
+        "A": "The Delete data activity",
+        "B": "The Copy Data activity",
+        "C": "The Notebook activity",
+        "D": "The Stored procedure activity"
+      },
+      "answer": "B",
+      "explanation": "The Copy Data activity is one of the most common uses of a data pipeline; many pipelines consist of a single Copy Data activity to ingest data from an external source into a lakehouse file or table.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When you add a Copy Data activity to a pipeline, what helps you configure the source and destination?",
+      "options": {
+        "A": "A graphical tool that takes you through the steps required to configure the data source and destination for the copy operation",
+        "B": "A mandatory PowerShell script",
+        "C": "A T-SQL stored procedure",
+        "D": "The Spark catalog"
+      },
+      "answer": "A",
+      "explanation": "When you add a Copy Data activity, a graphical tool takes you through the steps required to configure the data source and destination for the copy operation.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "After completing a pipeline, which option lets you check that the configuration is valid before running it?",
+      "options": {
+        "A": "Debug",
+        "B": "Validate",
+        "C": "Publish",
+        "D": "Refresh"
+      },
+      "answer": "B",
+      "explanation": "When you complete a pipeline, you can use the Validate option to check that the configuration is valid, and then run it interactively or specify a schedule.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Why does Microsoft Fabric include predefined pipeline templates?",
+      "options": {
+        "A": "To prevent custom pipelines from being created",
+        "B": "Because there are many common pipeline scenarios that you can use and customize as required",
+        "C": "To enforce a single pipeline design across all workspaces",
+        "D": "To replace the need for the Copy Data activity"
+      },
+      "answer": "B",
+      "explanation": "Microsoft Fabric includes predefined pipeline templates for many common pipeline scenarios that you can use and customize as required.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "You need to ingest raw CSV files from an external storage account directly into a lakehouse table without applying any transformations. Which activity is most appropriate?",
+      "options": {
+        "A": "A Data Flow (Gen2) activity",
+        "B": "A Copy Data activity",
+        "C": "A control flow loop activity",
+        "D": "A Delete data activity"
+      },
+      "answer": "B",
+      "explanation": "Use the Copy Data activity when you need to copy data directly between a supported source and destination without applying any transformations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Your ingestion process must apply several transformation steps and merge data from multiple sources as the data is ingested. Based on the module, which activity should you choose instead of Copy Data?",
+      "options": {
+        "A": "A Delete data activity",
+        "B": "A Data Flow activity that runs a dataflow (Gen2) defined in Power Query",
+        "C": "A Get metadata activity",
+        "D": "A schedule trigger only"
+      },
+      "answer": "B",
+      "explanation": "If you need to apply transformations as data is ingested, or merge data from multiple sources, consider using a Data Flow activity to run a dataflow (Gen2) defined with the Power Query interface.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You want a repeatable ingestion process that first removes existing data, then replaces it from an external file, then transforms it and loads it into a table. Which combination of activities matches the module's described pattern?",
+      "options": {
+        "A": "A Delete data activity, then a Copy Data activity, then a Notebook activity that runs Spark code to transform and load into a table",
+        "B": "Only a single Copy Data activity",
+        "C": "Two Data Flow activities in parallel",
+        "D": "A Stored procedure activity followed by a schedule"
+      },
+      "answer": "A",
+      "explanation": "The module describes combining a Delete data activity to remove existing data, a Copy Data activity to replace it with external data, and a Notebook activity to run Spark code that transforms the data and loads it into a table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to save ingested data into a folder but needs the flexibility to specify a different folder name each time the pipeline runs. Which pipeline feature enables this?",
+      "options": {
+        "A": "Pipeline templates",
+        "B": "Parameters, which let you provide specific values to be used each time the pipeline runs",
+        "C": "The Validate option",
+        "D": "The run ID"
+      },
+      "answer": "B",
+      "explanation": "Pipelines can be parameterized, enabling you to provide specific values each run; the module's example is specifying a folder name each time the pipeline is run.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After several pipeline executions, an operator needs to confirm that a specific run completed successfully and investigate the exact settings used for that execution. What should they use?",
+      "options": {
+        "A": "The workspace permissions list",
+        "B": "The unique run ID to review the run details",
+        "C": "The Spark pool configuration",
+        "D": "The semantic model refresh log"
+      },
+      "answer": "B",
+      "explanation": "Use the unique run ID to review run details to confirm runs completed successfully and investigate the specific settings used for each execution.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team frequently builds pipelines for a very common ingestion scenario and wants to avoid building from scratch each time, while still being able to tailor the result. Based on the module, what is the recommended approach?",
+      "options": {
+        "A": "Copy an existing pipeline's JSON manually",
+        "B": "Select the Templates tile in a new pipeline, choose the most appropriate template, then edit it in the pipeline canvas to customize",
+        "C": "Use only the Copy Data tool with no template",
+        "D": "Disable validation to speed up creation"
+      },
+      "answer": "B",
+      "explanation": "To create a pipeline based on a template, select the Templates tile in a new pipeline, select the most appropriate template, and then edit the pipeline in the canvas to customize it.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You need to run a SQL stored procedure as one step within a pipeline after data has been copied. Which activity supports this?",
+      "options": {
+        "A": "A Stored procedure activity (a data transformation activity that runs SQL code)",
+        "B": "A control flow loop activity",
+        "C": "A Copy Data activity",
+        "D": "A Get metadata activity"
+      },
+      "answer": "A",
+      "explanation": "Data transformation activities include Stored procedure activities to run SQL code, among others such as Notebook and Delete data activities.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A pipeline must run a Spark notebook to process data as one of its steps. Which activity is appropriate, and what category does it belong to?",
+      "options": {
+        "A": "A Notebook activity, which is a data transformation activity",
+        "B": "A conditional branch, which is a data transformation activity",
+        "C": "A Copy Data activity, which is a control flow activity",
+        "D": "A schedule trigger, which is a data transformation activity"
+      },
+      "answer": "A",
+      "explanation": "Notebook activities to run a Spark notebook are listed among data transformation activities in the module.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Your pipeline must take different next steps depending on whether the previous Copy Data activity succeeded or failed. Which capability of pipelines makes this possible?",
+      "options": {
+        "A": "Parameters",
+        "B": "The ability to use an activity's outcome (success, failure, or completion) to direct the flow to the next activity",
+        "C": "Pipeline templates",
+        "D": "The Spark catalog"
+      },
+      "answer": "B",
+      "explanation": "The outcome of a particular activity (success, failure, or completion) can be used to direct the flow to the next activity in the sequence.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to build complex pipeline logic with branching and looping but has minimal coding skills. What does the module say enables this?",
+      "options": {
+        "A": "Only writing PySpark code",
+        "B": "The graphical pipeline canvas in the Fabric user interface, which enables building complex pipelines with minimal or no coding",
+        "C": "The T-SQL editor",
+        "D": "Power BI Desktop"
+      },
+      "answer": "B",
+      "explanation": "The graphical pipeline canvas in the Fabric user interface enables you to build complex pipelines with minimal or no coding required.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A pipeline must run automatically every night without anyone manually starting it. Based on the module, how can this be achieved?",
+      "options": {
+        "A": "By running it interactively each night",
+        "B": "By scheduling the pipeline to run automatically at a specific frequency",
+        "C": "By assigning it to a Spark pool",
+        "D": "By converting it into a semantic model"
+      },
+      "answer": "B",
+      "explanation": "You can run pipelines interactively in the Fabric user interface, or schedule them to run automatically; runs can be scheduled to start at a specific frequency.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst wants to confirm a pipeline's destination can be a lakehouse, warehouse, or SQL database in OneLake when configuring a Copy Data activity. Is this supported?",
+      "options": {
+        "A": "No, only lakehouse is supported as a destination",
+        "B": "Yes, in OneLake the destination can be a lakehouse, warehouse, SQL Database, and others, and a wide range of source connections is supported",
+        "C": "No, the Copy Data activity cannot write to OneLake",
+        "D": "Yes, but only after applying transformations"
+      },
+      "answer": "B",
+      "explanation": "The Copy Data tool supports a wide range of source connections, and in OneLake includes support for lakehouse, warehouse, SQL Database, and others as destinations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After building a pipeline, you suspect a misconfiguration but do not want to fully execute it yet. Which described step helps catch configuration problems first?",
+      "options": {
+        "A": "Scheduling it for next month",
+        "B": "Using the Validate option to check that the configuration is valid",
+        "C": "Deleting and recreating the pipeline",
+        "D": "Converting activities to a dataflow"
+      },
+      "answer": "B",
+      "explanation": "You can use the Validate option to check that the configuration is valid before running the pipeline interactively or on a schedule.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A pipeline owner wants to review the details of every past execution, including which runs succeeded and the settings used. Where can they view this?",
+      "options": {
+        "A": "In the run history for the pipeline, viewable from the pipeline canvas or from the pipeline item in the workspace page",
+        "B": "Only in the Fabric admin portal capacity settings",
+        "C": "In the Spark pool autoscale settings",
+        "D": "In the Power Query Advanced editor"
+      },
+      "answer": "A",
+      "explanation": "You can view the run history for a pipeline to see details of each run, either from the pipeline canvas or from the pipeline item listed in the workspace page.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Your organization needs to ingest transactional data from an operational database into a lakehouse for analytics on a recurring basis. Which Fabric construct is purpose-built to orchestrate this end-to-end ETL?",
+      "options": {
+        "A": "A Power BI dashboard",
+        "B": "A data pipeline that automates the ETL process of ingesting transactional data into an analytical store",
+        "C": "A single temporary view",
+        "D": "A workspace role assignment"
+      },
+      "answer": "B",
+      "explanation": "Pipelines are commonly used to automate ETL processes that ingest transactional data from operational data stores into an analytical data store such as a lakehouse.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A pipeline must first get metadata about incoming files (such as their names or count) before deciding how to process them. Which listed activity supports retrieving such metadata?",
+      "options": {
+        "A": "A Get metadata activity",
+        "B": "A Copy Data activity",
+        "C": "A Delete data activity",
+        "D": "A Stored procedure activity"
+      },
+      "answer": "A",
+      "explanation": "Among common activities, the module (in the related dataflow/pipeline context) lists Get metadata as an activity you can use to retrieve metadata as part of orchestration.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer migrating from Azure Data Factory is learning Fabric pipelines. Based on the module, what should they expect?",
+      "options": {
+        "A": "A completely different, unrelated architecture requiring full retraining",
+        "B": "An immediately familiar experience, using the same architecture of connected activities to define a process",
+        "C": "That pipelines cannot include control flow logic",
+        "D": "That pipelines can only run interactively, never on a schedule"
+      },
+      "answer": "B",
+      "explanation": "If you're already familiar with Azure Data Factory, data pipelines in Fabric will be immediately familiar, using the same architecture of connected activities that can include multiple data processing tasks and control flow logic.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You build a pipeline that must repeat the same Copy Data step for each file in a list of incoming files. Which category of activity provides the looping logic to do this?",
+      "options": {
+        "A": "Data transformation activities",
+        "B": "Control flow activities, which implement loops and other processing logic",
+        "C": "Templates",
+        "D": "Run history"
+      },
+      "answer": "B",
+      "explanation": "Control flow activities are used to implement loops, conditional branching, or manage variable and parameter values, enabling complex orchestration such as iterating over files.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A reviewer claims that the Copy Data activity should be used to merge and transform data from several sources. Based on the module's guidance, is this correct?",
+      "options": {
+        "A": "Yes, Copy Data is the best tool for merging and transforming multiple sources",
+        "B": "No; Copy Data is for direct copying without transformation, while merging multiple sources and applying transformations is better handled by a Data Flow (Gen2) activity",
+        "C": "Yes, but only if scheduled",
+        "D": "No; Copy Data cannot read from any source"
+      },
+      "answer": "B",
+      "explanation": "The module says to use Copy Data when copying directly without transformations, and to use a Data Flow activity (running a dataflow Gen2) when you need to apply transformations or merge data from multiple sources.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "Northwind Analytics ingests sales data nightly. The requirements are: (1) every night, automatically remove the prior load of staging data, (2) copy fresh raw sales files from an external source into the lakehouse without transformation, (3) run a Spark notebook to clean and load the data into a curated table, (4) on failure of the copy step, branch to a notification path, and (5) keep the pipeline reusable so the target folder name can change per run, with the ability to review each execution afterward. Using only concepts from this module, which design best satisfies all requirements?",
+      "options": {
+        "A": "Build one data pipeline that chains a Delete data activity, a Copy Data activity, and a Notebook activity; use the Copy Data activity's failure outcome to direct flow to a branch; parameterize the target folder name; schedule the pipeline to run nightly; and review each run via its run ID in the run history",
+        "B": "Use a single Copy Data activity with no scheduling, no parameters, and no failure handling",
+        "C": "Build the process entirely in Power BI Desktop and refresh manually each night",
+        "D": "Replace the pipeline with a single stored procedure that does everything, ignoring failure handling and reuse"
+      },
+      "answer": "A",
+      "explanation": "Option A maps each requirement to a concept from the module: Delete data + Copy Data + Notebook activities chained in a pipeline (requirements 1-3); using an activity's failure outcome to direct flow handles branching on failure (requirement 4); parameters make the folder name flexible and reusable, scheduling automates the nightly run, and the run ID/run history lets you review each execution (requirement 5). The other options omit required capabilities described in the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A pipeline step runs the following T-SQL stored procedure after a Copy Data activity loads raw rows into stg_Sales. The Stored procedure activity invokes:\n\nEXEC dbo.usp_LoadCuratedSales;\n\nwhere the procedure is:\n\nCREATE PROCEDURE dbo.usp_LoadCuratedSales AS\nBEGIN\n  INSERT INTO dbo.Sales (OrderId, Amount)\n  SELECT OrderId, Amount\n  FROM dbo.stg_Sales\n  WHERE Amount > 0;\nEND\n\nBased on the pipeline activity concepts, what does this orchestration accomplish?",
+      "options": {
+        "A": "It copies raw data and then, via a Stored procedure activity, loads only the rows with Amount greater than 0 from staging into the curated Sales table",
+        "B": "It deletes the staging table before copying",
+        "C": "It applies row-level security to the Sales table",
+        "D": "It runs a Spark notebook to visualize the data"
+      },
+      "answer": "A",
+      "explanation": "The module lists Stored procedure activities to run SQL code as data transformation activities. Here the Copy Data activity loads staging, and the Stored procedure activity runs SQL that inserts only rows where Amount > 0 into the curated Sales table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A pipeline is parameterized with a parameter named folderName. The Copy Data activity's sink path is expressed as:\n\nFiles/@{pipeline().parameters.folderName}/sales.csv\n\nIf the pipeline is run with folderName = \"2026-06\", where will the file be written, based on the parameter concept described?",
+      "options": {
+        "A": "Files/folderName/sales.csv",
+        "B": "Files/2026-06/sales.csv, because the parameter value is substituted at run time",
+        "C": "It fails because pipelines cannot use parameters in paths",
+        "D": "Files/sales.csv with no folder"
+      },
+      "answer": "B",
+      "explanation": "Parameters let you provide specific values used each time the pipeline runs (the module's example is specifying a folder name per run). The expression substitutes folderName at run time, writing to Files/2026-06/sales.csv.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Consider a pipeline with three connected activities where the success path is:\n\nCopyData --(on success)--> RunNotebook --(on success)--> RunStoredProc\n\nIf CopyData fails, what happens to RunNotebook and RunStoredProc, based on how activity outcomes direct the flow?",
+      "options": {
+        "A": "They both still run regardless",
+        "B": "Neither runs on the success path, because the success outcome of CopyData did not occur to direct flow to RunNotebook",
+        "C": "Only RunStoredProc runs",
+        "D": "The entire workspace is locked"
+      },
+      "answer": "B",
+      "explanation": "The module states an activity's outcome (success, failure, or completion) directs the flow to the next activity. Since RunNotebook is wired on CopyData's success, a CopyData failure means the success path is not taken, so neither downstream activity runs on that path.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A pipeline uses a ForEach (loop) control flow activity over a list of file names, and inside the loop a Copy Data activity copies each file. Conceptually:\n\nForEach (file in fileList):\n    CopyData(source = file, sink = lakehouse table)\n\nWhich category does the ForEach activity belong to, and what does the design achieve?",
+      "options": {
+        "A": "A data transformation activity that transforms each file's schema",
+        "B": "A control flow activity that implements a loop, repeating the Copy Data step for each file in the list",
+        "C": "A template that cannot be customized",
+        "D": "A Stored procedure activity"
+      },
+      "answer": "B",
+      "explanation": "Control flow activities implement loops, conditional branching, and variable/parameter management. The ForEach loop is a control flow activity that repeats the inner Copy Data data-transformation step for each file.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A pipeline is built from a predefined template and then edited. After editing, before running it on a schedule, the engineer runs the Validate option, which returns no errors. What is the correct interpretation, based on the module?",
+      "options": {
+        "A": "Validate guarantees the data will be correct after running",
+        "B": "Validate confirms the pipeline configuration is valid, after which the engineer can run it interactively or specify a schedule",
+        "C": "Validate publishes the pipeline to production automatically",
+        "D": "Validate deletes the run history"
+      },
+      "answer": "B",
+      "explanation": "The module states you use Validate to check that the configuration is valid, and then either run it interactively or specify a schedule. It validates configuration, not data correctness.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A pipeline includes a Delete data activity, then a Copy Data activity, then a Notebook activity, in sequence:\n\nDeleteData(target table) -> CopyData(external file -> file) -> Notebook(transform file -> table)\n\nBased on the module's described repeatable ingestion pattern, what is the overall effect of one run?",
+      "options": {
+        "A": "Existing data is removed, fresh raw data is copied in, and Spark code in the notebook transforms it and loads it into a table",
+        "B": "The pipeline only validates configuration and does nothing",
+        "C": "The notebook runs first, then data is deleted",
+        "D": "Row-level security is configured on the table"
+      },
+      "answer": "A",
+      "explanation": "This mirrors the module's example: a Delete data activity removes existing data, a Copy Data activity replaces it with external data, and a Notebook activity runs Spark code that transforms the data and loads it into a table, forming a repeatable ingestion process.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer wants to choose between a Copy Data activity and a Data Flow (Gen2) activity for a step. The requirement: ingest raw data now, with no transformation, and apply transformations in later pipeline activities. Which choice is correct and why?",
+      "options": {
+        "A": "Data Flow activity, because raw ingestion always requires Power Query",
+        "B": "Copy Data activity, because it is used to import the raw data directly and transformations can be applied in later pipeline activities",
+        "C": "Stored procedure activity, because it copies files",
+        "D": "Get metadata activity, because it ingests rows"
+      },
+      "answer": "B",
+      "explanation": "The module says to use the Copy Data activity when you need to copy data directly without transformation, or when you want to import the raw data and apply transformations in later pipeline activities.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "After a scheduled nightly run, an engineer needs to programmatically/visually trace which specific execution loaded bad data. Each execution exposes a unique identifier. Conceptually:\n\nrun = pipeline.execute()\nprint(run.runId)   // unique per execution\n\nWhat does the runId enable, per the module?",
+      "options": {
+        "A": "It changes the pipeline's parameters",
+        "B": "It uniquely identifies the pipeline run so you can review run details, confirm success, and investigate the settings used for that execution",
+        "C": "It assigns workspace permissions",
+        "D": "It deletes prior runs"
+      },
+      "answer": "B",
+      "explanation": "Each execution initiates a data pipeline run with a unique run ID; the module states you use the run ID to review run details to confirm completion and investigate the specific settings used for each execution.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A pipeline must apply transformations and merge several sources, so the team includes a dataflow defined in Power Query as a step. Conceptually the pipeline contains:\n\nDataFlowActivity(runs dataflowGen2 with multiple Power Query transformation steps)\n\nWhich statement correctly reflects the module's guidance about this design?",
+      "options": {
+        "A": "A Data Flow activity runs a dataflow (Gen2) that you define with the Power Query UI to include multiple transformation steps, suitable when transforming or merging multiple sources during ingestion",
+        "B": "A Data Flow activity can only copy data with no transformation",
+        "C": "Dataflows cannot be included in pipelines",
+        "D": "The Data Flow activity replaces the need for a workspace"
+      },
+      "answer": "A",
+      "explanation": "The module states that to apply transformations or merge data from multiple sources, you use a Data Flow activity to run a dataflow (Gen2), defining it with the Power Query UI to include multiple transformation steps, and include it in a pipeline.",
+      "difficulty": "Medium"
+    }
+  ]
+}

@@ -1,0 +1,655 @@
+{
+  "module": "Use Eventstream",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is the primary purpose of Eventstream in Microsoft Fabric Real-Time Intelligence?",
+      "options": {
+        "A": "To capture, transform, and route real-time events without needing to write any code",
+        "B": "To schedule batch ETL jobs that run nightly against a data warehouse",
+        "C": "To author Power BI reports directly from relational databases",
+        "D": "To manage Spark cluster compute for notebook execution"
+      },
+      "answer": "A",
+      "explanation": "Eventstream in Real-Time Intelligence enables you to capture, transform, and route real-time events without writing any code, by setting up sources, destinations, and transformations.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which feature of Eventstream lets you build event data processing logic without writing code?",
+      "options": {
+        "A": "A T-SQL stored procedure editor",
+        "B": "The drag and drop feature on the eventstream canvas",
+        "C": "A PowerShell deployment script",
+        "D": "A YAML pipeline definition file"
+      },
+      "answer": "B",
+      "explanation": "Eventstream provides a drag and drop feature so you can create your event data processing logic on the visual canvas without writing any code.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What are the three main components of an eventstream?",
+      "options": {
+        "A": "Notebooks, pipelines, and dataflows",
+        "B": "Sources, transformations, and destinations",
+        "C": "Triggers, schedules, and alerts",
+        "D": "Lakehouses, warehouses, and semantic models"
+      },
+      "answer": "B",
+      "explanation": "The main components of an eventstream are sources (where data comes from), transformations (filter, summarize, reshape data), and destinations (where data goes).",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In an eventstream, what do 'sources' represent?",
+      "options": {
+        "A": "The locations where transformed event data is stored",
+        "B": "Where your event data comes from",
+        "C": "The visual editor used to design pipelines",
+        "D": "The rules that trigger automated actions"
+      },
+      "answer": "B",
+      "explanation": "Sources are where your event data comes from. You can stream data from Microsoft sources and also ingest data from non-Microsoft platforms.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is a transformation example explicitly available in an eventstream?",
+      "options": {
+        "A": "Trigger",
+        "B": "Schedule",
+        "C": "Group by",
+        "D": "Semantic model refresh"
+      },
+      "answer": "C",
+      "explanation": "Available transformations include SQL code, filter, manage fields, aggregate, group by, expand, and join. Group by is one of them.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which destination lets you query and analyze ingested real-time data using Kusto Query Language (KQL)?",
+      "options": {
+        "A": "Lakehouse",
+        "B": "Custom endpoint",
+        "C": "Eventhouse",
+        "D": "Fabric Activator"
+      },
+      "answer": "C",
+      "explanation": "The Eventhouse destination lets you ingest real-time event data into an Eventhouse, where you can use Kusto Query Language (KQL) to query and analyze the data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When real-time events are routed to a Lakehouse destination, into what format are they converted before storage?",
+      "options": {
+        "A": "CSV format",
+        "B": "Delta Lake format",
+        "C": "Parquet without transaction logs",
+        "D": "JSON Lines format"
+      },
+      "answer": "B",
+      "explanation": "The Lakehouse destination converts real-time events into Delta Lake format and then stores them in designated lakehouse tables.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which eventstream destination is described as an event detection engine that automatically triggers actions when specific patterns or conditions are detected?",
+      "options": {
+        "A": "Derived stream",
+        "B": "Eventhouse",
+        "C": "Fabric Activator",
+        "D": "Lakehouse"
+      },
+      "answer": "C",
+      "explanation": "Fabric Activator connects real-time event data to an event detection engine that automatically triggers actions, such as notifications or Power Automate workflows, when patterns or thresholds are detected.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a derived stream in the context of eventstream destinations?",
+      "options": {
+        "A": "A backup copy of the entire eventstream configuration",
+        "B": "A transformed version of your original data stream that enables content-based routing",
+        "C": "A scheduled export of data to Azure Blob Storage",
+        "D": "A semantic model generated from streaming data"
+      },
+      "answer": "B",
+      "explanation": "Derived streams are transformed versions of your original data stream that enable content-based routing, letting you route subsets of data based on the content of the data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which destination would you use to route real-time events to an external system or custom application outside Microsoft Fabric?",
+      "options": {
+        "A": "Eventhouse",
+        "B": "Custom endpoint",
+        "C": "Lakehouse",
+        "D": "Derived stream"
+      },
+      "answer": "B",
+      "explanation": "The custom endpoint destination is useful when you want to direct real-time data to an external system or custom application outside Microsoft Fabric.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is listed as a Microsoft source for an eventstream?",
+      "options": {
+        "A": "Google Cloud Pub/Sub",
+        "B": "Apache Kafka",
+        "C": "Azure Event Hubs",
+        "D": "MQTT"
+      },
+      "answer": "C",
+      "explanation": "Microsoft sources include Azure Event Hubs, Azure IoT Hubs, Azure Service Bus, and Change Data Capture (CDC) feeds. Kafka, Google Cloud Pub/Sub, and MQTT are listed as external sources.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which transformation creates a new row for each value within an array?",
+      "options": {
+        "A": "Union",
+        "B": "Expand",
+        "C": "Join",
+        "D": "Filter"
+      },
+      "answer": "B",
+      "explanation": "The Expand array transformation creates a new row for each value within an array.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the 'Manage fields' transformation allow you to do?",
+      "options": {
+        "A": "Combine two streams based on a matching condition",
+        "B": "Add, remove, change data type, or rename fields",
+        "C": "Calculate aggregations over fixed time windows only",
+        "D": "Route subsets of data to different destinations based on content"
+      },
+      "answer": "B",
+      "explanation": "The Manage fields transformation lets you add, remove, change data type, or rename fields coming in from an input or another transformation.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which two time window types does the 'Group by' transformation support?",
+      "options": {
+        "A": "Tumbling windows and sliding windows",
+        "B": "Hopping windows and session windows",
+        "C": "Snapshot windows and rolling windows",
+        "D": "Fixed windows and elastic windows"
+      },
+      "answer": "A",
+      "explanation": "The Group by transformation supports various time windows including tumbling windows (fixed intervals) and sliding windows (overlapping intervals).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Can an eventstream connect to multiple destinations at the same time?",
+      "options": {
+        "A": "No, only one destination is allowed per eventstream",
+        "B": "Yes, you can attach to multiple destinations at the same time without impacting or colliding with each other",
+        "C": "Yes, but only if all destinations are of the same type",
+        "D": "Yes, but each additional destination requires a separate eventstream"
+      },
+      "answer": "B",
+      "explanation": "You can attach to multiple destinations within an eventstream at the same time without impacting or colliding with each other.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A retailer wants to ingest IoT sensor data, send only high-temperature alerts to Fabric Activator, and route hourly averages to a KQL database. Which destination capability enables sending different data subsets to different destinations based on data content?",
+      "options": {
+        "A": "Custom endpoint",
+        "B": "Manage fields transformation",
+        "C": "Derived stream (content-based routing)",
+        "D": "Union transformation"
+      },
+      "answer": "C",
+      "explanation": "Derived streams enable content-based routing, allowing you to route subsets of data based on content, for example sending high-temperature alerts to Activator while routing hourly averages to a KQL database.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer designs a bicycle telemetry eventstream that sums the number of bikes by street name before storing results in an Eventhouse table. Which transformation type best matches summing bikes grouped by street?",
+      "options": {
+        "A": "Filter",
+        "B": "Group by",
+        "C": "Expand",
+        "D": "Join"
+      },
+      "answer": "B",
+      "explanation": "Summing values by a dimension such as street name is a Group by operation; the module's example uses GroupByStreet to sum bikes by bike station street name.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs to remove sensor error readings from incoming IoT data before any further processing. Which transformation should be the first step in their workflow?",
+      "options": {
+        "A": "Aggregate",
+        "B": "Manage fields",
+        "C": "Filter",
+        "D": "Group by"
+      },
+      "answer": "C",
+      "explanation": "Filter keeps only events that meet specific conditions, making it ideal for removing invalid or incomplete data (such as sensor errors) at the start of a workflow.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After filtering sensor errors, an engineer needs to add a calculated 'priority' column derived from temperature thresholds. Which transformation accomplishes this?",
+      "options": {
+        "A": "Union",
+        "B": "Manage fields",
+        "C": "Expand",
+        "D": "Join"
+      },
+      "answer": "B",
+      "explanation": "Manage fields lets you add calculated fields (such as a priority column based on temperature thresholds), remove columns, rename fields, or change data types.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst wants to combine two streams that share fields with the same name and data type into a single table, dropping any non-matching fields. Which transformation should they use?",
+      "options": {
+        "A": "Join",
+        "B": "Union",
+        "C": "Aggregate",
+        "D": "Expand"
+      },
+      "answer": "B",
+      "explanation": "The Union transformation connects two or more nodes and adds events with shared fields (same name and data type) into one table; fields that don't match are dropped.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A solution must combine data from two separate streams based on a matching key between them. Which transformation is appropriate?",
+      "options": {
+        "A": "Union",
+        "B": "Filter",
+        "C": "Join",
+        "D": "Group by"
+      },
+      "answer": "C",
+      "explanation": "The Join transformation combines data from two streams based on a matching condition between them, whereas Union simply merges shared fields without a matching condition.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A logistics company wants real-time events ingested so they can later run KQL queries for ad-hoc analysis and dashboards. Which destination should they choose?",
+      "options": {
+        "A": "Lakehouse",
+        "B": "Custom endpoint",
+        "C": "Eventhouse",
+        "D": "Fabric Activator"
+      },
+      "answer": "C",
+      "explanation": "The Eventhouse destination supports querying and analyzing ingested real-time data with Kusto Query Language (KQL), ideal for ad-hoc analysis and dashboards.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data team needs to store streaming events as Delta Lake tables for historical batch analysis alongside their existing lakehouse data. Which destination fits this requirement?",
+      "options": {
+        "A": "Eventhouse",
+        "B": "Lakehouse",
+        "C": "Derived stream",
+        "D": "Custom endpoint"
+      },
+      "answer": "B",
+      "explanation": "The Lakehouse destination transforms real-time events into Delta Lake format and stores them in lakehouse tables, suitable for historical analysis alongside existing lakehouse data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An operations team wants to automatically send a notification and launch a Power Automate workflow when streaming values exceed a threshold. Which destination should they route data to?",
+      "options": {
+        "A": "Eventhouse",
+        "B": "Lakehouse",
+        "C": "Fabric Activator",
+        "D": "Custom endpoint"
+      },
+      "answer": "C",
+      "explanation": "Fabric Activator triggers actions like notifications and Power Automate workflows when data reaches thresholds or matches patterns, exactly matching this requirement.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer must ingest events from an Apache Kafka topic into Fabric. How is Kafka classified among eventstream sources?",
+      "options": {
+        "A": "As a Microsoft source",
+        "B": "As an Azure event source",
+        "C": "As an external source",
+        "D": "As a Fabric event source"
+      },
+      "answer": "C",
+      "explanation": "Apache Kafka, Google Cloud Pub/Sub, and MQTT are classified as external sources in an eventstream.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric administrator wants the eventstream to react to changes to items in a Fabric workspace and data changes in OneLake data stores. What category of source provides these events?",
+      "options": {
+        "A": "External sources",
+        "B": "Azure events",
+        "C": "Fabric events",
+        "D": "Microsoft sources"
+      },
+      "answer": "C",
+      "explanation": "Fabric events include changes to items in a Fabric workspace, data changes in OneLake data stores, and events associated with Fabric jobs.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to react in their eventstream when files are created in Azure Blob Storage. Which source category covers Azure Blob Storage events?",
+      "options": {
+        "A": "Azure events",
+        "B": "Fabric events",
+        "C": "External sources",
+        "D": "Microsoft sources"
+      },
+      "answer": "A",
+      "explanation": "Azure events, such as Azure Blob Storage events, are one of the source categories you can stream from in an eventstream.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "When building an eventstream, at what point can a destination be added on the canvas?",
+      "options": {
+        "A": "Only before any source is connected",
+        "B": "Only after every available transformation has been applied",
+        "C": "After a data source is connected or after optional transformations are applied",
+        "D": "Only when the eventstream has exactly one source and one transformation"
+      },
+      "answer": "C",
+      "explanation": "A destination can be specified after a datasource is connected or after optional transformations are applied, configured in the eventstream canvas.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer wants to add an existing source that already appears in the Real-Time Hub rather than creating a brand new source. Is this supported when adding sources to an eventstream?",
+      "options": {
+        "A": "No, only newly created sources can be added",
+        "B": "Yes, you can either create a new source or connect to an existing source from the Real-Time Hub",
+        "C": "Yes, but only external sources can come from the Real-Time Hub",
+        "D": "No, Real-Time Hub sources must be imported into a lakehouse first"
+      },
+      "answer": "B",
+      "explanation": "After creating an eventstream you can add sources on the canvas by either creating a new source or connecting to an existing source from the Real-Time Hub.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A streaming pipeline must calculate hourly sales totals over fixed, non-overlapping one-hour intervals. Which window type within the Group by transformation matches this requirement?",
+      "options": {
+        "A": "Sliding window",
+        "B": "Tumbling window",
+        "C": "Session window",
+        "D": "Snapshot window"
+      },
+      "answer": "B",
+      "explanation": "Tumbling windows are fixed intervals (non-overlapping), which suits fixed one-hour totals; sliding windows are overlapping intervals.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An IoT solution should compute a moving average over overlapping time intervals so each output reflects the most recent readings continuously. Which Group by window type best supports overlapping intervals?",
+      "options": {
+        "A": "Tumbling window",
+        "B": "Sliding window",
+        "C": "Fixed window",
+        "D": "Daily window"
+      },
+      "answer": "B",
+      "explanation": "Sliding windows are overlapping intervals, suited to continuous moving averages, whereas tumbling windows are fixed, non-overlapping intervals.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to compute Sum, Minimum, Maximum, or Average each time a new event occurs over a period of time, and also filter the aggregation by other dimensions. Which transformation provides this?",
+      "options": {
+        "A": "Manage fields",
+        "B": "Aggregate",
+        "C": "Expand",
+        "D": "Union"
+      },
+      "answer": "B",
+      "explanation": "The Aggregate transformation calculates Sum, Minimum, Maximum, or Average each time a new event occurs over a period of time, can rename calculated columns, and can filter the aggregation based on other dimensions.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An architect needs to ensure consistent data structure across multiple data sources before combining their streams. Which common transformation scenario does this describe?",
+      "options": {
+        "A": "Data quality",
+        "B": "Content-based routing",
+        "C": "Format standardization",
+        "D": "Aggregation and summarization"
+      },
+      "answer": "C",
+      "explanation": "Format standardization ensures consistent data structure across multiple data sources before combining streams, one of the common transformation scenarios listed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer adds calculated fields, renames columns for clarity, and converts data types for downstream compatibility. Which common transformation scenario does this represent?",
+      "options": {
+        "A": "Data enrichment",
+        "B": "Data quality",
+        "C": "Aggregation and summarization",
+        "D": "Content-based routing"
+      },
+      "answer": "A",
+      "explanation": "Data enrichment involves adding calculated fields, renaming columns for clarity, or converting data types for downstream compatibility.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A solution routes the output of a GroupByStreet transformation into a derived stream, which then feeds both an Activator (to check if there are bikes at every station) and an Eventhouse (to insert bike counts). What does this design demonstrate?",
+      "options": {
+        "A": "That only one destination can receive transformed output",
+        "B": "Content-based routing through a derived stream to multiple destinations",
+        "C": "That transformations cannot precede destinations",
+        "D": "That Activator and Eventhouse cannot be used together"
+      },
+      "answer": "B",
+      "explanation": "This is content-based routing: the transformation output is routed to a derived stream that fans out to both an Activator and an Eventhouse, showing multiple destinations from one routed stream.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer must explain why streaming destinations matter. According to the module, why does streaming data require immediate processing and storage?",
+      "options": {
+        "A": "Because streaming data cannot be transformed",
+        "B": "To retain its value, making processed data available for queries, reports, dashboards, alerts, actions, or integration",
+        "C": "Because Fabric deletes unprocessed events after one minute",
+        "D": "Because destinations only accept batch loads"
+      },
+      "answer": "B",
+      "explanation": "Streaming data requires immediate processing and storage to retain its value; destinations serve as endpoints where processed data becomes available for queries, reports, dashboards, alerts, actions, or integration with other systems.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer claims Eventstream requires provisioning and managing compute infrastructure to run the pipeline. Based on the module, how should this be corrected?",
+      "options": {
+        "A": "The claim is correct; you must size a Spark pool first",
+        "B": "You don't need to write any code or manage any infrastructure to use Eventstream",
+        "C": "You must deploy an Azure VM to host the canvas",
+        "D": "You must configure a Kubernetes cluster for transformations"
+      },
+      "answer": "B",
+      "explanation": "With Eventstream you design pipelines on the visual canvas and do not need to write any code or manage any infrastructure.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A monitoring team wants to keep only events where status equals 'error' for downstream alerting. Which transformation and example condition fits?",
+      "options": {
+        "A": "Aggregate with Average over a window",
+        "B": "Filter with a condition such as status = \"error\"",
+        "C": "Union of two error streams",
+        "D": "Expand on the status array"
+      },
+      "answer": "B",
+      "explanation": "Filter keeps only events meeting specific conditions, with examples like status = \"error\", temperature > 80, or customer type = \"premium\".",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A premium-customer marketing flow should process only events where customer type = 'premium'. Which transformation directly supports this kind of value-based row selection?",
+      "options": {
+        "A": "Manage fields",
+        "B": "Filter",
+        "C": "Join",
+        "D": "Group by"
+      },
+      "answer": "B",
+      "explanation": "The Filter transformation keeps only events that meet specific conditions, and the module explicitly lists customer type = \"premium\" as an example.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer needs to describe the role of the eventstream itself in the architecture. Which statement best captures it?",
+      "options": {
+        "A": "It is the storage layer that persists all events permanently",
+        "B": "It is the delivery mechanism that carries events from where they happen to where they need to be processed, analyzed, or acted upon",
+        "C": "It is only a reporting layer for Power BI",
+        "D": "It is a scheduler that triggers nightly batch jobs"
+      },
+      "answer": "B",
+      "explanation": "Eventstream is the delivery mechanism that carries events from where they happen to where they need to be processed, analyzed, or acted upon, via a pipeline of sources, transformations, and destinations.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Mobility operates a citywide bike-share network. Thousands of bikes emit telemetry (bike id, location, station street name, battery, and an array of recent trip ids) into Azure Event Hubs. The data engineering team must: (1) drop records with missing station street names, (2) add a calculated 'lowBattery' field, (3) compute the total number of bikes per street over fixed one-hour intervals, then (4) route the per-street totals through a single routed stream that simultaneously feeds Fabric Activator (to alert when a station has zero bikes) and an Eventhouse (for KQL trend analysis). They also need raw enriched events stored as Delta tables in a lakehouse for monthly reporting, with no code and no managed infrastructure. Which end-to-end design correctly satisfies ALL requirements?",
+      "options": {
+        "A": "Use a Filter to remove missing street names, Manage fields to add lowBattery, Group by with a tumbling (fixed) one-hour window for per-street totals, route totals to a derived stream that feeds both Activator and Eventhouse, and add a Lakehouse destination for the enriched events as Delta tables, all built no-code on the canvas",
+        "B": "Use a Join to remove missing street names, an Aggregate with a sliding window for fixed hourly totals, route directly to two unrelated eventstreams, and store data as CSV in a lakehouse",
+        "C": "Write a Spark notebook to filter and aggregate, provision a dedicated cluster, then push results only to a custom endpoint",
+        "D": "Use Expand to remove missing street names, Manage fields for hourly totals, and a single Eventhouse destination that also performs alerting and Delta storage"
+      },
+      "answer": "A",
+      "explanation": "Filter removes invalid records, Manage fields adds the calculated lowBattery column, Group by with a tumbling (fixed) one-hour window produces per-street totals, a derived stream enables content-based routing of those totals to both Activator and Eventhouse simultaneously, and a separate Lakehouse destination stores enriched events as Delta Lake tables. Multiple destinations are supported concurrently, and the whole design is built no-code with no managed infrastructure. The other options misuse transformations (Join/Expand for filtering), pick the wrong window type, require code/infrastructure, or wrongly assume one destination can do everything.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An eventstream Filter transformation is configured with the condition shown below. Given the incoming events, which events pass the filter?\n\nFilter condition:\n  temperature > 80 AND status = \"active\"\n\nEvents:\n  E1: { temperature: 95, status: \"active\" }\n  E2: { temperature: 78, status: \"active\" }\n  E3: { temperature: 90, status: \"error\" }\n  E4: { temperature: 81, status: \"active\" }",
+      "options": {
+        "A": "E1 and E4",
+        "B": "E1, E3, and E4",
+        "C": "All four events",
+        "D": "Only E1"
+      },
+      "answer": "A",
+      "explanation": "Filter keeps only events meeting the condition. E1 (95, active) and E4 (81, active) satisfy temperature > 80 AND status = active. E2 fails the temperature test; E3 fails the status test.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A Manage fields transformation is conceptually expressed as the pseudo-config below. What is the effect on the output schema?\n\nmanageFields:\n  rename: { temp -> temperatureC }\n  add: { lowBattery = (battery < 20) }\n  remove: [ rawPayload ]\n  changeType: { stationId -> string }",
+      "options": {
+        "A": "It joins two streams on stationId",
+        "B": "It renames temp to temperatureC, adds a calculated lowBattery field, removes rawPayload, and changes stationId to string",
+        "C": "It filters out events where battery < 20",
+        "D": "It expands the rawPayload array into multiple rows"
+      },
+      "answer": "B",
+      "explanation": "Manage fields can rename fields, add calculated fields, remove fields, and change data types. The config renames temp, adds lowBattery as a calculated field, drops rawPayload, and recasts stationId to string. It does not filter, join, or expand.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Two source streams are combined with a Union transformation. Their schemas are:\n\n  StreamA: { deviceId: string, temp: int, region: string }\n  StreamB: { deviceId: string, temp: int, plant: string }\n\nWhich fields appear in the Union output?",
+      "options": {
+        "A": "deviceId, temp, region, plant",
+        "B": "deviceId and temp only",
+        "C": "deviceId, region, plant",
+        "D": "temp only"
+      },
+      "answer": "B",
+      "explanation": "Union adds events with shared fields (same name and data type) into one table; fields that don't match are dropped. deviceId and temp match in both streams, while region (only in A) and plant (only in B) are dropped.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An Expand transformation is applied to the field tripIds. Given the input event below, how many output rows are produced and what do they contain?\n\nInput event:\n  { bikeId: \"B7\", tripIds: [\"t1\", \"t2\", \"t3\"] }",
+      "options": {
+        "A": "1 row containing the full array",
+        "B": "3 rows, each with bikeId \"B7\" and one tripId value (t1, t2, t3)",
+        "C": "3 rows, each containing the entire array",
+        "D": "0 rows because arrays are dropped"
+      },
+      "answer": "B",
+      "explanation": "Expand creates a new row for each value within an array. The three-element tripIds array produces three rows, each retaining bikeId \"B7\" with a single tripId value.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An Aggregate transformation is defined as below over device temperature events. What does it compute?\n\naggregate:\n  AVG(temperature) AS avgTemp\n  MAX(temperature) AS maxTemp\n  groupDimension: deviceId\n  recompute: on each new event over a time period",
+      "options": {
+        "A": "It computes a single average across all devices once at the end of the stream",
+        "B": "It recalculates the average and maximum temperature per deviceId each time a new event occurs over the period, outputting avgTemp and maxTemp",
+        "C": "It filters events where temperature is above the average",
+        "D": "It unions temperature events from two streams"
+      },
+      "answer": "B",
+      "explanation": "The Aggregate transformation calculates aggregations such as Average and Maximum each time a new event occurs over a period of time, can rename calculated columns (avgTemp, maxTemp), and can scope by dimensions like deviceId. It does not filter or union.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A Group by transformation uses a tumbling window as shown. Events for street 'Main St' arrive at 10:05, 10:20, 10:50, and 11:10. Using one-hour tumbling windows aligned to the top of the hour, how are the SUM(bikes) results grouped?\n\ngroupBy:\n  key: streetName\n  aggregate: SUM(bikes)\n  window: tumbling, size = 1 hour",
+      "options": {
+        "A": "One window from 10:00-11:00 summing the 10:05, 10:20, and 10:50 events, and a separate 11:00-12:00 window summing the 11:10 event",
+        "B": "All four events in a single overlapping window",
+        "C": "Four windows, one per event, because tumbling windows overlap",
+        "D": "No grouping, because tumbling windows are not supported in Group by"
+      },
+      "answer": "A",
+      "explanation": "Tumbling windows are fixed, non-overlapping intervals. The 10:00-11:00 window captures the 10:05, 10:20, and 10:50 events; the 11:10 event falls into the next 11:00-12:00 window. Group by supports tumbling windows.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A Join transformation combines an orders stream and a customers stream as shown. What is the result for an order whose customerId has no matching customer record, assuming an inner-style match on the condition?\n\njoin:\n  left: orders\n  right: customers\n  on: orders.customerId = customers.customerId",
+      "options": {
+        "A": "The order is emitted with all customer fields populated from a default record",
+        "B": "The order is not emitted because there is no matching condition satisfied between the two streams",
+        "C": "The two streams are unioned regardless of the condition",
+        "D": "The order array is expanded into multiple rows"
+      },
+      "answer": "B",
+      "explanation": "Join combines data from two streams based on a matching condition. When an order has no matching customer for the join condition, there is no match to combine, so that order does not produce a joined output. Join differs from Union (no condition) and Expand (array fan-out).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A no-code workflow is sketched in pseudo-form below for equipment temperature readings. Which ordering correctly reflects a valid Eventstream processing pipeline that ends by routing to two destinations?\n\nStep order:\n  1. Filter: remove sensor-error readings\n  2. Manage fields: add 'priority' from temperature thresholds\n  3. Group by: hourly averages by location\n  4. Route: temperature data to Activator (rules) AND hourly summaries to Lakehouse",
+      "options": {
+        "A": "The pipeline is invalid because transformations cannot be chained",
+        "B": "The pipeline is valid: Filter then Manage fields then Group by, then route to Activator and Lakehouse destinations",
+        "C": "The pipeline is invalid because only one destination is allowed",
+        "D": "The pipeline must start with Group by before any filtering"
+      },
+      "answer": "B",
+      "explanation": "Transformations can be chained: filter sensor errors, add a calculated priority via Manage fields, compute hourly averages by location via Group by, then route to multiple destinations (Activator for rule evaluation and Lakehouse for historical analysis). Multiple destinations are supported simultaneously.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A KQL query is run against an Eventhouse table that received bike telemetry from an eventstream. Conceptually, what will this query return?\n\nBikesByStreet\n| where Bikes == 0\n| project StreetName, EventTime",
+      "options": {
+        "A": "The streets and event times where the bike count is zero",
+        "B": "The sum of all bikes across every street",
+        "C": "All rows regardless of bike count",
+        "D": "An error, because KQL cannot query eventstream data"
+      },
+      "answer": "A",
+      "explanation": "The Eventhouse destination allows querying ingested real-time data with KQL. The query filters rows where Bikes equals 0 and projects StreetName and EventTime, returning streets (and times) with zero bikes. This mirrors the module's Activator check for stations with no bikes.",
+      "difficulty": "Medium"
+    }
+  ]
+}

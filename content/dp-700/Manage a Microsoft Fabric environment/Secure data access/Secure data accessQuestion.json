@@ -1,0 +1,564 @@
+{
+  "module": "Secure data access",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "How many levels does Fabric's security model evaluate sequentially before granting data access?",
+      "options": {
+        "A": "Two (Microsoft Entra ID authentication + Fabric access)",
+        "B": "Three (Microsoft Entra ID authentication, Fabric access, and Data security)",
+        "C": "Four (Entra ID, workspace, item, and column levels)",
+        "D": "Five (tenant, domain, workspace, item, and row levels)"
+      },
+      "answer": "B",
+      "explanation": "Fabric evaluates access sequentially across three levels: (1) Microsoft Entra ID authentication, (2) Fabric access, and (3) Data security. The third level, data security, contains four primary access controls.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which workspace role allows a user to create, view, modify, share, and manage all content and permissions?",
+      "options": {
+        "A": "Member",
+        "B": "Contributor",
+        "C": "Viewer",
+        "D": "Admin"
+      },
+      "answer": "D",
+      "explanation": "Admin can create, view, modify, share, and manage all content and data in the workspace, and manage permissions — the broadest workspace role.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which workspace role allows a user to create, view, and modify content but NOT share it or manage permissions?",
+      "options": {
+        "A": "Admin",
+        "B": "Member",
+        "C": "Contributor",
+        "D": "Viewer"
+      },
+      "answer": "C",
+      "explanation": "Contributor can create, view, and modify all content and data in the workspace, but cannot share items or manage workspace permissions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "By default, what OneLake data access do Viewer workspace role users have?",
+      "options": {
+        "A": "Read access to all OneLake data in the workspace",
+        "B": "Read and write access to all OneLake data",
+        "C": "No access to the underlying data stored in OneLake",
+        "D": "Read access to OneLake data via the SQL analytics endpoint only"
+      },
+      "answer": "C",
+      "explanation": "The module states: 'Viewers can see Fabric items listed in the workspace, but have no access to the underlying data stored in OneLake by default. Use OneLake security roles to grant Viewers access to specific tables or folders.'",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When sharing a lakehouse with item permissions, which permission is always granted by default?",
+      "options": {
+        "A": "Read all SQL endpoint data",
+        "B": "Read all Apache Spark and subscribe to events",
+        "C": "Read (metadata and reports access only, no underlying data)",
+        "D": "Build reports on the default semantic model"
+      },
+      "answer": "C",
+      "explanation": "When you share a lakehouse, Read permission is always granted — it lets the recipient see the item's metadata and view any associated reports, but doesn't grant access to any underlying data in SQL or OneLake.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What additional side effect occurs when granting 'Read all Apache Spark and subscribe to events' on a lakehouse?",
+      "options": {
+        "A": "The recipient is granted full Admin access to the workspace",
+        "B": "The recipient is automatically added to the lakehouse's DefaultReader OneLake security role",
+        "C": "The recipient gains write access to all OneLake data in the lakehouse",
+        "D": "T-SQL row-level security is automatically configured for the recipient"
+      },
+      "answer": "B",
+      "explanation": "Granting 'Read all Apache Spark and subscribe to events' also adds the recipient to the lakehouse's DefaultReader OneLake security role, giving them read access to all data in the lakehouse.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which Data Control Language (DCL) commands are used to apply T-SQL granular permissions in Fabric?",
+      "options": {
+        "A": "SELECT, INSERT, UPDATE",
+        "B": "GRANT, DENY, REVOKE",
+        "C": "CREATE, ALTER, DROP",
+        "D": "BEGIN, COMMIT, ROLLBACK"
+      },
+      "answer": "B",
+      "explanation": "T-SQL permissions for the SQL analytics endpoint are applied using Data Control Language commands: GRANT, DENY, and REVOKE. These can also be combined with row-level security, column-level security, and dynamic data masking.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How many components does each OneLake security role have?",
+      "options": {
+        "A": "Two (Data and Permission)",
+        "B": "Three (Data, Permission, Members)",
+        "C": "Four (Data, Permission, Members, Constraints)",
+        "D": "Five (Data, Permission, Members, Constraints, Audit)"
+      },
+      "answer": "C",
+      "explanation": "Each OneLake security role has four components: Data (the tables or folders), Permission (Read or ReadWrite), Members (users or groups), and Constraints (optional row or column filters).",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which workspace roles can create or modify OneLake security roles?",
+      "options": {
+        "A": "Admin, Member, and Contributor",
+        "B": "Admin and Member only",
+        "C": "Admin only",
+        "D": "All workspace roles including Viewer"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'Only workspace Admin and Member roles can create or modify OneLake security roles.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which security principle does the module recommend when assigning Fabric permissions?",
+      "options": {
+        "A": "Principle of maximum availability",
+        "B": "Principle of least privilege",
+        "C": "Principle of centralized control",
+        "D": "Principle of shared access"
+      },
+      "answer": "B",
+      "explanation": "The module repeatedly emphasizes the principle of least privilege — restricting each user's access to only what they need to perform their job.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the key difference between workspace roles and item permissions in Fabric?",
+      "options": {
+        "A": "Workspace roles are more granular than item permissions",
+        "B": "Workspace roles apply to all items in a workspace; item permissions apply to a single specific item",
+        "C": "Item permissions can only be assigned to Viewer users; workspace roles apply to all role types",
+        "D": "Workspace roles are configured in the Fabric admin portal; item permissions are set via T-SQL only"
+      },
+      "answer": "B",
+      "explanation": "Workspace roles apply to all items in a workspace (broad access). Item permissions apply to a single item like a specific lakehouse or warehouse (fine-grained access). Use item permissions when a user needs access to one or two items, not the whole workspace.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Across which compute engines does OneLake security enforce restrictions consistently?",
+      "options": {
+        "A": "Only when accessed via the SQL analytics endpoint",
+        "B": "Only when accessed via Apache Spark",
+        "C": "Consistently across all compute engines — Spark, SQL, and OneLake APIs",
+        "D": "Only when the Viewer workspace role is assigned to the user"
+      },
+      "answer": "C",
+      "explanation": "OneLake security enforces restrictions consistently across all Fabric compute engines — Spark, SQL, and OneLake APIs. This is its key advantage over T-SQL permissions, which only apply within the SQL analytics endpoint.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "A user holds the Contributor workspace role and is also added to a custom OneLake security role restricting access to two tables. What is their effective data access?",
+      "options": {
+        "A": "Restricted to the two tables specified in the OneLake security role",
+        "B": "Full read and write access to all OneLake data, because Contributor workspace role overrides OneLake security roles",
+        "C": "No access to OneLake data at all due to the conflict",
+        "D": "Access to data only via the SQL analytics endpoint"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'Users with Admin, Member, or Contributor workspace roles already have full read and write access to all OneLake data — OneLake security roles don't restrict that access.' OneLake security roles are designed for Viewer role users and Read item permission users.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "A user is shared a lakehouse with 'Read all Apache Spark and subscribe to events' and is then added to a custom OneLake role limiting access to 2 tables. They still see all data. What was forgotten?",
+      "options": {
+        "A": "Granting the user the Contributor workspace role",
+        "B": "Enabling workspace monitoring for the lakehouse",
+        "C": "Removing the user from the DefaultReader OneLake security role",
+        "D": "Applying T-SQL REVOKE on all other tables"
+      },
+      "answer": "C",
+      "explanation": "The module warns: 'When you restrict a user to a custom role, also remove them from DefaultReader — otherwise they still have full read access through the default role.'",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "For which users are OneLake security roles most appropriate?",
+      "options": {
+        "A": "Admin and Member roles who already have full OneLake access",
+        "B": "Contributor roles who need write access to specific tables",
+        "C": "Viewer workspace role users or users with only the Read item permission, who have no OneLake data access by default",
+        "D": "External users with no Fabric license assigned"
+      },
+      "answer": "C",
+      "explanation": "Use OneLake security roles to grant specific data access to users in the Viewer workspace role or with only Read item permission, who have no OneLake data access by default.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A new data engineer joins a healthcare company's Fabric team. They need to create Fabric items and read all data in an existing lakehouse — but should NOT be able to share content or manage workspace permissions. Which workspace role is the right fit?",
+      "options": {
+        "A": "Admin — provides full control including permission management",
+        "B": "Member — allows sharing which is not needed",
+        "C": "Contributor — allows creating, viewing, and modifying without share or permission management",
+        "D": "Viewer — only view access, cannot create items"
+      },
+      "answer": "C",
+      "explanation": "The module uses this exact scenario: 'The Contributor role is the right fit — it grants those capabilities without giving them share or permission management capabilities.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A few months later, the same data engineer no longer needs to create Fabric items. They only need to read data from a single specific lakehouse. What is the least-privileged approach?",
+      "options": {
+        "A": "Keep the Contributor workspace role since it's already assigned and changing it is complex",
+        "B": "Upgrade to the Member role for more flexibility",
+        "C": "Remove the Contributor role and share only the specific lakehouse directly using item permissions",
+        "D": "Assign the Admin role to allow more precise access control"
+      },
+      "answer": "C",
+      "explanation": "The module describes this scenario: 'Remove the engineer from the Contributor role and share the lakehouse with item permissions. The engineer can then view and query that lakehouse — and nothing else in the workspace. This follows the principle of least privilege.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst needs to query a lakehouse's data using T-SQL but should NOT have access to the data through Spark or the OneLake API. Which item permission should be granted?",
+      "options": {
+        "A": "Read all Apache Spark and subscribe to events",
+        "B": "Read all SQL endpoint data",
+        "C": "Build reports on the default semantic model",
+        "D": "Read (basic item permission only)"
+      },
+      "answer": "B",
+      "explanation": "'Read all SQL endpoint data' allows reading data via T-SQL through the SQL analytics endpoint without granting Spark or OneLake API access. Granting 'Read all Apache Spark' would give Spark access and also add them to DefaultReader.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A healthcare company needs an analyst to see only rows related to their department's patients when querying via T-SQL. What granular permission approach should the admin apply?",
+      "options": {
+        "A": "Create an OneLake security role with column-level security",
+        "B": "Apply T-SQL row-level security using a security policy on the SQL analytics endpoint",
+        "C": "Assign the analyst a Viewer workspace role",
+        "D": "Create a separate workspace containing only the relevant patient rows"
+      },
+      "answer": "B",
+      "explanation": "Since the analyst accesses data via T-SQL, T-SQL row-level security applied through the SQL analytics endpoint is the correct approach. T-SQL granular permissions include row-level security, column-level security, and dynamic data masking.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data team creates a custom OneLake security role restricting a group of analysts to the 'Sales' and 'Products' tables. However, those analysts were previously given 'Read all Apache Spark and subscribe to events' item permission. After creating the role, the analysts still see all tables. What must be done?",
+      "options": {
+        "A": "Also apply T-SQL DENY on all tables not in the custom role",
+        "B": "Remove the analysts from the DefaultReader OneLake security role",
+        "C": "Upgrade the analysts to the Contributor workspace role",
+        "D": "Disable workspace monitoring for the lakehouse"
+      },
+      "answer": "B",
+      "explanation": "Granting 'Read all Apache Spark' adds users to DefaultReader, which grants full read access to all data. When restricting to a custom role, you must also remove them from DefaultReader — otherwise the default role overrides the restriction.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric workspace admin wants to give a user access to one specific lakehouse without giving them access to any other items in the workspace. What is the correct approach?",
+      "options": {
+        "A": "Assign the user the Viewer workspace role",
+        "B": "Share the specific lakehouse directly using item permissions via 'Manage permissions'",
+        "C": "Create a new workspace containing only that lakehouse",
+        "D": "Assign the Contributor role for the entire workspace"
+      },
+      "answer": "B",
+      "explanation": "Item permissions let you share a specific item directly with a user and choose exactly what they can access, without giving workspace-wide access. Select the ellipsis (...) next to the item and select 'Manage permissions.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants to ensure analysts can only see specific columns in a warehouse table when querying via T-SQL. Which granular permission feature should be applied?",
+      "options": {
+        "A": "OneLake security role with ReadWrite permission on specific columns",
+        "B": "T-SQL column-level security using GRANT on specific columns or DENY on restricted columns",
+        "C": "Workspace Viewer role with column-level filtering",
+        "D": "DefaultReader OneLake role with column restrictions"
+      },
+      "answer": "B",
+      "explanation": "T-SQL column-level security, applied via the SQL analytics endpoint, restricts which columns a user can see. You can GRANT SELECT on specific columns or DENY SELECT on the columns to hide.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An admin grants a user the Viewer workspace role and adds them to a custom OneLake security role with Read permission on specific tables. What data can this user now access?",
+      "options": {
+        "A": "All data in the workspace via all compute engines",
+        "B": "Only the specific tables defined in the OneLake security role, via Spark and OneLake APIs",
+        "C": "No data at all — Viewer role blocks all data access",
+        "D": "Only data accessible through the SQL analytics endpoint"
+      },
+      "answer": "B",
+      "explanation": "Viewers have no OneLake data access by default. By adding them to a custom OneLake security role with Read permission, they gain access to only the specific tables defined — via Spark and OneLake APIs. This is the intended use case for OneLake security roles.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A security admin wants to show analysts masked salary values (like '0' for numeric) when querying via T-SQL, rather than completely hiding the column or revealing real data. Which T-SQL feature should be applied?",
+      "options": {
+        "A": "Row-level security with a filter predicate",
+        "B": "Column-level security with DENY on the Salary column",
+        "C": "Dynamic data masking on the Salary column",
+        "D": "REVOKE SELECT on the Salary column"
+      },
+      "answer": "C",
+      "explanation": "Dynamic data masking obscures sensitive data while still returning a value (e.g., 0 for numeric columns, 'XXXX' for strings). Unlike column-level security which blocks access entirely, masking allows users to see a sanitized version of the data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric admin needs to grant a data analyst access to a lakehouse's Power BI reports only, without giving SQL or Spark data access. Which item permissions should be granted?",
+      "options": {
+        "A": "Read + Read all SQL endpoint data",
+        "B": "Read + Build reports on the default semantic model",
+        "C": "Read + Read all Apache Spark and subscribe to events",
+        "D": "Read all SQL endpoint data + Read all Apache Spark and subscribe to events"
+      },
+      "answer": "B",
+      "explanation": "'Read' (always granted) provides item metadata access. 'Build reports on the default semantic model' allows creating Power BI reports — without granting SQL or Spark data access. This follows the principle of least privilege for report-only users.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A workspace admin adds an analyst to an OneLake security role with ReadWrite permission on the 'Transactions' table. The analyst has only Read item permission on the lakehouse (no workspace role). What can the analyst do?",
+      "options": {
+        "A": "Only read the Transactions table but not edit it",
+        "B": "View and edit data in the Transactions table without being granted a workspace write role",
+        "C": "Access all tables in the lakehouse with full read/write",
+        "D": "Nothing — ReadWrite OneLake roles require at least a Contributor workspace role"
+      },
+      "answer": "B",
+      "explanation": "The module states that OneLake security ReadWrite permission allows 'view and edit data in specific tables or folders without granting a workspace write role.' This is one of the powerful features of OneLake security.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An admin applies T-SQL GRANT and DENY permissions via the SQL analytics endpoint. A user then tries to access the same data via the Spark API. Are the T-SQL permissions enforced for Spark access?",
+      "options": {
+        "A": "Yes — T-SQL permissions apply consistently across all Fabric compute engines",
+        "B": "No — T-SQL permissions only apply within the SQL analytics endpoint; use OneLake security for cross-engine enforcement",
+        "C": "Yes — but only if workspace monitoring is also enabled",
+        "D": "No — T-SQL permissions are automatically converted to OneLake security roles"
+      },
+      "answer": "B",
+      "explanation": "T-SQL permissions are compute permissions that apply only within the SQL analytics endpoint. For consistent enforcement across Spark, SQL, and OneLake APIs, OneLake security roles should be used.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric admin accidentally assigns a user both the Contributor workspace role and a custom OneLake security role restricting access to 2 tables. The user can still access all 30 tables. Why?",
+      "options": {
+        "A": "Custom OneLake roles override workspace roles by design",
+        "B": "Contributor workspace role already grants full read/write access to all OneLake data; OneLake security roles do not restrict workspace role access",
+        "C": "The custom OneLake security role has not been saved correctly",
+        "D": "T-SQL permissions have superseded the OneLake security role"
+      },
+      "answer": "B",
+      "explanation": "Admin, Member, and Contributor workspace roles have full read and write access to all OneLake data. OneLake security roles are designed for Viewer role users and Read item permission users — they do not restrict workspace role access.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An admin needs to apply the following security policy using OneLake security: Group-A analysts can read all tables; Group-B analysts can read only the 'AggregatedStats' table. How many OneLake security roles are needed?",
+      "options": {
+        "A": "One role with Read permission for all analysts combined",
+        "B": "Two roles: one with Read on all tables for Group-A, and one with Read on 'AggregatedStats' only for Group-B",
+        "C": "Three roles: Read-All, Read-AggregatedStats, and one ReadWrite for future expansion",
+        "D": "One role with ReadWrite permission covering both groups"
+      },
+      "answer": "B",
+      "explanation": "Each OneLake security role defines access for specific members to specific tables/folders. Two separate roles are needed: one granting Group-A read access to all tables, and another granting Group-B read access to only AggregatedStats.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A user's lakehouse item permission is downgraded to basic 'Read' only (removing SQL and Spark access permissions). What can they now do with the lakehouse?",
+      "options": {
+        "A": "Query all data via T-SQL and Spark as before",
+        "B": "Only see the item's metadata and view any associated reports — no access to underlying SQL or OneLake data",
+        "C": "Access all OneLake data through the Fabric REST API",
+        "D": "Export all lakehouse data to Excel"
+      },
+      "answer": "B",
+      "explanation": "The basic Read permission lets the recipient see the item's metadata and view any associated reports, but doesn't grant access to any underlying data in SQL or OneLake.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An admin needs to grant a report consumer view-only workspace access and also grant them access to specific lakehouse tables via Spark. What combination of permissions achieves this with least privilege?",
+      "options": {
+        "A": "Contributor workspace role + custom OneLake Read role",
+        "B": "Viewer workspace role + custom OneLake security role with Read permission on specific tables",
+        "C": "Member workspace role + T-SQL column-level security",
+        "D": "Admin workspace role + DefaultReader role restriction"
+      },
+      "answer": "B",
+      "explanation": "Viewer role provides workspace item visibility without edit capabilities (least privilege for a consumer). The custom OneLake security role with Read permission grants access to specific tables via Spark and OneLake APIs — the intended pattern for Viewer users.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A new OneLake security role is created with ReadWrite permission for the 'Inventory' folder and no constraints. What does 'no constraints' mean for members of this role?",
+      "options": {
+        "A": "The role has no members and cannot be used until members are added",
+        "B": "No optional row or column filters are applied, so all rows and columns in 'Inventory' are accessible per the ReadWrite permission",
+        "C": "The role applies read-only restrictions by default with no write access",
+        "D": "The role expires after 30 days and must be renewed"
+      },
+      "answer": "B",
+      "explanation": "Constraints are optional row or column filters applied to the data in the role. When no constraints are configured, members have full access to all rows and columns in the specified tables/folders per the assigned permission level (Read or ReadWrite).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to grant a vendor partner read access to a lakehouse via Spark, but the partner should only see rows where Region = 'EMEA'. What combination of OneLake security features achieves this?",
+      "options": {
+        "A": "Create a workspace Viewer role with a built-in EMEA region filter",
+        "B": "Create an OneLake security role with Read permission, add the partner as a member, and configure a row constraint filtering for Region = 'EMEA'",
+        "C": "Apply T-SQL row-level security for the EMEA region via the SQL analytics endpoint",
+        "D": "Create a separate lakehouse containing only EMEA-region data"
+      },
+      "answer": "B",
+      "explanation": "OneLake security roles support optional row constraints (row filters). Creating a role with Read permission and a row constraint for Region = 'EMEA' restricts the partner to only EMEA rows, enforced consistently across Spark, SQL, and OneLake APIs.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "case-study",
+      "question": "A healthcare company's Fabric environment has a single lakehouse containing: PatientRecords, ClinicalTrials, InsuranceClaims, and AggregatedStats tables. They have four user groups:\n\n- Group A (Data Engineers): Build pipelines, need to create/modify Fabric items and read/write all OneLake data\n- Group B (Clinical Analysts): Query PatientRecords and ClinicalTrials via Spark and T-SQL; must NOT see InsuranceClaims\n- Group C (Insurance Team): Query InsuranceClaims only via T-SQL; must NOT see other tables; SSN column must be masked\n- Group D (Executives): View Power BI reports only; must NOT access raw data\n\nAll users are in the same workspace. Which configuration applies the principle of least privilege for all four groups?",
+      "options": {
+        "A": "Grant Admin role to all users; rely on T-SQL column security to restrict Groups B and C; share reports with Group D",
+        "B": "Group A → Contributor role; Group B → Viewer role + OneLake security role (Read on PatientRecords and ClinicalTrials); Group C → Viewer role + item permission 'Read all SQL endpoint data' + T-SQL GRANT on InsuranceClaims + dynamic data masking on SSN; Group D → Viewer role + item permission 'Build reports on the default semantic model'",
+        "C": "Group A → Admin role; Groups B, C, D → Viewer role with no additional permissions",
+        "D": "Group A → Contributor role; all others → same Contributor role with T-SQL DENY on sensitive tables"
+      },
+      "answer": "B",
+      "explanation": "Group A: Contributor gives create/modify without over-permissioning to Admin/Member. Group B: Viewer + OneLake security role restricts to specific tables via all engines. Group C: Viewer + SQL endpoint item permission scopes access to T-SQL only; T-SQL GRANT on InsuranceClaims + dynamic data masking hides SSN. Group D: Viewer + Build reports permission grants report access without any raw data access. Each group receives exactly what they need — no more.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A SQL analyst runs the following T-SQL command on a lakehouse's SQL analytics endpoint:\n\nGRANT SELECT ON dbo.PatientRecords TO [analyst@company.com];\n\nWhat does this command do?",
+      "options": {
+        "A": "Removes the analyst's access to the PatientRecords table",
+        "B": "Grants the analyst read (SELECT) access to the PatientRecords table via T-SQL",
+        "C": "Creates a new table called PatientRecords for the analyst",
+        "D": "Grants the analyst write access to the PatientRecords table"
+      },
+      "answer": "B",
+      "explanation": "GRANT SELECT on a table gives the specified user the ability to query (read) data from that table via T-SQL through the SQL analytics endpoint.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "An admin runs the following T-SQL commands in sequence:\n\nGRANT SELECT ON dbo.SalesData TO [analyst@company.com];\nDENY SELECT ON dbo.SalesData TO [analyst@company.com];\n\nWhat is the effective permission for the analyst on the SalesData table?",
+      "options": {
+        "A": "GRANT takes precedence; the analyst has full read access",
+        "B": "DENY takes precedence; the analyst cannot SELECT from SalesData",
+        "C": "Both cancel out; the analyst has no explicit permission and no restriction",
+        "D": "The commands produce an error because GRANT and DENY cannot be applied to the same user simultaneously"
+      },
+      "answer": "B",
+      "explanation": "In T-SQL, DENY always takes precedence over GRANT. Even when SELECT is explicitly granted, a DENY on the same object for the same user overrides it — the analyst cannot query SalesData.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A security admin applies this T-SQL to implement row-level security on a lakehouse's SQL analytics endpoint:\n\nCREATE SCHEMA Security;\nGO\n\nCREATE FUNCTION Security.fn_RegionFilter(@Region AS sysname)\nRETURNS TABLE WITH SCHEMABINDING\nAS RETURN\n    SELECT 1 AS fn_accessResult\n    WHERE @Region = USER_NAME() OR USER_NAME() = 'dbo';\nGO\n\nCREATE SECURITY POLICY RegionPolicy\nADD FILTER PREDICATE Security.fn_RegionFilter(Region)\nON dbo.SalesData WITH (STATE = ON);\n\nWhat does this configuration implement?",
+      "options": {
+        "A": "Column-level security that hides the Region column from all users",
+        "B": "Dynamic data masking that replaces Region values with placeholder text",
+        "C": "Row-level security that filters rows so each user only sees rows where Region matches their T-SQL username",
+        "D": "A table-valued function that grants full read access to all users named 'dbo'"
+      },
+      "answer": "C",
+      "explanation": "This creates a row-level security policy using a filter predicate. The function returns rows only where the Region column value matches USER_NAME() (the current SQL user's login), or the user is 'dbo'. Users see only their region's rows, implementing row-level security as described in the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An admin needs to remove a previously granted SELECT permission from a user without explicitly blocking future grants. Which T-SQL command should be used?\n\nOption A: DENY SELECT ON dbo.Reports TO [analyst@company.com];\nOption B: REVOKE SELECT ON dbo.Reports FROM [analyst@company.com];\nOption C: DROP USER [analyst@company.com];\nOption D: GRANT SELECT ON dbo.Reports TO [analyst@company.com];",
+      "options": {
+        "A": "Option A (DENY) — actively blocks the permission",
+        "B": "Option B (REVOKE) — removes the previously granted permission",
+        "C": "Option C (DROP USER) — removes the user entirely",
+        "D": "Option D (GRANT) — refreshes the permission"
+      },
+      "answer": "B",
+      "explanation": "REVOKE removes a previously granted or denied permission, returning the user to neither explicitly permitted nor denied. DENY actively blocks access and takes precedence over GRANT. REVOKE is the correct choice when you want to remove a grant without imposing an explicit block.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An admin applies dynamic data masking to a table:\n\nALTER TABLE dbo.Employees\nALTER COLUMN SSN ADD MASKED WITH (FUNCTION = 'partial(0, \"XXX-XX-\", 4)');\n\nALTER TABLE dbo.Employees\nALTER COLUMN Salary ADD MASKED WITH (FUNCTION = 'default()');\n\nA standard analyst (without UNMASK permission) runs SELECT SSN, Salary FROM dbo.Employees. What do they see?",
+      "options": {
+        "A": "SSN shows the full value; Salary shows 0.00",
+        "B": "SSN shows 'XXX-XX-' followed by the last 4 digits (e.g. 'XXX-XX-6789'); Salary shows 0",
+        "C": "SSN shows a completely random scrambled value; Salary shows NULL",
+        "D": "Both columns are completely hidden and not returned in the result"
+      },
+      "answer": "B",
+      "explanation": "The partial(0, 'XXX-XX-', 4) mask shows 0 characters from the start, the literal mask string 'XXX-XX-', then 4 characters from the end. So SSN '123-45-6789' becomes 'XXX-XX-6789'. The default() mask shows 0 for numeric types. Users with UNMASK permission see actual values.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An admin needs to restrict an analyst to see only the 'ProductID' and 'ProductName' columns from the Products table, hiding 'CostPrice'. Which T-SQL approach implements column-level security?\n\nOption A: GRANT SELECT ON dbo.Products TO [analyst@company.com];\nOption B: GRANT SELECT ON dbo.Products (ProductID, ProductName) TO [analyst@company.com];\nOption C: DENY SELECT ON dbo.Products (CostPrice) TO [analyst@company.com];",
+      "options": {
+        "A": "Option A only — grants access to all columns",
+        "B": "Option B only — grants SELECT on the specified columns only",
+        "C": "Option C only — denies access to CostPrice only",
+        "D": "Both Option B and Option C are valid approaches to column-level security"
+      },
+      "answer": "D",
+      "explanation": "Both are valid column-level security approaches. Option B explicitly grants access to only the specified columns. Option C (combined with a table-level grant) denies access to the CostPrice column specifically — since DENY takes precedence, the analyst cannot see CostPrice. Both achieve column-level restriction as listed in the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "After creating an OneLake security role:\n- Role name: ClinicalReadRole\n- Tables: PatientRecords, ClinicalTrials\n- Permission: Read\n- Members: Group-ClinicalAnalysts\n- Constraints: None\n\nA member of Group-ClinicalAnalysts runs this SQL query via the SQL analytics endpoint:\n\nSELECT * FROM dbo.InsuranceClaims;\n\nWhat is the result?",
+      "options": {
+        "A": "The query succeeds and returns all InsuranceClaims data",
+        "B": "The query returns only InsuranceClaims rows matching the analyst's name",
+        "C": "The query fails with a permission error — the analyst's OneLake role only grants access to PatientRecords and ClinicalTrials",
+        "D": "The query returns an empty result set without a permission error"
+      },
+      "answer": "C",
+      "explanation": "OneLake security roles restrict access to the specific tables/folders defined. Since InsuranceClaims is not included in ClinicalReadRole, the analyst has no access to it (assuming they are not a Contributor/Member workspace role, which would override OneLake restrictions).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A user is a member of two Azure Active Directory groups:\n- Group-Finance: Has GRANT SELECT on dbo.FinancialReports\n- Group-Restricted: Has DENY SELECT on dbo.FinancialReports\n\nWhat is the effective T-SQL permission for this user on dbo.FinancialReports?",
+      "options": {
+        "A": "SELECT is allowed because the user is a member of Group-Finance which has a GRANT",
+        "B": "SELECT is denied because DENY takes precedence over GRANT, even through group membership",
+        "C": "The permissions cancel each other out; the user has no explicit permission",
+        "D": "The user must be individually assigned a permission to determine effective access"
+      },
+      "answer": "B",
+      "explanation": "T-SQL DENY always takes precedence over GRANT, even when the permissions come from different group memberships. A DENY on any principal in the user's permission chain blocks access regardless of any GRANT elsewhere.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An admin runs the following T-SQL permissions sequence for a contractor:\n\n-- Grant access\nGRANT SELECT ON dbo.ProjectData TO [contractor@external.com];\nGRANT SELECT ON dbo.TeamDirectory TO [contractor@external.com];\nDENY SELECT ON dbo.Salaries TO [contractor@external.com];\nDENY SELECT ON dbo.HRRecords TO [contractor@external.com];\n\n-- Project ends\nREVOKE SELECT ON dbo.ProjectData FROM [contractor@external.com];\nREVOKE SELECT ON dbo.TeamDirectory FROM [contractor@external.com];\n\nAfter all statements execute, what is the contractor's effective access?",
+      "options": {
+        "A": "Access to ProjectData and TeamDirectory; blocked from Salaries and HRRecords",
+        "B": "No access to ProjectData and TeamDirectory (GRANT was revoked); still blocked from Salaries and HRRecords (DENY remains in effect)",
+        "C": "Full access to all four tables after REVOKE removes all restrictions",
+        "D": "Access to Salaries and HRRecords but not ProjectData and TeamDirectory"
+      },
+      "answer": "B",
+      "explanation": "REVOKE removes only the previously GRANTED SELECT on ProjectData and TeamDirectory — no longer permitted. The DENY statements on Salaries and HRRecords were not revoked and remain in effect. The contractor effectively has no access to any of the four tables.",
+      "difficulty": "Hard"
+    }
+  ]
+}

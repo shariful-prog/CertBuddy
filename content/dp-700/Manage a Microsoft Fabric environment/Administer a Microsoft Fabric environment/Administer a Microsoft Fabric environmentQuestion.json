@@ -1,0 +1,564 @@
+{
+  "module": "Administer a Microsoft Fabric environment",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What are the five levels of the Microsoft Fabric hierarchy, listed from highest to lowest scope?",
+      "options": {
+        "A": "User → Group → Workspace → Capacity → Tenant",
+        "B": "Tenant → Capacity → Domain → Workspace → Items",
+        "C": "Items → Workspace → Domain → Capacity → Tenant",
+        "D": "Tenant → Domain → Workspace → Capacity → Items"
+      },
+      "answer": "B",
+      "explanation": "Microsoft Fabric operates on a five-level architecture: Tenant (entire environment), Capacity (dedicated compute), Domain (logical grouping of workspaces), Workspace (collaboration container), and Items (data assets like lakehouses and notebooks).",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In Microsoft Entra ID, what is the Fabric admin role listed as?",
+      "options": {
+        "A": "Fabric Administrator",
+        "B": "Power BI Administrator",
+        "C": "Azure Data Administrator",
+        "D": "Microsoft Fabric Admin"
+      },
+      "answer": "B",
+      "explanation": "The module notes: 'Microsoft Entra ID lists the Fabric admin role as Power BI Administrator. When you assign this role, look for that name.'",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which admin role manages workspaces assigned to a specific compute resource and monitors its performance?",
+      "options": {
+        "A": "Fabric admin",
+        "B": "Domain admin",
+        "C": "Capacity admin",
+        "D": "Workspace admin"
+      },
+      "answer": "C",
+      "explanation": "Capacity admin manages workspaces assigned to a specific capacity, monitors resource consumption, and reassigns workspaces when needed.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a domain in Microsoft Fabric?",
+      "options": {
+        "A": "A dedicated compute and storage resource that powers Fabric workloads",
+        "B": "A logical grouping of workspaces that reflects organizational structure",
+        "C": "A security group that controls item-level permissions",
+        "D": "A layer of the Fabric multi-level security model"
+      },
+      "answer": "B",
+      "explanation": "A domain is a logical grouping that reflects how an organization structures its business. Domains help enforce governance boundaries and allow different policies to be applied to different groups of workspaces.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How long can tenant setting changes take to propagate across the Fabric tenant after being saved?",
+      "options": {
+        "A": "Immediately — changes are instant",
+        "B": "Up to 5 minutes",
+        "C": "Up to 15 minutes",
+        "D": "Up to 1 hour"
+      },
+      "answer": "C",
+      "explanation": "The module states: 'Changes can take up to 15 minutes to take effect across the tenant.'",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Where does a Fabric admin assign Power BI Pro licenses to users?",
+      "options": {
+        "A": "Fabric admin portal under Users",
+        "B": "Microsoft 365 admin center under Billing > Licenses",
+        "C": "Microsoft Entra ID portal under Identity",
+        "D": "Workspace settings in the Fabric portal"
+      },
+      "answer": "B",
+      "explanation": "Alex assigns licenses from the Microsoft 365 admin center, not the Fabric admin portal. Licensing is an M365 administration responsibility, and Fabric honors the licenses assigned there.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which per-user license is automatically assigned the first time a user signs into the Fabric portal (when Fabric is enabled in the tenant)?",
+      "options": {
+        "A": "Power BI Pro",
+        "B": "Power BI Premium Per User (PPU)",
+        "C": "Fabric Free",
+        "D": "Fabric Capacity license"
+      },
+      "answer": "C",
+      "explanation": "Fabric Free is automatically assigned the first time a user signs into the Fabric portal, if Fabric is enabled in the tenant. Alex doesn't need to pre-assign Free licenses.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "At what minimum capacity SKU size can users with a Free license view Power BI content without needing a Pro license?",
+      "options": {
+        "A": "F8",
+        "B": "F32",
+        "C": "F64",
+        "D": "F128"
+      },
+      "answer": "C",
+      "explanation": "The F64 threshold means that on F64 or larger capacities, users with Free licenses can view Power BI reports and dashboards if they have a viewer role on the workspace. On capacities smaller than F64, a Pro or PPU license is required for viewing.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the main difference between Workspace Apps and granting Workspace Access through roles?",
+      "options": {
+        "A": "Workspace Apps grant editing access; workspace roles grant read-only access",
+        "B": "Workspace Apps provide read-only access to finished content for large audiences; workspace roles give direct workspace access for collaboration",
+        "C": "Workspace Apps are for external users only; workspace roles are for internal users",
+        "D": "Workspace Apps require a Pro license; workspace roles work with any license"
+      },
+      "answer": "B",
+      "explanation": "Workspace apps are recommended for large audiences — app consumers get read-only access to reports without seeing workspace contents or work in progress. Workspace roles (Admin, Member, Contributor, Viewer) give direct access for collaboration and development teams.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What does the admin monitoring workspace contain for tracking platform-wide Fabric usage?",
+      "options": {
+        "A": "The Microsoft Fabric Capacity Metrics app",
+        "B": "The Feature Usage and Adoption report",
+        "C": "The monitoring hub audit log viewer",
+        "D": "The workspace monitoring Eventhouse database"
+      },
+      "answer": "B",
+      "explanation": "The admin monitoring workspace is a dedicated workspace accessible to tenant admins by default, containing the Feature Usage and Adoption report and its underlying semantic model — used for understanding feature adoption across the organization.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the Microsoft Fabric Capacity Metrics app measure?",
+      "options": {
+        "A": "User login frequency across the tenant",
+        "B": "Capacity unit (CU) consumption to monitor workload and capacity health",
+        "C": "The number of Fabric items created per workspace",
+        "D": "License utilization across the Microsoft 365 tenant"
+      },
+      "answer": "B",
+      "explanation": "Consumption in Fabric is measured in capacity units (CUs). The Microsoft Fabric Capacity Metrics app lets admins visualize CU consumption across their capacity to decide when to scale up or scale out.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the purpose of audit logs in the Fabric admin portal?",
+      "options": {
+        "A": "To monitor real-time capacity unit consumption",
+        "B": "To record user activities across the Fabric tenant for compliance and security investigations",
+        "C": "To configure tenant settings for different security groups",
+        "D": "To track Git commit history for Fabric workspace items"
+      },
+      "answer": "B",
+      "explanation": "Audit logs record user activities across the Fabric tenant. They capture who viewed or exported a report, who shared content externally, who modified workspace permissions, and who deleted Fabric items — providing evidence for security and compliance questions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the difference between a 'Promoted' and 'Certified' endorsement for Fabric items?",
+      "options": {
+        "A": "Promoted and Certified are identical labels for the same endorsement process",
+        "B": "Promoted can be set by workspace Contributors or Admins; Certified requires formal review by authorized certifiers configured via the Certification tenant setting",
+        "C": "Promoted requires Fabric admin approval; Certified can be set by any workspace member",
+        "D": "Promoted applies to semantic models only; Certified applies to all item types"
+      },
+      "answer": "B",
+      "explanation": "Promoted items are marked by workspace Contributor or Admin role users. Certified items require a formal review by an authorized certifier — the Fabric admin controls who can certify via the Certification tenant setting.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What does it mean when the module says tenant settings are 'governance policies, not security measures'?",
+      "options": {
+        "A": "Tenant settings are only visible to Fabric admins and have no user-facing effect",
+        "B": "Disabling a feature in tenant settings removes it from the UI, but doesn't prevent data access via other tools like Excel or Python APIs",
+        "C": "Tenant settings apply only to external users accessing the tenant",
+        "D": "Tenant settings cannot be changed after initial Fabric configuration"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'Turning off the Export data setting removes the export button from the interface, but it doesn't prevent a user with read access to a semantic model from querying that model through another tool like Excel or Python. Real data security requires item permissions and sensitivity labels.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the difference between 'scaling up' and 'scaling out' a Fabric capacity?",
+      "options": {
+        "A": "Scaling up increases the F SKU size for more compute; scaling out moves some workspaces to a separate capacity to distribute load",
+        "B": "Scaling up adds more workspaces to the capacity; scaling out increases the F SKU size",
+        "C": "Scaling up doubles the number of domains; scaling out adds more workspace admins",
+        "D": "Scaling up and scaling out are interchangeable terms for increasing capacity resources"
+      },
+      "answer": "A",
+      "explanation": "The module describes two options: scale up (increase the F SKU size to get more compute for the same capacity) versus scale out (move some workspaces to a separate capacity to distribute the load).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex is the Fabric admin at Contoso and has purchased an F64 capacity. She wants all 200 users to be able to start creating Fabric items. What is the first tenant setting she must enable?",
+      "options": {
+        "A": "Export to Excel",
+        "B": "Users can create Fabric items",
+        "C": "Certification",
+        "D": "Default sensitivity label"
+      },
+      "answer": "B",
+      "explanation": "The module describes this as 'the main Fabric on/off switch.' Without enabling 'Users can create Fabric items,' users cannot create lakehouses, warehouses, or any other Fabric items.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Finance users at Contoso must not be able to export data to Excel, but all other departments should retain this capability. How should Alex configure the 'Export to Excel' tenant setting?",
+      "options": {
+        "A": "Disable Export to Excel for the entire organization",
+        "B": "Enable Export to Excel for everyone except the 'Finance Restricted' security group",
+        "C": "Enable Export to Excel only for the IT security group",
+        "D": "Create a separate Fabric tenant for Finance users with the setting disabled"
+      },
+      "answer": "B",
+      "explanation": "Tenant settings can be enabled for everyone except specific security groups. Alex creates a 'Finance Restricted' group including Finance users, then enables Export to Excel for the entire organization except that group.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex wants the Finance lead to manage their own certified content reviewers independently, without needing Alex to update the tenant-level Certification setting. What should she configure?",
+      "options": {
+        "A": "Create a separate Fabric tenant for Finance with its own Certification setting",
+        "B": "Delegate the Certification tenant setting to the Finance domain admin, allowing them to override it for their domain",
+        "C": "Assign Finance users the Fabric admin role so they can configure their own settings",
+        "D": "Remove the Certification setting entirely from the tenant"
+      },
+      "answer": "B",
+      "explanation": "Delegated settings allow domain admins to override specific tenant-level settings for their domain. Alex delegates the Certification setting to the Finance domain admin, so the Finance lead can specify their own certifiers without Alex's involvement.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex wants new Finance workspaces to automatically be assigned to the Finance domain as they are created, without manual intervention. What domain assignment method should she use?",
+      "options": {
+        "A": "Assign workspaces by name pattern matching on the word 'Finance'",
+        "B": "Assign workspaces by workspace admin — workspaces whose admin is the Finance lead are automatically assigned to the Finance domain",
+        "C": "Manually assign each new workspace in the Capacity settings tab",
+        "D": "Enable auto-domain assignment in the Fabric admin portal settings page"
+      },
+      "answer": "B",
+      "explanation": "Alex chooses the workspace admin approach because it scales: 'As new Finance workspaces are created, Fabric automatically assigns them to the Finance domain if the Finance lead is the workspace admin.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Contoso's Finance team runs heavy quarter-end reports that push the F64 capacity toward its limit. What short-term action should Alex take, and which tool helps identify this pattern?",
+      "options": {
+        "A": "Delete Finance workspaces temporarily; identify using audit logs",
+        "B": "Scale up the capacity to F128 for that week using the Capacity Metrics app (which shows CU consumption trends), then scale back afterward",
+        "C": "Pause the Finance capacity during business hours to reset resources",
+        "D": "Move Finance workspaces to shared capacity during quarter-end"
+      },
+      "answer": "B",
+      "explanation": "The module describes Alex proactively scaling the capacity to F128 for the week when Finance runs heavy closing reports, then scaling back. The Capacity Metrics app shows CU consumption trends that help identify when this is needed.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer team's experimental pipeline runs on the F64 production capacity are interfering with Finance's daily reports. What should Alex do?",
+      "options": {
+        "A": "Grant Finance users higher workspace roles to override developer interference",
+        "B": "Move development workspaces to a separate trial or test capacity to isolate them from production workloads",
+        "C": "Delete the developer workspaces from the tenant",
+        "D": "Disable development pipelines in the Fabric admin portal"
+      },
+      "answer": "B",
+      "explanation": "The module states that development work 'can consume significant compute and affect performance for production users. By keeping dev workspaces on a separate trial or test capacity, development activity doesn't compete with the Finance team's daily reports.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex needs to assign Power BI Pro licenses to 30 report-creating analysts. She wants the license to update automatically when people join or leave the analyst group. What approach should she use?",
+      "options": {
+        "A": "Manually assign a Pro license to each analyst individually in the Fabric portal",
+        "B": "Create a Microsoft Entra ID security group (e.g., 'Contoso-Fabric-Pro-Users') and assign Pro licenses to the group in the M365 admin center under Billing > Licenses",
+        "C": "Grant all analysts the Fabric admin role, which includes a Pro license",
+        "D": "Purchase PPU licenses for each analyst as a one-time individual assignment"
+      },
+      "answer": "B",
+      "explanation": "License assignment is typically group-based. Alex manages 200 users by managing a handful of groups: 'When people join or leave a group, their license is updated automatically. This approach scales efficiently.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Contoso has 150 Marketing analysts and executives who only consume Power BI reports on the F64 capacity. Does Alex need to purchase Pro licenses for all 150 users?",
+      "options": {
+        "A": "Yes — Pro licenses are required for all users who view any Power BI content",
+        "B": "No — because Contoso has an F64 capacity (meeting the F64 threshold), Free-licensed users can view Power BI reports; only the 30 report creators need Pro",
+        "C": "Yes — but only for the executives, not the analysts",
+        "D": "No — PPU licenses are sufficient for all 150 report consumers"
+      },
+      "answer": "B",
+      "explanation": "The F64 threshold means Free users can view Power BI reports on F64+ capacities. Alex 'realizes she doesn't need Pro licenses for the 150 Marketing analysts and Executive viewers... She only needs Pro for the 30 data analysts who create and publish Power BI reports.'",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Contoso's Marketing team has 120 users who need to view finished production-ready reports without seeing work-in-progress. What content distribution pattern should Alex recommend?",
+      "options": {
+        "A": "Grant all 120 users Contributor workspace role for full transparency",
+        "B": "Publish a workspace app that provides read-only access to finished reports; consumers access via the app without workspace access",
+        "C": "Share individual report items with each of the 120 users via item permissions",
+        "D": "Grant all 120 users Admin workspace role so they can manage their own access"
+      },
+      "answer": "B",
+      "explanation": "Workspace apps are the recommended pattern for large audiences: 'When a workspace has an app, workspace admins publish the app to users who don't need workspace access. App consumers get read-only access to reports and dashboards without seeing the underlying workspace contents or work in progress.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Risk compliance asks Alex to confirm that no one exported sensitive Risk domain data to Excel last month. How should Alex verify this?",
+      "options": {
+        "A": "Run a KQL query in the workspace monitoring Eventhouse for export events",
+        "B": "Check the audit logs in the Fabric admin portal, filtering by activity type 'Export to Excel' and location for Risk domain workspaces",
+        "C": "Review the monitoring hub's historical runs filtered by Risk workspace",
+        "D": "Open the Capacity Metrics app and filter by Risk domain activity"
+      },
+      "answer": "B",
+      "explanation": "The module describes this exact scenario: 'She searches the audit logs in the admin portal, filtering by activity type (Export to Excel) and user. She confirms no exports occurred from the Risk domain workspaces and provides the compliance team with the log evidence.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex opens the OneLake catalog Govern tab and sees Finance workspaces have only 30% sensitivity label coverage. What action should she take?",
+      "options": {
+        "A": "Delete all unlabeled Finance items immediately",
+        "B": "Delegate this as an action item to the Finance domain admin to work with the data team to label remaining items",
+        "C": "Apply a default sensitivity label manually to all Finance items from the admin portal",
+        "D": "Disable the Finance domain workspaces until they are labeled"
+      },
+      "answer": "B",
+      "explanation": "The module describes Alex finding the 30% label coverage issue and delegating it: 'She delegates this as an action item to the Finance domain admin, who works with the data team to label the remaining items.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst wants to find trusted, certified semantic models from the Finance domain for a campaign analysis. Where should they look, and what indicates a model is certified?",
+      "options": {
+        "A": "The monitoring hub; certified models show a green checkmark icon",
+        "B": "The OneLake catalog, filtering by Finance domain; certified items show a Certified badge",
+        "C": "The Fabric admin portal governance section; certified items appear in a separate list",
+        "D": "The Microsoft 365 admin center; certified items appear under licensed content"
+      },
+      "answer": "B",
+      "explanation": "The module describes Finance users filtering the OneLake catalog by Finance domain to find certified semantic models, which appear with a Certified badge — indicating they went through a formal review by an authorized certifier.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex wants to understand which Fabric features are being adopted across Contoso's departments one month after go-live. Which tool should she use?",
+      "options": {
+        "A": "The monitoring hub's historical activity runs",
+        "B": "The admin monitoring workspace's Feature Usage and Adoption report",
+        "C": "The Microsoft Fabric Capacity Metrics app",
+        "D": "The audit logs in the Fabric admin portal"
+      },
+      "answer": "B",
+      "explanation": "The Feature Usage and Adoption report in the admin monitoring workspace shows which Fabric features users are using across the organization, usage trends over time, and which users and departments are most active.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "The Finance team reports that their daily report refresh is failing. Alex needs to identify which item failed, in which workspace, and what error occurred. What is the most efficient approach?",
+      "options": {
+        "A": "Review the Git commit history for the Finance workspace",
+        "B": "Open the monitoring hub, filter by Status = Failed and Location = Finance workspace, then select the failed item to view error details",
+        "C": "Check the Capacity Metrics app for Finance domain CU consumption spikes",
+        "D": "Review the Feature Usage and Adoption report for the Finance workspace activity"
+      },
+      "answer": "B",
+      "explanation": "The module describes this scenario: 'Alex opens the monitoring hub, filters by Status = Failed and Location = Finance workspace, and finds two failed Dataflow Gen2 refreshes. She sees the error details and contacts the Finance data lead with the specific information.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex plans to pause a non-production dev/test capacity overnight to save costs. What important consideration does the module highlight?",
+      "options": {
+        "A": "Pausing a capacity automatically migrates workspaces to the production capacity",
+        "B": "Pausing makes all content on that capacity unavailable — communicate planned downtime to users before pausing",
+        "C": "Pausing a capacity permanently deletes all items in the associated workspaces",
+        "D": "Pausing a capacity only stops semantic model refreshes; other activities continue normally"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'Pausing a capacity makes all content on that capacity unavailable, so Alex only pauses non-production capacities and communicates planned downtime to users first.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A workspace admin asks Alex to create a new domain for their team's workspaces. Who is responsible for creating domains in Fabric?",
+      "options": {
+        "A": "Any workspace admin can create domains from their workspace settings",
+        "B": "The Fabric admin creates domains from the admin portal Domains tab; domain admins manage workspaces within existing domains",
+        "C": "Domain creation requires Microsoft Entra ID Global Administrator rights",
+        "D": "Domains are automatically created when workspaces are assigned to a capacity"
+      },
+      "answer": "B",
+      "explanation": "Alex creates domains from the admin portal Domains tab. Domain admins (like the Finance and Risk leads) manage workspaces within their assigned domains and can designate domain contributors.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex needs to delegate Finance administrative tasks to the Finance lead without giving them full tenant admin rights. What role should she assign?",
+      "options": {
+        "A": "Fabric admin — full tenant control",
+        "B": "Domain admin for the Finance domain — manages workspaces within Finance and can override delegated tenant settings",
+        "C": "Capacity admin for the F64 capacity — manages all workspaces on the capacity",
+        "D": "Workspace admin for every individual Finance workspace"
+      },
+      "answer": "B",
+      "explanation": "Domain admin scope is limited to a specific domain. The Finance lead as domain admin can manage Finance workspaces and override delegated tenant settings — without getting tenant-wide control.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Power BI PPU user tries to create a lakehouse in a workspace not backed by an F capacity. What happens?",
+      "options": {
+        "A": "They can create the lakehouse because PPU includes all Fabric capabilities",
+        "B": "They cannot create the lakehouse — PPU doesn't provision a Fabric capacity, and creating non-Power BI Fabric items requires an F capacity backing the workspace",
+        "C": "They can create the lakehouse, but it will be stored in their personal My workspace only",
+        "D": "They need to upgrade to a Power BI Pro license to create lakehouses"
+      },
+      "answer": "B",
+      "explanation": "The module states: 'PPU doesn't provision a Fabric capacity. PPU users can't create non-Power BI Fabric items like lakehouses, warehouses, or notebooks without an F capacity backing their workspace.'",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An audit reveals a workspace admin shared a report externally without authorization last week. How does Alex confirm this, and which tool provides the evidence?",
+      "options": {
+        "A": "The monitoring hub's job execution history for the workspace",
+        "B": "The audit logs in the admin portal — which capture who shared content externally, when, and from where",
+        "C": "The Capacity Metrics app's access log section",
+        "D": "The Git commit history for items in the workspace"
+      },
+      "answer": "B",
+      "explanation": "Audit logs record user activities including who shared content externally, who modified workspace permissions, and who deleted Fabric items. Alex uses audit logs to track compliance and security events.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "Sonia is the new Fabric admin at Fabrikam, a 500-person financial services company with an F64 Fabric capacity. She must configure the environment for three departments: Finance (10 engineers + 40 analysts), IT (20 engineers), and Marketing (200 report consumers + 30 report creators). Requirements:\n(1) Finance data must not be exported to Excel\n(2) Only designated data stewards can certify content\n(3) Finance and IT need separate governance boundaries with their own admins\n(4) Engineers creating Fabric items need Free licenses; report creators need Pro; 200 Marketing consumers need minimal-cost licenses\n(5) Marketing report consumers should see finished content without workspace access\n(6) IT dev workspaces must not impact Finance production capacity\n\nWhich configuration plan best addresses all six requirements?",
+      "options": {
+        "A": "Assign all 500 users Pro licenses; enable all tenant settings for everyone; create one shared domain; assign all workspaces to F64",
+        "B": "(1) Enable 'Export to Excel' for all except 'Finance Restricted' group; (2) Enable Certification limited to 'Data Stewards' security group; (3) Create Finance domain (Finance lead as admin) and IT domain (IT lead as admin); (4) Pro for 30 Marketing creators; Free auto-assigned for engineers and 200 consumers (F64 threshold enables free viewing); (5) Publish workspace apps for 200 Marketing consumers; (6) Assign IT dev workspaces to a separate trial/test capacity",
+        "C": "Create separate Fabric tenants for each department; assign all users Pro licenses; no domain configuration needed",
+        "D": "Assign Admin workspace roles to all users; disable all exports tenant-wide; use only audit logs for governance"
+      },
+      "answer": "B",
+      "explanation": "(1) Tenant setting with security group exclusion blocks Finance exports only. (2) Certification setting limited to Data Stewards group controls who can certify. (3) Domains with admin delegation separate Finance and IT governance. (4) F64 threshold allows Free users to view Power BI reports; Pro only for 30 creators saves significant license costs. (5) Workspace apps give read-only access without workspace membership. (6) Separate capacity isolates dev workloads from production. Option B addresses all six requirements using the specific admin concepts described in the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex enables the 'Users can create Fabric items' setting. A user reports they still cannot create a lakehouse 5 minutes after the change. What is the most likely explanation?",
+      "options": {
+        "A": "The user doesn't have a workspace available to create items in",
+        "B": "Tenant setting changes can take up to 15 minutes to propagate; the user should wait and try again",
+        "C": "The user needs the Fabric admin role to create items",
+        "D": "The setting was applied to the wrong capacity"
+      },
+      "answer": "B",
+      "explanation": "Tenant setting changes can take up to 15 minutes to take effect across the tenant. Waiting and retrying is the appropriate first step.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A tenant setting shows: 'Enabled for specific security groups: [Data-Engineers-Group].' Marketing analysts cannot access this feature. What change lets Marketing access the feature while keeping the current group's access?",
+      "options": {
+        "A": "Change the setting to 'Disabled for the entire organization'",
+        "B": "Change the setting to 'Enabled for the entire organization' or add 'Marketing-Analysts-Group' to the specific groups list",
+        "C": "Remove Data-Engineers-Group from the setting first, then re-add it",
+        "D": "Create a new separate tenant setting specifically for the Marketing group"
+      },
+      "answer": "B",
+      "explanation": "Tenant settings support multiple states: disabled for all, enabled for all, enabled for specific groups, or enabled for all except specific groups. To include Marketing, either enable for all or add Marketing-Analysts-Group to the allowed groups list.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Power BI report is published to a workspace on an F32 capacity. A Free-licensed user tries to view the report and gets an access error. What is the cause?",
+      "options": {
+        "A": "The user needs to be added to a workspace role; change the workspace role to Viewer",
+        "B": "The F32 capacity is below the F64 threshold — Free users cannot view Power BI content on sub-F64 capacities; the user needs a Pro or PPU license",
+        "C": "The report needs to be republished on the F64 capacity to fix the error",
+        "D": "The user needs a Fabric Capacity license to view Power BI content"
+      },
+      "answer": "B",
+      "explanation": "Free license users can only view Power BI content on capacities at the F64 SKU or larger. On F32 and smaller capacities, viewing Power BI content requires a Pro or PPU per-user license.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A Finance domain is configured to auto-assign workspaces by workspace admin. A new workspace is created by an IT employee for a Finance project, but the Finance domain admin cannot see it in the Finance domain. What most likely caused this?",
+      "options": {
+        "A": "The workspace was assigned to the wrong capacity",
+        "B": "The workspace admin is the IT employee, not the Finance lead — auto-assignment by workspace admin only includes workspaces where the Finance lead is the admin",
+        "C": "Domains can only contain workspaces created directly by the domain admin",
+        "D": "The Finance domain has reached its maximum workspace limit"
+      },
+      "answer": "B",
+      "explanation": "When assigning workspaces by workspace admin, Fabric automatically assigns workspaces to the domain based on who is the workspace admin. If the IT employee is the admin (not the Finance lead), the workspace is not auto-assigned to the Finance domain.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Alex reviews the Feature Usage and Adoption report and sees Marketing has very low Fabric usage despite having licenses. What does this indicate and what should she do?",
+      "options": {
+        "A": "The Marketing team's licenses should be immediately revoked to save costs",
+        "B": "There may be a training gap or adoption barrier — share this insight with the Marketing lead to investigate",
+        "C": "The Marketing domain admin should be replaced with a more active admin",
+        "D": "Marketing workspaces should be moved to a higher-capacity SKU"
+      },
+      "answer": "B",
+      "explanation": "The module describes this: 'She uses the Feature Usage and Adoption report to see that only IT and Finance are actively using Fabric. Marketing has low usage despite having licenses. She shares this insight with the Marketing lead to understand if there's a training gap or adoption barrier.'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "The IT capacity admin notices CU consumption on the F64 is regularly hitting 90%+ on Monday mornings due to Finance batch jobs. What are the two options available to address this?",
+      "options": {
+        "A": "Delete Finance workspaces on Mondays; or reduce Finance users' workspace permissions",
+        "B": "Scale up (increase the F SKU size for more compute) or scale out (move some workspaces to a separate capacity to distribute load)",
+        "C": "Pause the capacity on Monday mornings; or disable Finance batch pipeline triggers",
+        "D": "Add more domains to the tenant; or increase workspace role limits"
+      },
+      "answer": "B",
+      "explanation": "The module describes these two options: 'Decide when to scale up (increase the F SKU size to get more compute) versus scale out (move some workspaces to a separate capacity to distribute load).'",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A workspace member marks a semantic model as 'Promoted.' A different user wants to mark it as 'Certified' but gets an error. What permission is required to certify items?",
+      "options": {
+        "A": "Workspace Admin role",
+        "B": "Designation as an authorized certifier through the Certification tenant setting configured by the Fabric admin",
+        "C": "Power BI Pro license",
+        "D": "Microsoft Entra ID Global Administrator role"
+      },
+      "answer": "B",
+      "explanation": "Certified items 'require a formal review by an authorized certifier.' The Fabric admin controls who can certify items via the Certification tenant setting. Only users authorized through this setting can apply the Certified endorsement.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A domain admin for the Finance domain wants to override the Certification tenant setting to designate Finance-specific certifiers. They open Finance domain settings but don't see Certification under 'Delegated settings.' What has the Fabric admin forgotten to do?",
+      "options": {
+        "A": "Assign the Finance lead as a workspace admin instead of domain admin",
+        "B": "Make the Certification tenant setting delegatable in the admin portal so domain admins can override it for their domain",
+        "C": "Create a security group for Finance certifiers in Microsoft Entra ID first",
+        "D": "Enable the Certification setting tenant-wide before delegating it"
+      },
+      "answer": "B",
+      "explanation": "Delegated settings only appear in domain settings after the Fabric admin has made them delegatable. The module states: 'Some tenant settings can be delegated so domain admins can override them for their domain.' The Fabric admin must first configure which settings are delegatable.",
+      "difficulty": "Hard"
+    }
+  ]
+}

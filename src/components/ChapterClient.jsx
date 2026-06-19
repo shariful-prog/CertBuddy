@@ -5,83 +5,58 @@ import Link from "next/link";
 import Sidebar from "./Sidebar";
 import MarkdownContent from "./MarkdownContent";
 import QuizEngine from "./QuizEngine";
+import { loadCertProgress, saveCertProgress } from "@/lib/progress";
 
-export default function ChapterClient({ examId, chapterId, examTitle, domains, activeChapter }) {
+export default function ChapterClient({ cert, chapterId, activeChapter }) {
   const [activeTab, setActiveTab] = useState("learn");
   const [progress, setProgress] = useState({
     completedChapters: [],
-    highScores: {}
+    chapterHighScores: {},
+    practiceScores: {},
+    finalScore: undefined,
   });
 
   useEffect(() => {
-    queueMicrotask(() => {
-      try {
-        const stored = localStorage.getItem("certbuddy_progress");
-        if (stored) {
-          setProgress(JSON.parse(stored));
-        }
-      } catch (e) {
-        console.error("Failed to load progress from localStorage", e);
-      }
-    });
-  }, []);
+    setProgress(loadCertProgress(cert.slug));
+  }, [cert.slug]);
 
-  const saveProgress = (updatedProgress) => {
-    setProgress(updatedProgress);
-    try {
-      localStorage.setItem("certbuddy_progress", JSON.stringify(updatedProgress));
-    } catch (e) {
-      console.error("Failed to save progress to localStorage", e);
-    }
+  const persist = (updated) => {
+    setProgress(updated);
+    saveCertProgress(cert.slug, updated);
   };
 
   const handleMarkAsRead = (isRead) => {
     let completed = [...progress.completedChapters];
     if (isRead) {
-      if (!completed.includes(chapterId)) {
-        completed.push(chapterId);
-      }
+      if (!completed.includes(chapterId)) completed.push(chapterId);
     } else {
-      completed = completed.filter(id => id !== chapterId);
+      completed = completed.filter((id) => id !== chapterId);
     }
-
-    saveProgress({
-      ...progress,
-      completedChapters: completed
-    });
+    persist({ ...progress, completedChapters: completed });
   };
 
   const handleQuizFinish = (score) => {
-    const currentHigh = progress.highScores[chapterId] || 0;
-    const updatedHighScores = { ...progress.highScores };
-    
-    if (score > currentHigh) {
-      updatedHighScores[chapterId] = score;
-    }
+    const currentHigh = progress.chapterHighScores[chapterId] || 0;
+    const chapterHighScores = { ...progress.chapterHighScores };
+    if (score > currentHigh) chapterHighScores[chapterId] = score;
 
     let completed = [...progress.completedChapters];
-    if (score >= 70 && !completed.includes(chapterId)) {
-      completed.push(chapterId);
-    }
+    if (score >= 70 && !completed.includes(chapterId)) completed.push(chapterId);
 
-    saveProgress({
-      completedChapters: completed,
-      highScores: updatedHighScores
-    });
+    persist({ ...progress, completedChapters: completed, chapterHighScores });
   };
 
   const isCompleted = progress.completedChapters.includes(chapterId);
-  const currentHighScore = progress.highScores[chapterId];
+  const currentHighScore = progress.chapterHighScores[chapterId];
   const estimatedTime = 15;
 
   return (
     <div className="workspace-container">
-      <Sidebar 
-        examId={examId}
-        domains={domains}
+      <Sidebar
+        cert={cert}
         activeChapterId={chapterId}
         completedChapters={progress.completedChapters}
-        highScores={progress.highScores}
+        highScores={progress.chapterHighScores}
       />
 
       <div className="study-deck">
@@ -89,7 +64,8 @@ export default function ChapterClient({ examId, chapterId, examTitle, domains, a
           <div className="chapter-header-main">
             <div className="chapter-title-block">
               <div className="breadcrumbs">
-                <Link href="/">Exams</Link> / <span>{examId.toUpperCase()}</span>
+                <Link href="/">Certifications</Link> /{" "}
+                <Link href={`/exams/${cert.slug}`}>{cert.code}</Link>
               </div>
               <h2 className="active-chapter-title">{activeChapter.title}</h2>
             </div>
@@ -103,22 +79,25 @@ export default function ChapterClient({ examId, chapterId, examTitle, domains, a
             </div>
           </div>
 
+        </div>
+
+        <div className="chapter-tabs-bar">
           <div className="tabs-container" role="tablist" aria-label="Study mode">
-            <button 
+            <button
               className={`tab-btn ${activeTab === "learn" ? "active" : ""}`}
               onClick={() => setActiveTab("learn")}
               role="tab"
               aria-selected={activeTab === "learn"}
             >
-              Study Guide
+              Study guide
             </button>
-            <button 
+            <button
               className={`tab-btn ${activeTab === "quiz" ? "active" : ""}`}
               onClick={() => setActiveTab("quiz")}
               role="tab"
               aria-selected={activeTab === "quiz"}
             >
-              Practice Quiz
+              Practice quiz
             </button>
           </div>
         </div>
@@ -129,16 +108,19 @@ export default function ChapterClient({ examId, chapterId, examTitle, domains, a
               {activeTab === "learn" ? (
                 <div className="learn-panel">
                   <MarkdownContent htmlContent={activeChapter.overviewHtml} />
-                  
+
                   <div className="completion-card">
                     <div className="completion-card-body">
                       <h4>Finished Studying?</h4>
-                      <p>Mark this chapter as learned to track your progress and update the exam progress index.</p>
+                      <p>
+                        Mark this chapter as learned to track your progress and update
+                        the exam progress index.
+                      </p>
                       <label className="checkbox-toggle">
-                        <input 
-                          type="checkbox" 
-                          checked={isCompleted} 
-                          onChange={(e) => handleMarkAsRead(e.target.checked)} 
+                        <input
+                          type="checkbox"
+                          checked={isCompleted}
+                          onChange={(e) => handleMarkAsRead(e.target.checked)}
                         />
                         <span className="toggle-slider"></span>
                         <span className="toggle-label">
@@ -150,9 +132,9 @@ export default function ChapterClient({ examId, chapterId, examTitle, domains, a
                 </div>
               ) : (
                 <div className="quiz-panel">
-                  <QuizEngine 
-                    chapterTitle={activeChapter.title}
-                    questions={activeChapter.questions} 
+                  <QuizEngine
+                    title={activeChapter.title}
+                    questions={activeChapter.questions}
                     onFinish={handleQuizFinish}
                     previousHighScore={currentHighScore}
                   />
@@ -168,9 +150,9 @@ export default function ChapterClient({ examId, chapterId, examTitle, domains, a
                 </div>
                 <strong>{isCompleted ? "Complete" : "In progress"}</strong>
               </div>
-              <button type="button" className="utility-action">Bookmark lesson</button>
-              <button type="button" className="utility-action">Notes</button>
-              <button type="button" className="utility-action">Quick navigation</button>
+              <Link href={`/exams/${cert.slug}`} className="utility-action">
+                ← All sections
+              </Link>
             </aside>
           </div>
         </div>

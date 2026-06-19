@@ -1,0 +1,265 @@
+{
+  "module": "Practice Exam 5",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "In Microsoft Fabric, which workspace role grants a user the ability to manage workspace settings, add or remove members, and assign roles, but is intended for the person who owns the workspace?",
+      "options": {
+        "A": "Admin",
+        "B": "Member",
+        "C": "Contributor",
+        "D": "Viewer"
+      },
+      "answer": "A",
+      "explanation": "The Admin workspace role has full control, including managing workspace settings, adding/removing members of any role, and deleting the workspace. Member can add others but only up to the Member role; Contributor can create/edit content but not manage access; Viewer is read-only.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which Fabric capability allows you to track activities such as refreshes, pipeline runs, and Spark job executions across all items in a workspace from a single centralized location?",
+      "options": {
+        "A": "Monitoring hub",
+        "B": "Capacity Metrics app",
+        "C": "Query insights",
+        "D": "Purview hub"
+      },
+      "answer": "A",
+      "explanation": "The Monitoring hub provides a centralized view of activities across Fabric items, including dataset refreshes, dataflow refreshes, pipeline runs, Spark applications, and semantic model operations. The Capacity Metrics app focuses on capacity utilization (CUs), and query insights focuses on warehouse query history.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When you connect a Fabric workspace to Git integration, which source control providers are natively supported?",
+      "options": {
+        "A": "Azure DevOps (Azure Repos) and GitHub",
+        "B": "Only Azure DevOps",
+        "C": "GitLab and Bitbucket",
+        "D": "Any Git provider via generic HTTPS URL"
+      },
+      "answer": "A",
+      "explanation": "Fabric Git integration natively supports Azure DevOps (Azure Repos) and GitHub. Generic Git providers, GitLab, and Bitbucket are not natively supported; only Azure DevOps and GitHub repositories can be connected directly.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "A Fabric deployment pipeline can have how many stages by default, and what is their typical purpose?",
+      "options": {
+        "A": "Three stages: Development, Test, and Production",
+        "B": "Two stages: Build and Release",
+        "C": "Four stages: Dev, QA, Staging, Production",
+        "D": "A single stage that all workspaces share"
+      },
+      "answer": "A",
+      "explanation": "Fabric deployment pipelines provide three default stages: Development, Test, and Production. Each stage is associated with a workspace, and content is promoted from one stage to the next. You can customize stages, but the default configuration is three.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which tool would you use to monitor capacity unit (CU) consumption, identify throttling, and analyze interactive versus background operations on a Fabric capacity?",
+      "options": {
+        "A": "Microsoft Fabric Capacity Metrics app",
+        "B": "Monitoring hub",
+        "C": "Azure Monitor Logs",
+        "D": "SQL Server Profiler"
+      },
+      "answer": "A",
+      "explanation": "The Microsoft Fabric Capacity Metrics app is specifically designed to show CU consumption, throttling/overload events, and a breakdown of interactive and background operations over time, including the timepoint detail and overage smoothing. The Monitoring hub tracks item activity, not capacity-level CU metrics.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "In the Fabric security model, what is the effect of granting a user only the 'Read' permission on a Lakehouse item (without ReadAll or workspace role)?",
+      "options": {
+        "A": "They can connect to the item and discover it, but cannot read the underlying data in OneLake without additional permissions",
+        "B": "They get full read/write access to all tables and files",
+        "C": "They can edit the Lakehouse schema",
+        "D": "They automatically become a workspace Viewer"
+      },
+      "answer": "A",
+      "explanation": "The item-level 'Read' permission allows a user to see and connect to the item, but to read the actual data in OneLake (tables/files via the SQL endpoint or shortcuts) they typically need 'ReadAll' (ReadData/ReadAllSQLEndpoint/etc.) granted explicitly or via sharing. Read alone does not grant data access.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "Which Fabric REST API endpoint family would you use to programmatically create a workspace, assign it to a capacity, and add a Lakehouse item?",
+      "options": {
+        "A": "The Fabric REST APIs under api.fabric.microsoft.com (Core/Workspaces and Items APIs)",
+        "B": "The Power BI Embedded REST API only",
+        "C": "The Azure Resource Manager (ARM) API only",
+        "D": "The Microsoft Graph API"
+      },
+      "answer": "A",
+      "explanation": "The Fabric REST APIs hosted at api.fabric.microsoft.com expose Core APIs for Workspaces (create workspace, assign to capacity, role assignments) and Items APIs (create Lakehouse, Notebook, etc.). ARM is used for capacity provisioning, but item/workspace management uses the Fabric REST APIs.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What does enabling 'OneLake security' / row-level and object-level governance through the Fabric SQL analytics endpoint primarily allow you to do?",
+      "options": {
+        "A": "Restrict which rows and columns a user can see when querying a warehouse or lakehouse SQL endpoint",
+        "B": "Encrypt OneLake at rest with customer-managed keys only",
+        "C": "Replicate data to another region automatically",
+        "D": "Convert Delta tables to Parquet on read"
+      },
+      "answer": "A",
+      "explanation": "Row-level security (RLS) and column-level security (CLS) / object-level security on the SQL analytics endpoint and warehouse restrict the rows and columns returned to a user based on security predicates and grants. This is a core part of the Fabric data-protection/governance model.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Your team uses a deployment pipeline with Dev, Test, and Production stages. A data engineer reports that after promoting from Test to Production, a pipeline that copies data still points to the Test Lakehouse connection. What is the recommended approach to fix this without manually editing items after each deployment?",
+      "options": {
+        "A": "Configure deployment pipeline rules (deployment rules) on the Production stage to rebind data sources/parameters per stage",
+        "B": "Delete the Production workspace and re-promote",
+        "C": "Disable Git integration before promoting",
+        "D": "Manually edit the connection in Production every time and document the steps"
+      },
+      "answer": "A",
+      "explanation": "Deployment rules let you define stage-specific values (such as data source connections, parameters, and Lakehouse bindings) that are automatically applied during deployment. This ensures Production items point to Production sources without manual edits after each promotion.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric capacity (F64) is experiencing intermittent slowdowns. In the Capacity Metrics app you observe that the 'Overages' / carry-forward is accumulating and the system has entered an interactive delay state. Which statement best describes what is happening and the correct first action?",
+      "options": {
+        "A": "Sustained CU usage exceeded the capacity limit, triggering throttling; reduce/reschedule heavy background jobs or scale up the capacity",
+        "B": "OneLake storage is full; purge old files immediately",
+        "C": "The capacity region changed; reassign the workspace",
+        "D": "A user lost the Admin role; reassign permissions"
+      },
+      "answer": "A",
+      "explanation": "Accumulating overages indicate sustained consumption above the capacity's CU limit. Fabric smooths usage but, when carry-forward builds up, it applies progressive throttling (interactive delay, then interactive rejection, then background rejection). The fix is to reduce/optimize/reschedule workloads or scale the capacity (or enable autoscale/scale up the SKU).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "You must ensure that data engineers can develop notebooks and create lakehouses in a workspace, but they should NOT be able to change workspace access or delete the workspace. Which workspace role should you assign?",
+      "options": {
+        "A": "Contributor",
+        "B": "Admin",
+        "C": "Member",
+        "D": "Viewer"
+      },
+      "answer": "A",
+      "explanation": "The Contributor role allows creating and editing items (notebooks, lakehouses, pipelines) and running them, but does not allow managing workspace access or deleting the workspace. Member can add others; Admin has full control; Viewer is read-only.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A governance lead wants to apply sensitivity labels (e.g., 'Confidential') that follow data downstream from a Lakehouse to a semantic model and exported files. Which Microsoft capability provides this in Fabric?",
+      "options": {
+        "A": "Microsoft Purview Information Protection sensitivity labels integrated with Fabric",
+        "B": "Workspace Viewer role",
+        "C": "Deployment pipeline rules",
+        "D": "Spark autoscale"
+      },
+      "answer": "A",
+      "explanation": "Microsoft Purview Information Protection sensitivity labels are integrated with Fabric and inherit downstream (label inheritance), so a label applied to a source item flows to dependent items and exported content. This is the governance mechanism for data classification and protection.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Your organization requires that all changes to Fabric items be reviewed before reaching Production. You have Git integration on the Dev workspace connected to Azure DevOps. What is the most appropriate end-to-end workflow?",
+      "options": {
+        "A": "Developers commit from the Dev workspace to a feature branch, open a pull request for review, merge to main, then use a deployment pipeline to promote Dev to Test to Production",
+        "B": "Connect Production directly to Git and let developers commit straight to main",
+        "C": "Have all developers share one workspace and skip branching",
+        "D": "Export each item as a .pbix and email it for review"
+      },
+      "answer": "A",
+      "explanation": "Best practice combines Git integration (branch + pull request for code review and history) with deployment pipelines for promotion across stages. Developers work in isolated branches/workspaces, PRs enforce review on main, and the deployment pipeline handles promotion with deployment rules. Connecting Production directly to Git bypasses review.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A warehouse query that joins a large fact table to several dimensions runs slowly. Using query insights, you find the query repeatedly performs full scans. Which optimization is most appropriate first for a Fabric Warehouse (which does not support traditional indexes/partitions the same way)?",
+      "options": {
+        "A": "Ensure statistics are up to date and the query is written to allow good distribution/pruning; consider table design and avoid SELECT * with proper joins",
+        "B": "Create a clustered columnstore index manually with CREATE INDEX",
+        "C": "Add a non-clustered rowstore index on every column",
+        "D": "Switch the warehouse to Direct Lake mode"
+      },
+      "answer": "A",
+      "explanation": "Fabric Warehouse stores data as columnstore (Delta/Parquet) and does not support user-defined indexes or manual partitioning like SQL Server. Performance tuning focuses on accurate statistics (auto/manual CREATE STATISTICS), good query design, appropriate data types, and reducing scanned data. Direct Lake is a semantic model storage mode, not a warehouse query fix.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An auditor asks who refreshed a specific semantic model and when, and whether any pipeline runs failed in the last 24 hours across the workspace. Which Fabric feature is the fastest single place to answer both questions?",
+      "options": {
+        "A": "The Monitoring hub, filtered by item type and status",
+        "B": "The Capacity Metrics app",
+        "C": "The OneLake file explorer",
+        "D": "The workspace settings page"
+      },
+      "answer": "A",
+      "explanation": "The Monitoring hub lists activities (refreshes, pipeline runs, Spark jobs, etc.) with status, timestamps, submitter, and duration, and supports filtering by item type and status. It is the central place to answer 'who/when/did it fail' questions across the workspace.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "You need to grant a partner team read-only access to a single Lakehouse table without giving them access to the whole workspace or the entire Lakehouse. Which approach aligns with the Fabric security model?",
+      "options": {
+        "A": "Share the item with the needed data permissions and use OneLake data access roles / SQL endpoint object-level grants to scope to the table",
+        "B": "Add them as workspace Admin",
+        "C": "Email them an export of the table once per day",
+        "D": "Give them the capacity-level contributor role"
+      },
+      "answer": "A",
+      "explanation": "Fabric supports granular sharing of an item plus OneLake data access roles (folder/table scoping) and SQL analytics endpoint object-level security (GRANT SELECT on a specific table/view). This grants least-privilege access to a single table without workspace membership or full Lakehouse access.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants automated, repeatable provisioning: for each new project, create a workspace, assign a capacity, add three users with specific roles, and create a Lakehouse and a Notebook. They want this in a CI process. What is the best approach?",
+      "options": {
+        "A": "Use the Fabric REST APIs (or the fabric-cli / Terraform provider) with a service principal in a pipeline to script the provisioning",
+        "B": "Manually click through the Fabric portal each time",
+        "C": "Use Power BI Desktop to publish a template",
+        "D": "Use SSMS scripts against the SQL endpoint"
+      },
+      "answer": "A",
+      "explanation": "Automated, repeatable provisioning is best done via the Fabric REST APIs (or wrappers like the Fabric CLI / Terraform provider) authenticated with a service principal, executed in a CI/CD pipeline. This codifies workspace creation, capacity assignment, role assignments, and item creation. Manual portal steps and Power BI templates do not meet the automation requirement.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Spark notebook job intermittently fails with executor out-of-memory errors on a Fabric capacity. In the Spark application monitoring you see heavy data skew on a join. Which combination of actions is most appropriate?",
+      "options": {
+        "A": "Address the skew (e.g., salting/broadcast join for the small side), tune the Spark pool/session size, and review the job in the monitoring detail",
+        "B": "Switch the notebook language from PySpark to T-SQL",
+        "C": "Reduce the number of partitions to one",
+        "D": "Disable Adaptive Query Execution entirely"
+      },
+      "answer": "A",
+      "explanation": "OOM from a skewed join is typically resolved by mitigating skew (broadcast the small table, salting keys) and right-sizing the Spark pool/executor memory. AQE actually helps with skew, so disabling it is counterproductive; coalescing to a single partition makes OOM worse. Monitoring detail helps confirm the skewed stage.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "In a Fabric Warehouse you want to review the most resource-intensive completed queries from the last hour using query insights. Which query is correct?",
+      "options": {
+        "A": "SELECT TOP 10 * FROM queryinsights.exec_requests_history ORDER BY total_elapsed_time_ms DESC;",
+        "B": "SELECT TOP 10 * FROM sys.dm_exec_query_stats ORDER BY total_worker_time DESC;",
+        "C": "SELECT * FROM queryinsights.long_running_queries WHERE capacity = 'F64';",
+        "D": "EXEC sp_who2;"
+      },
+      "answer": "A",
+      "explanation": "Fabric Warehouse exposes query insights through the queryinsights schema, including views such as queryinsights.exec_requests_history, queryinsights.long_running_queries, and queryinsights.frequently_run_queries. Ordering exec_requests_history by total_elapsed_time_ms returns the most time-consuming queries. The classic sys.dm_exec_query_stats DMV and sp_who2 are SQL Server constructs not used here.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "You are writing PySpark in a Fabric notebook to incrementally upsert new records into a Delta table in a Lakehouse based on a business key. Which approach is correct?",
+      "options": {
+        "A": "Use DeltaTable.forName(spark, 'tbl').alias('t').merge(updates.alias('s'), 't.id = s.id').whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()",
+        "B": "df.write.mode('overwrite').saveAsTable('tbl') every run",
+        "C": "spark.sql('UPDATE tbl SET * FROM updates')",
+        "D": "df.write.mode('append').saveAsTable('tbl') and rely on dedup at read time"
+      },
+      "answer": "A",
+      "explanation": "Delta Lake MERGE (upsert) is the correct pattern: match on the business key, update matched rows and insert unmatched rows in one atomic operation. Overwrite reloads the whole table (not incremental), the SQL UPDATE...FROM syntax shown is invalid, and append-then-dedup creates duplicates and extra read cost.",
+      "difficulty": "Medium"
+    }
+  ]
+}

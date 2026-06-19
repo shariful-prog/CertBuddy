@@ -1,0 +1,8 @@
+{
+  "slug": "dp-700",
+  "code": "DP-700",
+  "title": "Fabric Data Engineer Associate",
+  "fullTitle": "DP-700: Implementing Data Engineering Solutions Using Microsoft Fabric",
+  "description": "Designing, implementing, and optimizing data engineering and integration solutions using Microsoft Fabric — lakehouses, warehouses, real-time intelligence, notebooks, pipelines, and Spark.",
+  "order": 1
+}

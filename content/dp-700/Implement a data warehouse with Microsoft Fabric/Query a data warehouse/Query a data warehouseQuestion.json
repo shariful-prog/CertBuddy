@@ -1,0 +1,590 @@
+{
+  "module": "Query a data warehouse",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "In a star schema data warehouse, what type of data do fact tables store?",
+      "options": {
+        "A": "Descriptive attributes such as customer names and product categories",
+        "B": "Measurable, quantitative data such as quantities sold and revenue",
+        "C": "Connection strings and authentication metadata",
+        "D": "Power BI report definitions"
+      },
+      "answer": "B",
+      "explanation": "Fact tables store the measurable, quantitative data about a business, such as quantities sold and revenue. Dimension tables contain the descriptive attributes that give that numeric data context.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the primary purpose of dimension tables in a data warehouse?",
+      "options": {
+        "A": "To store the numeric measures of business transactions",
+        "B": "To contain descriptive attributes related to the fact data",
+        "C": "To manage T-SQL permissions",
+        "D": "To hold approximate counts of records"
+      },
+      "answer": "B",
+      "explanation": "Dimension tables contain descriptive attributes related to fact data. Without the dimension tables, the numbers in the fact table have no context (who, what, where, when, how much).",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which language does Microsoft Fabric Data Warehouse fully support, including its complete transactional capabilities?",
+      "options": {
+        "A": "DAX",
+        "B": "KQL",
+        "C": "T-SQL",
+        "D": "PySpark"
+      },
+      "answer": "C",
+      "explanation": "The data warehouse in Microsoft Fabric supports the full transactional T-SQL capabilities of an enterprise data warehouse, including advanced query processing.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following are described as the two mature modeling approaches widely adopted by relational data warehouses?",
+      "options": {
+        "A": "Normalized and denormalized schema",
+        "B": "Star schema and snowflake schema",
+        "C": "Lakehouse and warehouse schema",
+        "D": "Medallion and hub-and-spoke schema"
+      },
+      "answer": "B",
+      "explanation": "The star schema and snowflake schema are the mature modeling approaches widely adopted by relational data warehouses. Both require classifying tables as either dimension or fact.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which T-SQL ranking function returns the ordinal position of a row within its partition (1, 2, 3, and so on)?",
+      "options": {
+        "A": "RANK",
+        "B": "DENSE_RANK",
+        "C": "ROW_NUMBER",
+        "D": "NTILE"
+      },
+      "answer": "C",
+      "explanation": "ROW_NUMBER returns the ordinal position of the row within the partition: the first row is numbered 1, the second 2, and so on, with no ties.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which function uses a HyperLogLog algorithm to return an approximate distinct count?",
+      "options": {
+        "A": "COUNT(DISTINCT ...)",
+        "B": "APPROX_COUNT_DISTINCT",
+        "C": "NTILE",
+        "D": "SUM"
+      },
+      "answer": "B",
+      "explanation": "The APPROX_COUNT_DISTINCT function uses a HyperLogLog algorithm to retrieve an approximate count, guaranteed to have a maximum error rate of 2% with 97% probability.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When you launch the SQL query editor by selecting a warehouse from its workspace, what connection information must you provide?",
+      "options": {
+        "A": "A server name and database name",
+        "B": "A SQL connection string copied from the ellipsis menu",
+        "C": "None — it connects automatically without requiring any connection information",
+        "D": "A Microsoft Entra service principal and secret"
+      },
+      "answer": "C",
+      "explanation": "The SQL query editor connects automatically when you select your warehouse from the workspace, without requiring any connection information.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "To how many rows is the Results preview limited in the SQL query editor when the result set is larger?",
+      "options": {
+        "A": "1,000 rows",
+        "B": "5,000 rows",
+        "C": "10,000 rows",
+        "D": "100,000 rows"
+      },
+      "answer": "C",
+      "explanation": "The Results section shows a preview that is limited to 10,000 rows if the result set exceeds that number.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "The Visualize results option in the SQL query editor does NOT support queries that contain which clause?",
+      "options": {
+        "A": "GROUP BY",
+        "B": "ORDER BY",
+        "C": "JOIN",
+        "D": "WHERE"
+      },
+      "answer": "B",
+      "explanation": "Visualize results creates a Power BI visual directly from your query results, but it does not support queries with an ORDER BY clause.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What interface does the visual query editor in Microsoft Fabric provide?",
+      "options": {
+        "A": "A command-line interface for executing scripts",
+        "B": "An intuitive, graphical, no-code interface for building queries",
+        "C": "A REST API for programmatic access",
+        "D": "A natural language chat-only interface"
+      },
+      "answer": "B",
+      "explanation": "The visual query editor provides an intuitive, graphical, no-code interface for building queries by dragging and dropping tables onto a canvas.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In the visual query editor, how do you join two tables that have been dragged onto the canvas?",
+      "options": {
+        "A": "Right-click a table and select Merge queries",
+        "B": "Type a JOIN statement in the ribbon",
+        "C": "Select Append queries from the Home menu",
+        "D": "Drag one table on top of the other"
+      },
+      "answer": "A",
+      "explanation": "Once tables are on the canvas, you join them by right-clicking a table and selecting Merge queries, then choosing the common key column in each table and a join type.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which authentication method does Microsoft Fabric support for connecting to a data warehouse?",
+      "options": {
+        "A": "SQL authentication only",
+        "B": "Microsoft Entra ID authentication only",
+        "C": "Both SQL and Microsoft Entra authentication",
+        "D": "Windows NTLM authentication only"
+      },
+      "answer": "B",
+      "explanation": "Microsoft Fabric supports Microsoft Entra ID authentication only; SQL authentication isn't supported.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which TCP port must be open in your network firewall to connect a client tool to a Fabric warehouse?",
+      "options": {
+        "A": "Port 80",
+        "B": "Port 443",
+        "C": "Port 1433",
+        "D": "Port 1521"
+      },
+      "answer": "C",
+      "explanation": "TCP port 1433 must be open in your network firewall for client tools such as SSMS to connect to a Fabric warehouse.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What minimum capacity is required to use Copilot in Data Warehouse?",
+      "options": {
+        "A": "Any trial SKU",
+        "B": "F2 or P1 capacity or higher",
+        "C": "F64 capacity only",
+        "D": "An F1 capacity"
+      },
+      "answer": "B",
+      "explanation": "Copilot in Data Warehouse requires an F2 or P1 capacity or higher and isn't available on trial SKUs.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What does the 'Open in Excel' option in the SQL query editor results toolbar produce?",
+      "options": {
+        "A": "A static .csv file download",
+        "B": "A live connection in Microsoft Excel that you can refresh",
+        "C": "A Power BI report embedded in Excel",
+        "D": "A read-only PDF export"
+      },
+      "answer": "B",
+      "explanation": "Open in Excel opens the query as a live connection in Microsoft Excel (not a static file download), loading the data as a connected query that you can refresh.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data analyst wants to report total sales revenue broken down by calendar year and quarter. The numeric SalesAmount is stored in FactSales and the calendar attributes are in DimDate. What is the recommended T-SQL pattern?",
+      "options": {
+        "A": "Select all rows from FactSales and filter in Power BI",
+        "B": "Join FactSales to DimDate on the date key, then SUM the SalesAmount grouped by the year and quarter attributes",
+        "C": "Use APPROX_COUNT_DISTINCT on SalesAmount grouped by date",
+        "D": "Use ROW_NUMBER partitioned by SalesAmount"
+      },
+      "answer": "B",
+      "explanation": "A common pattern is to join a fact table to one or more dimension tables, then aggregate a numeric measure (SUM of SalesAmount) grouped by dimension attributes such as CalendarYear and CalendarQuarter.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst extends a quarterly sales query to also break down totals by the customer's city. The city attribute lives in DimCustomer. What change is required to the query?",
+      "options": {
+        "A": "Add a second JOIN to DimCustomer on the customer key and add City to both the SELECT and GROUP BY",
+        "B": "Replace the SUM with COUNT and remove the existing join",
+        "C": "Add a WHERE clause filtering by city without joining DimCustomer",
+        "D": "Convert the query to use NTILE(4) on City"
+      },
+      "answer": "A",
+      "explanation": "To slice results by an additional attribute, you join the additional dimension table (DimCustomer) on its key and add the attribute (City) to both the SELECT list and the GROUP BY clause.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "In a snowflake schema, product categories have been normalized out of DimProduct into a separate DimCategory table. A query needs items sold per ProductCategory but uses no columns from DimProduct in its output. How many JOIN clauses are required and why?",
+      "options": {
+        "A": "One join, directly from FactSales to DimCategory, since DimProduct columns aren't needed",
+        "B": "Two joins, because the relationship chain from FactSales to DimCategory must be traversed through DimProduct",
+        "C": "No joins, because DimCategory can be queried alone",
+        "D": "Three joins, one for each table including a self-join on FactSales"
+      },
+      "answer": "B",
+      "explanation": "Both JOIN clauses are required to traverse the relationship chain from FactSales to DimCategory through DimProduct, even though no fields from DimProduct appear in the results.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A business wants to rank stores within each year by sales revenue, and ties should share the same rank while subsequent rows continue without leaving gaps in the numbering. Which ranking function should be used?",
+      "options": {
+        "A": "ROW_NUMBER",
+        "B": "RANK",
+        "C": "DENSE_RANK",
+        "D": "NTILE"
+      },
+      "answer": "C",
+      "explanation": "DENSE_RANK ranks rows like RANK, but when rows tie, subsequent rows are ranked without gaps — ties don't consume extra positions.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data scientist is doing initial data exploration over a very large FactSales table and needs an approximate number of distinct orders per year, prioritizing fast query completion over precise accuracy. Which approach best fits?",
+      "options": {
+        "A": "COUNT(DISTINCT OrderNumber) for guaranteed precision",
+        "B": "APPROX_COUNT_DISTINCT(OrderNumber), accepting a small error rate for faster results",
+        "C": "ROW_NUMBER() over the orders",
+        "D": "Save the table as a view and count it in Excel"
+      },
+      "answer": "B",
+      "explanation": "When a precise count isn't required, APPROX_COUNT_DISTINCT completes more quickly on large data volumes; the reduced accuracy (max 2% error with 97% probability) is an acceptable trade-off during exploration.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst highlights a SELECT statement in the SQL query editor and wants to persist its result set as a reusable, queryable object that re-evaluates the SELECT logic each time. Which option should they choose?",
+      "options": {
+        "A": "Save as table",
+        "B": "Save as view",
+        "C": "Open in Excel",
+        "D": "Copy with column names"
+      },
+      "answer": "B",
+      "explanation": "Save as view creates a view in the warehouse using the highlighted SELECT statement, which re-evaluates the logic. Save as table materializes the current results into a new table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer built a query visually in the visual query editor but now needs to add advanced T-SQL logic that the graphical interface can't express. What is the most direct path?",
+      "options": {
+        "A": "Recreate the query from scratch in the SQL query editor",
+        "B": "Select Edit SQL script to open the auto-generated T-SQL in the SQL query editor for further editing",
+        "C": "Export the results to Excel and edit there",
+        "D": "Use Merge queries again to add the logic"
+      },
+      "answer": "B",
+      "explanation": "The visual query editor auto-generates T-SQL. You can select View SQL to inspect it, or Edit SQL script to open it in the SQL query editor for further editing.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to connect SQL Server Management Studio (SSMS) to a Fabric warehouse named sales-dw. After pasting the SQL connection string into the Server name field, what additional step is required to avoid a possible connection failure?",
+      "options": {
+        "A": "Switch the Authentication dropdown to SQL authentication",
+        "B": "Enter the exact warehouse name (sales-dw) in the Database Name field",
+        "C": "Open TCP port 443 in the firewall",
+        "D": "Leave the Database Name field blank so SSMS auto-detects it"
+      },
+      "answer": "B",
+      "explanation": "Entering the exact warehouse name in the Database Name field is required; if left blank, the connection may fail even if authentication succeeds.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants a third-party BI tool to connect to a Fabric warehouse. What connectivity method does the module describe for such tools?",
+      "options": {
+        "A": "They must use SQL authentication with a username and password",
+        "B": "They can use the SQL connection string via ODBC or OLE DB drivers with Microsoft Entra ID authentication",
+        "C": "They can only connect through the Power BI service",
+        "D": "They require an on-premises data gateway and no internet access"
+      },
+      "answer": "B",
+      "explanation": "Any third-party tool can use the SQL connection string via ODBC or OLE DB drivers to connect to a Fabric Warehouse or SQL analytics endpoint, using Microsoft Entra ID authentication.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst ran several queries in one SQL query editor session and now sees results from only one of them. How do they navigate between the different result sets?",
+      "options": {
+        "A": "Re-run each query in a separate editor tab",
+        "B": "Use the Results dropdown to navigate between individual result sets",
+        "C": "Use the Copy dropdown to switch result sets",
+        "D": "Select Visualize results to merge them"
+      },
+      "answer": "B",
+      "explanation": "When running multiple queries, you use the Results dropdown to navigate between individual result sets.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst wants to do quick ad hoc exploration of a query's output in a side-by-side matrix and visual view to spot trends before committing to building a full Power BI report. Which results toolbar option fits this need?",
+      "options": {
+        "A": "Open in Excel",
+        "B": "Explore this data (preview)",
+        "C": "Save as table",
+        "D": "Copy results only"
+      },
+      "answer": "B",
+      "explanation": "Explore this data (preview) opens a side-by-side matrix and visual view of results for ad hoc exploration, useful for spotting trends before building a full Power BI report.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer's highlighted T-SQL query has a logic error. They notice the Copilot 'Fix query errors' button is grayed out. What is the most likely reason?",
+      "options": {
+        "A": "Copilot only works in the visual query editor",
+        "B": "The button is grayed out when no errors are detected; it activates automatically when the editor identifies a problem",
+        "C": "Fix query errors requires the query to contain an ORDER BY clause",
+        "D": "Copilot has been disabled for SELECT statements"
+      },
+      "answer": "B",
+      "explanation": "The Fix query errors button is grayed out when no errors are detected. It activates automatically when the editor identifies a syntax or logic problem in the highlighted query.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A junior engineer is asked to understand an unfamiliar, complex T-SQL query and wants natural language annotations explaining what each part does, without changing the logic. Which Copilot quick action helps?",
+      "options": {
+        "A": "Fix query errors",
+        "B": "Explain query",
+        "C": "Visualize results",
+        "D": "Save as view"
+      },
+      "answer": "B",
+      "explanation": "Explain query adds natural language comments to your query describing what each part does, without modifying the query logic.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A user wants to copy a result grid into another document but needs only the underlying data values, not the column headers. Which feature should they use?",
+      "options": {
+        "A": "Open in Excel",
+        "B": "The Copy dropdown, selecting 'results only'",
+        "C": "Save as table",
+        "D": "Visualize results"
+      },
+      "answer": "B",
+      "explanation": "The Copy dropdown lets you copy results with column names, results only, or column names only. To get just the data values, you choose 'results only'.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A new query item created via 'New SQL query' in the warehouse Explorer — where is it stored, and does it need manual saving?",
+      "options": {
+        "A": "It is stored in a shared workspace folder and must be saved manually",
+        "B": "It is created automatically in the My queries folder in the Explorer and saved as you work",
+        "C": "It is held only in memory until you export it",
+        "D": "It is saved as a table in the dbo schema"
+      },
+      "answer": "B",
+      "explanation": "Either creation method places a new query item in the My queries folder in the Explorer, and it is saved automatically as you work.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A reporting analyst wants the editor to suggest table and column names and catch syntax issues as they type T-SQL against the warehouse. Which built-in capability of the SQL query editor provides this?",
+      "options": {
+        "A": "Merge queries",
+        "B": "IntelliSense",
+        "C": "NTILE",
+        "D": "HyperLogLog"
+      },
+      "answer": "B",
+      "explanation": "The SQL query editor includes built-in IntelliSense and debugging support, which assists with writing and running T-SQL scripts against the warehouse.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A team prefers a no-code experience but the lead developer is concerned about losing access to the underlying SQL. How does the visual query editor address this concern?",
+      "options": {
+        "A": "It hides the SQL entirely and offers only the canvas",
+        "B": "It automatically generates the corresponding T-SQL as you design, which you can inspect with View SQL",
+        "C": "It requires writing SQL first and then generates the canvas",
+        "D": "It only exposes SQL through Copilot"
+      },
+      "answer": "B",
+      "explanation": "As you design a query visually, the corresponding T-SQL is generated automatically. You can select View SQL to inspect it, so the team keeps full visibility of the underlying SQL.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A business needs to identify, for each product category, which products fall into the top quartile by list price. Which ranking function returns the quartile (1 of 4) into which each row falls?",
+      "options": {
+        "A": "ROW_NUMBER()",
+        "B": "RANK()",
+        "C": "DENSE_RANK()",
+        "D": "NTILE(4)"
+      },
+      "answer": "D",
+      "explanation": "NTILE returns the specified percentile bucket a row falls into. NTILE(4) over products ordered by list price returns the quartile (1 through 4) for each product within its partition.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A warehouse admin wants users to create tables, insert rows, and grant permissions directly from the browser without installing any client tool. Which Fabric capability supports the full range of these T-SQL operations?",
+      "options": {
+        "A": "The visual query editor only",
+        "B": "The SQL query editor",
+        "C": "SQL Server Management Studio",
+        "D": "Power BI Desktop"
+      },
+      "answer": "B",
+      "explanation": "The SQL query editor supports a full range of T-SQL operations — from querying data to creating tables, inserting rows, granting permissions, and executing complex scripts — directly in the browser.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst in the visual query editor wants to export the result set to a spreadsheet and also create a chart. Which two results toolbar options support this?",
+      "options": {
+        "A": "Save as view and Edit SQL script",
+        "B": "Download Excel file and Visualize results",
+        "C": "Merge queries and View SQL",
+        "D": "Copy and Explain query"
+      },
+      "answer": "B",
+      "explanation": "The visual query editor results toolbar provides Download Excel file to export results and Visualize results to create a chart, in addition to Save as table and Save as view.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Retail runs a Microsoft Fabric Data Warehouse using a snowflake schema. FactSales holds OrderQuantity, SalesAmount, OrderDateKey, CustomerKey, and ProductKey. DimDate holds CalendarYear and CalendarQuarter; DimCustomer holds City; DimProduct holds ProductName, ListPrice, and CategoryKey; and product categories are normalized into DimCategory (ProductCategory, CategoryKey). The BI team needs: (1) quarterly total SalesAmount per city, (2) items sold per ProductCategory, (3) a fast approximate distinct order count per year for exploration on a billion-row table, and (4) a no-code option for business users plus SSMS access for engineers. Which combination of approaches correctly satisfies ALL four requirements?",
+      "options": {
+        "A": "Use SUM(SalesAmount) joining FactSales-DimDate-DimCustomer grouped by year/quarter/city; join FactSales-DimProduct-DimCategory and SUM(OrderQuantity) grouped by ProductCategory; use APPROX_COUNT_DISTINCT(OrderNumber) per year; provide the visual query editor for business users and SSMS (Entra ID, port 1433) for engineers",
+        "B": "Use COUNT(*) for all aggregations; join only FactSales to DimCategory directly; use exact COUNT(DISTINCT) regardless of table size; require SQL authentication in SSMS",
+        "C": "Skip joining DimProduct since its columns aren't displayed; use ROW_NUMBER for the city totals; disable the visual query editor; connect SSMS over port 443",
+        "D": "Aggregate everything in Power BI without T-SQL; use NTILE(4) for the approximate count; allow only SQL authentication for all users"
+      },
+      "answer": "A",
+      "explanation": "Option A correctly applies every concept: SUM aggregations with the required fact-to-dimension joins (including traversing DimProduct to reach DimCategory in the snowflake), APPROX_COUNT_DISTINCT for fast approximate counts on huge tables, the no-code visual query editor for business users, and SSMS using Microsoft Entra ID authentication with TCP port 1433 open. The other options misuse joins, ranking/percentile functions, counting, or rely on unsupported SQL authentication.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Consider this query:\n\nSELECT dates.CalendarYear, SUM(sales.SalesAmount) AS TotalSales\nFROM dbo.FactSales AS sales\nJOIN dbo.DimDate AS dates ON sales.OrderDateKey = dates.DateKey\nGROUP BY dates.CalendarYear\nORDER BY dates.CalendarYear;\n\nWhat does this query return?",
+      "options": {
+        "A": "One row per individual sale with its year",
+        "B": "One row per calendar year with the total SalesAmount for that year, ordered by year",
+        "C": "The count of distinct years only",
+        "D": "An error, because SalesAmount is not in the GROUP BY"
+      },
+      "answer": "B",
+      "explanation": "The query joins the fact table to DimDate, sums SalesAmount grouped by CalendarYear, and orders by year. SalesAmount is correctly inside an aggregate (SUM), so it doesn't need to appear in GROUP BY. The result is one total per year.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "A developer writes:\n\nSELECT cat.ProductCategory, SUM(sales.OrderQuantity) AS ItemsSold\nFROM dbo.FactSales AS sales\nJOIN dbo.DimProduct AS prod ON sales.ProductKey = prod.ProductKey\nGROUP BY cat.ProductCategory\nORDER BY cat.ProductCategory;\n\nWhy does this query fail?",
+      "options": {
+        "A": "OrderQuantity cannot be summed",
+        "B": "The alias cat (DimCategory) is referenced but never joined, so the JOIN to DimCategory through DimProduct is missing",
+        "C": "ORDER BY cannot reference a grouped column",
+        "D": "SUM requires a DISTINCT keyword"
+      },
+      "answer": "B",
+      "explanation": "In a snowflake schema you must traverse FactSales -> DimProduct -> DimCategory. The query references cat.ProductCategory but never joins DimCategory (on prod.CategoryKey = cat.CategoryKey), so the cat alias is undefined and the query fails.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given products in the 'Accessories' category ordered by ListPrice DESC, the prices are: 8.99, 8.49, 5.99, 5.99, 2.99. Using RANK() OVER (PARTITION BY ProductCategory ORDER BY ListPrice DESC), what RANK does the 2.99 product receive?",
+      "options": {
+        "A": "4",
+        "B": "5",
+        "C": "3",
+        "D": "1"
+      },
+      "answer": "B",
+      "explanation": "RANK reflects the number of rows with a higher value, including ties. The two 5.99 products both rank 3; since there are four products priced higher than 2.99, it receives a RANK of 5 (the value 4 is skipped because of the tie).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Using the same Accessories prices (8.99, 8.49, 5.99, 5.99, 2.99) ordered DESC, what DENSE_RANK does the 2.99 product receive?",
+      "options": {
+        "A": "5",
+        "B": "4",
+        "C": "3",
+        "D": "2"
+      },
+      "answer": "B",
+      "explanation": "DENSE_RANK does not leave gaps after ties. Distinct price tiers are 8.99 (1), 8.49 (2), 5.99 (3, shared by both products), then 2.99 (4). So the 2.99 product gets DENSE_RANK 4.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Examine this query:\n\nSELECT ProductName, ListPrice,\n  ROW_NUMBER() OVER (PARTITION BY ProductCategory ORDER BY ListPrice DESC) AS RowNumber\nFROM dbo.DimProduct;\n\nIf two products in the same category share the exact same ListPrice, what RowNumber values do they receive?",
+      "options": {
+        "A": "They both receive the same RowNumber",
+        "B": "They receive consecutive but distinct RowNumber values (e.g., 3 and 4)",
+        "C": "They are both skipped",
+        "D": "The query errors because of the tie"
+      },
+      "answer": "B",
+      "explanation": "ROW_NUMBER assigns a unique ordinal position to every row regardless of ties, so two tied products receive consecutive distinct numbers (such as 3 and 4). Unlike RANK/DENSE_RANK, it never assigns duplicate values.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Consider:\n\nSELECT dates.CalendarYear AS CalendarYear,\n  COUNT(DISTINCT sales.OrderNumber) AS Orders\nFROM FactSales AS sales\nJOIN DimDate AS dates ON sales.OrderDateKey = dates.DateKey\nGROUP BY dates.CalendarYear\nORDER BY CalendarYear;\n\nWhat does COUNT(DISTINCT sales.OrderNumber) compute per year?",
+      "options": {
+        "A": "The total number of fact rows per year, including duplicate order numbers",
+        "B": "The number of unique order numbers per year, ignoring duplicates",
+        "C": "An approximate count using HyperLogLog",
+        "D": "The sum of all order numbers per year"
+      },
+      "answer": "B",
+      "explanation": "COUNT(DISTINCT sales.OrderNumber) counts unique order numbers per year, eliminating duplicates. It is exact, unlike APPROX_COUNT_DISTINCT which returns a HyperLogLog-based estimate.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer replaces COUNT(DISTINCT sales.OrderNumber) with APPROX_COUNT_DISTINCT(sales.OrderNumber) on a multi-billion row FactSales table. Which statement best describes the expected outcome?",
+      "options": {
+        "A": "The count is always exactly the same as COUNT(DISTINCT) but slower",
+        "B": "The count is approximate (max 2% error with 97% probability) and the query completes more quickly",
+        "C": "The query returns NULL because APPROX_COUNT_DISTINCT requires ORDER BY",
+        "D": "The query errors unless run in the visual query editor"
+      },
+      "answer": "B",
+      "explanation": "APPROX_COUNT_DISTINCT uses a HyperLogLog algorithm to return an approximate count with a maximum error rate of 2% at 97% probability, and on large data volumes it completes more quickly than an exact distinct count.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A developer wants to use 'Visualize results' on this query in the SQL query editor:\n\nSELECT custs.City, SUM(sales.SalesAmount) AS TotalSales\nFROM dbo.FactSales AS sales\nJOIN dbo.DimCustomer AS custs ON sales.CustomerKey = custs.CustomerKey\nGROUP BY custs.City\nORDER BY TotalSales DESC;\n\nWhat must they change for Visualize results to work?",
+      "options": {
+        "A": "Add a PARTITION BY clause",
+        "B": "Remove the ORDER BY clause, because Visualize results does not support queries with ORDER BY",
+        "C": "Replace SUM with APPROX_COUNT_DISTINCT",
+        "D": "Add an additional JOIN to DimDate"
+      },
+      "answer": "B",
+      "explanation": "Visualize results creates a Power BI visual from the query but does not support queries containing an ORDER BY clause. Removing the ORDER BY allows the visualization to be created.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Review this snowflake-schema query and determine its result granularity:\n\nSELECT cat.ProductCategory, dates.CalendarYear, SUM(sales.OrderQuantity) AS ItemsSold\nFROM dbo.FactSales AS sales\nJOIN dbo.DimProduct AS prod ON sales.ProductKey = prod.ProductKey\nJOIN dbo.DimCategory AS cat ON prod.CategoryKey = cat.CategoryKey\nJOIN dbo.DimDate AS dates ON sales.OrderDateKey = dates.DateKey\nGROUP BY cat.ProductCategory, dates.CalendarYear\nORDER BY cat.ProductCategory, dates.CalendarYear;\n\nWhat is the grain of each output row?",
+      "options": {
+        "A": "One row per individual sale",
+        "B": "One row per unique combination of ProductCategory and CalendarYear, with summed items sold",
+        "C": "One row per product",
+        "D": "One row per category only, ignoring year"
+      },
+      "answer": "B",
+      "explanation": "The query traverses FactSales -> DimProduct -> DimCategory and joins DimDate, then groups by both ProductCategory and CalendarYear. Each output row represents one unique category/year combination with the total OrderQuantity (ItemsSold) for that combination.",
+      "difficulty": "Hard"
+    }
+  ]
+}

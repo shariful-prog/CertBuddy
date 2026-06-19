@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function Sidebar({ examId, domains, activeChapterId, completedChapters, highScores }) {
+export default function Sidebar({ cert, activeChapterId, completedChapters, highScores }) {
   const [collapsed, setCollapsed] = useState(false);
 
+  const { slug: examId, code, domains } = cert;
   const totalChapters = domains.reduce((acc, d) => acc + d.chapters.length, 0);
   const completedCount = completedChapters.length;
   const pct = totalChapters > 0 ? Math.round((completedCount / totalChapters) * 100) : 0;
@@ -26,7 +27,7 @@ export default function Sidebar({ examId, domains, activeChapterId, completedCha
       <div className="sidebar-header">
         <div className="sidebar-header-copy">
           <p className="sidebar-header-label">Study Guide</p>
-          <p className="sidebar-exam-title">{examId.toUpperCase()} - Exam Prep</p>
+          <p className="sidebar-exam-title">{code} — Exam Prep</p>
         </div>
         <button
           type="button"
@@ -60,7 +61,7 @@ export default function Sidebar({ examId, domains, activeChapterId, completedCha
               return (
                 <Link
                   key={chapter.id}
-                  href={`/exams/${examId}/${chapter.id}`}
+                  href={`/exams/${examId}/study/${chapter.id}`}
                   className={`sidebar-chapter-link${isActive ? " active" : ""}`}
                   aria-current={isActive ? "page" : undefined}
                 >

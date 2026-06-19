@@ -1,0 +1,590 @@
+{
+  "module": "Monitor a data warehouse",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "Why is it important to monitor a Microsoft Fabric data warehouse?",
+      "options": {
+        "A": "To track and manage costs, identify and resolve query performance issues, and gain insights into how data is being used",
+        "B": "To automatically create new tables when storage runs out",
+        "C": "To replace the need for any indexing strategy",
+        "D": "To convert the warehouse into a lakehouse automatically"
+      },
+      "answer": "A",
+      "explanation": "The introduction states that monitoring a data warehouse is important to track and manage costs, identify and resolve query performance issues, and to gain insights into how your data is being used.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In Microsoft Fabric, what determines the capacity available to an organization?",
+      "options": {
+        "A": "The license used to purchase the service",
+        "B": "The number of users in the tenant",
+        "C": "The size of the largest table in the warehouse",
+        "D": "The number of DMVs queried per day"
+      },
+      "answer": "A",
+      "explanation": "When an organization uses Microsoft Fabric, the license used to purchase the service determines the capacity available, which is a pool of resources used to implement Fabric capabilities.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a 'capacity' in Microsoft Fabric?",
+      "options": {
+        "A": "A pool of resources that you can use to implement Fabric capabilities",
+        "B": "A single dedicated SQL database server",
+        "C": "A backup copy of the data warehouse",
+        "D": "A reporting view in Power BI"
+      },
+      "answer": "A",
+      "explanation": "A capacity is defined as a pool of resources that you can use to implement Fabric capabilities.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "On what basis is the cost of using Microsoft Fabric calculated?",
+      "options": {
+        "A": "Capacity units (CUs)",
+        "B": "Number of warehouses created",
+        "C": "Number of DMV queries executed",
+        "D": "Gigabytes of report exports"
+      },
+      "answer": "A",
+      "explanation": "The cost of using Fabric is based on capacity units (CUs). Each action performed in a Fabric resource can consume CUs for which the organization is billed.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In data warehouse workloads, which activities are significant consumers of capacity units (CUs)?",
+      "options": {
+        "A": "Data read and write activities, including queries and underlying file operations to OneLake storage",
+        "B": "Creating Power BI dashboards only",
+        "C": "Installing the Capacity Metrics app",
+        "D": "Defining database roles and users"
+      },
+      "answer": "A",
+      "explanation": "In data warehouse workloads, CUs are consumed by data read and write activities, so queries and the underlying file operations to OneLake storage are a significant factor in cost.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Who can install the Microsoft Fabric Capacity Metrics app in a Fabric environment?",
+      "options": {
+        "A": "An administrator",
+        "B": "Any anonymous user",
+        "C": "Only Microsoft support",
+        "D": "Any report viewer"
+      },
+      "answer": "A",
+      "explanation": "The Microsoft Fabric Capacity Metrics app is an app that an administrator can install in a Fabric environment and use to monitor capacity utilization.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "To monitor capacity utilization related specifically to data warehousing in the Capacity Metrics app, what should you do?",
+      "options": {
+        "A": "Filter the interface to show only warehouse activity",
+        "B": "Delete all other workloads from the capacity",
+        "C": "Query the sys.dm_exec_requests DMV",
+        "D": "Create a new dedicated capacity"
+      },
+      "answer": "A",
+      "explanation": "To monitor capacity utilization related to data warehousing, you can filter the Capacity Metrics app interface to show only warehouse activity.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In the context of the Fabric Capacity Metrics app, what does 'throttling' indicate?",
+      "options": {
+        "A": "Your processes require more capacity than is available within the constraints of your purchased capacity license",
+        "B": "A query has returned no rows",
+        "C": "A DMV is unavailable",
+        "D": "Query insights data has been purged"
+      },
+      "answer": "A",
+      "explanation": "Throttling indicates that your processes require more capacity than is available within the constraints of your purchased capacity license.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the purpose of dynamic management views (DMVs) in a Fabric data warehouse?",
+      "options": {
+        "A": "To retrieve information about the current state of the data warehouse",
+        "B": "To store historical aggregated query metrics permanently",
+        "C": "To install the Capacity Metrics app",
+        "D": "To manage user licenses"
+      },
+      "answer": "A",
+      "explanation": "DMVs are used to retrieve information about the current state of the data warehouse.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which DMV returns information about data warehouse connections?",
+      "options": {
+        "A": "sys.dm_exec_connections",
+        "B": "sys.dm_exec_sessions",
+        "C": "sys.dm_exec_requests",
+        "D": "queryinsights.exec_requests_history"
+      },
+      "answer": "A",
+      "explanation": "sys.dm_exec_connections returns information about data warehouse connections.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which DMV returns information about authenticated sessions?",
+      "options": {
+        "A": "sys.dm_exec_sessions",
+        "B": "sys.dm_exec_connections",
+        "C": "sys.dm_exec_requests",
+        "D": "queryinsights.frequently_run_queries"
+      },
+      "answer": "A",
+      "explanation": "sys.dm_exec_sessions returns information about authenticated sessions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which DMV returns information about active requests?",
+      "options": {
+        "A": "sys.dm_exec_requests",
+        "B": "sys.dm_exec_sessions",
+        "C": "sys.dm_exec_connections",
+        "D": "queryinsights.long_running_queries"
+      },
+      "answer": "A",
+      "explanation": "sys.dm_exec_requests returns information about active requests.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What kind of information does the query insights feature provide?",
+      "options": {
+        "A": "Historical, aggregated information about queries that have been run",
+        "B": "Real-time connection IP addresses only",
+        "C": "Capacity unit billing details",
+        "D": "Current throttling status of the capacity"
+      },
+      "answer": "A",
+      "explanation": "Query insights provides historical, aggregated information about the queries that have been run, enabling you to identify frequently used or long-running queries and tune performance.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which query insights view contains details of each completed SQL query?",
+      "options": {
+        "A": "queryinsights.exec_requests_history",
+        "B": "queryinsights.long_running_queries",
+        "C": "queryinsights.frequently_run_queries",
+        "D": "sys.dm_exec_requests"
+      },
+      "answer": "A",
+      "explanation": "queryinsights.exec_requests_history provides details of each completed SQL query.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "According to the documentation, how long may queries take to be reflected in the query insights views depending on concurrent workloads?",
+      "options": {
+        "A": "Up to 15 minutes",
+        "B": "Up to 60 minutes",
+        "C": "Immediately, with no delay",
+        "D": "Up to 24 hours"
+      },
+      "answer": "A",
+      "explanation": "Depending on the concurrent workloads, queries may take up to 15 minutes to be reflected in the query insights views.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric administrator notices that data warehouse processes are consistently being throttled. According to the module, what does this most likely mean and what action is appropriate?",
+      "options": {
+        "A": "The processes require more capacity than the purchased license allows; the administrator should consider optimizing the capacity license for their needs",
+        "B": "The DMVs are returning incorrect data and must be rebuilt",
+        "C": "Query insights views need to be manually refreshed",
+        "D": "The warehouse should be deleted and recreated"
+      },
+      "answer": "A",
+      "explanation": "Throttling indicates processes require more capacity than is available within the purchased license. The Capacity Metrics app helps observe these trends so you can optimize your capacity license for your needs.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A finance team wants to understand which Fabric processes are consuming the most capacity units so they can plan and manage costs. Which tool should they use?",
+      "options": {
+        "A": "The Microsoft Fabric Capacity Metrics app, filtered to warehouse activity",
+        "B": "The sys.dm_exec_connections DMV",
+        "C": "The queryinsights.frequently_run_queries view",
+        "D": "A Power BI paginated report on session IDs"
+      },
+      "answer": "A",
+      "explanation": "The Capacity Metrics app lets you observe capacity utilization trends to determine which processes are consuming CUs, and you can filter to warehouse activity for data warehousing insight.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to identify currently long-running queries that could benefit from optimization, looking only at activity happening right now. Which approach aligns with the module?",
+      "options": {
+        "A": "Query the sys.dm_exec_* DMVs joining connections, sessions, and requests, filtering on running requests and ordering by total_elapsed_time descending",
+        "B": "Query queryinsights.exec_requests_history for completed queries only",
+        "C": "Open the Capacity Metrics app and review throttling charts",
+        "D": "Query queryinsights.frequently_run_queries ordered by number_of_runs"
+      },
+      "answer": "A",
+      "explanation": "The DMVs reflect the current state of the warehouse. Joining the dm_exec_* views and filtering on running requests ordered by total_elapsed_time descending helps identify currently long-running queries that could benefit from optimization.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst needs aggregated, historical insight into which queries have been run most often over time, rather than current activity. Which feature is most appropriate?",
+      "options": {
+        "A": "Query insights views such as queryinsights.frequently_run_queries",
+        "B": "The sys.dm_exec_sessions DMV",
+        "C": "The sys.dm_exec_connections DMV",
+        "D": "The Capacity Metrics app throttling view"
+      },
+      "answer": "A",
+      "explanation": "Query insights provides historical, aggregated information. The frequently_run_queries view specifically gives details of frequently run queries.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A query was just executed against the warehouse but a data engineer cannot find it in the query insights views. What is the most likely reason according to the module?",
+      "options": {
+        "A": "Depending on concurrent workloads, queries can take up to 15 minutes to be reflected in the query insights views",
+        "B": "Query insights only captures failed queries",
+        "C": "DMVs must be enabled before query insights works",
+        "D": "The query did not consume any capacity units"
+      },
+      "answer": "A",
+      "explanation": "The module notes that depending on concurrent workloads, queries may take up to 15 minutes to be reflected in the query insights views.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to determine whether their purchased capacity license is sufficient or whether they should upgrade. Which observation from the Capacity Metrics app would best support an upgrade decision?",
+      "options": {
+        "A": "Frequent throttling, indicating processes require more capacity than is available",
+        "B": "A high number of authenticated sessions in sys.dm_exec_sessions",
+        "C": "Many entries in queryinsights.exec_requests_history",
+        "D": "A single connection IP address appearing repeatedly"
+      },
+      "answer": "A",
+      "explanation": "Throttling indicates processes require more capacity than is available within the purchased license, which is a key signal that the capacity license may need to be optimized or upgraded.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A DBA wants to see the client network address and login name associated with each currently active request. Which combination of DMVs provides this when joined together?",
+      "options": {
+        "A": "sys.dm_exec_connections (client_net_address), sys.dm_exec_sessions (login_name), and sys.dm_exec_requests (active requests)",
+        "B": "Only sys.dm_exec_requests",
+        "C": "queryinsights.long_running_queries and queryinsights.frequently_run_queries",
+        "D": "The Capacity Metrics app only"
+      },
+      "answer": "A",
+      "explanation": "The sample query joins connections (providing client_net_address), sessions (providing login_name), and requests (active request details) to return this combined information.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Why does query insights parameterize queries with predicates before aggregating metrics?",
+      "options": {
+        "A": "So that queries differing only by literal predicate values are treated as the same command, enabling meaningful aggregation",
+        "B": "To hide sensitive login names from the results",
+        "C": "To reduce capacity unit consumption of the warehouse",
+        "D": "To prevent DMVs from showing active requests"
+      },
+      "answer": "A",
+      "explanation": "To enable aggregated metrics, queries with predicates are parameterized and considered the same query if the parameterized statements are an exact match, so queries differing only by literal values aggregate together.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer needs to find queries that not only take a long time but have been executed more than once, to prioritize tuning recurring slow workloads. Which view best supports this?",
+      "options": {
+        "A": "queryinsights.long_running_queries, filtering where number_of_runs > 1",
+        "B": "sys.dm_exec_connections",
+        "C": "queryinsights.exec_requests_history filtered to the last 60 minutes",
+        "D": "sys.dm_exec_sessions"
+      },
+      "answer": "A",
+      "explanation": "queryinsights.long_running_queries provides details of query execution time and exposes number_of_runs and median_total_elapsed_time_ms, so filtering on number_of_runs > 1 isolates recurring slow queries.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A reliability engineer wants to see how many times frequently run commands have succeeded versus failed. Which view exposes successful and failed run counts?",
+      "options": {
+        "A": "queryinsights.frequently_run_queries (number_of_successful_runs and number_of_failed_runs)",
+        "B": "sys.dm_exec_requests",
+        "C": "sys.dm_exec_connections",
+        "D": "The Capacity Metrics app warehouse filter"
+      },
+      "answer": "A",
+      "explanation": "queryinsights.frequently_run_queries returns details such as number_of_runs, number_of_successful_runs, and number_of_failed_runs for frequently run commands.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer must decide between using DMVs and query insights views for an investigation into a query that finished running an hour ago. Which is the correct choice and why?",
+      "options": {
+        "A": "Query insights, because DMVs reflect only the current state while query insights provide historical, aggregated data about completed queries",
+        "B": "DMVs, because they store all historical query data permanently",
+        "C": "The Capacity Metrics app, because it logs each completed query",
+        "D": "Neither; completed queries cannot be analyzed in Fabric"
+      },
+      "answer": "A",
+      "explanation": "DMVs report the current state of the warehouse, whereas query insights provide historical, aggregated information about queries that have been run, making query insights the right tool for a completed query.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Two queries, SELECT * FROM sales WHERE orderdate > '01/01/2023' and SELECT * FROM sales WHERE orderdate > '12/31/2021', were each run several times. In query insights, how are they treated?",
+      "options": {
+        "A": "As the same command, because their parameterized statements are an exact match",
+        "B": "As two completely separate commands because the literal dates differ",
+        "C": "They are ignored because they use predicates",
+        "D": "They are only visible in DMVs, not query insights"
+      },
+      "answer": "A",
+      "explanation": "Queries with predicates are parameterized; if the parameterized statements are an exact match they are considered the same command, as explicitly illustrated by these two examples.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A capacity administrator observes steadily rising CU consumption attributed to the warehouse over several weeks. Which insight from the module best explains a likely driver of this cost?",
+      "options": {
+        "A": "Data read and write activities, such as queries and the underlying OneLake file operations, consume CUs and are a significant cost factor",
+        "B": "Each DMV query permanently increases the capacity license tier",
+        "C": "Installing the Capacity Metrics app consumes most of the CUs",
+        "D": "Authenticated sessions are billed per minute regardless of activity"
+      },
+      "answer": "A",
+      "explanation": "CUs are consumed by data read and write activities, so queries and the underlying OneLake file operations are a significant factor in the cost of the analytics solution.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer wants to restrict a DMV monitoring query so it only returns active requests for the database they are currently connected to. Which predicate accomplishes this?",
+      "options": {
+        "A": "requests.database_id = DB_ID()",
+        "B": "requests.status = 'completed'",
+        "C": "sessions.login_name = SYSTEM_USER",
+        "D": "connections.client_net_address IS NOT NULL"
+      },
+      "answer": "A",
+      "explanation": "The sample DMV query uses WHERE requests.database_id = DB_ID() to scope results to the current database, combined with requests.status = 'running' for active requests.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Which statement correctly contrasts the scope of DMVs versus the Capacity Metrics app in Fabric monitoring?",
+      "options": {
+        "A": "DMVs surface current activity inside a specific warehouse via T-SQL, while the Capacity Metrics app surfaces capacity-level utilization and throttling across the Fabric environment",
+        "B": "Both tools only report historical aggregated query metrics",
+        "C": "DMVs report capacity unit billing while the Capacity Metrics app reports session IDs",
+        "D": "Both are installed by administrators and queried with T-SQL"
+      },
+      "answer": "A",
+      "explanation": "DMVs are queried with T-SQL to retrieve the current state of the warehouse (connections, sessions, requests), whereas the Capacity Metrics app (installed by an admin) monitors capacity utilization and throttling across the environment.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team must explain why monitoring query insights helps reduce cost, not just improve performance. Which reasoning is most consistent with the module?",
+      "options": {
+        "A": "Identifying and tuning frequently used or long-running queries reduces data read/write activity, which lowers CU consumption and therefore cost",
+        "B": "Query insights views directly lower the capacity license price",
+        "C": "Query insights disables throttling automatically",
+        "D": "Query insights prevents queries from consuming OneLake storage"
+      },
+      "answer": "A",
+      "explanation": "Query insights helps identify frequently used or long-running queries to tune performance; since CUs are consumed by data read/write activity, tuning these queries reduces consumption and cost.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An administrator wants ongoing visibility into capacity utilization trends to proactively plan for license changes. Which approach matches the module's guidance?",
+      "options": {
+        "A": "Use the Fabric Capacity Metrics app to observe utilization trends and detect throttling over time",
+        "B": "Run sys.dm_exec_requests every few seconds and log the output",
+        "C": "Query queryinsights.exec_requests_history for the last 60 minutes only",
+        "D": "Rely solely on Power BI report refresh logs"
+      },
+      "answer": "A",
+      "explanation": "The Capacity Metrics app lets administrators observe capacity utilization trends and determine whether throttling is occurring so they can optimize the capacity license.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A DBA wants to investigate which user and from which client machine a currently running, very slow query originates. Which single source provides all needed fields when properly joined?",
+      "options": {
+        "A": "The dm_exec_* DMVs joined on session_id, exposing login_name, client_net_address, command, start_time, and total_elapsed_time",
+        "B": "queryinsights.long_running_queries alone",
+        "C": "The Capacity Metrics app filtered to warehouse activity",
+        "D": "queryinsights.frequently_run_queries alone"
+      },
+      "answer": "A",
+      "explanation": "The DMV sample query joins connections, sessions, and requests on session_id to return login_name, client_net_address, command, start_time, and total_elapsed_time for active requests.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Which of the following is NOT something the module describes the query insights feature as helping you do?",
+      "options": {
+        "A": "Display real-time client network IP addresses of currently connected users",
+        "B": "Identify frequently used queries",
+        "C": "Identify long-running queries",
+        "D": "Analyze and tune query performance"
+      },
+      "answer": "A",
+      "explanation": "Query insights provides historical aggregated data to identify frequently used or long-running queries and tune performance. Real-time client network addresses for current connections come from DMVs (sys.dm_exec_connections), not query insights.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer needs to find all queries run in the previous hour for an audit. Which view and predicate combination is appropriate?",
+      "options": {
+        "A": "queryinsights.exec_requests_history with WHERE start_time >= DATEADD(MINUTE, -60, GETUTCDATE())",
+        "B": "sys.dm_exec_requests with WHERE status = 'running'",
+        "C": "queryinsights.frequently_run_queries ordered by number_of_runs",
+        "D": "sys.dm_exec_sessions with WHERE login_name IS NOT NULL"
+      },
+      "answer": "A",
+      "explanation": "The module's example uses queryinsights.exec_requests_history filtered with start_time >= DATEADD(MINUTE, -60, GETUTCDATE()) to identify queries run in the previous hour.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "When choosing how to order DMV output to surface the most problematic active queries first, which ordering does the module's example use?",
+      "options": {
+        "A": "ORDER BY requests.total_elapsed_time DESC",
+        "B": "ORDER BY sessions.login_name ASC",
+        "C": "ORDER BY connections.client_net_address DESC",
+        "D": "ORDER BY requests.start_time ASC"
+      },
+      "answer": "A",
+      "explanation": "The DMV example orders results by requests.total_elapsed_time DESC so the longest-running active requests appear first, useful for identifying queries that could benefit from optimization.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso runs a business-critical Fabric data warehouse on a purchased capacity license. The platform administrator reports intermittent throttling during business hours and rising CU consumption. A data engineer is asked to (1) determine, in real time, which active queries are running longest and who is running them; (2) review which recurring queries over the past weeks are slowest so they can be tuned; and (3) audit which queries ran in the last hour. Costs are also a concern. Which combination of tools and views correctly satisfies all of these requirements as described in the module?",
+      "options": {
+        "A": "Use the Fabric Capacity Metrics app (filtered to warehouse activity) to investigate throttling and CU trends for cost; join sys.dm_exec_connections/sessions/requests for real-time longest-running active queries and their users; use queryinsights.long_running_queries (number_of_runs > 1, ordered by median_total_elapsed_time_ms DESC) for recurring slow queries; and queryinsights.exec_requests_history filtered to the last 60 minutes for the audit",
+        "B": "Use only the Capacity Metrics app for every requirement, since it logs each individual query and user",
+        "C": "Use only the dm_exec_* DMVs, since they retain full historical aggregated metrics for weeks",
+        "D": "Use only queryinsights views, since they show current real-time active requests and client IP addresses"
+      },
+      "answer": "A",
+      "explanation": "Each requirement maps to a distinct tool from the module: the Capacity Metrics app reveals throttling and CU trends (cost); the dm_exec_* DMVs reveal current active requests with login_name and client_net_address; queryinsights.long_running_queries (with number_of_runs > 1, ordered by median_total_elapsed_time_ms DESC) reveals recurring slow queries; and queryinsights.exec_requests_history filtered to the last 60 minutes audits recent queries. The other options misattribute capabilities (DMVs are current-state only; query insights are historical and not real-time; the Capacity Metrics app does not log individual queries/users).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Consider this query:\n\nSELECT sessions.session_id, sessions.login_name, connections.client_net_address, requests.command, requests.total_elapsed_time\nFROM sys.dm_exec_connections AS connections\nINNER JOIN sys.dm_exec_sessions AS sessions ON connections.session_id = sessions.session_id\nINNER JOIN sys.dm_exec_requests AS requests ON requests.session_id = sessions.session_id\nWHERE requests.status = 'running' AND requests.database_id = DB_ID()\nORDER BY requests.total_elapsed_time DESC;\n\nWhat does this query return?",
+      "options": {
+        "A": "The currently running requests in the current database, with their user, client address, and command, ordered with the longest-running first",
+        "B": "All historical completed queries in all databases",
+        "C": "Only requests that have already finished, ordered by start time",
+        "D": "A count of capacity units consumed per session"
+      },
+      "answer": "A",
+      "explanation": "The joins across the dm_exec_* DMVs, the filter status = 'running' AND database_id = DB_ID(), and ORDER BY total_elapsed_time DESC return active requests in the current database ordered longest-running first.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given the result set below from a DMV monitoring query (columns: session_id, login_name, total_elapsed_time in ms), which session represents the longest-running active query?\n\n60 | fred@contoso.com | 57266\n126 | nandita@contoso.com | 15840\n137 | zoe@contoso.com | 4\n\nWhich session should the engineer investigate first for optimization?",
+      "options": {
+        "A": "Session 60 (fred@contoso.com), with total_elapsed_time of 57266 ms",
+        "B": "Session 137 (zoe@contoso.com), with total_elapsed_time of 4 ms",
+        "C": "Session 126 (nandita@contoso.com), with total_elapsed_time of 15840 ms",
+        "D": "All sessions equally, since elapsed time is irrelevant"
+      },
+      "answer": "A",
+      "explanation": "total_elapsed_time measures how long the request has been executing. Session 60 has the highest value (57266 ms), making it the longest-running active query and the first candidate for optimization.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer writes:\n\nSELECT start_time, login_name, command\nFROM queryinsights.exec_requests_history\nWHERE start_time >= DATEADD(MINUTE, -60, GETUTCDATE());\n\nWhat is the intended result of this query?",
+      "options": {
+        "A": "Completed queries that started within the previous 60 minutes (UTC)",
+        "B": "Currently running queries regardless of when they started",
+        "C": "Queries that will run in the next 60 minutes",
+        "D": "Only failed queries from the last hour"
+      },
+      "answer": "A",
+      "explanation": "queryinsights.exec_requests_history holds details of completed queries; DATEADD(MINUTE, -60, GETUTCDATE()) computes the UTC time 60 minutes ago, so the filter returns queries that started in the previous hour.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Consider this query against query insights:\n\nSELECT last_run_command, number_of_runs, median_total_elapsed_time_ms, last_run_start_time\nFROM queryinsights.long_running_queries\nWHERE number_of_runs > 1\nORDER BY median_total_elapsed_time_ms DESC;\n\nWhat does it identify?",
+      "options": {
+        "A": "Long-running commands that have run more than once, returned with the slowest median execution time first",
+        "B": "Every query that has ever run exactly once",
+        "C": "Currently active requests ordered by start time",
+        "D": "Commands that consumed the most capacity units"
+      },
+      "answer": "A",
+      "explanation": "The query reads queryinsights.long_running_queries, filters number_of_runs > 1 (executed more than once), and orders by median_total_elapsed_time_ms DESC, surfacing recurring queries with the highest median completion time first.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer runs:\n\nSELECT last_run_command, number_of_runs, number_of_successful_runs, number_of_failed_runs\nFROM queryinsights.frequently_run_queries\nORDER BY number_of_runs DESC;\n\nIf one row shows number_of_runs = 100, number_of_successful_runs = 92, number_of_failed_runs = 8, what can be concluded?",
+      "options": {
+        "A": "The command was run 100 times in total, succeeding 92 times and failing 8 times, and it appears near the top because it is among the most frequently run",
+        "B": "The command failed every time it ran",
+        "C": "The command is currently running 100 times concurrently",
+        "D": "The command consumed 100 capacity units"
+      },
+      "answer": "A",
+      "explanation": "queryinsights.frequently_run_queries returns number_of_runs with successful and failed run counts. Ordering by number_of_runs DESC places the most frequent commands at the top; 92 successes and 8 failures of 100 total runs describe this command's reliability.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer accidentally changes the DMV monitoring query's WHERE clause to:\n\nWHERE requests.status = 'running'\n\n(removing the AND requests.database_id = DB_ID() condition).\n\nWhat is the most likely effect?",
+      "options": {
+        "A": "The query may return running requests from databases other than the current one, broadening the result beyond the intended database scope",
+        "B": "The query will return only completed requests",
+        "C": "The query will fail to compile because database_id is mandatory",
+        "D": "The query will return historical aggregated metrics instead"
+      },
+      "answer": "A",
+      "explanation": "The database_id = DB_ID() predicate scopes results to the current database. Removing it leaves only the running-status filter, so the result may include running requests outside the intended current database.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Two parameterized-equivalent commands were each run several times: SELECT * FROM sales WHERE orderdate > '01/01/2023' (3 runs) and SELECT * FROM sales WHERE orderdate > '12/31/2021' (4 runs). When you query queryinsights.frequently_run_queries, how is number_of_runs most likely reported for this command?",
+      "options": {
+        "A": "As a single aggregated command with number_of_runs = 7, because parameterized statements that match exactly are treated as the same command",
+        "B": "As two separate rows, 3 and 4, because the literal dates differ",
+        "C": "As 0, because predicate queries are excluded from query insights",
+        "D": "As 12, multiplying the two run counts together"
+      },
+      "answer": "A",
+      "explanation": "Query insights parameterizes predicate queries and treats exact parameterized matches as the same command. Both statements differ only by a literal date, so their runs aggregate into one command with number_of_runs = 3 + 4 = 7.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer wants currently running requests but mistakenly queries a historical view as follows:\n\nSELECT command FROM queryinsights.exec_requests_history WHERE status = 'running';\n\nWhy might this not reliably show queries that are running at this exact moment?",
+      "options": {
+        "A": "queryinsights views provide historical, aggregated data about completed queries and may lag by up to 15 minutes; current activity should be read from the dm_exec_* DMVs",
+        "B": "The exec_requests_history view only stores queries from other databases",
+        "C": "The status column does not exist anywhere in Fabric monitoring",
+        "D": "Historical views are always more real-time than DMVs"
+      },
+      "answer": "A",
+      "explanation": "Query insights provides historical, aggregated information about queries that have been run and may lag up to 15 minutes, so it is not a reliable source for real-time activity. The sys.dm_exec_* DMVs reflect the current state of the warehouse and are the correct source for currently running requests.",
+      "difficulty": "Hard"
+    }
+  ]
+}

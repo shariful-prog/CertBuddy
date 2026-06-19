@@ -1,0 +1,603 @@
+{
+  "module": "Work with real-time data in an Eventhouse",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is an Eventhouse in Microsoft Fabric?",
+      "options": {
+        "A": "A container that houses one or more KQL databases optimized for storing and analyzing real-time data",
+        "B": "A single relational table used to store transactional records",
+        "C": "A Power BI report designed for streaming dashboards",
+        "D": "A connector that links Azure Event Hubs to a Lakehouse"
+      },
+      "answer": "A",
+      "explanation": "An Eventhouse provides a data store for large volumes of data and is a container that houses one or more KQL databases, each optimized for storing and analyzing real-time data arriving continuously from various sources.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How do KQL databases automatically organize incoming data to make recent data quickly accessible?",
+      "options": {
+        "A": "By alphabetically sorting on the primary key column",
+        "B": "By partitioning data by ingestion time",
+        "C": "By compressing all rows into a single file",
+        "D": "By replicating each row across all KQL databases"
+      },
+      "answer": "B",
+      "explanation": "KQL databases automatically partition data by ingestion time, making recent data quickly accessible while storing historical data for trend analysis. Partitioning organizes data into separate storage locations based on when it arrived.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does it mean that real-time events are 'immutable'?",
+      "options": {
+        "A": "Events are encrypted and cannot be read",
+        "B": "Events can be updated only by an administrator",
+        "C": "Events can't be changed once they've occurred because they represent what actually happened at that moment",
+        "D": "Events are automatically deleted after 30 days"
+      },
+      "answer": "C",
+      "explanation": "Immutable means these events can't be changed once they've occurred. For example, a temperature reading at 3:15 PM will always be that reading because it represents what actually happened at that moment.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which pattern best describes time-series data in a KQL database?",
+      "options": {
+        "A": "An append-only pattern where new events are continuously added and data is rarely updated or deleted",
+        "B": "A normalized pattern requiring foreign-key relationships between tables",
+        "C": "An overwrite pattern where each new event replaces the previous record",
+        "D": "A batch pattern where data is loaded once per month"
+      },
+      "answer": "A",
+      "explanation": "Time-series data follows an append-only pattern where new events are continuously added, and data is rarely updated or deleted because events represent what actually happened at specific moments. This differs from traditional relational databases where records are typically updated.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When you create an Eventhouse, what is automatically created with the same name?",
+      "options": {
+        "A": "A default KQL queryset only",
+        "B": "A default Lakehouse",
+        "C": "A default KQL database",
+        "D": "A default Power BI semantic model"
+      },
+      "answer": "C",
+      "explanation": "When you create an Eventhouse, a default KQL database is automatically created with the same name. You can use the default KQL database or create other KQL databases as needed.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which character does KQL use to pass data from one operation to the next in its pipeline approach?",
+      "options": {
+        "A": "The semicolon (;)",
+        "B": "The pipe (|)",
+        "C": "The ampersand (&)",
+        "D": "The greater-than sign (>)"
+      },
+      "answer": "B",
+      "explanation": "KQL uses a pipeline approach where data flows from one operation to the next using the pipe (|) character. Each operator filters, rearranges, or summarizes the data before passing it to the next step.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Why does the order of operators matter in a KQL query?",
+      "options": {
+        "A": "Because KQL executes operators in random order",
+        "B": "Because each step works on the results from the previous step",
+        "C": "Because only the last operator is actually executed",
+        "D": "Because operators must be alphabetized"
+      },
+      "answer": "B",
+      "explanation": "The order of operators matters because each step works on the results from the previous step. KQL works like a funnel, where each operator processes the output of the operator before it.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which statement about KQL case-sensitivity is correct?",
+      "options": {
+        "A": "KQL is case-insensitive for table names but case-sensitive for column names",
+        "B": "KQL is case-sensitive for everything including table names, column names, function names, operators, keywords, and string values",
+        "C": "KQL is only case-sensitive for string values",
+        "D": "KQL ignores case entirely"
+      },
+      "answer": "B",
+      "explanation": "KQL is case-sensitive for everything including table names, column names, function names, operators, keywords, and string values. For example, TaxiTrips is different from taxitrips or TAXITRIPS.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which two query languages can you use within a KQL queryset to query a KQL database?",
+      "options": {
+        "A": "KQL and T-SQL",
+        "B": "KQL and Python",
+        "C": "T-SQL and DAX",
+        "D": "KQL and Spark SQL"
+      },
+      "answer": "A",
+      "explanation": "To query data in a KQL database, you can use KQL or T-SQL in KQL querysets. The KQL queryset supports T-SQL queries alongside KQL for data analysis.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the purpose of a database shortcut in an Eventhouse?",
+      "options": {
+        "A": "To copy data from an external database into the local Eventhouse",
+        "B": "To query data from external KQL databases as if it were stored locally, without actually copying the data",
+        "C": "To schedule automatic backups of the KQL database",
+        "D": "To convert KQL queries into T-SQL"
+      },
+      "answer": "B",
+      "explanation": "Database shortcuts to existing KQL databases in other eventhouses or Azure Data Explorer databases let you query data from external KQL databases as if the data were stored locally in your eventhouse, without actually copying the data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does enabling OneLake availability for a KQL database or table accomplish?",
+      "options": {
+        "A": "It deletes historical data to save storage",
+        "B": "It makes the data accessible throughout the Fabric ecosystem for cross-workload integration with Power BI, Warehouse, Lakehouse, and other Fabric services",
+        "C": "It disables KQL querying for the table",
+        "D": "It encrypts the data at rest"
+      },
+      "answer": "B",
+      "explanation": "You can enable OneLake availability for individual KQL databases or tables, making your data accessible throughout the Fabric ecosystem for cross-workload integration with Power BI, Warehouse, Lakehouse, and other Fabric services.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a materialized view in a KQL database?",
+      "options": {
+        "A": "A temporary table that is deleted after each query",
+        "B": "A precomputed aggregation that stores results and automatically updates them as new data arrives",
+        "C": "A visual chart rendered from query results",
+        "D": "A read-only copy of the entire source table"
+      },
+      "answer": "B",
+      "explanation": "Materialized views are precomputed aggregations that store results and automatically update them as new data arrives. Instead of recalculating metrics from all historical data, the view maintains results and only processes new data to update aggregations.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which two parts make up a materialized view to provide always-current results?",
+      "options": {
+        "A": "An index part and a cache part",
+        "B": "A materialized part and a delta part",
+        "C": "A primary part and a backup part",
+        "D": "A hot part and a cold part"
+      },
+      "answer": "B",
+      "explanation": "A materialized view consists of a materialized part (precomputed aggregation results from data already processed) and a delta (new data that has arrived since the last background update). The system combines both at query time.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is a key benefit of using stored functions in an Eventhouse?",
+      "options": {
+        "A": "They automatically encrypt query results",
+        "B": "They encapsulate a query so it can be reused, ensuring calculations are performed consistently across different team members",
+        "C": "They replace the need for a KQL database",
+        "D": "They convert streaming data into batch data"
+      },
+      "answer": "B",
+      "explanation": "Stored functions encapsulate a query as a function, making common queries easier to repeat. They help ensure calculations are performed consistently when different team members apply the same logic, and they support parameters for variable values.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the central principle of KQL query optimization regarding data processed?",
+      "options": {
+        "A": "The more columns selected, the faster the query runs",
+        "B": "The less data your query needs to process, the faster it runs",
+        "C": "Aggregations always run faster than filters",
+        "D": "Queries should always scan all rows for accuracy"
+      },
+      "answer": "B",
+      "explanation": "Query performance in KQL databases depends on the amount of data processed. The key principle is: the less data your query needs to process, the faster it runs.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A team is choosing where to store continuously arriving IoT sensor readings that must be analyzed in real time and are never updated after capture. Which storage characteristic of a KQL database makes it ideal for this workload?",
+      "options": {
+        "A": "It enforces foreign-key relationships across many tables",
+        "B": "It automatically partitions data by ingestion time and supports an append-only, immutable event pattern",
+        "C": "It updates existing records in place to save space",
+        "D": "It requires manual reorganization of data every day"
+      },
+      "answer": "B",
+      "explanation": "KQL databases automatically partition data by ingestion time and are optimized for time-series data that follows an append-only pattern of immutable events, making them ideal for continuously arriving IoT readings that are never changed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer needs to load streaming data from Apache Kafka into a KQL database in an Eventhouse. Which ingestion approach is supported according to the module?",
+      "options": {
+        "A": "Only manual file uploads are supported",
+        "B": "Connectors to sources such as Apache Kafka can ingest data directly into the KQL database",
+        "C": "Kafka data must first be loaded into a Lakehouse and cannot reach a KQL database",
+        "D": "Kafka is not supported for KQL databases"
+      },
+      "answer": "B",
+      "explanation": "You can ingest data directly into a KQL database using connectors to sources such as Apache Kafka, Confluent Cloud Kafka, Apache Flink, MQTT, Amazon Kinesis, and Google Cloud Pub/Sub.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to query data that resides in a separate Azure Data Explorer database without duplicating it into their Eventhouse. What should they create?",
+      "options": {
+        "A": "A materialized view on the remote table",
+        "B": "A database shortcut to the external KQL/Azure Data Explorer database",
+        "C": "A stored function that copies the data nightly",
+        "D": "A new Eventstream that replicates the data"
+      },
+      "answer": "B",
+      "explanation": "Database shortcuts let you query data from external KQL databases or Azure Data Explorer databases as if the data were stored locally in your eventhouse, without actually copying the data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Power BI developer must build reports directly on data held in a KQL table, integrating it across multiple Fabric workloads. Which feature should be enabled on the KQL database or table?",
+      "options": {
+        "A": "Copilot for Real-Time Intelligence",
+        "B": "OneLake availability",
+        "C": "A KQL queryset",
+        "D": "Time-based partitioning"
+      },
+      "answer": "B",
+      "explanation": "Enabling OneLake availability for individual KQL databases or tables makes the data accessible throughout the Fabric ecosystem for cross-workload integration with Power BI, Warehouse, Lakehouse, and other Fabric services.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A dashboard built on a table with billions of rows runs slow aggregation queries because it recalculates metrics from all historical data each time. Which Eventhouse object best resolves this while keeping results current?",
+      "options": {
+        "A": "A stored function that filters recent rows",
+        "B": "A materialized view that stores precomputed aggregations and updates as new data arrives",
+        "C": "A T-SQL query in the KQL queryset",
+        "D": "A database shortcut to another Eventhouse"
+      },
+      "answer": "B",
+      "explanation": "Materialized views store precomputed aggregation results and automatically update them as new data arrives, processing only new data instead of recalculating from all historical data. This provides instant results for dashboards even with massive datasets.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Multiple analysts on a team keep rewriting the same filtering and transformation logic, producing inconsistent results. Which Eventhouse capability addresses this problem?",
+      "options": {
+        "A": "Stored functions that define the logic once for consistent reuse",
+        "B": "Increasing the take limit on each query",
+        "C": "Enabling OneLake availability",
+        "D": "Creating a new KQL database per analyst"
+      },
+      "answer": "A",
+      "explanation": "Stored functions let you define filtering or transformation logic once and reuse it across different queries. They help ensure calculations are performed consistently when different team members need to apply the same logic to the data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst wants AI assistance to generate KQL from a natural-language question about their data. What must happen before this option appears in the queryset menu bar?",
+      "options": {
+        "A": "The user must upgrade to T-SQL mode",
+        "B": "The administrator must enable Copilot for Real-Time Intelligence",
+        "C": "A materialized view must be created first",
+        "D": "OneLake availability must be disabled"
+      },
+      "answer": "B",
+      "explanation": "When your administrator enables Copilot, you see the option in the queryset menu bar. Copilot for Real-Time Intelligence opens as a pane and generates KQL code to answer your questions about the data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A query against a wide table with 50 columns is consuming excessive resources even though only three columns are needed. Which optimization technique should be applied first?",
+      "options": {
+        "A": "Add more join operations",
+        "B": "Project only the needed columns early to reduce resource usage",
+        "C": "Remove all where clauses",
+        "D": "Increase the take limit"
+      },
+      "answer": "B",
+      "explanation": "Projecting or selecting only the columns you need reduces resource usage. Selecting only 3 columns instead of all 50 reduces processing overhead, which is especially important when working with wide tables.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "When ordering multiple where filters in a KQL query for best performance, how should they be arranged?",
+      "options": {
+        "A": "Put filters that eliminate the least data first",
+        "B": "Put filters that eliminate the most data first, like a funnel",
+        "C": "Place all filters after the summarize operator",
+        "D": "Filter order has no effect on performance"
+      },
+      "answer": "B",
+      "explanation": "Order your filters by how much data they eliminate, putting filters that remove the most rows first. Think of it like a funnel: start with the filter that removes the most rows, then apply more specific filters to the remaining data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "In an Eventhouse with time-series data, which type of filter is especially effective because it uses the time index?",
+      "options": {
+        "A": "A filter on a free-text comment column",
+        "B": "A time-based filter such as where pickup_datetime > ago(30min)",
+        "C": "A filter applied after a join only",
+        "D": "A filter on a randomly generated GUID column"
+      },
+      "answer": "B",
+      "explanation": "Time-based filtering is effective because Eventhouses typically contain time-series data, and KQL databases use indexes and data organization that make early time-based filtering especially efficient.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer is joining a large TaxiTrips table with a small VendorInfo table. To make the join more efficient, which table should be placed first?",
+      "options": {
+        "A": "The larger TaxiTrips table",
+        "B": "The smaller VendorInfo table",
+        "C": "It does not matter which table is first",
+        "D": "Neither; joins should be avoided entirely"
+      },
+      "answer": "B",
+      "explanation": "For joins, put the smaller table first. KQL processes the first table to match with the second table, so starting with a smaller table means fewer rows to process, making the join more efficient.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst is exploring an aggregation across a very large dataset and wants to keep the result set manageable during exploration. What is the recommended approach?",
+      "options": {
+        "A": "Remove the summarize operator",
+        "B": "Limit the results, for example using limit 1000 after the summarize",
+        "C": "Scan the whole table without filtering",
+        "D": "Convert the query to T-SQL"
+      },
+      "answer": "B",
+      "explanation": "For aggregations, the module recommends limiting results when exploring data, for example using limit 1000 after the summarize to keep the exploration result set manageable.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A reporting query consistently filters on the last day of data and only uses three columns. Which combination of optimizations aligns with KQL best practices?",
+      "options": {
+        "A": "Filter early on the time column and project only the needed columns",
+        "B": "Select all columns and filter only at the end",
+        "C": "Avoid filtering and rely on take alone",
+        "D": "Place the join before any filter"
+      },
+      "answer": "A",
+      "explanation": "Best practices include filtering data early and effectively (time-based filters use the time index) and reducing columns early by projecting only what you need. Both reduce the amount of data subsequent operations must process.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs a query that always returns the freshest aggregated results even between background materialization runs. How does a materialized view guarantee this?",
+      "options": {
+        "A": "It refuses to return results until the background process finishes",
+        "B": "It combines the materialized part and the delta at query time",
+        "C": "It re-scans the entire source table on every query",
+        "D": "It caches only the oldest data"
+      },
+      "answer": "B",
+      "explanation": "When you query a materialized view, the system automatically combines the materialized part (already processed) and the delta (new data since the last update) at query time, giving fresh, up-to-date results regardless of when the background materialization last ran.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer wants to explore the structure of a potentially very large table without processing all of it. Which KQL operator is most appropriate?",
+      "options": {
+        "A": "summarize",
+        "B": "take",
+        "C": "join",
+        "D": "sort"
+      },
+      "answer": "B",
+      "explanation": "To retrieve a sample of data from potentially large tables, use the take operator (for example TaxiTrips | take 100). This returns a limited number of rows, which is useful for exploring data structure without processing the entire table.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A new KQL database has just been created in an Eventhouse. According to the module, what query workspace is automatically attached for running and saving queries?",
+      "options": {
+        "A": "A KQL queryset",
+        "B": "A Power BI report",
+        "C": "A Data Factory pipeline",
+        "D": "A Spark notebook"
+      },
+      "answer": "A",
+      "explanation": "When you create a KQL database, an attached KQL queryset is automatically created for running and saving queries. The queryset lets you save queries, organize tabs, and share with others.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to load streaming data into a KQL database while also being able to directly ingest from local files and Azure storage. Which statement is accurate per the module?",
+      "options": {
+        "A": "Data can only enter a KQL database through an Eventstream",
+        "B": "You can load data using an Eventstream or directly ingest from sources like local files, Azure storage, and Amazon S3",
+        "C": "Direct ingestion is unavailable; all data must come from Power BI",
+        "D": "KQL databases cannot ingest from Azure storage"
+      },
+      "answer": "B",
+      "explanation": "You can load data into a KQL database using an Eventstream or directly ingest data. Direct ingestion sources include local files, Azure storage, Amazon S3, Azure Event Hubs, Fabric Eventstream, Real-Time hub, OneLake, Data Factory copy, and Dataflows.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After ingesting data into a KQL database, a team wants to automate actions when certain data conditions occur. Which Fabric capability supports this?",
+      "options": {
+        "A": "Fabric Activator",
+        "B": "A stored function",
+        "C": "A database shortcut",
+        "D": "A KQL queryset tab"
+      },
+      "answer": "A",
+      "explanation": "Once you have ingested data, you can query it with KQL or T-SQL, use Real-Time Dashboards to visualize it, and use Fabric Activator to automate actions based on the data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization expects its KQL table to grow from 1 million to 10 million rows over the next year. Which benefit of proper KQL query optimization is most relevant to this concern?",
+      "options": {
+        "A": "Queries will run slower as data grows regardless of optimization",
+        "B": "Well-optimized queries work reliably with growing data and still perform well as volume increases",
+        "C": "Optimization only helps with small datasets",
+        "D": "Optimization eliminates the need to filter data"
+      },
+      "answer": "B",
+      "explanation": "One benefit of optimization is that queries work reliably with growing data: a query that works on 1 million rows today will still perform well when data grows to 10 million rows, because it processes less data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to visualize KQL query results as charts directly while exploring data. Where can they do this according to the module?",
+      "options": {
+        "A": "Only in an external Power BI workspace",
+        "B": "In the KQL queryset, which can render query results as charts, tables, and other visual formats",
+        "C": "Only after exporting results to a Lakehouse",
+        "D": "Visualizations are not possible from KQL results"
+      },
+      "answer": "B",
+      "explanation": "The KQL queryset lets you create data visualizations while exploring your data, rendering query results as charts, tables, and other visual formats.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Logistics runs a fleet of delivery vehicles streaming GPS and trip telemetry continuously into a Microsoft Fabric Eventhouse. A default KQL database was created with the Eventhouse, ingesting via Fabric Eventstream and direct connectors. Their TaxiTrips-style table now holds billions of immutable trip events keyed by pickup_datetime. The analytics team reports three problems: (1) a daily revenue-by-vendor dashboard is slow because each refresh recalculates aggregates over all history; (2) several analysts write inconsistent ad-hoc logic to filter trips by minimum passenger count; and (3) one exploratory query scans all 50 columns and all history, consuming excessive resources. They also need Power BI to read this data across workloads. Which combined solution best addresses all of these requirements using only the concepts in this module?",
+      "options": {
+        "A": "Create a materialized view for the revenue-by-vendor aggregation; define a parameterized stored function for the passenger-count filter; rewrite the exploratory query to filter on pickup_datetime early and project only needed columns; and enable OneLake availability for Power BI cross-workload access",
+        "B": "Replace the KQL database with a relational warehouse, update records in place, and disable partitioning to simplify queries",
+        "C": "Remove all filters to ensure complete results, scan every column for accuracy, and have each analyst keep their own copy of the logic",
+        "D": "Create a database shortcut to a second Eventhouse and run every dashboard query against the full historical scan with no aggregation objects"
+      },
+      "answer": "A",
+      "explanation": "A materialized view stores precomputed revenue-by-vendor aggregations and updates as new data arrives, fixing the slow dashboard. A parameterized stored function (e.g. trips_by_min_passenger_count) gives consistent reusable logic. Filtering early on the time index and projecting only needed columns optimizes the exploratory query. Enabling OneLake availability exposes the data to Power BI and other Fabric workloads. All four techniques come directly from the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Consider the following KQL query:\n\nTaxiTrips\n| where fare_amount > 20\n| project trip_id, pickup_datetime, fare_amount\n| take 10\n\nWhat does this query return?",
+      "options": {
+        "A": "All columns for every trip with a fare over $20",
+        "B": "The first 10 rows where fare_amount is greater than 20, showing only the trip_id, pickup_datetime, and fare_amount columns",
+        "C": "A count of trips grouped by fare_amount",
+        "D": "The 10 highest fares in descending order"
+      },
+      "answer": "B",
+      "explanation": "The query filters to trips with fares over $20 using where, selects only the trip_id, pickup_datetime, and fare_amount columns using project, and uses take to return the first 10 matching rows. take does not sort, so it simply returns the first 10 rows meeting the filter.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "What does the following KQL query produce?\n\nTaxiTrips\n| summarize trip_count = count() by taxi_id",
+      "options": {
+        "A": "A list of all individual trips with their taxi_id",
+        "B": "A summary table showing the total number of trips (trip_count) for each unique taxi_id",
+        "C": "The single total count of all rows in the table",
+        "D": "The first 100 rows of the TaxiTrips table"
+      },
+      "answer": "B",
+      "explanation": "The summarize operator with count() grouped by taxi_id returns a summary table showing the total number of trips (trip_count) for each unique taxi_id, effectively counting how many trips each taxi has made.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "Two queries return the same result but one is more efficient. Which version follows KQL filtering best practice for time-series data?\n\nVersion 1:\nTaxiTrips\n| summarize avg_fare = avg(fare_amount) by vendor_id\n| where avg_fare > 10\n\nVersion 2:\nTaxiTrips\n| where pickup_datetime > ago(30min)\n| project trip_id, vendor_id, pickup_datetime, fare_amount\n| summarize avg_fare = avg(fare_amount) by vendor_id",
+      "options": {
+        "A": "Version 1, because aggregation should always come first",
+        "B": "Version 2, because it filters early on the time index and projects only needed columns before aggregating",
+        "C": "Both are identical in performance",
+        "D": "Neither is valid KQL"
+      },
+      "answer": "B",
+      "explanation": "Version 2 follows best practice: it filters early using a time-based predicate (which uses the time index), then projects only the needed columns, reducing the data the summarize must process. Filtering and projecting early reduces the amount of data subsequent operations handle.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given the filter-ordering guidance in KQL, which arrangement of where clauses is optimal for performance?\n\nTaxiTrips\n| where pickup_datetime > ago(1d)\n| where vendor_id == \"VTS\"\n| where fare_amount > 0\n| summarize trip_count = count()\n\nWhy is this ordering recommended?",
+      "options": {
+        "A": "Because the time filter eliminates the most data first, followed by more specific filters that remove progressively less",
+        "B": "Because filters must always be in alphabetical order by column name",
+        "C": "Because fare_amount filters always eliminate the most rows",
+        "D": "Because summarize must come before any where clause"
+      },
+      "answer": "A",
+      "explanation": "Filters should be ordered by how much data they eliminate, with the filter removing the most rows first. The time filter (ago(1d)) eliminates the most data, the vendor filter eliminates some, and the value filter eliminates the least, forming an efficient funnel.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Which join is structured correctly for performance given that VendorInfo is small and TaxiTrips is large?\n\nOption A:\nVendorInfo\n| join kind=inner TaxiTrips on vendor_id\n\nOption B:\nTaxiTrips\n| join kind=inner VendorInfo on vendor_id\n\nWhich option does the module recommend, and why?",
+      "options": {
+        "A": "Option A, because the smaller VendorInfo table is placed first so fewer rows are processed",
+        "B": "Option B, because the larger table should always lead the join",
+        "C": "Both are equally efficient since join order is irrelevant",
+        "D": "Neither, because inner joins are not supported in KQL"
+      },
+      "answer": "A",
+      "explanation": "For joins, put the smaller table first. KQL processes the first table to match with the second, so leading with the smaller VendorInfo table means fewer rows to process, making the join more efficient. Option A is recommended.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Examine this materialized view definition:\n\n.create materialized-view TripsByVendor on table TaxiTrips\n{\nTaxiTrips\n| summarize trips = count(), avg_fare = avg(fare_amount), total_revenue = sum(fare_amount)\nby vendor_id, pickup_date = format_datetime(pickup_datetime, \"yyyy-MM-dd\")\n}\n\nWhat does this materialized view maintain?",
+      "options": {
+        "A": "A raw copy of every row in TaxiTrips with no aggregation",
+        "B": "Precomputed trip count, average fare, and total revenue aggregated by vendor_id and by day, automatically updated as new data arrives",
+        "C": "Only the most recent 10 trips per vendor",
+        "D": "A list of distinct vendor_id values only"
+      },
+      "answer": "B",
+      "explanation": "The materialized view encapsulates a summarize statement that computes trips (count), avg_fare (average), and total_revenue (sum) grouped by vendor_id and by day (pickup_date). It precomputes these aggregations and automatically updates them as new data arrives.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "After the TripsByVendor materialized view is created, an analyst runs:\n\nTripsByVendor\n| where pickup_date >= ago(7d)\n| project pickup_date, vendor_id, trips, avg_fare, total_revenue\n| sort by pickup_date desc, total_revenue desc\n\nWhat is true about querying a materialized view this way?",
+      "options": {
+        "A": "Materialized views cannot be queried like tables and this query will fail",
+        "B": "Materialized views can be queried like regular tables, here returning the last 7 days of vendor metrics sorted by date then revenue, both descending",
+        "C": "The sort operator is invalid on a materialized view",
+        "D": "The query returns only the materialized part and excludes recent data"
+      },
+      "answer": "B",
+      "explanation": "Once created, materialized views can be queried like regular tables. This query filters to the last 7 days, projects the metric columns, and sorts by pickup_date descending then total_revenue descending. The view combines its materialized part and delta to return current data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Review this stored function definition:\n\n.create-or-alter function trips_by_min_passenger_count(num_passengers:long)\n{\nTaxiTrips\n| where passenger_count >= num_passengers\n| project trip_id, pickup_datetime\n}\n\nWhat does this function do?",
+      "options": {
+        "A": "It deletes trips with fewer than num_passengers passengers",
+        "B": "It returns trip_id and pickup_datetime for trips where passenger_count is greater than or equal to the supplied num_passengers parameter",
+        "C": "It creates a materialized view of passenger counts",
+        "D": "It counts the total number of passengers across all trips"
+      },
+      "answer": "B",
+      "explanation": "The parameterized stored function accepts num_passengers (long), filters TaxiTrips to rows where passenger_count >= num_passengers, and projects trip_id and pickup_datetime. Parameters let you repeat the same query with variable values.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "How would you call the stored function trips_by_min_passenger_count to find 10 trips that had at least three passengers?",
+      "options": {
+        "A": "trips_by_min_passenger_count where 3 | take 10",
+        "B": "trips_by_min_passenger_count(3)\n| take 10",
+        "C": "call trips_by_min_passenger_count(3) limit 10",
+        "D": "TaxiTrips | trips_by_min_passenger_count = 3 | top 10"
+      },
+      "answer": "B",
+      "explanation": "To call a stored function, use it like a table. trips_by_min_passenger_count(3) passes 3 as the num_passengers argument, and piping to take 10 returns the first 10 trips with at least three passengers.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer writes the query: taxitrips | take 5 but the table is named TaxiTrips. What will happen and why?",
+      "options": {
+        "A": "It runs fine because KQL is case-insensitive for table names",
+        "B": "It fails or does not match the intended table because KQL is case-sensitive, so taxitrips is different from TaxiTrips",
+        "C": "It automatically corrects the casing and runs",
+        "D": "It returns all rows instead of 5 because of the casing"
+      },
+      "answer": "B",
+      "explanation": "KQL is case-sensitive for everything, including table names. taxitrips is different from TaxiTrips, so the identifier will not match the intended table and the query will not behave as expected. Identifiers must match exactly.",
+      "difficulty": "Medium"
+    }
+  ]
+}

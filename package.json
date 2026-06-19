@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "compile": "node scripts/compile-data.js",
+    "predev": "node scripts/compile-data.js",
+    "prebuild": "node scripts/compile-data.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

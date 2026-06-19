@@ -29,9 +29,10 @@ export default function RootLayout({ children }) {
               <span className="logo-icon">CB</span>
               <span className="logo-text">CertBuddy</span>
             </Link>
-            <div className="header-meta">
-              <span className="exam-badge">DP-700 Fabric Engineer</span>
-            </div>
+            <nav className="header-meta header-nav" aria-label="Primary">
+              <Link href="/" className="header-link">Certifications</Link>
+              <Link href="/exams/dp-700" className="exam-badge">Start studying</Link>
+            </nav>
           </div>
         </header>
         <div className="app-layout">

@@ -1,0 +1,590 @@
+{
+  "module": "Get started with Copilot for Data Warehouse",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What is the primary purpose of Copilot in the Microsoft Fabric Data Warehouse workload?",
+      "options": {
+        "A": "To replace the SQL query editor with a no-code visual designer",
+        "B": "To apply AI to data warehousing tasks such as generating T-SQL, providing code completions, and surfacing information based on warehouse schema and metadata",
+        "C": "To automatically scale capacity SKUs based on query load",
+        "D": "To migrate on-premises SQL Server databases into Fabric"
+      },
+      "answer": "B",
+      "explanation": "Copilot in Fabric's Data Warehouse applies AI to data warehousing tasks: it can generate T-SQL queries, provide code completions, and surface information based on your warehouse schema and metadata.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which capability lets users describe what they want in plain English and have Copilot produce T-SQL?",
+      "options": {
+        "A": "Natural language to SQL",
+        "B": "Capacity autoscaling",
+        "C": "Schema mirroring",
+        "D": "Data activator"
+      },
+      "answer": "A",
+      "explanation": "Among Copilot's features is natural language to SQL, which converts natural language prompts into T-SQL queries.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "How does Copilot code completion display its real-time suggestions in the SQL editor?",
+      "options": {
+        "A": "As a pop-up dialog box",
+        "B": "As dimmed ghost text inline in the editor",
+        "C": "As a separate read-only results pane",
+        "D": "As highlighted red error squiggles"
+      },
+      "answer": "B",
+      "explanation": "With completions enabled, Copilot provides real-time suggestions as dimmed ghost text as you type your query.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which keyboard key accepts a full Copilot code-completion suggestion?",
+      "options": {
+        "A": "Enter",
+        "B": "Esc",
+        "C": "Tab",
+        "D": "Ctrl+Space"
+      },
+      "answer": "C",
+      "explanation": "You can accept a Copilot completion suggestion by pressing Tab, or dismiss it by continuing to type.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which shortcut accepts only the next word of a Copilot completion suggestion (on Windows)?",
+      "options": {
+        "A": "Ctrl+Right",
+        "B": "Ctrl+Enter",
+        "C": "Alt+Tab",
+        "D": "Shift+Right"
+      },
+      "answer": "A",
+      "explanation": "To accept only part of a suggestion, use Ctrl+Right (Cmd+Right on macOS) to accept the next word.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What minimum capacity SKU is required to use Copilot in Fabric's Data Warehouse?",
+      "options": {
+        "A": "Any trial SKU",
+        "B": "F1 only",
+        "C": "A paid SKU of F2 or higher, or a P SKU",
+        "D": "An A SKU"
+      },
+      "answer": "C",
+      "explanation": "Paid SKUs (F2 or higher, or a P SKU) are required to use Copilot; trial SKUs aren't supported.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Before using code completion, which warehouse setting must be verified as enabled?",
+      "options": {
+        "A": "Show Copilot completions",
+        "B": "Enable result set caching",
+        "C": "Allow public data sharing",
+        "D": "Turn on automatic statistics"
+      },
+      "answer": "A",
+      "explanation": "Before you start, verify that the Show Copilot completions setting is enabled in the warehouse Settings under the Copilot pane.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In code completion, how can you guide Copilot toward a specific query using natural language inside the editor?",
+      "options": {
+        "A": "By prefixing text with /generate",
+        "B": "By leaving a comment in the query using --",
+        "C": "By renaming the query tab",
+        "D": "By selecting a stored procedure template"
+      },
+      "answer": "B",
+      "explanation": "You can leave comments in your query using -- (for example, -- What is the distribution of trips by hour on working days?) to prompt Copilot to generate a corresponding query.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which of the following is a key capability of the Copilot chat pane in Fabric's Data Warehouse?",
+      "options": {
+        "A": "Provisioning new Fabric capacities",
+        "B": "Converting natural language prompts into T-SQL queries, explaining queries, and helping fix errors",
+        "C": "Scheduling pipeline refreshes",
+        "D": "Managing workspace role assignments"
+      },
+      "answer": "B",
+      "explanation": "The chat pane can convert natural language to T-SQL, answer data warehousing questions, provide natural language explanations of T-SQL, and assist with resolving T-SQL errors.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which slash command generates a SQL query from a provided prompt in the Copilot chat pane?",
+      "options": {
+        "A": "/explain",
+        "B": "/question",
+        "C": "/generate-sql",
+        "D": "/help"
+      },
+      "answer": "C",
+      "explanation": "The /generate-sql command generates a SQL query from the provided prompt.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the /explain chat command do?",
+      "options": {
+        "A": "Generates a natural language response to a general prompt",
+        "B": "Fixes errors in the active query",
+        "C": "Provides an explanation for the query in the active query tab",
+        "D": "Opens Copilot documentation and guidance"
+      },
+      "answer": "C",
+      "explanation": "The /explain command provides an explanation for the query in the active query tab.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which chat command would you use to generate a natural language (non-SQL) answer to a question such as 'what types of security are supported for this warehouse?'",
+      "options": {
+        "A": "/question",
+        "B": "/generate-sql",
+        "C": "/fix",
+        "D": "/explain"
+      },
+      "answer": "A",
+      "explanation": "The /question command generates a natural language response to the prompt, such as /question what types of security are supported for this warehouse?",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which TWO AI-powered quick actions are available at the top of the SQL query editor near the Run button?",
+      "options": {
+        "A": "Explain and Fix",
+        "B": "Generate and Optimize",
+        "C": "Summarize and Translate",
+        "D": "Index and Partition"
+      },
+      "answer": "A",
+      "explanation": "Copilot provides two AI-powered quick actions, Explain and Fix, located at the top of the SQL query editor near the Run button.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What must happen before the Fix quick action button becomes enabled?",
+      "options": {
+        "A": "You must highlight the entire query",
+        "B": "You must run a query that returns an error",
+        "C": "You must open the Copilot chat pane first",
+        "D": "You must define schema relationships in the model view"
+      },
+      "answer": "B",
+      "explanation": "The Fix button is only enabled after you run a query that returns an error; Copilot automatically uses that error message as context, so no extra input is needed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which language does Copilot's natural language to SQL feature currently support for prompts?",
+      "options": {
+        "A": "Any language supported by the tenant",
+        "B": "English to T-SQL",
+        "C": "T-SQL to Python",
+        "D": "Spanish and English"
+      },
+      "answer": "B",
+      "explanation": "Currently, natural language to SQL supports English to T-SQL, so prompts should be written in English to take full advantage of the feature.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer enables Copilot but no ghost-text suggestions appear while typing in the SQL editor. The capacity is F4 in a supported region and the tenant switch is on. What is the most likely setting to check?",
+      "options": {
+        "A": "Result set caching is disabled",
+        "B": "The 'Show Copilot completions' option is turned off in the warehouse Settings Copilot pane",
+        "C": "The warehouse has no defined primary keys",
+        "D": "The query tab is in read-only mode"
+      },
+      "answer": "B",
+      "explanation": "Inline ghost-text completions depend on the 'Show Copilot completions' setting being enabled in the warehouse Settings under the Copilot pane; the status bar also indicates whether completions are active.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analyst is on a Fabric trial and wants to use Copilot in the warehouse, but the feature is unavailable. What is the cause?",
+      "options": {
+        "A": "Trial SKUs aren't supported; a paid F2+ or P SKU is required",
+        "B": "Copilot only works in lakehouses, not warehouses",
+        "C": "The analyst lacks Contributor role",
+        "D": "Copilot requires a Power BI Premium license per user"
+      },
+      "answer": "A",
+      "explanation": "Copilot requires paid SKUs (F2 or higher, or a P SKU); trial SKUs aren't supported, which explains why it is unavailable on a trial.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer wants Copilot completions to produce a query summarizing trips by hour on non-holiday weekdays. What is the recommended way to steer the suggestion within the editor?",
+      "options": {
+        "A": "Rename the warehouse to match the intent",
+        "B": "Type a -- comment describing the intent, e.g. -- distribution of trips by hour on working days (non-holiday weekdays)",
+        "C": "Switch the editor to dark mode",
+        "D": "Disable schema relationships"
+      },
+      "answer": "B",
+      "explanation": "Leaving a descriptive -- comment about the query intent prompts Copilot code completion to generate a corresponding query.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "While reviewing a Copilot completion, a developer wants to see other valid ways Copilot would write the same query before accepting one. What should they do?",
+      "options": {
+        "A": "Press Esc repeatedly until a new query appears",
+        "B": "Hover over the suggestion to preview the alternative suggestions Copilot offers",
+        "C": "Re-run the warehouse setup wizard",
+        "D": "Delete the query and retype it identically"
+      },
+      "answer": "B",
+      "explanation": "Copilot can provide different suggestions for the same input; you can hover over the suggestion to preview the other options and select the best fit.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team member ran a query that failed, and now wants Copilot to repair it without manually pasting the error message. Which approach fits this directly?",
+      "options": {
+        "A": "Use the Explain quick action",
+        "B": "Use the Fix quick action, which uses the SQL error message as context automatically",
+        "C": "Use /generate-sql with the table name",
+        "D": "Re-enable Show Copilot completions"
+      },
+      "answer": "B",
+      "explanation": "The Fix quick action becomes enabled after a query returns an error and automatically uses that error message as context, so no extra input is needed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A new hire wants Copilot to annotate an existing complex view query with inline comments describing what each part does, without changing the logic. Which feature should they use?",
+      "options": {
+        "A": "The Fix quick action",
+        "B": "The Explain quick action, after highlighting the query or section",
+        "C": "Code completion ghost text",
+        "D": "The /generate-sql command"
+      },
+      "answer": "B",
+      "explanation": "The Explain quick action adds a summary at the top and inline comments throughout to describe functionality; you highlight the query or portion first.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A user opens the Copilot chat pane for the first time and is unsure how to begin. What does the chat pane provide to help them get familiar with Copilot?",
+      "options": {
+        "A": "A guided video tutorial",
+        "B": "Starter prompts",
+        "C": "A schema auto-generator",
+        "D": "A list of capacity metrics"
+      },
+      "answer": "B",
+      "explanation": "The chat pane provides starter prompts to help you get familiar with Copilot.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer generates a query with one chat prompt, then sends a follow-up '/fix using CTAS instead of ALTER TABLE' without restating the original query. Why does this work?",
+      "options": {
+        "A": "Copilot stores all queries permanently in the warehouse metadata",
+        "B": "The chat pane retains context across prompts within the same session, enabling multi-turn refinement",
+        "C": "ALTER TABLE and CTAS are interchangeable keywords",
+        "D": "The /fix command always regenerates from scratch"
+      },
+      "answer": "B",
+      "explanation": "The Copilot chat pane retains context across prompts within the same session, so follow-up messages can reference earlier queries for iterative refinement.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer finds Copilot's generated JOINs are frequently incorrect across related tables. Which best practice most directly improves JOIN accuracy?",
+      "options": {
+        "A": "Disabling code completion",
+        "B": "Establishing schema relationships in the model view of the warehouse",
+        "C": "Writing prompts in multiple languages",
+        "D": "Using single-character table aliases"
+      },
+      "answer": "B",
+      "explanation": "Establishing schema relationships in the model view enhances the accuracy of JOIN statements, allowing Copilot to infer connections between tables effectively.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization's tables use cryptic names like T1, C2, and X. Copilot frequently misinterprets prompts. According to best practices, what should they do?",
+      "options": {
+        "A": "Add more capacity",
+        "B": "Use expressive, meaningful names for tables and columns to help Copilot understand the schema",
+        "C": "Translate the schema into English column abbreviations",
+        "D": "Disable the Copilot tenant switch"
+      },
+      "answer": "B",
+      "explanation": "Using expressive and meaningful names for tables and columns is crucial; descriptive names help Copilot understand the schema and improve generated query accuracy.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A user writes long, ambiguous, overly complex prompts and gets poor results. What does the best-practices guidance recommend?",
+      "options": {
+        "A": "Add as many adjectives as possible",
+        "B": "Start with a clear and concise description and avoid ambiguous or overly complex language",
+        "C": "Always use ALL CAPS",
+        "D": "Provide prompts only as SQL"
+      },
+      "answer": "B",
+      "explanation": "Crafting effective prompts means starting with a clear and concise description, avoiding ambiguous or overly complex language while maintaining clarity.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer wants Copilot to better understand the intent of a multi-table query directly within the query they are building. Which technique is recommended?",
+      "options": {
+        "A": "Add comments at the top of the query using -- to guide Copilot on intent",
+        "B": "Remove all foreign keys",
+        "C": "Use the /help command repeatedly",
+        "D": "Convert the query to a stored procedure"
+      },
+      "answer": "A",
+      "explanation": "Adding comments at the top of your query using -- can guide Copilot in understanding the query's intent, and comments help with complex multi-table queries.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A user submits prompts in French and is frustrated by inaccurate T-SQL output. What is the most relevant best-practice explanation?",
+      "options": {
+        "A": "Copilot does not support JOINs in non-English schemas",
+        "B": "Natural language to SQL currently supports English to T-SQL, so prompts should be in English",
+        "C": "French prompts require a P SKU",
+        "D": "Copilot only works with English column data"
+      },
+      "answer": "B",
+      "explanation": "Natural language to SQL currently supports English to T-SQL; prompts should be written in English to take full advantage of the feature.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer asks Copilot chat 'How can I import data into my Fabric Warehouse?' What category of capability is being used?",
+      "options": {
+        "A": "Code completion ghost text",
+        "B": "Answering questions about data warehousing concepts via the chat pane",
+        "C": "The Fix quick action",
+        "D": "Schema relationship modeling"
+      },
+      "answer": "B",
+      "explanation": "The chat pane lets you ask questions about your data warehouse or general data warehousing concepts and receive answers, such as how to import data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "In the chat pane, a user runs '/fix' on a query that references HourNumber from the wrong table. Which describes Copilot's expected behavior?",
+      "options": {
+        "A": "It deletes the query entirely",
+        "B": "It fixes the error, for example correcting the reference to HourNumber from the Time table",
+        "C": "It generates ten unrelated queries",
+        "D": "It disables completions"
+      },
+      "answer": "B",
+      "explanation": "The /fix command fixes errors in the active query; in the example Copilot automatically fixed the reference to HourNumber from the Time table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to confirm at a glance whether Copilot completions are currently active without opening Settings. Where can they look?",
+      "options": {
+        "A": "The workspace governance page",
+        "B": "The status bar at the bottom of the query editor",
+        "C": "The capacity metrics app",
+        "D": "The model view diagram"
+      },
+      "answer": "B",
+      "explanation": "The status bar at the bottom of the query editor shows whether completions are active at a glance.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Before using Copilot quick actions, what context sources does Copilot draw on to provide relevant feedback?",
+      "options": {
+        "A": "Only the highlighted text",
+        "B": "Warehouse schema, query tab contents, and execution results",
+        "C": "Only the tenant settings",
+        "D": "External web search results"
+      },
+      "answer": "B",
+      "explanation": "Copilot uses your warehouse schema, query tab contents, and execution results to provide relevant feedback for quick actions.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An administrator needs Copilot available to the data warehouse team but Copilot does not appear for anyone in the tenant. What is the first thing to verify?",
+      "options": {
+        "A": "That each user has a separate Copilot license file",
+        "B": "That the administrator has enabled the Copilot tenant switch and the capacity is in a supported region",
+        "C": "That result set caching is enabled",
+        "D": "That all tables have meaningful names"
+      },
+      "answer": "B",
+      "explanation": "Prerequisites state the administrator must enable the Copilot tenant switch and the capacity must be in a supported region (plus a paid F2+/P SKU).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer wants Copilot to explain only one CTE within a large query, not the entire script. What is the correct quick-action workflow?",
+      "options": {
+        "A": "Run the whole query first, then click Fix",
+        "B": "Highlight just that section, then select the Explain button",
+        "C": "Open chat and type /generate-sql",
+        "D": "Disable Show Copilot completions"
+      },
+      "answer": "B",
+      "explanation": "Before selecting Explain, you highlight the query or the portion you want explained; you can select the whole query or just a section.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After Copilot adds inline explanatory comments to a query, a developer disagrees with one comment's wording. What can they do?",
+      "options": {
+        "A": "Nothing; Copilot comments are locked",
+        "B": "Edit or delete the comments as needed",
+        "C": "They must regenerate the entire warehouse",
+        "D": "Only an admin can change comments"
+      },
+      "answer": "B",
+      "explanation": "The comments appear next to the relevant lines of code and you can edit or delete the comments as needed.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A workspace's tenant restricts data processing to specific geographic regions. The team plans to roll out Copilot. What must they confirm?",
+      "options": {
+        "A": "That all users are in the same time zone",
+        "B": "That the necessary permissions for the geographic-region data processing restriction are enabled",
+        "C": "That the warehouse uses only English column data",
+        "D": "That trial SKUs are upgraded to A SKUs"
+      },
+      "answer": "B",
+      "explanation": "If tenant settings restrict data processing to specific geographic regions, you must confirm that the necessary permissions are enabled for Copilot to work.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Logistics runs a Fabric F8 warehouse in a supported region with the Copilot tenant switch enabled. Their tables are named with descriptive names (Trip, Date, Payment) and schema relationships are defined in the model view. A junior analyst, working in English, wants to: (1) write queries faster with inline help, (2) understand an existing payment-analysis view, (3) repair a query that failed at runtime due to a wrong column reference, and (4) ask conceptual questions about importing data. Which combination of Copilot features correctly maps to these four needs, in order?",
+      "options": {
+        "A": "Code completion ghost text; Explain quick action; Fix quick action; chat pane question",
+        "B": "Fix quick action; code completion; chat /generate-sql; Explain quick action",
+        "C": "Chat /help; Fix quick action; code completion; Explain quick action",
+        "D": "Explain quick action; chat pane question; code completion; Fix quick action"
+      },
+      "answer": "A",
+      "explanation": "Writing faster with inline help is code completion (ghost text accepted with Tab); understanding an existing view is the Explain quick action (highlight then Explain, adding inline comments and a summary); repairing a runtime-failed query is the Fix quick action (enabled after an error, using the error message as context); and asking conceptual questions like how to import data is the chat pane answering data warehousing concepts. Their descriptive names and defined schema relationships also align with best practices that improve generated-query and JOIN accuracy, and English prompts match the supported natural language to SQL direction.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A developer types the comment '-- Get the number of trips performed by each medallion' above an empty line. Which T-SQL would Copilot code completion most appropriately suggest to satisfy this intent?",
+      "options": {
+        "A": "SELECT Medallion, COUNT(*) AS TripCount FROM dbo.Trip GROUP BY Medallion;",
+        "B": "DELETE FROM dbo.Trip WHERE Medallion IS NULL;",
+        "C": "CREATE TABLE Medallion (Id INT);",
+        "D": "ALTER TABLE dbo.Trip ADD Medallion INT;"
+      },
+      "answer": "A",
+      "explanation": "The comment expresses intent to count trips per medallion, so Copilot would generate an aggregation grouping by Medallion with COUNT(*). The other statements modify schema or delete data rather than answer the question.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "Copilot's Explain quick action annotates this snippet:\n\nSELECT PaymentType, COUNT(T.PaymentType) AS PaymentsCount, SUM(TotalAmount) AS TotalAmountProcessed\nFROM dbo.Trip AS T\nJOIN dbo.[Date] AS D ON T.[DateID] = D.[DateID]\nWHERE YEAR(D.[Date]) = 2013\nGROUP BY PaymentType;\n\nWhich inline comment best describes the WHERE clause?",
+      "options": {
+        "A": "Joins the Trip table to itself",
+        "B": "Filters the results to include only records from the year 2013",
+        "C": "Sums the total amount for each payment type",
+        "D": "Groups the results by PaymentType"
+      },
+      "answer": "B",
+      "explanation": "The WHERE YEAR(D.[Date]) = 2013 clause filters to only records from the year 2013, matching the style of inline comment Copilot's Explain action produces.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A user issues the chat command: '/generate-sql select numbers 1 through 10'. Which result best reflects what Copilot is being asked to produce?",
+      "options": {
+        "A": "A query/result that returns the integers 1 through 10",
+        "B": "A query that deletes rows 1 through 10",
+        "C": "A query that returns the top 10 customers",
+        "D": "A stored procedure that loops 10 times silently"
+      },
+      "answer": "A",
+      "explanation": "The /generate-sql command produces SQL from the prompt; 'select numbers 1 through 10' asks for a query that returns the numbers 1 through 10, as shown in the module's example.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "A query failed because it used ALTER TABLE in a way that was inefficient for a rebuild. In chat, the developer sends the follow-up '/fix using CTAS instead of ALTER TABLE'. What is Copilot expected to do?",
+      "options": {
+        "A": "Ignore the prior context and ask for the full query again",
+        "B": "Use the retained session context to revise the earlier query to use CREATE TABLE AS SELECT (CTAS) instead of ALTER TABLE",
+        "C": "Generate documentation only",
+        "D": "Disable the warehouse"
+      },
+      "answer": "B",
+      "explanation": "Because the chat pane retains context across prompts in a session, the /fix follow-up can reference the earlier query and revise it to use CTAS instead of ALTER TABLE without restating the full context.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given a well-modeled warehouse with a defined relationship between dbo.Trip(DateID) and dbo.[Date](DateID), a developer prompts Copilot in English: 'total trip amount by year'. Which generated query best leverages the defined schema relationship?",
+      "options": {
+        "A": "SELECT YEAR(D.[Date]) AS Yr, SUM(T.TotalAmount) AS TotalAmount FROM dbo.Trip AS T JOIN dbo.[Date] AS D ON T.DateID = D.DateID GROUP BY YEAR(D.[Date]);",
+        "B": "SELECT SUM(TotalAmount) FROM dbo.Trip;",
+        "C": "SELECT * FROM dbo.[Date];",
+        "D": "SELECT YEAR(GETDATE());"
+      },
+      "answer": "A",
+      "explanation": "A defined relationship on DateID lets Copilot infer the correct JOIN; grouping by YEAR(D.[Date]) with SUM(T.TotalAmount) produces total trip amount by year. The other options do not join or aggregate by year.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A poorly worded comment '-- stuff for the thing by the other thing' yields a low-quality Copilot completion. Rewriting it as which comment best follows the prompting best practices?",
+      "options": {
+        "A": "-- distribution of trips by hour on non-holiday weekdays",
+        "B": "-- query",
+        "C": "-- do everything",
+        "D": "-- TODO later"
+      },
+      "answer": "A",
+      "explanation": "Best practices call for clear, concise descriptions that specify intent (columns, aggregations, filters). A comment naming the metric (distribution of trips), the grouping (by hour), and the filter (non-holiday weekdays) guides Copilot far better than vague text.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A developer accepts a Copilot ghost-text suggestion that produced 'SELECT PaymentType, COUNT(*) ...' but only wants the next word committed, not the full line. Which action accomplishes accepting just the next word?",
+      "options": {
+        "A": "Press Tab",
+        "B": "Press Ctrl+Right (Cmd+Right on macOS)",
+        "C": "Press Enter",
+        "D": "Press Esc"
+      },
+      "answer": "B",
+      "explanation": "Tab accepts the entire suggestion; to accept only the next word of a completion, use Ctrl+Right (Cmd+Right on macOS).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "After running a query, the engine returns: 'Invalid column name HourNumber'. The developer clicks the Fix quick action. Which outcome aligns with how Fix works?",
+      "options": {
+        "A": "Fix asks the developer to paste the error text manually before proceeding",
+        "B": "Fix uses the returned error message as context and corrects the invalid reference, e.g. resolving HourNumber to the correct Time table column",
+        "C": "Fix rewrites the query in a different programming language",
+        "D": "Fix only works if completions are disabled"
+      },
+      "answer": "B",
+      "explanation": "The Fix quick action becomes enabled after a query returns an error and automatically uses that SQL error message as context to resolve syntax or logic errors, such as correcting the HourNumber reference, without extra input.",
+      "difficulty": "Hard"
+    }
+  ]
+}

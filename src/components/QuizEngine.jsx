@@ -14,52 +14,44 @@ function shuffleArray(arr) {
   return a;
 }
 
-/** Normalise a raw question from the JSON into a consistent shape. */
-function normaliseQuestion(q) {
-  // Determine correct answer indices and whether multi-select
-  // JSON shape: { type, question, options: [{ text, correct, explanation? }] }
-  // or older shape: { question, options: [...], answer, explanation }
-  const rawOptions = Array.isArray(q.options)
-    ? q.options
-    : q.options && typeof q.options === "object"
-      ? Object.entries(q.options).map(([key, value]) => ({
-          key,
-          text: value,
-        }))
-      : [];
-
-  const options = rawOptions.map((opt, i) => {
-    if (typeof opt === "string") {
-      return { text: opt, correct: false, explanation: "" };
-    }
+/**
+ * Adapt a question to the shape this component renders. Questions are already
+ * normalised at build time by scripts/compile-data.js into:
+ *   { id, type, text, options:[{text,correct}], correctIndices, isMulti, explanation }
+ * This stays defensive in case a raw question slips through.
+ */
+function normaliseQuestion(q, index = 0) {
+  if (Array.isArray(q.options) && q.options.every((o) => o && typeof o === "object" && "correct" in o)) {
     return {
-      text: opt.text || opt.option || opt,
-      correct:
-        !!opt.correct ||
-        !!opt.isCorrect ||
-        String(opt.key || "").toUpperCase() === String(q.answer || "").toUpperCase(),
-      explanation: opt.explanation || "",
+      id: q.id || `q${index}`,
+      text: q.text || q.question || "",
+      options: q.options,
+      isMulti: q.isMulti ?? q.options.filter((o) => o.correct).length > 1,
+      explanation: q.explanation || "",
+      type: q.type || (q.isMulti ? "multiple-select" : "single-select"),
     };
-  });
-
-  // Support legacy "answer" field (0-indexed or letter)
-  if (!options.some((o) => o.correct) && q.answer !== undefined) {
-    const idx =
-      typeof q.answer === "number"
-        ? q.answer
-        : LETTERS.indexOf(String(q.answer).toUpperCase());
-    if (idx >= 0 && idx < options.length) options[idx].correct = true;
   }
 
-  const correctCount = options.filter((o) => o.correct).length;
-  const isMulti = correctCount > 1 || q.type === "multiple-select";
-
+  // Fallback for the raw source shape { question, options:{A..}, answer }.
+  const entries = Array.isArray(q.options)
+    ? q.options.map((v, i) => [LETTERS[i], v])
+    : Object.entries(q.options || {});
+  const answerLetters = (Array.isArray(q.answer) ? q.answer : String(q.answer ?? "").split(","))
+    .map((a) => String(a).trim().toUpperCase())
+    .filter(Boolean);
+  const options = entries.map(([key, value]) => ({
+    text: typeof value === "object" && value ? value.text ?? "" : String(value),
+    correct:
+      (typeof value === "object" && value && !!value.correct) ||
+      answerLetters.includes(String(key).toUpperCase()),
+  }));
+  const isMulti = options.filter((o) => o.correct).length > 1 || q.type === "multiple-select";
   return {
-    id: q.id || Math.random().toString(36).slice(2),
+    id: q.id || `q${index}`,
     text: q.question || q.text || "",
     options,
     isMulti,
-    explanation: q.explanation || options.find((o) => o.correct)?.explanation || "",
+    explanation: q.explanation || "",
     type: q.type || (isMulti ? "multiple-select" : "single-select"),
   };
 }
@@ -69,6 +61,8 @@ function normaliseQuestion(q) {
 function isCodeLikeText(text) {
   return /(\bspark\.|\bdf\s*=|\bSELECT\b|\bCREATE\b|\bVACUUM\b|\.write|\.read|\.option\(|=>|==|;)/i.test(text);
 }
+
+export { normaliseQuestion, FormattedText, ResultsScreen, LETTERS };
 
 function FormattedText({ text, variant }) {
   const tokens = [];
@@ -147,28 +141,24 @@ function FormattedText({ text, variant }) {
 
 function StartScreen({ chapterTitle, totalQuestions, previousHighScore, onStart }) {
   return (
-    <div className="quiz-start-screen">
-      <span className="quiz-start-icon">📝</span>
-      <h2>Practice Quiz</h2>
-      <p>
-        Test your knowledge of <strong>{chapterTitle}</strong> with{" "}
-        {totalQuestions} carefully crafted questions. Instant feedback is shown
-        after each answer.
+    <div className="quiz-start">
+      <p className="eyebrow">Practice quiz</p>
+      <h2 className="quiz-start-title">Check your understanding</h2>
+      <p className="quiz-start-lede">
+        {totalQuestions} questions on <strong>{chapterTitle}</strong>, with instant
+        feedback and an explanation after each answer.
       </p>
 
-      <div className="quiz-meta-pills">
-        <span className="quiz-meta-pill">🎯 {totalQuestions} Questions</span>
-        <span className="quiz-meta-pill">⚡ Instant Feedback</span>
-        <span className="quiz-meta-pill">💾 Progress Saved</span>
+      <dl className="quiz-start-stats">
+        <div><dt>Questions</dt><dd>{totalQuestions}</dd></div>
+        <div><dt>Feedback</dt><dd>Instant</dd></div>
         {previousHighScore !== undefined && (
-          <span className="quiz-best-score">
-            🏆 Best: {previousHighScore}%
-          </span>
+          <div><dt>Your best</dt><dd>{previousHighScore}%</dd></div>
         )}
-      </div>
+      </dl>
 
       <button id="start-quiz-btn" className="btn-primary" onClick={onStart}>
-        Start Quiz →
+        Start quiz
       </button>
     </div>
   );
@@ -397,7 +387,8 @@ function QuestionCard({ question, index, total, answered, onAnswer, onNext, onFi
 }
 
 /* ─── Main QuizEngine ──────────────────────────────────────── */
-export default function QuizEngine({ chapterTitle, questions, onFinish, previousHighScore }) {
+export default function QuizEngine({ title, chapterTitle, questions, onFinish, previousHighScore }) {
+  const quizTitle = title ?? chapterTitle;
   const [phase, setPhase] = useState("start"); // 'start' | 'quiz' | 'results'
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -462,7 +453,7 @@ export default function QuizEngine({ chapterTitle, questions, onFinish, previous
   if (phase === "start") {
     return (
       <StartScreen
-        chapterTitle={chapterTitle}
+        chapterTitle={quizTitle}
         totalQuestions={normalisedQuestions.length}
         previousHighScore={previousHighScore}
         onStart={handleStart}

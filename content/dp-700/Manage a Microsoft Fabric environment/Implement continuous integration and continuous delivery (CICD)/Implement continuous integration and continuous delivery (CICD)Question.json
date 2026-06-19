@@ -1,0 +1,590 @@
+{
+  "module": "Implement continuous integration and continuous delivery (CICD)",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "What are the two components of lifecycle management in Fabric that together implement CI/CD?",
+      "options": {
+        "A": "Git integration and Deployment pipelines",
+        "B": "GitHub and Azure DevOps",
+        "C": "REST APIs and Power BI Desktop",
+        "D": "Workspaces and Items"
+      },
+      "answer": "A",
+      "explanation": "The module states that managing the lifecycle of Fabric items using CI/CD has two parts: integration (implemented using Git) and deployment (implemented using Fabric deployment pipelines). Automation is handled via REST APIs.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which version control systems does Microsoft Fabric natively support for Git integration?",
+      "options": {
+        "A": "GitLab and Bitbucket",
+        "B": "GitHub and Azure DevOps",
+        "C": "GitHub and AWS CodeCommit",
+        "D": "Azure DevOps and GitLab"
+      },
+      "answer": "B",
+      "explanation": "The module explicitly states that GitHub and Azure DevOps are the version control systems supported in Fabric.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "At what level is Git integration configured in Microsoft Fabric?",
+      "options": {
+        "A": "Item level",
+        "B": "Tenant level",
+        "C": "Workspace level",
+        "D": "Capacity level"
+      },
+      "answer": "C",
+      "explanation": "The module explicitly states: 'Integration with version control is at the workspace level in Fabric. You can version items you develop within a workspace.'",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is continuous integration (CI)?",
+      "options": {
+        "A": "Automatically deploying code to production once all tests pass",
+        "B": "Frequently committing code to a shared branch, validated by automated build and testing",
+        "C": "Deploying to a staging environment for more testing before production release",
+        "D": "Moving content between development, test, and production stages using pipelines"
+      },
+      "answer": "B",
+      "explanation": "CI involves frequently committing code to a shared code branch in a version control system, where changes are validated by a build process and automated testing, identifying conflicts earlier in the development process.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the 'Changes' option in the Fabric Source control window do?",
+      "options": {
+        "A": "Pulls new commits from the Git branch into the workspace",
+        "B": "Creates a new branch from the current workspace",
+        "C": "Synchronizes workspace changes to the connected Git branch",
+        "D": "Merges branches in the Git repository"
+      },
+      "answer": "C",
+      "explanation": "When you make workspace changes, you synchronize them with the Git branch using the 'Changes' selection in the Source control window.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the 'Updates' option in the Fabric Source control window do?",
+      "options": {
+        "A": "Pushes local workspace changes to the Git branch",
+        "B": "Synchronizes new commits from the Git branch into the workspace",
+        "C": "Creates a pull request in Git",
+        "D": "Deletes stale branches from the remote repository"
+      },
+      "answer": "B",
+      "explanation": "When new commits are made in the Git branch, you synchronize them with your workspace using the 'Updates' selection in the Source control window.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What does the deployment process do when content is deployed between pipeline stages?",
+      "options": {
+        "A": "Moves content from the source stage and deletes it from the original",
+        "B": "Creates a new pipeline stage automatically",
+        "C": "Clones (copies) all workspace content into the target stage",
+        "D": "Merges content between two stages into a new combined stage"
+      },
+      "answer": "C",
+      "explanation": "The deployment process copies (clones) all of the workspace content into the target stage, typically from development to test and from test to production.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which two tools are listed in the module as client tools for isolated development outside the Fabric web interface?",
+      "options": {
+        "A": "Power BI Desktop and VS Code",
+        "B": "Excel and Power Query Editor",
+        "C": "GitHub Desktop and Azure Data Studio",
+        "D": "SQL Server Management Studio and Postman"
+      },
+      "answer": "A",
+      "explanation": "The module lists Power BI Desktop (for reports and semantic models) and VS Code (for Notebooks) as client tools for isolated development outside the Fabric web interface.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the difference between continuous delivery and continuous deployment?",
+      "options": {
+        "A": "Continuous delivery requires manual approval before production; continuous deployment automatically releases to production after tests pass",
+        "B": "Continuous delivery deploys to development; continuous deployment deploys to test",
+        "C": "Continuous delivery uses Git; continuous deployment uses deployment pipelines",
+        "D": "There is no difference; they are synonyms in the context of Fabric"
+      },
+      "answer": "A",
+      "explanation": "Continuous delivery deploys code to a staging environment for more automated testing before release to production. Continuous deployment automatically releases updates into production through structured stages once they pass automated tests.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Where is the Git status column visible after connecting a Fabric workspace to Git?",
+      "options": {
+        "A": "Only in the Fabric admin portal",
+        "B": "In the workspace view, showing the sync state of items compared to the remote branch",
+        "C": "Only in the deployment pipeline stage view",
+        "D": "Only in the Source control REST API response"
+      },
+      "answer": "B",
+      "explanation": "After connecting to a repository, the workspace shows a Git status column indicating the sync state of items in the workspace compared to the items in the remote branch.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the recommended best practice for development work to avoid affecting other shared workspace users?",
+      "options": {
+        "A": "Make changes directly in the shared production workspace quickly",
+        "B": "Develop in an isolated workspace connected to a personal branch",
+        "C": "Delete the shared workspace before making changes",
+        "D": "Commit changes directly to the main branch without a PR"
+      },
+      "answer": "B",
+      "explanation": "The module states that a best practice is for developers to work in an isolated workspace outside of a shared, live workspace, using their own protected workspace connected to a personal branch.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "When combining deployment pipelines with Git integration, which workspace is commonly connected to Git to avoid sync conflicts in higher environments?",
+      "options": {
+        "A": "Only the Test workspace",
+        "B": "Only the Production workspace",
+        "C": "Only the Development workspace",
+        "D": "All three pipeline stage workspaces equally"
+      },
+      "answer": "C",
+      "explanation": "The module describes a common approach where only the Development workspace is connected to Git, while deployment pipelines handle promotion to Test and Production. This avoids potential Git synchronization conflicts when deploying content across multiple stages.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What can Fabric CI/CD REST APIs be used to automate?",
+      "options": {
+        "A": "Only creating new Fabric workspaces",
+        "B": "Committing workspace changes, updating from Git, checking Git status, and deploying pipeline stages",
+        "C": "Only managing user permissions in the tenant",
+        "D": "Only monitoring pipeline run status"
+      },
+      "answer": "B",
+      "explanation": "The module lists Fabric CI/CD REST API operations: commit changes to Git, update workspace from Git, check Git status, list deployment pipeline stage items, and deploy stage content.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What is the purpose of creating a dedicated feature branch in Git during development?",
+      "options": {
+        "A": "To increase the number of automated deployments per day",
+        "B": "To allow multiple developers to work on a feature without affecting the main branch",
+        "C": "To permanently reduce the size of the Git repository",
+        "D": "To automatically deploy changes directly to production"
+      },
+      "answer": "B",
+      "explanation": "The module states that feature development in a dedicated branch makes it easy for multiple developers to work on a feature without affecting the main branch.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What does a Pull Request (PR) accomplish in the Git branching workflow?",
+      "options": {
+        "A": "Pushes code directly to the production environment bypassing all tests",
+        "B": "Creates a new isolated workspace automatically for the developer",
+        "C": "Requests to merge changes from a feature branch into the main branch",
+        "D": "Runs automated tests directly in the Fabric deployment pipeline"
+      },
+      "answer": "C",
+      "explanation": "A PR is created in Git to pull changes from a developer's isolated branch into the main branch, enabling code review and validation before the merge is completed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineering team has 5 developers all working in the same Fabric workspace simultaneously. Changes made by one developer are breaking other developers' work. What should the team adopt to solve this problem?",
+      "options": {
+        "A": "Grant all developers read-only access to the shared workspace",
+        "B": "Have each developer use an isolated workspace connected to a personal branch, with pull requests to merge into the main branch",
+        "C": "Delete and recreate the workspace after each developer finishes their work",
+        "D": "Allow only one developer to work in the workspace at a time using a sign-up schedule"
+      },
+      "answer": "B",
+      "explanation": "The recommended practice is for each developer to work in an isolated workspace connected to their own branch, then submit pull requests to merge changes into the main branch, avoiding interference between developers.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer has made changes in their isolated branch and is ready to incorporate their code into the team's shared codebase. What is the correct next step according to Fabric Git integration practices?",
+      "options": {
+        "A": "Directly edit the main branch items in the shared Fabric workspace",
+        "B": "Use the Deploy button in the deployment pipeline to push to production",
+        "C": "Create a Pull Request (PR) in Git to merge the isolated branch into the main branch",
+        "D": "Delete the main branch and rename the feature branch to main"
+      },
+      "answer": "C",
+      "explanation": "After committing to an isolated branch, the developer creates a PR in Git to merge those changes into the main branch. The main branch is updated once the PR is merged.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "After multiple developers merge their changes into the main Git branch, a team lead opens the shared development workspace and sees a notification. What does this notification indicate?",
+      "options": {
+        "A": "The workspace has been deleted by another developer",
+        "B": "There are new commits in the Git branch that need to be synchronized into the workspace",
+        "C": "A deployment pipeline stage has failed",
+        "D": "The workspace license has expired"
+      },
+      "answer": "B",
+      "explanation": "When new commits are merged into the main branch, opening the shared workspace prompts users to synchronize the new content from Git with the shared workspace.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs code to release automatically to production once it passes all automated tests, with no manual intervention. Which CI/CD concept describes this requirement?",
+      "options": {
+        "A": "Continuous integration",
+        "B": "Continuous delivery",
+        "C": "Continuous deployment",
+        "D": "Version control branching"
+      },
+      "answer": "C",
+      "explanation": "Continuous deployment is a process that automatically releases updates into production environments through structured deployment stages, once they pass automated tests — no manual intervention required.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric workspace is connected to a Git repository. A developer commits new notebook changes to the remote branch. A teammate wants to reflect these changes in the workspace. What must they do in the Source control interface?",
+      "options": {
+        "A": "Select 'Changes' to push local changes to the branch",
+        "B": "Select 'Updates' to pull commits from Git into the workspace",
+        "C": "Create a new deployment pipeline for the updated notebook",
+        "D": "Recreate the workspace from scratch to pick up the changes"
+      },
+      "answer": "B",
+      "explanation": "The 'Updates' selection in the Source control window synchronizes new commits made in the Git branch into the workspace.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants to combine Git version control with deployment pipelines but wants to avoid Git synchronization conflicts when promoting content across pipeline stages. What approach does the module recommend?",
+      "options": {
+        "A": "Connect all three pipeline stages (Dev, Test, Production) to separate Git branches",
+        "B": "Connect only the Production workspace to Git for final version tracking",
+        "C": "Connect only the Development workspace to Git and use deployment pipelines to promote to Test and Production",
+        "D": "Use separate Git repositories for each pipeline stage"
+      },
+      "answer": "C",
+      "explanation": "The module recommends connecting only the Development workspace to Git, while deployment pipelines handle promotion to Test and Production. This avoids potential Git synchronization conflicts when deploying content across multiple stages.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer develops notebooks in VS Code and wants to test them in Fabric before issuing a pull request. What is the correct sequence of steps?",
+      "options": {
+        "A": "Clone the repo locally, push changes to remote, connect isolated branch to a workspace, then issue a PR to merge into main",
+        "B": "Directly edit notebooks in the production workspace and monitor for errors",
+        "C": "Use only the Fabric web interface for all notebook development",
+        "D": "Deploy directly to production using the Fabric REST API without testing"
+      },
+      "answer": "A",
+      "explanation": "The module describes this workflow for client tool development: clone repo locally, develop, push to remote repository, connect the isolated branch to a separate workspace to test, then issue a PR to merge into the main branch.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An admin wants to automate the process of committing all workspace changes to the connected Git branch on a nightly schedule. Which Fabric feature enables this?",
+      "options": {
+        "A": "Deployment pipelines scheduled trigger",
+        "B": "Fabric REST APIs",
+        "C": "Workspace Monitoring",
+        "D": "Power BI Desktop scheduled publish"
+      },
+      "answer": "B",
+      "explanation": "Fabric CI/CD REST APIs can be used to automate the commit process programmatically, including committing workspace changes to the connected remote branch on any schedule.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer needs to know which Fabric items in the workspace have local changes not yet committed to Git. Which tool or feature provides this information?",
+      "options": {
+        "A": "The Fabric admin portal under Tenant settings",
+        "B": "The Git status API or the Source control window's Git status column in the workspace",
+        "C": "The deployment pipeline overview showing stage differences",
+        "D": "The Capacity Metrics app activity log"
+      },
+      "answer": "B",
+      "explanation": "The Git status API and the workspace's Git status column both show which items differ between the workspace and the remote Git branch, identifying uncommitted local changes and incoming remote updates.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric workspace contains a data pipeline, a lakehouse, and a semantic model. When the team selects 'Deploy' from Development to Test in the deployment pipeline, what exactly gets copied?",
+      "options": {
+        "A": "Only newly added items since the last deployment",
+        "B": "All workspace content is copied to the Test stage",
+        "C": "Only the data pipeline since it was the most recently modified item",
+        "D": "A new Git branch is created for the Test stage automatically"
+      },
+      "answer": "B",
+      "explanation": "The deployment process copies all of the workspace content into the target stage, not just newly added or recently modified items.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team has created a deployment pipeline but hasn't assigned any workspaces to the stages. What must happen before they can deploy content?",
+      "options": {
+        "A": "All content must first be committed to a Git repository",
+        "B": "A workspace must be assigned to each pipeline stage",
+        "C": "The deployment pipeline must be connected to Azure DevOps",
+        "D": "All items in the workspace must be endorsed as certified"
+      },
+      "answer": "B",
+      "explanation": "The pipeline creation process requires assigning a workspace to each stage and selecting the green check mark before content can be deployed between stages.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A company wants to use Fabric REST APIs to automate deployment from the Development stage to the Test stage of a deployment pipeline. Which REST API operation does this require?",
+      "options": {
+        "A": "Git status API to check for pending changes",
+        "B": "Deploy Stage Content API",
+        "C": "Update workspace from Git API",
+        "D": "Commit changes to Git API"
+      },
+      "answer": "B",
+      "explanation": "The 'Deploy Stage Content' REST API deploys items from the specified stage of the specified deployment pipeline to the target stage.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric workspace admin sees the source control icon showing the number '5.' What does this indicate?",
+      "options": {
+        "A": "There are 5 users currently connected to the workspace",
+        "B": "5 items differ between the workspace and the Git repository",
+        "C": "5 automated tests have failed in the deployment pipeline",
+        "D": "The workspace has 5 deployment pipeline stages configured"
+      },
+      "answer": "B",
+      "explanation": "The source control icon shows the number of items that are different between the workspace and the repository, indicating uncommitted changes or incoming updates.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer in the Fabric web interface wants to start working on a new feature without affecting the shared development workspace connected to the main branch. What should they do directly from the Fabric interface?",
+      "options": {
+        "A": "Clone the main branch in Git and create an entirely new repository",
+        "B": "Select 'Branch out to new workspace' in Source control to create an isolated branch and associated workspace",
+        "C": "Delete the shared workspace and recreate it for their personal use",
+        "D": "Grant themselves Admin access to bypass shared workspace restrictions"
+      },
+      "answer": "B",
+      "explanation": "Developers using the Fabric web interface can select 'Source control' then 'Branch out to new workspace' to create an isolated branch and a new workspace that syncs with that branch.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric admin wants to view all items currently in the Test stage of a deployment pipeline before initiating another deployment. Which Fabric REST API operation should they use?",
+      "options": {
+        "A": "Git status API",
+        "B": "Commit changes to Git API",
+        "C": "List Deployment Pipeline Stage Items API",
+        "D": "Deploy Stage Content API"
+      },
+      "answer": "C",
+      "explanation": "The 'List Deployment Pipeline Stage Items' REST API returns the supported items from the workspace assigned to the specified stage of the specified deployment pipeline.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "After deploying content from Development to Test, the team wants to verify all three pipeline stages are synchronized. What visual indicator in the deployment pipeline UI confirms this?",
+      "options": {
+        "A": "A red exclamation mark in the stage box indicating review is needed",
+        "B": "A checkmark in each deployment stage box indicating items exist in all stages and are synchronized",
+        "C": "A blue arrow indicating a pending deployment is queued",
+        "D": "A lock icon indicating the stage content is frozen"
+      },
+      "answer": "B",
+      "explanation": "The module describes a checkmark in the deployment stage box as the indicator that a data pipeline item exists in all staging environments and that the Fabric stages are synchronized.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization's CI/CD process uses GitHub. What serves as the central location for storing and managing Fabric items in this setup?",
+      "options": {
+        "A": "The Fabric admin portal under Tenant settings",
+        "B": "The OneLake storage account",
+        "C": "The GitHub repository",
+        "D": "A dedicated development-stage workspace"
+      },
+      "answer": "C",
+      "explanation": "The Git repository (GitHub in this case) is the central location for storing and managing items when using Git integration in Fabric. Setting up the repository is the first step in implementing Git integration.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants multiple developers to collaborate on a single feature without affecting the main code branch. What development strategy should they adopt?",
+      "options": {
+        "A": "All developers commit directly to the main branch in small increments",
+        "B": "Create a single dedicated feature branch; all feature developers commit to that branch",
+        "C": "Each developer directly modifies items in the production workspace",
+        "D": "Only one developer works on a feature at a time in the shared workspace"
+      },
+      "answer": "B",
+      "explanation": "The module recommends that feature development take place in a dedicated branch instead of the main branch, making it easy for multiple developers to work on a feature without affecting the main branch.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A developer made changes in VS Code locally and is now ready to test them in Fabric. After pushing changes to the remote branch, what must be configured to test in the Fabric environment?",
+      "options": {
+        "A": "Deploy the changes directly to the production pipeline stage",
+        "B": "Connect the isolated feature branch to a separate Fabric workspace for testing",
+        "C": "Merge directly into main without testing to save time",
+        "D": "Enable workspace monitoring to auto-detect the new notebook"
+      },
+      "answer": "B",
+      "explanation": "The module states that after pushing changes to the remote repository when using client tools, the developer should test by connecting their isolated branch to a separate workspace before issuing a PR.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric CI/CD automation script needs to first commit all workspace changes to Git, and then only if successful, deploy from Development to Test. Which two REST API operations are combined?",
+      "options": {
+        "A": "Git status check then List pipeline stage items",
+        "B": "Commit to Git then Deploy Stage Content",
+        "C": "Update workspace from Git then Commit to Git",
+        "D": "List pipeline items then Update workspace from Git"
+      },
+      "answer": "B",
+      "explanation": "The script first calls the commitToGit API (commits workspace changes to the connected remote branch) and if successful, calls the Deploy Stage Content API (deploys items between pipeline stages).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso has a Fabric data engineering team with 6 developers building a lakehouse-based analytics platform. The team needs: (1) developers to work in isolation without disrupting each other, (2) code history and revert capability, (3) content deployed through Development → Test → Production environments, and (4) nightly automated deployments from Development to Test. They use Azure DevOps as their version control system. Which combination of tools and steps provides a complete solution?\n\nNote: This question tests the integration of all CI/CD concepts covered in this module.",
+      "options": {
+        "A": "Use only deployment pipelines; all developers commit directly to the main branch; manually trigger all deployments; no API automation",
+        "B": "Connect the Development workspace to Azure DevOps; each developer branches out to an isolated workspace via 'Branch out to new workspace'; developers commit to their branch and issue PRs to main; use a three-stage deployment pipeline (Dev → Test → Production) for promotion; automate nightly Dev-to-Test deployments using the 'Deploy Stage Content' Fabric REST API",
+        "C": "Use only Git with no deployment pipelines; developers commit directly to the production branch; disable REST API automation for security; rely on manual copy-paste between environments",
+        "D": "Connect all three pipeline stages to Git for full synchronization; use only Git to handle deployments between environments; disable deployment pipelines to avoid redundancy"
+      },
+      "answer": "B",
+      "explanation": "This scenario requires all components from the module: (1) Isolated workspaces via 'Branch out to new workspace' for developer isolation; (2) Azure DevOps for version control and code history; (3) A three-stage deployment pipeline for environment promotion; (4) The 'Deploy Stage Content' REST API for automated nightly deployments. Option B is the complete module-aligned solution addressing all four requirements.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A data engineer writes the following Python code to interact with the Fabric REST API:\n\nimport requests\n\ntoken = 'Bearer <access_token>'\nworkspace_id = 'abc-123'\nurl = f'https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/git/commitToGit'\n\npayload = {\n    'mode': 'All',\n    'comment': 'Nightly automated commit'\n}\n\nheaders = {'Authorization': token, 'Content-Type': 'application/json'}\nresponse = requests.post(url, json=payload, headers=headers)\nprint(response.status_code)\n\nWhat does this code do?",
+      "options": {
+        "A": "Updates the Fabric workspace with the latest commits from the Git branch",
+        "B": "Checks the current Git status of all items in the workspace",
+        "C": "Commits all workspace changes to the connected remote Git branch",
+        "D": "Deploys content from Development to Test in a deployment pipeline"
+      },
+      "answer": "C",
+      "explanation": "The URL endpoint 'git/commitToGit' with a POST method and 'mode': 'All' commits all workspace changes to the connected remote Git branch. This maps to the 'Commit the changes made in the workspace to the connected remote branch' operation described in the module.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Examine the following Python code:\n\nimport requests\n\ntoken = 'Bearer <access_token>'\nworkspace_id = 'abc-123'\nurl = f'https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/git/updateFromGit'\n\npayload = {\n    'remoteCommitHash': 'latest',\n    'conflictResolution': {'conflictResolutionType': 'Workspace'}\n}\n\nheaders = {'Authorization': token, 'Content-Type': 'application/json'}\nresponse = requests.post(url, json=payload, headers=headers)\n\nWhat is the purpose of this API call?",
+      "options": {
+        "A": "Commits local workspace changes to the Git repository",
+        "B": "Updates the Fabric workspace with commits pushed to the connected Git branch",
+        "C": "Lists all items in a specific deployment pipeline stage",
+        "D": "Creates a new Git branch from the current workspace state"
+      },
+      "answer": "B",
+      "explanation": "The 'git/updateFromGit' POST endpoint updates the workspace with commits from the connected Git branch. This corresponds to the 'Update the workspace with commits pushed to the connected branch' operation in the module.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A developer writes the following code to check CI/CD status:\n\nimport requests\n\ntoken = 'Bearer <access_token>'\nworkspace_id = 'abc-123'\nurl = f'https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/git/status'\n\nheaders = {'Authorization': token}\nresponse = requests.get(url, headers=headers)\ndata = response.json()\n\nfor item in data.get('changes', []):\n    print(f\"Item: {item['itemMetadata']['displayName']}, Remote: {item['remoteChange']}, Workspace: {item['workspaceChange']}\")\n\nWhat information does this code provide?",
+      "options": {
+        "A": "The deployment history of content promoted between pipeline stages",
+        "B": "Which items have incoming changes from Git and which items have uncommitted local workspace changes",
+        "C": "The list of all workspaces in the Fabric tenant",
+        "D": "The current users connected to the workspace at this moment"
+      },
+      "answer": "B",
+      "explanation": "The 'git/status' GET endpoint returns the Git status of items in the workspace, including which items have incoming changes from the remote branch (remoteChange) and which have local uncommitted changes (workspaceChange). This maps to the Git status API described in the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "The following code automates a deployment pipeline operation:\n\nimport requests\n\ntoken = 'Bearer <access_token>'\npipeline_id = 'pipeline-xyz'\n\nurl = f'https://api.fabric.microsoft.com/v1/pipelines/{pipeline_id}/deployAllItems'\n\npayload = {\n    'sourceStageOrder': 0,\n    'targetStageOrder': 1,\n    'note': 'Automated nightly deployment'\n}\n\nheaders = {'Authorization': token, 'Content-Type': 'application/json'}\nresponse = requests.post(url, json=payload, headers=headers)\nprint(f'Deployment triggered: {response.status_code}')\n\nWhat does this code accomplish?",
+      "options": {
+        "A": "Commits workspace changes to the connected Git branch",
+        "B": "Deploys all items from the Development stage (order 0) to the Test stage (order 1) of the deployment pipeline",
+        "C": "Updates the Development workspace from the Git repository",
+        "D": "Creates a new deployment pipeline with three stages"
+      },
+      "answer": "B",
+      "explanation": "This code calls the Deploy Stage Content REST API to deploy items from Development (stageOrder 0) to Test (stageOrder 1) in the specified deployment pipeline, implementing the automated deployment operation described in the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "A team uses this Python snippet to retrieve pipeline information:\n\nimport requests\n\ntoken = 'Bearer <access_token>'\npipeline_id = 'pipeline-xyz'\nstage_order = 1  # Test stage\n\nurl = f'https://api.fabric.microsoft.com/v1/pipelines/{pipeline_id}/stages/{stage_order}/items'\nheaders = {'Authorization': token}\n\nresponse = requests.get(url, headers=headers)\nitems = response.json().get('value', [])\n\nfor item in items:\n    print(f\"Item: {item['itemDisplayName']}, Type: {item['itemType']}\")\n\nWhat does this code return?",
+      "options": {
+        "A": "The users assigned to the Test stage workspace",
+        "B": "The supported items in the workspace assigned to the Test stage of the deployment pipeline",
+        "C": "The Git commit history for the Test workspace",
+        "D": "The list of all deployment pipelines in the tenant"
+      },
+      "answer": "B",
+      "explanation": "This code calls the 'List Deployment Pipeline Stage Items' REST API, which returns the supported items from the workspace assigned to the specified stage (Test, order 1) of the deployment pipeline.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A developer's CI/CD automation script fails authentication. The current header is:\n\nheaders = {'Authorization': 'access_token_here'}\n\nThey know Fabric REST APIs require proper Bearer token authentication. What is the corrected header?",
+      "options": {
+        "A": "{'Authorization': 'Token access_token_here'}",
+        "B": "{'Authorization': 'Bearer access_token_here'}",
+        "C": "{'X-API-Key': 'access_token_here'}",
+        "D": "{'Auth': 'Bearer access_token_here'}"
+      },
+      "answer": "B",
+      "explanation": "Fabric REST APIs use standard Azure REST API authentication with Bearer tokens. The correct authorization header format is 'Bearer <access_token>', as shown in the module's REST API examples.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A developer receives this response from the Fabric Git status REST API:\n\n{\n  'changes': [\n    {\n      'itemMetadata': {'displayName': 'SalesNotebook', 'itemType': 'Notebook'},\n      'remoteChange': 'None',\n      'workspaceChange': 'Modified'\n    },\n    {\n      'itemMetadata': {'displayName': 'CustomerPipeline', 'itemType': 'DataPipeline'},\n      'remoteChange': 'Added',\n      'workspaceChange': 'None'\n    }\n  ]\n}\n\nWhat does this response indicate?",
+      "options": {
+        "A": "Both items exist in the remote Git branch and are fully synchronized with the workspace",
+        "B": "'SalesNotebook' has local changes not committed to Git; 'CustomerPipeline' has a new commit in Git not yet pulled into the workspace",
+        "C": "Both items need to be deleted from the workspace and recreated",
+        "D": "The workspace has been disconnected from the Git repository"
+      },
+      "answer": "B",
+      "explanation": "'workspaceChange': 'Modified' for SalesNotebook means it has local changes not yet committed to Git (use 'Changes' to sync). 'remoteChange': 'Added' for CustomerPipeline means a new version exists in Git not yet pulled into the workspace (use 'Updates' to sync).",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Consider this Python automation script:\n\ndef run_cicd_cycle(workspace_id, pipeline_id):\n    # Step 1\n    status_resp = requests.get(f'{base}/workspaces/{workspace_id}/git/status', headers=headers)\n    has_changes = any(c['workspaceChange'] != 'None' for c in status_resp.json().get('changes', []))\n\n    # Step 2\n    if has_changes:\n        commit_resp = requests.post(f'{base}/workspaces/{workspace_id}/git/commitToGit',\n                                    json={'mode': 'All', 'comment': 'Auto commit'}, headers=headers)\n\n    # Step 3\n    deploy_resp = requests.post(f'{base}/pipelines/{pipeline_id}/deployAllItems',\n                                json={'sourceStageOrder': 0, 'targetStageOrder': 1}, headers=headers)\n    return deploy_resp.status_code\n\nWhat does this function do in sequence?",
+      "options": {
+        "A": "Updates workspace from Git → Checks deployment status → Lists pipeline items",
+        "B": "Checks Git status for uncommitted changes → Commits any workspace changes to Git → Deploys from Development to Test",
+        "C": "Commits to Git → Checks if Test stage is synchronized → Updates workspace from Git",
+        "D": "Lists pipeline items → Commits to Git → Creates a new isolated workspace"
+      },
+      "answer": "B",
+      "explanation": "Step 1 calls the Git status API to check for uncommitted workspace changes. Step 2 conditionally calls commitToGit if changes exist. Step 3 calls the Deploy Stage Content API to deploy from Development (stage 0) to Test (stage 1). This represents a full CI/CD automation loop using three REST API operations from the module.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "An automation engineer writes a script that retrieves Git status data and categorizes items. Examine this logic:\n\nstatus_data = response.json().get('changes', [])\n\nneeds_commit = [c for c in status_data if c['workspaceChange'] != 'None']\nneeds_update = [c for c in status_data if c['remoteChange'] != 'None']\n\nprint(f'Items to commit: {len(needs_commit)}')\nprint(f'Items to update from Git: {len(needs_update)}')\n\nWhat do the two lists 'needs_commit' and 'needs_update' represent respectively?",
+      "options": {
+        "A": "Items that failed deployment and items that succeeded deployment",
+        "B": "Items with local workspace changes not yet committed to Git, and items with remote Git changes not yet pulled into the workspace",
+        "C": "Items created today and items modified in the past 30 days",
+        "D": "Items assigned to the Development stage and items assigned to the Test stage"
+      },
+      "answer": "B",
+      "explanation": "'needs_commit' identifies items where workspaceChange is not 'None' — meaning local changes exist that haven't been pushed to Git (requires using 'Changes' in Source control). 'needs_update' identifies items where remoteChange is not 'None' — meaning Git has newer commits not yet pulled into the workspace (requires using 'Updates' in Source control).",
+      "difficulty": "Hard"
+    }
+  ]
+}

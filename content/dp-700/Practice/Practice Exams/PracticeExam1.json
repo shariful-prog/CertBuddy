@@ -1,0 +1,265 @@
+{
+  "module": "Practice Exam 1",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "In Microsoft Fabric, which item is the recommended low-code/no-code option for ingesting and transforming data using the Power Query engine?",
+      "options": {
+        "A": "Dataflow Gen2",
+        "B": "Data pipeline",
+        "C": "Spark notebook",
+        "D": "KQL queryset"
+      },
+      "answer": "A",
+      "explanation": "Dataflow Gen2 uses the Power Query (M) engine and is the low-code/no-code option for ingesting and transforming data. Data pipelines orchestrate activities, notebooks require code, and KQL querysets query existing data in eventhouses.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which data pipeline activity is purpose-built to perform high-throughput, scalable data movement from a source to a destination without requiring transformation logic?",
+      "options": {
+        "A": "Copy data activity",
+        "B": "Notebook activity",
+        "C": "Lookup activity",
+        "D": "Web activity"
+      },
+      "answer": "A",
+      "explanation": "The Copy data activity is the dedicated activity for moving data at scale between supported sources and destinations. Notebook runs Spark code, Lookup retrieves a value or dataset for control flow, and Web calls a REST endpoint.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When configuring a Dataflow Gen2, which feature lets you load transformed query results directly into a Fabric lakehouse, warehouse, or KQL database?",
+      "options": {
+        "A": "Data destinations",
+        "B": "Query folding",
+        "C": "Incremental refresh policies only",
+        "D": "Staging tables only"
+      },
+      "answer": "A",
+      "explanation": "Dataflow Gen2 'data destinations' allow you to map each query's output to a Lakehouse, Warehouse, KQL database, or Azure SQL Database. Query folding optimizes pushdown but does not define the output target; staging is an internal mechanism.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "In a Fabric data pipeline, which control-flow activity allows you to iterate over a collection of items and run inner activities once per item?",
+      "options": {
+        "A": "ForEach activity",
+        "B": "If Condition activity",
+        "C": "Switch activity",
+        "D": "Wait activity"
+      },
+      "answer": "A",
+      "explanation": "The ForEach activity iterates over an array and executes its inner activities for each element, optionally in parallel. If Condition branches on a boolean, Switch branches on a value, and Wait pauses execution.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which statement best describes when you should choose a Dataflow Gen2 over a Spark notebook for transformation in Fabric?",
+      "options": {
+        "A": "When citizen developers need a visual, low-code transformation experience over moderate data volumes",
+        "B": "When you must process petabyte-scale data with custom machine learning libraries",
+        "C": "When you need full control over partitioning and broadcast joins",
+        "D": "When you require streaming structured data with watermarking"
+      },
+      "answer": "A",
+      "explanation": "Dataflow Gen2 targets low-code, visual transformations for analysts and citizen developers over moderate volumes. Very large-scale, custom-library, fine-grained partitioning, and streaming workloads are better served by Spark notebooks.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "In Apache Spark in Fabric, which configuration determines the maximum number of executors that can be dynamically allocated to a notebook session when autoscale is enabled?",
+      "options": {
+        "A": "The maximum nodes setting of the Spark pool",
+        "B": "The capacity SKU's SQL endpoint limit",
+        "C": "The OneLake shortcut count",
+        "D": "The pipeline concurrency setting"
+      },
+      "answer": "A",
+      "explanation": "The Spark pool definition specifies node size and the minimum/maximum node count; with dynamic allocation enabled, executors scale up to the pool's maximum node setting. The other options are unrelated to Spark executor allocation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which file format does a Fabric lakehouse use by default for managed Delta tables, providing ACID transactions and time travel?",
+      "options": {
+        "A": "Delta Lake (Parquet with a transaction log)",
+        "B": "CSV",
+        "C": "Avro",
+        "D": "ORC"
+      },
+      "answer": "A",
+      "explanation": "Fabric lakehouse managed tables use the Delta Lake format, which stores data as Parquet files with a _delta_log transaction log enabling ACID transactions, schema enforcement, and time travel. The other formats lack these table-level guarantees in this context.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "You want a data pipeline to run automatically every day at 6:00 AM. Which feature should you configure?",
+      "options": {
+        "A": "A schedule trigger on the pipeline",
+        "B": "A Wait activity set to 24 hours",
+        "C": "A tumbling window in a Dataflow Gen2",
+        "D": "An eventstream processor"
+      },
+      "answer": "A",
+      "explanation": "Pipeline scheduling is configured through a schedule trigger that defines recurrence (e.g., daily at 6:00 AM). A Wait activity only delays within a run, dataflows do not provide pipeline scheduling, and eventstreams handle real-time event data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A retail company ingests daily sales CSV files into a lakehouse Files area. The data engineering team needs to clean the data, apply business rules in PySpark, and write the result to a Delta table that data scientists will use for ML feature engineering. Which approach best fits these requirements?",
+      "options": {
+        "A": "Use a Spark notebook to read the CSVs, transform with PySpark, and write to a managed Delta table",
+        "B": "Use a Dataflow Gen2 with a KQL database destination",
+        "C": "Use a Copy data activity directly from CSV to the Delta table with no transformation",
+        "D": "Use a semantic model to transform and store the data"
+      },
+      "answer": "A",
+      "explanation": "Custom PySpark business logic plus a Delta output consumed by data scientists is the canonical Spark notebook use case. A KQL destination suits telemetry, Copy data alone cannot apply PySpark rules, and semantic models are for reporting, not transformation/storage of feature tables.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization has a pipeline where a Copy data activity loads raw data, followed by a Notebook activity that transforms it. The team wants the notebook to run ONLY if the copy succeeds, and they want the pipeline to fail and alert if either step fails. How should the activities be connected?",
+      "options": {
+        "A": "Connect the Copy activity to the Notebook activity using the 'On success' (green) output path",
+        "B": "Connect them using the 'On completion' path so the notebook always runs",
+        "C": "Place both activities inside a Switch activity",
+        "D": "Use two independent pipelines with no dependency"
+      },
+      "answer": "A",
+      "explanation": "The 'On success' (green) dependency runs the next activity only when the prior one succeeds; if the Copy fails, the chain stops and the pipeline reports failure. 'On completion' would run the notebook regardless of copy outcome, and the other options do not enforce the success dependency.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineering team must ingest data from an on-premises SQL Server into a Fabric lakehouse. The source is behind a corporate firewall. What component is required to enable this connectivity?",
+      "options": {
+        "A": "An on-premises data gateway",
+        "B": "A OneLake shortcut to the SQL Server",
+        "C": "A managed private endpoint on the lakehouse",
+        "D": "A Spark pool with custom JDBC drivers"
+      },
+      "answer": "A",
+      "explanation": "Connecting to on-premises sources behind a firewall requires the on-premises data gateway, which Dataflow Gen2 and pipeline Copy activities can use. Shortcuts target cloud/OneLake storage, managed private endpoints are for Azure resources, and a Spark pool alone cannot traverse the corporate firewall.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A company's pipeline copies large fact tables nightly. The Copy activity is slow because it processes one large file. The source supports parallel reads by partition key. Which Copy data setting should the engineer adjust to improve throughput?",
+      "options": {
+        "A": "Enable partitioning/parallel copy with a dynamic range or physical partition option",
+        "B": "Switch the sink to CSV format",
+        "C": "Reduce the Degree of copy parallelism to 1",
+        "D": "Disable staging entirely"
+      },
+      "answer": "A",
+      "explanation": "Configuring source partitioning (dynamic range or physical partitions) lets the Copy activity read and write in parallel, increasing throughput. Reducing parallelism to 1 slows it down, the sink format is not the bottleneck described, and disabling staging does not address partitioned parallel reads.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team uses Dataflow Gen2 to ingest from a REST API and notices refreshes are slow and consuming excessive compute. Investigation shows transformations execute in Power Query rather than being pushed to the source. What is the most likely cause?",
+      "options": {
+        "A": "Query folding is broken, so steps are processed locally instead of at the source",
+        "B": "The lakehouse destination is using V-Order",
+        "C": "The capacity is paused",
+        "D": "Incremental refresh is disabled"
+      },
+      "answer": "A",
+      "explanation": "When query folding cannot be applied (common with REST APIs and certain transformation steps), Power Query processes data locally, increasing compute and slowing refresh. V-Order affects read performance of written files, a paused capacity would prevent running entirely, and incremental refresh being off does not by itself break folding.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An enterprise wants to ingest streaming IoT telemetry in real time, run continuous transformations, and route events to a KQL database for sub-second analytics. Which Fabric feature is the best fit for the ingestion and routing layer?",
+      "options": {
+        "A": "Eventstream",
+        "B": "Dataflow Gen2",
+        "C": "Data pipeline with scheduled Copy activities",
+        "D": "Warehouse stored procedures"
+      },
+      "answer": "A",
+      "explanation": "Eventstreams capture, transform, and route real-time event/telemetry data to destinations such as a KQL database (eventhouse) for low-latency analytics. Dataflow Gen2 and scheduled pipelines are batch-oriented, and warehouse stored procedures are not a streaming ingestion mechanism.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A pipeline must load a parameterized set of tables. The list of table names is stored in a Fabric warehouse control table. The engineer wants to read that list and loop through each table to copy it. Which combination of activities accomplishes this?",
+      "options": {
+        "A": "A Lookup activity to read the table list, feeding a ForEach activity that contains a Copy data activity",
+        "B": "A single Copy data activity with wildcards only",
+        "C": "A Notebook activity that schedules other pipelines",
+        "D": "A Dataflow Gen2 with a Switch destination"
+      },
+      "answer": "A",
+      "explanation": "A Lookup activity retrieves the control-table rows, and its output array drives a ForEach that runs a parameterized Copy data activity per table. Wildcards alone cannot read a dynamic control table, and the other options do not implement metadata-driven iteration.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A medallion-architecture lakehouse has Bronze, Silver, and Gold layers. The team wants Bronze ingestion to be append-only raw data, while Silver applies deduplication and type casting. Which write/transform pattern is most appropriate for Silver using Spark?",
+      "options": {
+        "A": "Read Bronze Delta tables, apply dedup and casting, and use MERGE or overwrite into Silver Delta tables",
+        "B": "Use a Copy data activity to move Bronze CSV to Silver CSV with no logic",
+        "C": "Create OneLake shortcuts from Gold back to Bronze",
+        "D": "Store Silver as a semantic model only"
+      },
+      "answer": "A",
+      "explanation": "Silver typically reads cleansed Bronze data and applies dedup/type-casting, writing to Delta tables using MERGE (upsert) or controlled overwrite. Copy-only with no logic skips the required transformation, shortcuts do not transform, and semantic models are a reporting layer, not Silver storage.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A governance team requires that personally identifiable columns ingested through a pipeline never land unmasked in the lakehouse. Transformations must be auditable and version-controlled in Git. Which ingestion/transform approach best meets these requirements?",
+      "options": {
+        "A": "Use Spark notebooks (synced to Git) that mask PII during transformation before writing to Delta",
+        "B": "Use a raw Copy data activity and mask later in Power BI",
+        "C": "Rely on Dataflow Gen2 with no source control",
+        "D": "Store unmasked data and restrict report access only"
+      },
+      "answer": "A",
+      "explanation": "Notebooks support Git integration for version control and can apply masking during transformation so unmasked PII never lands in Delta. Copying raw data and masking in Power BI leaves unmasked data at rest, dataflows here lack the required source control, and restricting reports does not prevent unmasked storage.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Given the following PySpark code reading a Delta table, what does it produce?\n\ndf = spark.read.format(\"delta\").load(\"Tables/sales\")\nresult = df.groupBy(\"region\").agg(sum(\"amount\").alias(\"total\")).filter(\"total > 1000\")\nresult.show()",
+      "options": {
+        "A": "Regions whose summed sales amount exceeds 1000, with the total per region",
+        "B": "Every individual sale where amount > 1000",
+        "C": "A single row with the grand total of all sales",
+        "D": "An error, because filter cannot follow agg"
+      },
+      "answer": "A",
+      "explanation": "The code groups by region, sums amount as 'total', then filters groups whose total exceeds 1000 (equivalent to a HAVING clause). It returns one row per qualifying region. filter after agg is valid in Spark.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Consider this T-SQL run against a Fabric warehouse:\n\nSELECT customer_id, COUNT(*) AS orders\nFROM dbo.orders\nWHERE order_date >= '2026-01-01'\nGROUP BY customer_id\nHAVING COUNT(*) > 5;\n\nWhich customers appear in the result?",
+      "options": {
+        "A": "Customers with more than 5 orders placed on or after 2026-01-01",
+        "B": "All customers with any order in 2026",
+        "C": "Customers with exactly 5 orders in 2026",
+        "D": "Customers with more than 5 orders across all dates"
+      },
+      "answer": "A",
+      "explanation": "The WHERE clause restricts to orders on or after 2026-01-01, GROUP BY aggregates per customer, and HAVING COUNT(*) > 5 keeps only customers whose filtered order count exceeds 5. Dates before 2026 are excluded before aggregation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Examine this KQL query against an eventhouse table:\n\nDeviceTelemetry\n| where Timestamp > ago(1h)\n| summarize avgTemp = avg(Temperature) by DeviceId\n| where avgTemp > 75\n\nWhat does it return?",
+      "options": {
+        "A": "Per-device average temperature over the last hour, limited to devices averaging above 75",
+        "B": "Every telemetry row from the last hour where Temperature > 75",
+        "C": "The single highest temperature reading in the last hour",
+        "D": "An error, because summarize cannot be followed by where"
+      },
+      "answer": "A",
+      "explanation": "The query filters to the last hour, computes average Temperature per DeviceId via summarize, then keeps only devices whose hourly average exceeds 75. A where after summarize is valid in KQL and filters the aggregated result.",
+      "difficulty": "Medium"
+    }
+  ]
+}

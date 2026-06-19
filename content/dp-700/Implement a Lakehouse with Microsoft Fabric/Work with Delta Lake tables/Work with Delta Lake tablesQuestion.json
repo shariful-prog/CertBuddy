@@ -1,0 +1,604 @@
+{
+  "module": "Work with Delta Lake tables",
+  "questions": [
+    {
+      "type": "direct",
+      "question": "Tables in a Microsoft Fabric lakehouse are based on which open-source table format?",
+      "options": {
+        "A": "Apache Iceberg",
+        "B": "Linux Foundation Delta Lake",
+        "C": "Apache Hudi",
+        "D": "ORC"
+      },
+      "answer": "B",
+      "explanation": "Tables in a Microsoft Fabric lakehouse are based on the Linux Foundation Delta Lake table format, an open-source storage layer for Spark that enables relational database capabilities for batch and streaming data.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What visual indicator signifies that a table in the Fabric lakehouse user interface is a Delta table?",
+      "options": {
+        "A": "A green checkmark icon",
+        "B": "A Parquet 'P' icon",
+        "C": "A triangular Delta (Δ) icon",
+        "D": "A lightning bolt icon"
+      },
+      "answer": "C",
+      "explanation": "Delta tables are signified by the triangular Delta (Δ) icon on tables in the lakehouse user interface.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "For each Delta table, what does the lakehouse store besides the Parquet data files?",
+      "options": {
+        "A": "A _delta_log folder in which transaction details are logged in JSON format",
+        "B": "A CSV manifest of all rows",
+        "C": "An XML schema definition file",
+        "D": "A separate index database"
+      },
+      "answer": "A",
+      "explanation": "For each table, the lakehouse stores a folder containing Parquet data files and a _delta_log folder in which transaction details are logged in JSON format.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which set of operations does Delta Lake support on tables, matching a relational database system?",
+      "options": {
+        "A": "Only read operations",
+        "B": "Only insert and select",
+        "C": "CRUD (create, read, update, and delete) operations",
+        "D": "Only append operations"
+      },
+      "answer": "C",
+      "explanation": "With Apache Spark, you can store data in Delta tables that support CRUD (create, read, update, and delete) operations, so you can select, insert, update, and delete rows just as in a relational database system.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In the ACID properties supported by Delta Lake, what does 'durability' mean?",
+      "options": {
+        "A": "Transactions complete as a single unit of work",
+        "B": "Transactions leave the database in a consistent state",
+        "C": "In-process transactions cannot interfere with one another",
+        "D": "When a transaction completes, the changes it made are persisted"
+      },
+      "answer": "D",
+      "explanation": "Durability means that when a transaction completes, the changes it made are persisted. Atomicity, consistency, and isolation are the other ACID properties.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which Delta Lake feature allows you to retrieve a previous version of a row in a query?",
+      "options": {
+        "A": "Time travel",
+        "B": "V-Order",
+        "C": "OptimizeWrite",
+        "D": "Vacuum"
+      },
+      "answer": "A",
+      "explanation": "Because all transactions are logged in the transaction log, you can track multiple versions of each table row and use the time travel feature to retrieve a previous version of a row in a query.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "In what format is the underlying data for Delta tables stored?",
+      "options": {
+        "A": "Avro",
+        "B": "Parquet",
+        "C": "JSON",
+        "D": "CSV"
+      },
+      "answer": "B",
+      "explanation": "The underlying data for Delta tables is stored in Parquet format, which is commonly used in data lake ingestion pipelines, providing standard formats and interoperability.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which API can be used to query Delta tables in SQL for a Microsoft Fabric lakehouse?",
+      "options": {
+        "A": "The SQL analytics endpoint",
+        "B": "The Delta REST API",
+        "C": "The Parquet query engine",
+        "D": "The Kafka connector"
+      },
+      "answer": "A",
+      "explanation": "You can use the SQL analytics endpoint for the Microsoft Fabric lakehouse to query Delta tables in SQL.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "When you save a dataframe as a managed Delta table and later delete the table, what happens to the underlying data files?",
+      "options": {
+        "A": "Only the metastore entry is removed; data files remain",
+        "B": "The underlying files are also deleted from the Tables storage location",
+        "C": "The files are moved to the Files area",
+        "D": "Nothing changes; deletion is not allowed"
+      },
+      "answer": "B",
+      "explanation": "For a managed table, both the table definition in the metastore and the underlying data files are managed by the Spark runtime. Deleting the table also deletes the underlying files from the Tables storage location.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What happens to the associated data files when you delete an external table from the lakehouse metastore?",
+      "options": {
+        "A": "The data files are permanently deleted",
+        "B": "Deleting the external table does not delete the associated data files",
+        "C": "The data files are converted to CSV",
+        "D": "The data files are moved to the _delta_log folder"
+      },
+      "answer": "B",
+      "explanation": "For an external table, the relational table definition is mapped to an alternative file storage location. Deleting an external table from the metastore doesn't delete the associated data files.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which Delta Lake feature reduces the number of files as they are written by writing fewer, larger files?",
+      "options": {
+        "A": "OptimizeWrite",
+        "B": "Vacuum",
+        "C": "Time travel",
+        "D": "Partitioning"
+      },
+      "answer": "A",
+      "explanation": "OptimizeWrite is a feature of Delta Lake that reduces the number of files as they're written. Instead of writing many small files, it writes fewer larger files, helping to prevent the small files problem.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "What is the default retention period for the VACUUM command, and what does the system enforce about it?",
+      "options": {
+        "A": "1 day; shorter periods are allowed",
+        "B": "30 days; longer periods are required",
+        "C": "7 days (168 hours); the system prevents using a shorter retention period",
+        "D": "24 hours; no minimum is enforced"
+      },
+      "answer": "C",
+      "explanation": "The default retention period is 7 days (168 hours), and the system prevents you from using a shorter retention period.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "What does the VACUUM command remove, and what does it NOT remove?",
+      "options": {
+        "A": "It removes transaction logs but not data files",
+        "B": "It removes old Parquet data files, but not the transaction logs",
+        "C": "It removes both data files and transaction logs",
+        "D": "It removes the _delta_log folder only"
+      },
+      "answer": "B",
+      "explanation": "The VACUUM command removes old Parquet data files that are no longer referenced and older than the retention period, but it does not remove the transaction logs.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Approximately how much write overhead does V-Order incur, and what benefit does it provide?",
+      "options": {
+        "A": "About 15% slower writes, but faster reads from Fabric compute engines",
+        "B": "About 50% slower writes, with no read benefit",
+        "C": "No overhead, and slower reads",
+        "D": "About 15% faster writes, but slower reads"
+      },
+      "answer": "A",
+      "explanation": "V-Order is enabled by default and applied as data is written. It incurs a small overhead of about 15%, making writes a little slower, but enables faster reads from Fabric compute engines such as Power BI, SQL, and Spark.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "When a Delta table is used as a streaming source, which type of operations can be included in the stream by default?",
+      "options": {
+        "A": "Only delete operations",
+        "B": "Only update operations",
+        "C": "Only append operations",
+        "D": "All operations equally"
+      },
+      "answer": "C",
+      "explanation": "When using a Delta table as a streaming source, only append operations can be included in the stream. Data modifications can cause an error unless you specify the ignoreChanges or ignoreDeletes option.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to combine the advantages of a relational database system (transactions, schema enforcement, SQL semantics) with the flexibility of file storage in a data lake on Microsoft Fabric. Which architecture does Delta Lake enable to meet this goal?",
+      "options": {
+        "A": "A pure NoSQL document store",
+        "B": "A lakehouse architecture supporting SQL-based data manipulation semantics in Spark",
+        "C": "A row-based OLTP-only system with no file storage",
+        "D": "A flat-file archive with no transactional support"
+      },
+      "answer": "B",
+      "explanation": "By using Delta Lake, you can implement a lakehouse architecture to support SQL-based data manipulation semantics in Spark with support for transactions and schema enforcement, producing an analytical data store with relational advantages and data lake flexibility.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A team needs to guarantee that concurrent operations on a Delta table do not interfere with one another and that completed changes are reliably persisted. Which Delta Lake capability provides these guarantees?",
+      "options": {
+        "A": "Partitioning",
+        "B": "V-Order optimization",
+        "C": "Support for ACID transactions via a transaction log and serializable isolation",
+        "D": "Automatic table discovery"
+      },
+      "answer": "C",
+      "explanation": "Delta Lake brings transactional support to Spark by implementing a transaction log and enforcing serializable isolation for concurrent operations, providing atomicity, consistency, isolation, and durability.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer loads a CSV file into a dataframe and saves it with df.write.format(\"delta\").saveAsTable(\"mytable\"). In what format will the data for mytable be physically stored?",
+      "options": {
+        "A": "CSV, matching the source file format",
+        "B": "Parquet files (regardless of the source format) in the Tables storage area, with a _delta_log folder",
+        "C": "JSON files in the Files storage area",
+        "D": "Avro files with no transaction log"
+      },
+      "answer": "B",
+      "explanation": "The data for the table is saved in Parquet files regardless of the format of the source file you loaded into the dataframe, in the Tables storage area, along with a _delta_log folder containing the transaction logs.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer wants to register a table in the lakehouse metastore but keep the Parquet data files in the Files storage location rather than the managed Tables location. Which approach achieves this?",
+      "options": {
+        "A": "Save with saveAsTable and a path argument pointing to a Files location, creating an external table",
+        "B": "Use a managed table only",
+        "C": "Save the dataframe as CSV",
+        "D": "Delete the metastore entry after creating the table"
+      },
+      "answer": "A",
+      "explanation": "Creating an external table (for example, df.write.format(\"delta\").saveAsTable(\"myexternaltable\", path=\"Files/myexternaltable\")) registers the table in the metastore while storing the Parquet and JSON log files in the Files storage location.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A team has already saved transformed results in delta format to a folder in the Tables location, but did not explicitly create a table definition. What does Microsoft Fabric do automatically in this case?",
+      "options": {
+        "A": "It deletes the files because no table exists",
+        "B": "It uses automatic table discovery to create the corresponding table metadata in the metastore",
+        "C": "It converts the files to CSV",
+        "D": "It requires manual registration before the data is usable"
+      },
+      "answer": "B",
+      "explanation": "If you save a dataframe to the Tables location in delta format, Microsoft Fabric uses an automatic table discovery capability to create the corresponding table metadata in the metastore.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer wants to create an external table whose schema is inferred from existing files. Using the Spark SQL CREATE TABLE ... USING DELTA LOCATION statement, how is the table's schema determined?",
+      "options": {
+        "A": "It must be explicitly declared in the statement",
+        "B": "It is determined by the Parquet files containing the data in the specified location",
+        "C": "It defaults to all STRING columns",
+        "D": "It is read from a separate JSON schema file"
+      },
+      "answer": "B",
+      "explanation": "When creating an external table by specifying a LOCATION, the schema of the table is determined by the Parquet files containing the data in the specified location. This is useful when referencing data already saved in delta format.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A lakehouse has accumulated a large number of small Parquet files after many incremental loads, causing slow queries. Which table maintenance feature consolidates these into fewer, larger files?",
+      "options": {
+        "A": "VACUUM",
+        "B": "Time travel",
+        "C": "The Optimize command",
+        "D": "DESCRIBE HISTORY"
+      },
+      "answer": "C",
+      "explanation": "Optimize is a table maintenance feature that consolidates small Parquet files into fewer large files, resulting in better compression and efficient data distribution across nodes. It is often run after loading large tables.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer is building a staging data store where ingested data is only read once or twice before being discarded. What guidance applies regarding V-Order in this scenario?",
+      "options": {
+        "A": "V-Order should always be enabled for staging stores",
+        "B": "Disabling V-Order might reduce overall processing time because the write overhead isn't justified by infrequent reads",
+        "C": "V-Order is required for any table that uses Parquet",
+        "D": "V-Order has no effect on write performance"
+      },
+      "answer": "B",
+      "explanation": "V-Order might not be beneficial for write-intensive scenarios such as staging data stores where data is only read once or twice. In these situations, disabling V-Order might reduce the overall processing time for data ingestion.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An analytics team stores several years of sales data and frequently runs reports filtered to a single year. They partition the table by year. How does this improve read performance for single-year reports?",
+      "options": {
+        "A": "By compressing all years into one file",
+        "B": "By enabling data skipping, so partitions for irrelevant years can be skipped based on metadata",
+        "C": "By removing the transaction log",
+        "D": "By converting the data to CSV for faster scans"
+      },
+      "answer": "B",
+      "explanation": "Partitioning organizes data into subfolders (for example year=2021, year=2022). This enables data skipping, which boosts performance by skipping over irrelevant data objects based on metadata, so partitions for other years can be skipped.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer proposes partitioning a small reference table by a high-cardinality customer ID column. Why is this a poor design choice?",
+      "options": {
+        "A": "High-cardinality partitioning creates a large number of partitions/files and can exacerbate the small files problem on small data",
+        "B": "Partitioning is not supported in Delta Lake",
+        "C": "It would prevent the table from being queried with SQL",
+        "D": "It would automatically enable V-Order, slowing reads"
+      },
+      "answer": "A",
+      "explanation": "You should not use partitioning when data volumes are small or when a partitioning column has high cardinality, since this creates a large number of partitions. Partitioning small amounts of data can degrade performance by increasing the number of files.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A compliance officer requires that previous versions of a Delta table remain retrievable for time travel for at least 30 days. The team runs VACUUM with a short retention threshold. What is the consequence for time travel?",
+      "options": {
+        "A": "Time travel is unaffected because VACUUM never deletes data",
+        "B": "After VACUUM runs, you can't time travel back earlier than the retention period because old data files are deleted",
+        "C": "Time travel becomes faster but loses accuracy",
+        "D": "VACUUM extends the time-travel window automatically"
+      },
+      "answer": "B",
+      "explanation": "VACUUM removes old Parquet data files older than the retention period. When you run VACUUM, you can't time travel back earlier than the retention period, so the retention period must be chosen to satisfy data retention and regulatory requirements.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An IoT solution must capture device readings in near real time and store them in a Delta table as they occur, then allow querying of the latest streamed data. Which role is the Delta table playing in Spark Structured Streaming?",
+      "options": {
+        "A": "A source only",
+        "B": "A sink (destination) for the streaming data",
+        "C": "A checkpoint location",
+        "D": "A transaction log"
+      },
+      "answer": "B",
+      "explanation": "You can use a Delta table as a sink for Spark Structured Streaming. For example, you could capture a stream of real-time data from an IoT device and write the stream directly to a Delta table as a sink, then query the table to see the latest streamed data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A streaming job reads from a Delta table as a source, but the underlying table also receives occasional updates and deletes, causing the stream to error. Which options allow the stream to continue?",
+      "options": {
+        "A": "checkpointLocation and overwrite",
+        "B": "versionAsOf and timestampAsOf",
+        "C": "ignoreChanges or ignoreDeletes",
+        "D": "partitionBy and saveAsTable"
+      },
+      "answer": "C",
+      "explanation": "When using a Delta table as a streaming source, only append operations can be included by default. Data modifications can cause an error unless you specify the ignoreChanges or ignoreDeletes option.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "In a Spark Structured Streaming write to a Delta sink, the team must be able to recover processing from the exact point of failure. Which option provides this capability?",
+      "options": {
+        "A": "The checkpointLocation option, which writes a checkpoint file tracking the state of stream processing",
+        "B": "The versionAsOf option",
+        "C": "The V-Order setting",
+        "D": "The RETAIN HOURS clause"
+      },
+      "answer": "A",
+      "explanation": "The checkpointLocation option writes a checkpoint file that tracks the state of stream processing, enabling recovery from failure at the point where stream processing left off.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A near-real-time pipeline starts a streaming write to a Delta table to support a dashboard. Once the demonstration is complete, what should the engineer do to avoid unnecessary processing costs?",
+      "options": {
+        "A": "Run VACUUM on the table",
+        "B": "Call the stop method on the streaming query (for example, deltastream.stop())",
+        "C": "Delete the checkpoint folder while streaming",
+        "D": "Disable V-Order"
+      },
+      "answer": "B",
+      "explanation": "When finished, you should stop the streaming data to avoid unnecessary (excessive) processing costs by using the stop method, for example deltastream.stop().",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer needs to track which operations (such as UPDATE, WRITE, CREATE TABLE) were applied to a Delta table and when. Which command provides this information?",
+      "options": {
+        "A": "SELECT COUNT(*) FROM the table",
+        "B": "DESCRIBE HISTORY on the table",
+        "C": "VACUUM with DESCRIBE",
+        "D": "OPTIMIZE with V-Order"
+      },
+      "answer": "B",
+      "explanation": "To see the history of a table, you use the DESCRIBE HISTORY SQL command, which shows the transactions applied to the table, including version, timestamp, operation, and operationParameters.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A team wants to view the history of an external Delta table that is stored in a Files folder rather than registered by a simple table name. How should they call DESCRIBE HISTORY?",
+      "options": {
+        "A": "DESCRIBE HISTORY must use the SQL analytics endpoint only",
+        "B": "Specify the folder location instead of the table name, e.g. DESCRIBE HISTORY 'Files/mytable'",
+        "C": "Use SELECT * FROM history",
+        "D": "External tables cannot be inspected with DESCRIBE HISTORY"
+      },
+      "answer": "B",
+      "explanation": "To see the history of an external table, you can specify the folder location instead of the table name, for example DESCRIBE HISTORY 'Files/mytable'.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A reporting requirement asks to reproduce a table's exact contents as they existed at version 0. Which read option retrieves that specific historical version?",
+      "options": {
+        "A": ".option(\"versionAsOf\", 0)",
+        "B": ".mode(\"overwrite\")",
+        "C": ".option(\"ignoreChanges\", \"true\")",
+        "D": ".partitionBy(\"version\")"
+      },
+      "answer": "A",
+      "explanation": "You can retrieve data from a specific version by reading the delta file location into a dataframe and specifying the version with the versionAsOf option, e.g. spark.read.format(\"delta\").option(\"versionAsOf\", 0).load(delta_path).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An engineer wants to read a Delta table as it existed on a specific calendar date rather than by version number. Which option should be used?",
+      "options": {
+        "A": "versionAsOf",
+        "B": "timestampAsOf",
+        "C": "ignoreDeletes",
+        "D": "checkpointLocation"
+      },
+      "answer": "B",
+      "explanation": "You can specify a timestamp using the timestampAsOf option, for example spark.read.format(\"delta\").option(\"timestampAsOf\", '2022-01-01').load(delta_path).",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A data engineer prefers to work directly with delta files in a folder rather than catalog tables to modify data. Which approach does the content recommend?",
+      "options": {
+        "A": "Use the Delta Lake API by creating a DeltaTable from the folder location with DeltaTable.forPath",
+        "B": "Convert the files to CSV first",
+        "C": "Always use the SQL analytics endpoint",
+        "D": "Use only saveAsTable"
+      },
+      "answer": "A",
+      "explanation": "When you want to work with delta files rather than catalog tables, it may be simpler to use the Delta Lake API. You can create an instance of a DeltaTable from a folder with DeltaTable.forPath(spark, delta_path) and then use the API to modify the data.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A pipeline needs to fully replace the existing contents of a delta folder with a new dataframe on each run, rather than adding to it. Which write mode should be used?",
+      "options": {
+        "A": "append",
+        "B": "overwrite",
+        "C": "ignore",
+        "D": "errorIfExists"
+      },
+      "answer": "B",
+      "explanation": "You can replace the contents of an existing folder with the data in a dataframe by using the overwrite mode: new_df.write.format(\"delta\").mode(\"overwrite\").save(delta_path).",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "case-study",
+      "question": "Contoso Cycles operates a Microsoft Fabric lakehouse for its analytics platform. The data engineering team ingests raw sales CSV files daily into the Files area, transforms them in Spark, and persists curated results as managed Delta tables in the Tables area. They face several issues: (1) Daily incremental appends have created thousands of tiny Parquet files, slowing analytical queries. (2) Power BI and SQL analysts complain that reads are slower than expected. (3) Finance requires the ability to reproduce the sales table exactly as it appeared at the end of each prior quarter for at least 90 days, but storage costs from accumulating old files are rising. (4) A new IoT initiative streams shop-floor sensor readings that must land in a Delta table in near real time, surviving job restarts. Given the module content, which combination of measures BEST addresses all four issues?",
+      "options": {
+        "A": "Run OPTIMIZE (with V-Order) to compact small files and speed Fabric reads; run VACUUM with a retention period of at least 90 days (e.g., 2160 hours) so quarterly time travel still works while removing files beyond that window; and write the sensor stream to a Delta sink using a checkpointLocation so processing recovers after restarts.",
+        "B": "Disable OptimizeWrite permanently, run VACUUM with a 24-hour retention, store sales as CSV for time travel, and write the sensor stream without any checkpoint.",
+        "C": "Partition every table by a high-cardinality OrderID, never run OPTIMIZE, set VACUUM retention to 1 hour, and use append mode batch loads instead of streaming for the IoT data.",
+        "D": "Convert all Delta tables to external tables in CSV format, rely on saveAsTable overwrite for versioning, skip V-Order, and ignore checkpointing for the stream.",
+        "E": "Drop and recreate the tables daily to avoid small files."
+      },
+      "answer": "A",
+      "explanation": "OPTIMIZE consolidates the many small Parquet files (addressing the small files problem) and V-Order speeds reads from Fabric engines like Power BI and SQL via Verti-Scan. VACUUM removes old files to control storage cost, but the retention period must be at least as long as the required time-travel window (90 days) because you can't time travel earlier than the retention period; the default minimum is 7 days. Writing the IoT stream to a Delta sink with a checkpointLocation lets stream processing recover from failure at the point it left off. The other options use unsupported short retention, lose time travel, abuse high-cardinality partitioning, or store data as CSV, all contrary to the module guidance.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Consider the following PySpark code:\n\ndf.write.format(\"delta\").mode(\"append\").saveAsTable(\"sales\")\n\nThe table 'sales' already contains 100 rows, and df contains 25 rows. What is the result?",
+      "options": {
+        "A": "The table is replaced and contains only the 25 new rows",
+        "B": "The 25 rows are added to the existing data, so the table now contains 125 rows",
+        "C": "An error is raised because the table already exists",
+        "D": "Only matching rows are updated"
+      },
+      "answer": "B",
+      "explanation": "The append mode adds rows from the dataframe to the existing table data. With 100 existing rows plus 25 appended rows, the table contains 125 rows. Overwrite mode would have replaced the contents instead.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "Examine this Delta Lake API code:\n\nfrom delta.tables import *\ndeltaTable = DeltaTable.forPath(spark, \"Files/products\")\ndeltaTable.update(\n  condition = \"Category == 'Accessories'\",\n  set = { \"Price\": \"Price * 0.9\" })\n\nWhat does this operation do?",
+      "options": {
+        "A": "Deletes all rows in the Accessories category",
+        "B": "Reduces the Price by 10% for all rows where Category equals 'Accessories'",
+        "C": "Inserts a new row with a 10% discount",
+        "D": "Increases the Price by 90% for all categories"
+      },
+      "answer": "B",
+      "explanation": "The DeltaTable.update method sets Price = Price * 0.9 for rows matching the condition Category == 'Accessories', i.e. it reduces the price of accessories by 10%. Other categories are unaffected.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Given this Spark SQL statement creating a Delta table:\n\nCREATE TABLE salesorders (\n  Orderid INT NOT NULL,\n  OrderDate TIMESTAMP NOT NULL,\n  CustomerName STRING,\n  SalesTotal FLOAT NOT NULL\n)\nUSING DELTA\n\nWhat kind of table is created, and where is its data stored by default?",
+      "options": {
+        "A": "An external table whose data is in the Files area",
+        "B": "A managed table whose data and definition are managed by the Spark runtime in the Tables area",
+        "C": "A temporary view that disappears at session end",
+        "D": "A CSV-backed table"
+      },
+      "answer": "B",
+      "explanation": "A CREATE TABLE ... USING DELTA statement without a LOCATION clause creates a managed table, where both the metastore definition and the underlying data files are managed by the Spark runtime. Adding a LOCATION clause would instead create an external table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Review this DeltaTableBuilder API code:\n\nfrom delta.tables import *\nDeltaTable.create(spark) \\\n  .tableName(\"products\") \\\n  .addColumn(\"ProductId\", \"INT\") \\\n  .addColumn(\"ProductName\", \"STRING\") \\\n  .addColumn(\"Category\", \"STRING\") \\\n  .addColumn(\"Price\", \"FLOAT\") \\\n  .execute()\n\nWhat is the outcome of running this code?",
+      "options": {
+        "A": "It loads data from a CSV file into the products table",
+        "B": "It creates a table definition in the metastore with the specified name and columns, without populating data",
+        "C": "It deletes the products table",
+        "D": "It optimizes the products table by compacting files"
+      },
+      "answer": "B",
+      "explanation": "The DeltaTableBuilder API (DeltaTable.create) lets you write Spark code to create a table definition based on your specifications (name and columns). It creates the table schema in the metastore without saving any data files; data is populated separately.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A dataframe of product data is written as follows:\n\ndf.write.format(\"delta\").partitionBy(\"Category\").saveAsTable(\"partitioned_products\", path=\"abfs_path/partitioned_products\")\n\nIf the data contains the categories 'Bike Racks' and 'Helmets', how is the data physically laid out?",
+      "options": {
+        "A": "All rows in a single Parquet file with no subfolders",
+        "B": "One folder 'partitioned_products' containing subfolders such as 'Category=Bike Racks' and 'Category=Helmets'",
+        "C": "Separate top-level tables, one per category",
+        "D": "A single CSV file partitioned by row count"
+      },
+      "answer": "B",
+      "explanation": "partitionBy(\"Category\") produces one folder for the table (partitioned_products) with subfolders for each category value, for example Category=Bike Racks and Category=Helmets, which enables data skipping for category-filtered queries.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Consider the streaming transformation below, applied to a streaming DataFrame of orders:\n\nfrom pyspark.sql.functions import col, expr\ntransformed_df = stream_df.filter(col(\"Price\").isNotNull()) \\\n  .withColumn('IsBike', expr(\"INSTR(Product, 'Bike') > 0\").cast('int')) \\\n  .withColumn('Total', expr(\"Quantity * Price\").cast('decimal'))\n\nFor a row with Product='Road Front Wheel', Quantity=1, Price=115, what are the resulting IsBike and Total values?",
+      "options": {
+        "A": "IsBike = 1, Total = 115",
+        "B": "IsBike = 0, Total = 115",
+        "C": "IsBike = 0, Total = 0 (row filtered out)",
+        "D": "IsBike = 1, Total = 116"
+      },
+      "answer": "B",
+      "explanation": "Price is not NULL, so the row passes the filter. INSTR(Product, 'Bike') > 0 is false for 'Road Front Wheel' because it contains no 'Bike' substring, so IsBike casts to 0. Total = Quantity * Price = 1 * 115 = 115.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Using the same streaming transformation that includes .filter(col(\"Price\").isNotNull()), a source order has Product='Mountain Bike Black', Quantity=1, Price=NULL. After transformation and writing to the orders_processed sink, what happens to this order?",
+      "options": {
+        "A": "It appears with IsBike=1 and Total=NULL",
+        "B": "It appears with Total=0",
+        "C": "It is excluded from the output because Price is NULL",
+        "D": "It causes the entire stream to fail"
+      },
+      "answer": "C",
+      "explanation": "The transformation filters out rows where Price is NULL via filter(col(\"Price\").isNotNull()). The order with a NULL Price is therefore excluded from the orders_processed output, consistent with the module example where order 3005 (NULL price) is omitted.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer runs the following to control file output behavior at the session level:\n\nspark.conf.set(\"spark.microsoft.delta.optimizeWrite.enabled\", False)\n\nWhat is the effect on subsequent writes in that Spark session?",
+      "options": {
+        "A": "It permanently disables V-Order for the lakehouse",
+        "B": "It disables OptimizeWrite for the session, so writes may produce more small files instead of fewer larger ones",
+        "C": "It runs the OPTIMIZE compaction command immediately",
+        "D": "It deletes old Parquet files like VACUUM"
+      },
+      "answer": "B",
+      "explanation": "Setting spark.microsoft.delta.optimizeWrite.enabled to False disables OptimizeWrite at the Spark session level. Since OptimizeWrite normally writes fewer, larger files, disabling it can lead to more small files. It is enabled by default in Fabric and can also be set in Table Properties or per write command.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Consider the following maintenance SQL run in a Fabric notebook:\n\n%%sql\nVACUUM lakehouse2.products RETAIN 168 HOURS;\n\nFollowed later by:\n\n%%sql\nDESCRIBE HISTORY lakehouse2.products;\n\nWhat will the DESCRIBE HISTORY output reflect about the VACUUM operation, and why?",
+      "options": {
+        "A": "Nothing, because VACUUM does not commit to the transaction log",
+        "B": "It will show the VACUUM run, because VACUUM commits to the Delta transaction log so previous runs are visible in DESCRIBE HISTORY",
+        "C": "It will show that all transaction logs were deleted",
+        "D": "It will show the table converted to CSV"
+      },
+      "answer": "B",
+      "explanation": "VACUUM commits to the Delta transaction log, so you can view previous VACUUM runs in DESCRIBE HISTORY. The RETAIN 168 HOURS clause keeps files for the 7-day default retention period; VACUUM removes old data files but not the transaction logs.",
+      "difficulty": "Hard"
+    }
+  ]
+}
