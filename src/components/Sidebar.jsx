@@ -1,58 +1,47 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
+import Icon from "./Icon";
+
+function pad2(n) {
+  return String(n).padStart(2, "0");
+}
 
 export default function Sidebar({ cert, activeChapterId, completedChapters, highScores }) {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const { slug: examId, code, domains } = cert;
+  const { slug: examId, code, title, domains } = cert;
   const totalChapters = domains.reduce((acc, d) => acc + d.chapters.length, 0);
   const completedCount = completedChapters.length;
   const pct = totalChapters > 0 ? Math.round((completedCount / totalChapters) * 100) : 0;
 
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--active-sidebar-width",
-      collapsed ? "72px" : "var(--sidebar-width)"
-    );
-
-    return () => {
-      document.documentElement.style.removeProperty("--active-sidebar-width");
-    };
-  }, [collapsed]);
-
   return (
-    <aside className={`sidebar${collapsed ? " collapsed" : ""}`}>
-      <div className="sidebar-header">
-        <div className="sidebar-header-copy">
-          <p className="sidebar-header-label">Study Guide</p>
-          <p className="sidebar-exam-title">{code} — Exam Prep</p>
-        </div>
-        <button
-          type="button"
-          className="sidebar-collapse-btn"
-          onClick={() => setCollapsed((value) => !value)}
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          {collapsed ? ">" : "<"}
-        </button>
-      </div>
-
-      <div className="sidebar-progress">
-        <div className="sidebar-progress-label">
-          <span>Progress</span>
-          <span className="sidebar-progress-pill">{pct}%</span>
-        </div>
-        <div className="progress-bar-container">
-          <div className="progress-bar-fill" style={{ width: `${pct}%` }} />
+    <aside className="study-sidebar" aria-label="Chapter navigation">
+      <div className="study-sidebar-head">
+        <Link href={`/exams/${examId}`} className="study-sidebar-back">
+          <span className="study-sidebar-eyebrow">
+            <Icon name="arrow" size={12} className="study-sidebar-back-icon" />
+            {code} · Study guide
+          </span>
+          <span className="study-sidebar-title">{title}</span>
+        </Link>
+        <div className="study-sidebar-progress">
+          <div className="track" aria-hidden="true">
+            <span className="track-fill" style={{ width: `${pct}%` }} />
+          </div>
+          <div className="study-sidebar-progress-meta">
+            <span><strong>{completedCount}</strong> of {totalChapters} done</span>
+            <span>{pct}%</span>
+          </div>
         </div>
       </div>
 
-      <nav className="sidebar-nav" aria-label="Chapter navigation">
-        {domains.map((domain) => (
-          <div key={domain.id}>
-            <p className="sidebar-domain-label">{domain.title}</p>
+      <nav className="study-sidebar-nav">
+        {domains.map((domain, di) => (
+          <div key={domain.id} className="study-nav-group">
+            <p className="study-nav-domain">
+              <span className="study-nav-domain-num">{pad2(di + 1)}</span>
+              {domain.title}
+            </p>
             {domain.chapters.map((chapter) => {
               const isDone = completedChapters.includes(chapter.id);
               const isActive = chapter.id === activeChapterId;
@@ -62,15 +51,15 @@ export default function Sidebar({ cert, activeChapterId, completedChapters, high
                 <Link
                   key={chapter.id}
                   href={`/exams/${examId}/study/${chapter.id}`}
-                  className={`sidebar-chapter-link${isActive ? " active" : ""}`}
+                  className={`study-nav-link${isActive ? " active" : ""}`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  <span className={`sidebar-chapter-check${isDone ? " done" : ""}`}>
-                    {isDone ? "✓" : ""}
+                  <span className={`study-nav-check${isDone ? " done" : ""}`}>
+                    {isDone && <Icon name="check" size={12} strokeWidth={3} />}
                   </span>
-                  <span className="sidebar-chapter-title">{chapter.title}</span>
+                  <span className="study-nav-label">{chapter.title}</span>
                   {score !== undefined && (
-                    <span className="sidebar-score-pill">{score}%</span>
+                    <span className="study-nav-score">{score}%</span>
                   )}
                 </Link>
               );

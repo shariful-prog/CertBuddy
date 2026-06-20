@@ -293,6 +293,8 @@ function QuestionCard({ question, index, total, answered, onAnswer, onNext, onFi
 
   const pct = Math.round((correctCount / (index + 1)) * 100);
 
+  const showFeedback = (answered !== null && answered !== undefined) || submitted;
+
   return (
     <div className="question-card">
       {/* Progress */}
@@ -355,31 +357,32 @@ function QuestionCard({ question, index, total, answered, onAnswer, onNext, onFi
         </div>
       )}
 
-      {/* Explanation */}
-      {(answered !== null && answered !== undefined || submitted) && explanation && (
-        <div className={`explanation-box ${wasCorrect ? "correct-exp" : "incorrect-exp"}`}>
-          <div className="explanation-label">
-            {wasCorrect ? "✅ Correct!" : "❌ Incorrect"}
-          </div>
-          <div>{explanation}</div>
-        </div>
-      )}
-
-      {/* Navigation */}
-      {(answered !== null && answered !== undefined || submitted) && (
-        <div className="question-actions">
-          <span style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
-            {wasCorrect ? "Great job on this one!" : "Review the explanation above."}
-          </span>
-          {isLast ? (
-            <button id="finish-quiz-btn" className="btn-primary" onClick={onFinish}>
-              View Results 🏆
-            </button>
-          ) : (
-            <button id={`next-question-${index}`} className="btn-primary" onClick={onNext}>
-              Next →
-            </button>
+      {/* Feedback: explanation + navigation */}
+      {showFeedback && (
+        <div>
+          {explanation && (
+            <div className={`explanation-box ${wasCorrect ? "correct-exp" : "incorrect-exp"}`}>
+              <div className="explanation-label">
+                {wasCorrect ? "✅ Correct!" : "❌ Incorrect"}
+              </div>
+              <div>{explanation}</div>
+            </div>
           )}
+
+          <div className="question-actions">
+            <span style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
+              {wasCorrect ? "Great job on this one!" : "Review the explanation above."}
+            </span>
+            {isLast ? (
+              <button id="finish-quiz-btn" className="btn-primary" onClick={onFinish}>
+                View Results 🏆
+              </button>
+            ) : (
+              <button id={`next-question-${index}`} className="btn-primary" onClick={onNext}>
+                Next →
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>

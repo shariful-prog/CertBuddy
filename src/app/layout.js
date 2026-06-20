@@ -1,5 +1,6 @@
 import { Outfit, Inter } from "next/font/google";
-import Link from "next/link";
+import { HeaderSlotProvider } from "@/components/HeaderSlot";
+import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -23,21 +24,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
       <body>
-        <header className="global-header">
-          <div className="header-container">
-            <Link href="/" className="logo-container">
-              <span className="logo-icon">CB</span>
-              <span className="logo-text">CertBuddy</span>
-            </Link>
-            <nav className="header-meta header-nav" aria-label="Primary">
-              <Link href="/" className="header-link">Certifications</Link>
-              <Link href="/exams/dp-700" className="exam-badge">Start studying</Link>
-            </nav>
+        <HeaderSlotProvider>
+          <SiteHeader />
+          <div className="app-layout">
+            {children}
           </div>
-        </header>
-        <div className="app-layout">
-          {children}
-        </div>
+        </HeaderSlotProvider>
       </body>
     </html>
   );

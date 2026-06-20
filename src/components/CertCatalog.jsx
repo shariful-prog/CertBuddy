@@ -53,37 +53,50 @@ export default function CertCatalog({ certifications }) {
 
   return (
     <main className="catalog">
-      <section className="catalog-hero">
-        <div className="catalog-hero-text">
-          <p className="eyebrow">Certification study hub</p>
-          <h1 className="catalog-title">Study with intent. Pass with confidence.</h1>
-          <p className="catalog-lede">
-            Work through every section of a certification, check your understanding
-            with a quiz after each chapter, then prove you&rsquo;re ready with
-            full-length practice and final exams.
-          </p>
+      {/* ── Hero (compact) ── */}
+      <section className="hero">
+        <p className="eyebrow">Certification study hub</p>
+        <h1 className="hero-title">
+          Study with intent. Pass with{" "}
+          <span className="hero-title-accent">confidence.</span>
+        </h1>
+        <p className="hero-lede">
+          Work through every section, quiz yourself after each chapter, then prove
+          you&rsquo;re ready with full-length practice and final exams.
+        </p>
+
+        <div className="hero-row">
+          <div className="hero-actions">
+            <Link href="#certifications" className="btn-pill">
+              Explore certifications
+              <Icon name="arrow" size={16} />
+            </Link>
+            <Link href="/exams/dp-700" className="btn-outline">
+              <Icon name="calendar" size={16} />
+              View study plan
+            </Link>
+          </div>
+
+          {/* Inline stat chips — replaces the old full-height stats bar */}
+          <ul className="hero-stats">
+            <li><Icon name="layers" size={15} /> <strong>{certifications.length}</strong> {certifications.length === 1 ? "cert" : "certs"}</li>
+            <li><Icon name="book-open" size={15} /> <strong>{totalChapters}</strong> chapters</li>
+            <li><Icon name="trophy" size={15} /> <strong>{totalExams}</strong> exams</li>
+          </ul>
         </div>
-        <dl className="catalog-stats">
-          <div className="catalog-stat">
-            <dd>{certifications.length}</dd>
-            <dt>Certifications</dt>
-          </div>
-          <div className="catalog-stat">
-            <dd>{totalChapters}</dd>
-            <dt>Study chapters</dt>
-          </div>
-          <div className="catalog-stat">
-            <dd>{totalExams}</dd>
-            <dt>Practice &amp; final exams</dt>
-          </div>
-        </dl>
       </section>
 
-      <section className="catalog-grid-section">
-        <div className="section-head">
-          <h2 className="section-head-title">Certifications</h2>
-          <span className="section-head-rule" />
-          <span className="section-head-meta">{certifications.length} available</span>
+      {/* ── Certifications ── */}
+      <section className="catalog-grid-section" id="certifications">
+        <div className="section-head section-head-spread">
+          <div>
+            <h2 className="section-head-title">Certifications</h2>
+            <p className="section-head-sub">Choose a certification path and start your journey</p>
+          </div>
+          <Link href="#certifications" className="section-head-link">
+            View all certifications
+            <Icon name="arrow" size={15} />
+          </Link>
         </div>
 
         <div className="cert-grid">
@@ -97,40 +110,55 @@ export default function CertCatalog({ certifications }) {
             const started = completed > 0;
 
             return (
-              <Link key={cert.slug} href={`/exams/${cert.slug}`} className="cert-card">
+              <article key={cert.slug} className="cert-card">
                 <div className="cert-card-top">
                   <span className="cert-code">{cert.code}</span>
-                  <span className="cert-tag">{started ? `In progress · ${pct}%` : "Available now"}</span>
+                  <span className="cert-status cert-status-live">
+                    <span className="cert-status-dot" />
+                    {started ? `In progress · ${pct}%` : "Available now"}
+                  </span>
+                  <button type="button" className="cert-bookmark" aria-label="Bookmark certification">
+                    <Icon name="bookmark" size={18} />
+                  </button>
                 </div>
                 <h3 className="cert-card-title">{cert.title}</h3>
                 <p className="cert-card-desc">{cert.description}</p>
-                <CardFacts cert={cert} />
                 <div className="cert-card-foot">
-                  <div className="track" aria-hidden="true">
-                    <span className="track-fill" style={{ width: `${pct}%` }} />
+                  <CardFacts cert={cert} />
+                  <div className="cert-card-action">
+                    {started && (
+                      <div className="track" aria-hidden="true">
+                        <span className="track-fill" style={{ width: `${pct}%` }} />
+                      </div>
+                    )}
+                    <Link href={`/exams/${cert.slug}`} className="btn-pill cert-card-btn">
+                      {started ? "Continue" : "Start learning"}
+                      <Icon name="arrow" size={16} />
+                    </Link>
                   </div>
-                  <span className="cert-card-cta">
-                    {started ? "Continue" : "Start studying"}
-                    <Icon name="arrow" size={16} />
-                  </span>
                 </div>
-              </Link>
+              </article>
             );
           })}
 
           {UPCOMING.map((cert) => (
-            <div key={cert.code} className="cert-card cert-card-upcoming" aria-disabled="true">
+            <article key={cert.code} className="cert-card cert-card-upcoming" aria-disabled="true">
               <div className="cert-card-top">
                 <span className="cert-code">{cert.code}</span>
-                <span className="cert-tag muted">Coming soon</span>
+                <span className="cert-status cert-status-soon">
+                  <Icon name="clock" size={13} />
+                  Coming soon
+                </span>
+                <button type="button" className="cert-bookmark" aria-label="Bookmark certification" disabled>
+                  <Icon name="bookmark" size={18} />
+                </button>
               </div>
               <h3 className="cert-card-title">{cert.title}</h3>
               <p className="cert-card-desc">{cert.description}</p>
-              <CardFacts cert={cert} />
               <div className="cert-card-foot">
-                <span className="cert-card-cta muted">In development</span>
+                <CardFacts cert={cert} />
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>

@@ -16,6 +16,8 @@ export default function CertLanding({ cert }) {
     practiceScores: {},
     finalScore: undefined,
   });
+  // First domain expanded by default; others collapsed.
+  const [openDomains, setOpenDomains] = useState(() => ({ 0: true }));
 
   useEffect(() => {
     setProgress(loadCertProgress(cert.slug));
@@ -25,83 +27,102 @@ export default function CertLanding({ cert }) {
   const completed = progress.completedChapters.length;
   const pct = totalChapters > 0 ? Math.round((completed / totalChapters) * 100) : 0;
 
+  const toggleDomain = (i) =>
+    setOpenDomains((prev) => ({ ...prev, [i]: !prev[i] }));
+
   return (
     <main className="landing">
       <nav className="crumbs" aria-label="Breadcrumb">
         <Link href="/">Certifications</Link>
-        <span className="crumbs-sep">/</span>
+        <span className="crumbs-sep">
+          <Icon name="arrow" size={13} />
+        </span>
         <span aria-current="page">{cert.code}</span>
       </nav>
 
-      <header className="landing-hero">
-        <div className="landing-hero-main">
-          <span className="cert-code">{cert.code}</span>
-          <h1 className="landing-title">{cert.title}</h1>
-          <p className="landing-fulltitle">{cert.fullTitle}</p>
-          <p className="landing-lede">{cert.description}</p>
+      {/* ── Header card ── */}
+      <header className="cert-head-card">
+        <div className="cert-head-main">
+          <h1 className="cert-head-title">{cert.title}</h1>
+          <p className="cert-head-fulltitle">{cert.fullTitle}</p>
         </div>
-
-        <aside className="landing-progress-card" aria-label="Your progress">
-          <div className="ring" style={{ "--pct": pct }}>
-            <span className="ring-num">{pct}<small>%</small></span>
-          </div>
-          <p className="landing-progress-text">
-            <strong>{completed}</strong> of {totalChapters} chapters completed
-          </p>
-        </aside>
+        <span className={`hpill hpill-progress ${pct === 100 ? "is-complete" : ""}`}>
+          <Icon name={pct === 100 ? "trophy" : "target"} size={13} />
+          {completed}/{totalChapters} done · {pct}%
+        </span>
       </header>
 
-      {/* Study domains */}
+      {/* ── Study guide ── */}
       <section className="landing-section">
-        <div className="section-head">
+        <div className="section-head section-head-spread">
           <h2 className="section-head-title">Study guide</h2>
-          <span className="section-head-rule" />
-          <span className="section-head-meta">{cert.domains.length} domains</span>
+          <div className="section-head-facts">
+            <span><Icon name="layers" size={15} /> {cert.domains.length} domains</span>
+            <span><Icon name="book" size={15} /> {totalChapters} chapters</span>
+          </div>
         </div>
 
-        <div className="domains">
-          {cert.domains.map((domain, di) => (
-            <div key={domain.id} className="domain">
-              <div className="domain-head">
-                <span className="domain-num">{pad2(di + 1)}</span>
-                <h3 className="domain-name">{domain.title}</h3>
-                <span className="domain-count">{domain.chapters.length} chapters</span>
-              </div>
+        <div className="domain-accordion">
+          {cert.domains.map((domain, di) => {
+            const open = !!openDomains[di];
+            const domainDone = domain.chapters.filter((c) =>
+              progress.completedChapters.includes(c.id)
+            ).length;
+            return (
+              <div key={domain.id} className={`domain-panel ${open ? "open" : ""}`}>
+                <button
+                  type="button"
+                  className="domain-bar"
+                  aria-expanded={open}
+                  onClick={() => toggleDomain(di)}
+                >
+                  <span className="domain-badge">{pad2(di + 1)}</span>
+                  <span className="domain-bar-title">{domain.title}</span>
+                  <span className="domain-bar-meta">
+                    {domainDone > 0 && (
+                      <span className="domain-bar-progress">{domainDone}/{domain.chapters.length}</span>
+                    )}
+                    <span className="domain-chip">{domain.chapters.length} chapters</span>
+                    <Icon name="chevron" size={18} className="domain-chevron" />
+                  </span>
+                </button>
 
-              <div className="chapter-list">
-                {domain.chapters.map((chapter, ci) => {
-                  const isDone = progress.completedChapters.includes(chapter.id);
-                  const high = progress.chapterHighScores[chapter.id];
-                  return (
-                    <Link
-                      key={chapter.id}
-                      href={`/exams/${cert.slug}/study/${chapter.id}`}
-                      className={`chapter-row ${isDone ? "done" : ""}`}
-                    >
-                      <span className="chapter-check" aria-hidden="true">
-                        {isDone ? <Icon name="check" size={14} strokeWidth={2.5} /> : pad2(ci + 1)}
-                      </span>
-                      <span className="chapter-name">{chapter.title}</span>
-                      <span className="chapter-meta">
-                        {high !== undefined && <span className="chapter-score">{high}%</span>}
-                        <span className="chapter-qs">{chapter.questions.length} Q</span>
-                        <Icon name="arrow" size={15} className="chapter-arrow" />
-                      </span>
-                    </Link>
-                  );
-                })}
+                {open && (
+                  <div className="domain-chapters">
+                    {domain.chapters.map((chapter, ci) => {
+                      const isDone = progress.completedChapters.includes(chapter.id);
+                      const high = progress.chapterHighScores[chapter.id];
+                      return (
+                        <Link
+                          key={chapter.id}
+                          href={`/exams/${cert.slug}/study/${chapter.id}`}
+                          className={`chapter-row ${isDone ? "done" : ""}`}
+                        >
+                          <span className="chapter-check" aria-hidden="true">
+                            {isDone ? <Icon name="check" size={14} strokeWidth={2.5} /> : <span className="chapter-dot" />}
+                          </span>
+                          <span className="chapter-name">{chapter.title}</span>
+                          <span className="chapter-meta">
+                            {high !== undefined && <span className="chapter-score">{high}%</span>}
+                            <span className="chapter-qs">{chapter.questions.length} Q</span>
+                            <Icon name="arrow" size={15} className="chapter-arrow" />
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Practice exams */}
+      {/* ── Practice exams ── */}
       {cert.practiceExams.length > 0 && (
         <section className="landing-section">
-          <div className="section-head">
+          <div className="section-head section-head-spread">
             <h2 className="section-head-title">Practice exams</h2>
-            <span className="section-head-rule" />
             <span className="section-head-meta">{cert.practiceExams.length} sets</span>
           </div>
           <p className="section-sub">
@@ -137,12 +158,11 @@ export default function CertLanding({ cert }) {
         </section>
       )}
 
-      {/* Final exam */}
+      {/* ── Final exam ── */}
       {cert.finalExam && (
         <section className="landing-section">
-          <div className="section-head">
+          <div className="section-head section-head-spread">
             <h2 className="section-head-title">Final exam</h2>
-            <span className="section-head-rule" />
           </div>
 
           <Link href={`/exams/${cert.slug}/final`} className="final-banner">
