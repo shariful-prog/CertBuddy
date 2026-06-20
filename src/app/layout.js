@@ -1,4 +1,5 @@
 import { Outfit, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { HeaderSlotProvider } from "@/components/HeaderSlot";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
           </div>
           <SiteFooter />
         </HeaderSlotProvider>
+        <Analytics />
       </body>
     </html>
   );
