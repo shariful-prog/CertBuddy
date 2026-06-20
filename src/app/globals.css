@@ -768,6 +768,7 @@ body:has(.workspace-container) .header-actions {
 /* Content body — full height of the column, generous space */
 .study-body {
   flex: 1;
+  min-width: 0;
   padding: var(--space-8) var(--space-8) var(--space-12);
 }
 .study-body-inner { max-width: 940px; margin: 0 auto; }
@@ -879,6 +880,13 @@ body:has(.workspace-container) .header-actions {
 }
 
 .markdown-body { font-size: 1rem; line-height: 1.7; color: #33333a; }
+
+/* Keep long words / URLs from forcing horizontal scroll on narrow screens */
+.markdown-body { overflow-wrap: anywhere; word-break: break-word; }
+
+/* Wide content scrolls inside its own box instead of stretching the page */
+.markdown-body pre { max-width: 100%; }
+.markdown-body table { display: block; width: 100%; overflow-x: auto; }
 
 .markdown-body h1 {
   font-family: var(--font-display);
@@ -1468,21 +1476,70 @@ body:has(.workspace-container) .header-actions {
    UTILITIES & RESPONSIVE
 ──────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  /* Study workspace stacks: sidebar becomes a horizontal strip on top */
-  .workspace-container { flex-direction: column; }
+  /* Study workspace: sidebar becomes an off-canvas drawer that slides in
+     from the left, so the content gets the full width. */
   .study-sidebar {
-    width: 100%;
-    height: auto;
-    max-height: 280px;
-    position: relative;
+    position: fixed;
     top: 0;
-    border-right: none;
-    border-bottom: 1px solid var(--border-subtle);
+    left: 0;
+    height: 100dvh;
+    z-index: 200;
+    width: min(86vw, 320px);
+    border-right: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
   }
-  .study-body { padding: var(--space-5) var(--space-5) var(--space-10); }
-  .markdown-body { padding: var(--space-5); }
+  .study-sidebar.open { transform: translateX(0); }
+
+  .study-body { padding: var(--space-5) var(--space-4) var(--space-10); }
+  .markdown-body { padding: var(--space-5) var(--space-4); }
   .app-layout { padding: 0; }
   .exam-card-header, .domain-section { padding: var(--space-4) var(--space-5); }
+}
+
+/* Drawer affordances — hidden on desktop, shown at the drawer breakpoint */
+.study-nav-toggle { display: none; }
+.study-sidebar-close { display: none; }
+.study-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(20, 20, 30, 0.4);
+  backdrop-filter: blur(1px);
+  animation: fadeIn 0.2s ease;
+}
+
+@media (max-width: 900px) {
+  .study-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    align-self: flex-start;
+    margin: var(--space-4) var(--space-4) 0;
+    padding: 8px var(--space-4);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: 0.84rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-xs);
+  }
+  .study-nav-toggle .icon { color: var(--color-indigo); }
+
+  .study-sidebar-close {
+    display: grid;
+    place-items: center;
+    width: 32px; height: 32px;
+    margin: 0 0 var(--space-3) auto;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+  }
+  .study-sidebar-close .icon { transform: rotate(180deg); }
 }
 
 @media (max-width: 600px) {
@@ -1490,7 +1547,20 @@ body:has(.workspace-container) .header-actions {
   .chapter-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr; }
   .results-stats-row { gap: var(--space-2); }
-  .study-tab { padding: 7px var(--space-3); font-size: 0.82rem; }
+
+  /* Tighten the header + study tab switcher so it fits beside the logo */
+  .header-container { padding: 0 var(--space-4); }
+  .study-tabs { gap: 2px; padding: 3px; }
+  .study-tab { padding: 6px 10px; font-size: 0.8rem; gap: 5px; }
+  .study-tab .icon { width: 22px; height: 22px; padding: 4px; }
+}
+
+/* Very narrow: tab labels would crowd the logo — keep just the icons,
+   and drop the "CB" badge so the full "CertBuddy" name stays visible */
+@media (max-width: 420px) {
+  .study-tab { padding: 6px; }
+  .study-tab-label { display: none; }
+  .logo-icon { display: none; }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1667,8 +1737,8 @@ body:has(.workspace-container) .header-actions {
 
 .cert-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
 }
 
 .cert-card {
@@ -2075,6 +2145,10 @@ body:has(.workspace-container) .header-actions {
   .primary-nav { display: none; }
 }
 
+@media (max-width: 1100px) {
+  .cert-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 860px) {
   .domain-bar-title { font-size: 0.98rem; }
 }
@@ -2110,3 +2184,79 @@ body:has(.workspace-container) .header-actions {
 .quiz-start-stats { display: flex; justify-content: center; gap: var(--space-10); margin: 0 0 var(--space-8); }
 .quiz-start-stats dt { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 2px; }
 .quiz-start-stats dd { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; margin: 0; }
+
+/* ════════════════════════════════════════════════════════════
+   SITE FOOTER
+   ════════════════════════════════════════════════════════════ */
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  margin-top: var(--space-12);
+}
+
+.site-footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-6);
+  flex-wrap: wrap;
+}
+
+.site-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.site-footer-made {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.site-footer-heart { color: var(--color-rose, #f43f5e); }
+
+.site-footer-end {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.site-footer-copy {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+.site-footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 7px var(--space-4);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+.site-footer-social:hover {
+  background: var(--bg-surface);
+  border-color: var(--color-indigo-mid);
+  color: var(--color-indigo);
+}
+
+@media (max-width: 560px) {
+  .site-footer-inner {
+    padding: var(--space-5) var(--space-4);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+  }
+}

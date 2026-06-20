@@ -1,6 +1,7 @@
 import { Outfit, Inter } from "next/font/google";
 import { HeaderSlotProvider } from "@/components/HeaderSlot";
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
           <div className="app-layout">
             {children}
           </div>
+          <SiteFooter />
         </HeaderSlotProvider>
       </body>
     </html>

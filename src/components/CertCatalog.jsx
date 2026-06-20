@@ -25,6 +25,15 @@ const UPCOMING = [
     chapterCount: 24,
     practiceCount: 6,
   },
+  {
+    code: "AZ-104",
+    title: "Azure Administrator Associate",
+    description:
+      "Manage identities, governance, storage, compute, and virtual networks in a Microsoft Azure environment.",
+    domainCount: 5,
+    chapterCount: 20,
+    practiceCount: 5,
+  },
 ];
 
 function CardFacts({ cert }) {

@@ -10,6 +10,7 @@ import { loadCertProgress, saveCertProgress } from "@/lib/progress";
 
 export default function ChapterClient({ cert, chapterId, activeChapter }) {
   const [activeTab, setActiveTab] = useState("learn");
+  const [navOpen, setNavOpen] = useState(false);
   const [progress, setProgress] = useState({
     completedChapters: [],
     chapterHighScores: {},
@@ -21,6 +22,11 @@ export default function ChapterClient({ cert, chapterId, activeChapter }) {
   useEffect(() => {
     setProgress(loadCertProgress(cert.slug));
   }, [cert.slug]);
+
+  // Close the mobile chapter drawer whenever we navigate to a new chapter.
+  useEffect(() => {
+    setNavOpen(false);
+  }, [chapterId]);
 
   // Inject the Study guide / Practice quiz switcher into the global header,
   // and clear it when leaving the page.
@@ -34,7 +40,7 @@ export default function ChapterClient({ cert, chapterId, activeChapter }) {
           aria-selected={activeTab === "learn"}
         >
           <Icon name="book-open" size={16} />
-          Study guide
+          <span className="study-tab-label">Study guide</span>
         </button>
         <button
           className={`study-tab ${activeTab === "quiz" ? "active" : ""}`}
@@ -43,7 +49,7 @@ export default function ChapterClient({ cert, chapterId, activeChapter }) {
           aria-selected={activeTab === "quiz"}
         >
           <Icon name="clipboard" size={16} />
-          Practice quiz
+          <span className="study-tab-label">Practice quiz</span>
         </button>
       </div>
     );
@@ -86,9 +92,31 @@ export default function ChapterClient({ cert, chapterId, activeChapter }) {
         activeChapterId={chapterId}
         completedChapters={progress.completedChapters}
         highScores={progress.chapterHighScores}
+        open={navOpen}
+        onClose={() => setNavOpen(false)}
       />
 
+      {/* Backdrop behind the mobile drawer */}
+      {navOpen && (
+        <div
+          className="study-sidebar-backdrop"
+          onClick={() => setNavOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       <div className="study-main">
+        {/* Mobile-only bar to open the chapter drawer */}
+        <button
+          type="button"
+          className="study-nav-toggle"
+          onClick={() => setNavOpen(true)}
+          aria-label="Open chapter list"
+        >
+          <Icon name="layers" size={16} />
+          Chapters
+        </button>
+
         {/* Scrolling content — tabs live in the global header */}
         <div className="study-body">
           <div className="study-body-inner">

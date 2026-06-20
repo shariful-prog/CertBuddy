@@ -8,15 +8,23 @@ function pad2(n) {
   return String(n).padStart(2, "0");
 }
 
-export default function Sidebar({ cert, activeChapterId, completedChapters, highScores }) {
+export default function Sidebar({ cert, activeChapterId, completedChapters, highScores, open = false, onClose }) {
   const { slug: examId, code, title, domains } = cert;
   const totalChapters = domains.reduce((acc, d) => acc + d.chapters.length, 0);
   const completedCount = completedChapters.length;
   const pct = totalChapters > 0 ? Math.round((completedCount / totalChapters) * 100) : 0;
 
   return (
-    <aside className="study-sidebar" aria-label="Chapter navigation">
+    <aside className={`study-sidebar${open ? " open" : ""}`} aria-label="Chapter navigation">
       <div className="study-sidebar-head">
+        <button
+          type="button"
+          className="study-sidebar-close"
+          onClick={onClose}
+          aria-label="Close chapter list"
+        >
+          <Icon name="arrow" size={18} />
+        </button>
         <Link href={`/exams/${examId}`} className="study-sidebar-back">
           <span className="study-sidebar-eyebrow">
             <Icon name="arrow" size={12} className="study-sidebar-back-icon" />
