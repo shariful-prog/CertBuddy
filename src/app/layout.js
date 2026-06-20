@@ -1,6 +1,7 @@
 import { Outfit, Inter } from "next/font/google";
 import { HeaderSlotProvider } from "@/components/HeaderSlot";
 import SiteHeader from "@/components/SiteHeader";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
             {children}
           </div>
         </HeaderSlotProvider>
+        <Analytics />
       </body>
     </html>
   );
