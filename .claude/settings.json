@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('d:/Side Hustle/CertBuddy-Resource/CertBuddy/content/dp-700/Practice/Practice Exams/PracticeExam1.json','utf8'\\)\\); console.log\\('OK'\\)\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('d:/Side Hustle/CertBuddy-Resource/CertBuddy/content/dp-700/Practice/FinalExam/FinalExam2.json','utf8'\\)\\); const q=d.questions.find\\(x=>x.question.includes\\('Halden Group'\\)\\); const a=Array.isArray\\(q.answer\\)?q.answer:[q.answer]; console.log\\('keyed='+JSON.stringify\\(a\\),'count='+a.length\\); for\\(const x of a\\){if\\(!q.options[x]\\)throw new Error\\('missing '+x\\)} console.log\\('both present:',a.every\\(x=>q.options[x]\\)\\); console.log\\('options:',Object.keys\\(q.options\\).join\\(','\\)\\); console.log\\('mirroring still present in options?', JSON.stringify\\(q.options\\).toLowerCase\\(\\).includes\\('mirror'\\)\\); console.log\\('total questions='+d.questions.length,'JSON parse OK'\\)\")"
+    ]
+  }
+}

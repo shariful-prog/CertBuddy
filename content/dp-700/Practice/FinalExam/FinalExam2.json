@@ -1,0 +1,424 @@
+{
+  "module": "Final Exam 2",
+  "questions": [
+    {
+      "type": "scenario",
+      "question": "At Brightline Logistics a new analyst must be able to publish reports and write new lakehouse tables in a workspace, but the security team forbids them from changing who else has access. Which workspace role is the lowest that meets both requirements?",
+      "options": {
+        "A": "Viewer",
+        "B": "Contributor",
+        "C": "Member",
+        "D": "Admin"
+      },
+      "answer": "B",
+      "explanation": "The Contributor role lets a user create and edit items such as lakehouse tables and reports, but it grants no ability to manage workspace membership, which satisfies both the authoring need and the access-management restriction. The next role up can also add users at its own level or below, which exceeds the stated limit, while the read-only role cannot author content at all.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "Northwind Pharma keeps a curated Parquet dataset in an Amazon S3 bucket maintained by a partner. Analysts must join that data with lakehouse tables through the SQL analytics endpoint, the partner keeps overwriting the files daily, and Northwind refuses to pay for a second copy or to schedule any refresh. Which approach satisfies every constraint?",
+      "options": {
+        "A": "A Copy activity scheduled to land the S3 files in the lakehouse each night",
+        "B": "Fabric mirroring configured against the S3 bucket",
+        "C": "A OneLake shortcut pointing at the S3 location",
+        "D": "A Dataflow Gen2 that imports the S3 files into a lakehouse table"
+      },
+      "answer": "C",
+      "explanation": "A shortcut references the S3 objects in place, so the data appears as a lakehouse table for the SQL analytics endpoint, always reflects the partner's latest overwrite, and stores no second copy. Mirroring targets transactional databases and replicates bytes into OneLake, so it both fails on a flat-file bucket and incurs storage; the copy and dataflow options each duplicate the data and require a schedule.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer at Vantage Retail runs the following against a Fabric warehouse where the Orders table already holds 4 million rows:\n\n```sql\nCOPY INTO dbo.Orders\nFROM 'https://store.blob.core.windows.net/raw/orders/2026/*.csv'\nWITH (\n  FILE_TYPE = 'CSV',\n  FIRSTROW = 2,\n  CREDENTIAL = (IDENTITY = 'Managed Identity')\n);\n```\n\nWhat is the outcome?",
+      "options": {
+        "A": "The matching files are loaded and their rows are added to the existing data",
+        "B": "The load fails because COPY INTO requires the target table to be empty",
+        "C": "The existing rows are deleted first, then the matching files replace them",
+        "D": "The load fails because a WITH column-mapping list is mandatory for CSV"
+      },
+      "answer": "A",
+      "explanation": "COPY INTO performs a parallel bulk append: every file matching the wildcard is read and its rows are added on top of whatever the table already contains, with FIRSTROW = 2 skipping each file's header. It never truncates the target, the target may already hold data, and an explicit column list is optional rather than required for CSV.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Helios Media runs a three-stage deployment pipeline (Dev, Test, Prod) with each Dev item also under Azure DevOps Git. A pipeline in Dev references a connection string that must differ in Prod, and the team wants Prod to keep its production value even after future deployments overwrite other properties. What is the correct mechanism?",
+      "options": {
+        "A": "Edit the connection directly in the Prod workspace after each deployment",
+        "B": "Commit a prod-specific value to a separate Git branch wired to Prod",
+        "C": "Add a deployment rule on the Prod stage that sets the connection value",
+        "D": "Create a workspace variable in Dev and let it flow downstream unchanged"
+      },
+      "answer": "C",
+      "explanation": "A deployment rule defined on the Prod stage overrides the targeted property every time content is promoted into that stage, so the production connection value persists across deployments without manual reapplication. Editing Prod by hand is undone by the next deployment, pointing Prod's Git at another branch breaks stage-based promotion, and a Dev value flowing downstream would carry the wrong environment's setting into Prod.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A gold Delta table at Cobalt Analytics is rewritten by frequent MERGE jobs, leaving many obsolete data files and degrading scans. During the weekly maintenance window the team wants to compact current data into fewer files and then physically remove files older than the default retention so storage shrinks. Which TWO commands, in this order, accomplish that?",
+      "options": {
+        "A": "OPTIMIZE on the table",
+        "B": "REORG TABLE ... APPLY (PURGE)",
+        "C": "VACUUM on the table",
+        "D": "ALTER TABLE ... SET TBLPROPERTIES (delta.logRetentionDuration)",
+        "E": "ANALYZE TABLE ... COMPUTE STATISTICS"
+      },
+      "answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "Compacting current data into larger files is the job of OPTIMIZE, and reclaiming storage by deleting files no longer referenced beyond the retention threshold is the job of VACUUM, run after the compaction. Rewriting files to materialize deletion vectors does not consolidate live data into fewer files, adjusting log retention only governs time-travel history, and refreshing statistics changes no physical files.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "In a Fabric notebook a developer wants to upsert a micro-batch of changed rows into a silver Delta table keyed on customer_id, inserting new keys and updating existing ones. Which snippet does this correctly?",
+      "options": {
+        "A": "changes.write.format('delta').mode('append').save('Tables/silver_customers')",
+        "B": "changes.write.format('delta').mode('overwrite').option('replaceWhere', 'customer_id IS NOT NULL').save('Tables/silver_customers')",
+        "C": "DeltaTable.forPath(spark, 'Tables/silver_customers').update('customer_id IS NOT NULL', {'updated': 'true'})",
+        "D": "DeltaTable.forPath(spark, 'Tables/silver_customers').merge(changes, 'tgt.customer_id = src.customer_id').whenMatchedUpdateAll().whenNotMatchedInsertAll().execute()"
+      },
+      "answer": "D",
+      "explanation": "A Delta MERGE that matches on the key and combines whenMatchedUpdateAll with whenNotMatchedInsertAll is the upsert pattern: existing keys are updated and new keys inserted in one atomic operation. Appending duplicates rather than updating, overwriting replaces matched partitions and risks deleting rows absent from the batch, and an unconditional update touches existing rows only and never inserts new ones.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Streaming jobs at Pinegrove Insurance append micro-batches to a bronze Delta table every few seconds and each commit emits dozens of tiny files. The team will still run scheduled OPTIMIZE, but wants the writers themselves to emit fewer, larger files. Which TWO table-level settings reduce small-file creation at write time?",
+      "options": {
+        "A": "Enable optimized write (delta.autoOptimize.optimizeWrite)",
+        "B": "Raise delta.deletedFileRetentionDuration to 30 days",
+        "C": "Enable auto compaction (delta.autoOptimize.autoCompact)",
+        "D": "Lower delta.logRetentionDuration to one day",
+        "E": "Set delta.checkpointInterval to a smaller value"
+      },
+      "answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "Optimized write rebalances data inside each commit so the writer produces fewer, larger files, and auto compaction runs an automatic small compaction immediately after a write to fold tiny files together; both act at write time. Adjusting deleted-file or log retention only affects how long history survives, and shortening the checkpoint interval changes log checkpoint frequency, not data-file sizing.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Orchard Foods streams point-of-sale events from Azure Event Hubs into a Fabric Eventstream, filters out test transactions, and must persist the survivors to two places: an engine for sub-second KQL exploration and a store the nightly batch reports read. Which TWO destinations can the Eventstream write to directly?",
+      "options": {
+        "A": "A semantic model import table",
+        "B": "An Eventhouse (KQL database)",
+        "C": "A warehouse via scheduled T-SQL INSERT",
+        "D": "A lakehouse",
+        "E": "An Azure SQL Database table over a private endpoint"
+      },
+      "answer": [
+        "B",
+        "D"
+      ],
+      "explanation": "An Eventstream fans out to multiple destinations, and both an Eventhouse for real-time KQL queries and a lakehouse for batch consumption are first-class destination types in the editor. It does not stream rows into a semantic model import table, does not issue T-SQL INSERTs into a warehouse, and does not write to an external Azure SQL Database as a destination.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Against a KQL table Telemetry(Timestamp, DeviceId, Battery) an engineer runs:\n\n```kusto\nTelemetry\n| where Timestamp > ago(6h)\n| summarize arg_min(Battery, Timestamp) by DeviceId\n```\n\nWhat does this return?",
+      "options": {
+        "A": "For each device, the Timestamp at which its lowest Battery reading occurred in the window",
+        "B": "For each device, the most recent Battery reading in the window",
+        "C": "The single lowest Battery reading across all devices in the window",
+        "D": "For each device, the average Battery reading over the window"
+      },
+      "answer": "A",
+      "explanation": "arg_min(Battery, Timestamp) finds, within each DeviceId group, the row holding the minimum Battery value and returns the requested Timestamp from that row, so the output is the time of the lowest battery per device. It is neither the latest reading (that would order by Timestamp) nor a single global minimum, and no averaging is performed.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Compliance at Larkfield Bank requires that call-center agents querying a warehouse customer table see account numbers rendered as a partly hidden value, while the true digits remain stored unchanged and remain visible to the finance role. Existing reports must keep selecting the same column with no rewrite. Which feature fits?",
+      "options": {
+        "A": "Dynamic data masking on the account-number column",
+        "B": "A security policy with a filter predicate on the table",
+        "C": "Revoking SELECT on the account-number column for agents",
+        "D": "A view that wraps the column in string functions"
+      },
+      "answer": "A",
+      "explanation": "Dynamic data masking returns an obfuscated value at query time for unprivileged users while leaving the stored data intact and visible to privileged roles, and because it applies to the base column the existing queries need no change. A filter predicate hides whole rows rather than masking a value, revoking column access blocks the column entirely instead of masking it, and a wrapping view forces every report to point at the view.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "A team needs a no-code object that watches a measure arriving through an Eventstream and, when the measure stays above a limit for several minutes, both emails an on-call group and triggers a Fabric pipeline. Which item provides this?",
+      "options": {
+        "A": "A KQL materialized view",
+        "B": "A Real-Time Dashboard",
+        "C": "A Real-Time hub stream",
+        "D": "An Activator (Data Activator)"
+      },
+      "answer": "D",
+      "explanation": "Activator monitors streaming or query-driven data, evaluates conditions over time, and fires actions such as email alerts and pipeline runs without code. A materialized view only pre-aggregates, a dashboard only visualizes, and the Real-Time hub is a catalog for discovering streams rather than a rule-and-action engine.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "A developer at Quill Software runs this PySpark against a Delta table whose status column contains the literal values 'OPEN', 'open', and 'closed':\n\n```python\ndf = spark.read.format('delta').load('Tables/tickets')\n(df.where(\"status = 'open'\")\n   .groupBy('team')\n   .count()\n   .show())\n```\n\nWhich statement best describes the result?",
+      "options": {
+        "A": "It counts rows per team for both 'OPEN' and 'open'",
+        "B": "It raises an error because where requires a Column, not a string",
+        "C": "It counts rows per team where status equals 'open' exactly",
+        "D": "It returns one overall count ignoring the team grouping"
+      },
+      "answer": "C",
+      "explanation": "Spark string comparison is case-sensitive, so the predicate matches only the lowercase 'open' value and excludes 'OPEN', and groupBy('team').count() yields one count per team. The SQL-string form of where is valid syntax, and the grouping is preserved rather than collapsed to a single total.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "At Sable Energy an operational Cosmos DB collection must appear in OneLake as continuously updated Delta tables for analytics, with no transformation code to author or maintain and only seconds of latency. Which capability is purpose-built for this?",
+      "options": {
+        "A": "A OneLake shortcut to the Cosmos DB account",
+        "B": "A Dataflow Gen2 with incremental refresh on a five-minute schedule",
+        "C": "An Eventstream sourced from the Cosmos DB change feed",
+        "D": "Fabric mirroring of the Cosmos DB database",
+        "E": "A pipeline running COPY INTO on a tight schedule"
+      },
+      "answer": "D",
+      "explanation": "Mirroring continuously replicates a supported operational source such as Cosmos DB into OneLake as Delta tables in near real time with no ETL to write. A shortcut cannot expose a transactional NoSQL store as Delta, and the dataflow, eventstream, and copy approaches all require building and maintaining custom, latency-bound movement logic.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Maple Health layers its lakehouse into bronze, silver, and gold. Raw extracts land untouched in bronze; business-ready aggregated marts live in gold. In which layer do engineers deduplicate, cast columns to correct types, and standardize naming?",
+      "options": {
+        "A": "Bronze",
+        "B": "Gold",
+        "C": "Silver",
+        "D": "A staging area outside the medallion layers"
+      },
+      "answer": "C",
+      "explanation": "Silver is the cleansing and conforming layer, where deduplication, type enforcement, and name standardization produce a validated dataset for downstream marts. Bronze intentionally preserves raw fidelity, gold holds curated aggregates rather than the cleansing work, and an external staging area is not part of the medallion model being described.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "An engineer at Drayton Manufacturing needs to read a lakehouse Delta table exactly as it stood at a precise past moment for an audit reconstruction. Which read is correct?",
+      "options": {
+        "A": "spark.read.format('delta').option('versionAsOf', '2026-03-01 12:00:00').load('Tables/ledger')",
+        "B": "spark.read.format('delta').option('timestampAsOf', '2026-03-01 12:00:00').load('Tables/ledger')",
+        "C": "spark.read.format('delta').option('asOfTimestamp', '2026-03-01 12:00:00').load('Tables/ledger')",
+        "D": "spark.read.format('parquet').option('timestampAsOf', '2026-03-01 12:00:00').load('Tables/ledger')"
+      },
+      "answer": "B",
+      "explanation": "Point-in-time Delta time travel uses the timestampAsOf option with a timestamp string. The versionAsOf option expects an integer version number rather than a timestamp, asOfTimestamp is not a valid option name, and reading the path as plain parquet bypasses the Delta transaction log so time travel is impossible.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "In a pipeline at Tessera Retail, a Copy activity loads raw files. A Notebook activity must run only when the Copy succeeds; a separate Teams-notification activity must run only when the Copy fails. Which dependency wiring on the Copy activity meets this?",
+      "options": {
+        "A": "Notebook on the Completion path, notification on the Failure path",
+        "B": "Both downstream activities on the Completion path",
+        "C": "Notebook on the Failure path, notification on the Success path",
+        "D": "Notebook on the Success path, notification on the Failure path"
+      },
+      "answer": "D",
+      "explanation": "Placing the Notebook on the Success path runs it only after the Copy succeeds, and placing the notification on the Failure path runs it only when the Copy fails, exactly matching the requirement. A Completion path fires on either outcome, so any configuration using it would trigger a step in both cases, and swapping the two paths inverts the intended behavior.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Fabric warehouse at Glanville Insurance intermittently slows. Using only built-in T-SQL, an engineer must find which completed queries ran the longest and which were executed most often over recent days. Which object set should they query?",
+      "options": {
+        "A": "The queryinsights schema views such as long_running_queries and frequently_run_queries",
+        "B": "sys.dm_exec_requests joined to sys.dm_exec_query_stats",
+        "C": "INFORMATION_SCHEMA.TABLES and INFORMATION_SCHEMA.COLUMNS",
+        "D": "The Query Store views under sys.query_store"
+      },
+      "answer": "A",
+      "explanation": "The Fabric warehouse surfaces historical performance through the queryinsights schema, whose views expose long-running and frequently run completed queries directly in T-SQL. The dm_exec dynamic management views reflect only current or very recent activity, the information-schema views describe metadata not runtime, and the Query Store views are not the mechanism exposed for Fabric warehouse history.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "From the same SQL client a developer connects to a lakehouse SQL analytics endpoint and to a Fabric warehouse. Which TWO statements are true about the difference?",
+      "options": {
+        "A": "Only the warehouse accepts T-SQL SELECT statements",
+        "B": "The warehouse supports CREATE TABLE and INSERT, which the SQL analytics endpoint cannot do",
+        "C": "Only the SQL analytics endpoint can enforce row-level security",
+        "D": "The SQL analytics endpoint is read-only over Delta tables, while the warehouse is read/write",
+        "E": "Only the SQL analytics endpoint can run stored procedures"
+      },
+      "answer": [
+        "B",
+        "D"
+      ],
+      "explanation": "The warehouse is a full read/write engine that supports DDL and DML, whereas the lakehouse SQL analytics endpoint is read-only over Delta tables, so it can neither create base tables nor modify data. Both surfaces accept SELECT and both can enforce row-level security, so the claims that only one accepts SELECT, that only the endpoint enforces row-level security, and that only the endpoint runs stored procedures are all false.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A warehouse at Ferndale Telecom has this security setup:\n\n```sql\nCREATE FUNCTION dbo.fn_branch(@Branch AS sysname)\nRETURNS TABLE WITH SCHEMABINDING\nAS RETURN SELECT 1 AS ok\nWHERE @Branch = USER_NAME() OR USER_NAME() = 'regional_lead';\n\nCREATE SECURITY POLICY dbo.BranchPolicy\nADD FILTER PREDICATE dbo.fn_branch(Branch) ON dbo.Tickets\nWITH (STATE = ON);\n```\n\nAn agent whose USER_NAME() returns 'leeds' runs SELECT COUNT(*) FROM dbo.Tickets. What happens?",
+      "options": {
+        "A": "The count includes only rows where Branch = 'leeds'",
+        "B": "The query fails with a permission error",
+        "C": "The Branch column is returned as NULL but all rows are counted",
+        "D": "The count includes every row in dbo.Tickets"
+      },
+      "answer": "A",
+      "explanation": "A filter predicate implements row-level security, so the function admits a row only when Branch matches the caller's name (or the caller is the regional lead), and the agent transparently counts just the Branch = 'leeds' rows. Row-level security filters silently rather than raising an error, it does not null a column while counting everything, and a non-privileged agent does not see all rows.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "Which statement most accurately characterizes OneLake in Microsoft Fabric?",
+      "options": {
+        "A": "Each workspace receives its own isolated lake that other workspaces cannot reference",
+        "B": "It is a single logical lake per tenant storing data in open Delta/Parquet that all workloads share",
+        "C": "It stores lakehouse data but warehouse data lives in a separate proprietary store",
+        "D": "It keeps data in a closed format that must be exported before external tools can read it"
+      },
+      "answer": "B",
+      "explanation": "OneLake is provisioned once per tenant as a single logical lake holding data in open Delta/Parquet, so one copy of data serves every Fabric engine. Workspaces are folders inside that one lake rather than isolated lakes, warehouse and lakehouse data both reside in OneLake, and the open formats are directly readable by external tools without export.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "Analysts at Wexley Foods who are fluent in Power Query must build reusable transformations (merges, column shaping) that write into a lakehouse table and run on Fabric capacity. Which item fits, and how does it relate to a pipeline?",
+      "options": {
+        "A": "A Dataflow Gen2, with a pipeline able to orchestrate but not itself perform the transformation",
+        "B": "A pipeline, because its Copy activity exposes Power Query transformations",
+        "C": "A notebook, because Power Query M executes only inside Spark notebooks",
+        "D": "A KQL queryset, because it runs Power Query M against lakehouse tables"
+      },
+      "answer": "A",
+      "explanation": "Dataflow Gen2 provides the low-code Power Query (M) authoring experience and can write to a lakehouse destination, matching Power Query-savvy analysts, while a pipeline can call the dataflow but holds no transformation logic of its own. Notebooks use Spark rather than Power Query, the Copy activity moves data without Power Query shaping, and a KQL queryset runs KQL, not M.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An F64 capacity at Ridgeway Bank shows users getting errors when opening reports during business hours, while scheduled refreshes still complete. In the Capacity Metrics app, which throttling indicator most directly explains report errors while refreshes keep running?",
+      "options": {
+        "A": "Background rejection crossing its threshold",
+        "B": "Interactive delay crossing its threshold",
+        "C": "Interactive rejection crossing its threshold",
+        "D": "The overage carryforward turning positive"
+      },
+      "answer": "C",
+      "explanation": "Interactive rejection rejects user-triggered operations such as report loads while still allowing background operations to run, which exactly matches reports failing while refreshes continue. Interactive delay only queues requests for about twenty seconds rather than producing errors, background rejection would block the refreshes too, and carryforward overage describes accumulated debt rather than the specific rejection of interactive jobs.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Tables in an on-premises SQL Server behind a corporate firewall at Halden Group must be ingested nightly into a Fabric lakehouse. An on-premises data gateway is already installed and registered. Which TWO Fabric items can read the source through that gateway?",
+      "options": {
+        "A": "A OneLake shortcut to the SQL Server instance",
+        "B": "A data pipeline Copy activity",
+        "C": "An Eventstream with the SQL Server as a streaming source",
+        "D": "A Dataflow Gen2",
+        "E": "A KQL queryset run against the SQL Server instance"
+      },
+      "answer": [
+        "B",
+        "D"
+      ],
+      "explanation": "Both a pipeline Copy activity and a Dataflow Gen2 can connect to an on-premises source through an on-premises data gateway connection and run on a schedule. A shortcut references cloud object storage and OneLake rather than reaching a live on-premises relational instance, an Eventstream ingests event and streaming sources rather than reading a batch on-premises SQL table, and a KQL queryset only queries existing KQL databases and cannot reach a SQL Server through the gateway.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Spark join at Calder Retail runs for an hour because one customer id accounts for most rows: most tasks finish quickly while a few grind on an enormous partition. Which TWO techniques most directly relieve this skew?",
+      "options": {
+        "A": "Add a salt value to the hot key and join on the salted keys",
+        "B": "Broadcast the larger of the two tables to all executors",
+        "C": "Let Adaptive Query Execution split the skewed partitions at runtime",
+        "D": "Set spark.sql.shuffle.partitions to 1 to consolidate the data",
+        "E": "Call .cache() on both DataFrames before the join"
+      },
+      "answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "Salting spreads the dominant key across many reducers, and Adaptive Query Execution detects and splits oversized skewed partitions during the shuffle; both attack the skew directly. Broadcasting only helps when the broadcast side is small, forcing a single shuffle partition concentrates the skew further, and caching changes nothing about partition balance.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "A user holds only the Viewer role on a workspace that contains a warehouse, with no item-level grants added. By default, what can that user do with the warehouse?",
+      "options": {
+        "A": "Read warehouse data through Spark and the OneLake file APIs",
+        "B": "Connect to the SQL endpoint and read data, subject to SQL-level permissions",
+        "C": "Add other users to the workspace at Viewer level",
+        "D": "Create and drop tables in the warehouse"
+      },
+      "answer": "B",
+      "explanation": "Viewer conveys Read and ReadData, which lets the user connect to the SQL/TDS endpoint and read data, still constrained by the warehouse's own SQL permissions. Viewer omits ReadAll, so reading through Spark or OneLake file APIs is blocked, and Viewer can neither manage membership nor create objects.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A Real-Time Dashboard tile at Aldous Sensors must show the maximum pressure per pipeline segment over the last 10 minutes and refresh automatically. Readings(Timestamp, SegmentId, Pressure) backs it. Which KQL is correct?",
+      "options": {
+        "A": "Readings | summarize max(Pressure) by SegmentId | where Timestamp > ago(10m)",
+        "B": "Readings | where Timestamp > ago(10m) | summarize max(Pressure) by SegmentId",
+        "C": "Readings | top 10 by Timestamp | summarize max(Pressure) by SegmentId",
+        "D": "Readings | where Timestamp > ago(10m) | summarize max(Pressure)"
+      },
+      "answer": "B",
+      "explanation": "Filtering to the last 10 minutes first and then summarizing max(Pressure) by SegmentId yields one maximum per segment over the window, which the tile re-runs on refresh. Placing the time filter after the summarize fails because Timestamp no longer exists in the aggregate, omitting the by clause collapses to one overall maximum, and top 10 by Timestamp keeps only ten rows instead of the full window.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An Eventhouse at Mercer Telematics keeps 120 days of telemetry (retention/SoftDeletePeriod = 120d). Almost all queries touch the last 14 days, and the team wants to cut cost while keeping all 120 days queryable. Which change achieves this, and what constrains it?",
+      "options": {
+        "A": "Reduce the retention policy to 14 days so older data ages out of the cache",
+        "B": "Disable the caching policy so every day stays queryable at low cost",
+        "C": "Set the caching (hot cache) policy to 14 days; the cache period must not exceed the retention period",
+        "D": "Set delta.deletedFileRetentionDuration to 14 days on the Eventhouse tables"
+      },
+      "answer": "C",
+      "explanation": "Lowering the hot-cache period to 14 days keeps recent data on fast cache storage while the older days remain in standard storage and stay queryable, and the cache period must be less than or equal to the retention period. Reducing retention would delete the older data outright, disabling the cache hurts performance rather than the goal, and the Delta deleted-file property is not an Eventhouse policy.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A platform team at Veyron Systems must script, in a release pipeline, the creation of a new workspace, the assignment of that workspace to a named capacity, and the listing of items inside it. Which TWO interfaces support this automation?",
+      "options": {
+        "A": "KQL .create management commands run against the tenant",
+        "B": "The Microsoft Fabric REST APIs",
+        "C": "T-SQL DDL executed against the warehouse",
+        "D": "The Fabric command-line interface (fab CLI)",
+        "E": "The semantic-link Python library inside a notebook"
+      },
+      "answer": [
+        "B",
+        "D"
+      ],
+      "explanation": "The Fabric REST APIs expose workspace creation, capacity assignment, and item enumeration, and the Fabric command-line interface wraps those same operations for scripting, so either is a valid automation surface for a release pipeline. KQL management commands and T-SQL DDL operate inside individual data items rather than at the workspace and capacity layer, and semantic-link focuses on semantic-model interaction rather than tenant provisioning.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A warehouse query at Strathmore Retail that joins a large fact table to several dimensions scans far more data than expected, and the plan shows badly skewed row estimates on the join columns right after a large nightly load. With built-in T-SQL, which action most directly improves the optimizer's estimates before the morning workload?",
+      "options": {
+        "A": "Run OPTIMIZE with ZORDER on the fact table's join columns",
+        "B": "Rebuild the clustered columnstore index on the fact table",
+        "C": "Add a nonclustered index on each dimension key",
+        "D": "Create or update single-column statistics on the join columns"
+      },
+      "answer": "D",
+      "explanation": "The Fabric warehouse query optimizer relies on column statistics for cardinality estimation, and creating or updating single-column statistics on the join columns after a large load is the supported T-SQL way to give the optimizer accurate distribution information. ZORDER is a Delta/Spark operation rather than warehouse T-SQL, and user-defined clustered columnstore rebuilds and nonclustered indexes are not the mechanism the Fabric warehouse exposes for fixing estimate skew.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An auditor at Holloway Group needs to verify that a 'Highly Confidential' classification applied to a lakehouse automatically carries to a downstream semantic model and report built from it. Which Fabric capability provides this propagation, and in which direction does it flow?",
+      "options": {
+        "A": "OneLake data-access roles, which propagate access upstream to sources",
+        "B": "Workspace deployment rules, which copy the label between stages",
+        "C": "Row-level security predicates, which inherit the label across joins",
+        "D": "Microsoft Purview sensitivity labels, which propagate downstream to derived items"
+      },
+      "answer": "D",
+      "explanation": "Microsoft Purview sensitivity labels are applied per item and inherit downstream, so a label on the lakehouse flows to a semantic model and report derived from it. OneLake data-access roles govern data access rather than classification, deployment rules override item properties during promotion rather than propagating labels, and row-level security filters rows and carries no label.",
+      "difficulty": "Medium"
+    }
+  ]
+}

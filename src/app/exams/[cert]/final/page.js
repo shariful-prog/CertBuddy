@@ -1,6 +1,5 @@
-import { notFound } from "next/navigation";
-import { getCertifications, getCert } from "@/lib/certs";
-import ExamRunner from "@/components/ExamRunner";
+import { notFound, redirect } from "next/navigation";
+import { getCertifications, getCert, getFinalExams } from "@/lib/certs";
 
 export function generateStaticParams() {
   return getCertifications()
@@ -8,26 +7,13 @@ export function generateStaticParams() {
     .map((c) => ({ cert: c.slug }));
 }
 
-export async function generateMetadata({ params }) {
+// `/exams/<cert>/final` redirects to the first final exam so existing links keep working.
+export default async function FinalExamIndexPage({ params }) {
   const { cert: slug } = await params;
   const cert = getCert(slug);
-  if (!cert || !cert.finalExam) return { title: "Final Exam Not Found | CertBuddy" };
-  return {
-    title: `${cert.finalExam.title} — ${cert.code} | CertBuddy`,
-    description: `Full-length ${cert.finalExam.questions.length}-question final exam for ${cert.code}.`,
-  };
-}
+  if (!cert) notFound();
+  const finals = getFinalExams(cert);
+  if (!finals.length) notFound();
 
-export default async function FinalExamPage({ params }) {
-  const { cert: slug } = await params;
-  const cert = getCert(slug);
-  if (!cert || !cert.finalExam) notFound();
-
-  return (
-    <ExamRunner
-      cert={{ slug: cert.slug, code: cert.code }}
-      kind="final"
-      exam={cert.finalExam}
-    />
-  );
+  redirect(`/exams/${slug}/final/${finals[0].id}`);
 }

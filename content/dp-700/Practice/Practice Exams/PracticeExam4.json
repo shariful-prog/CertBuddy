@@ -3,249 +3,267 @@
   "questions": [
     {
       "type": "direct",
-      "question": "In Microsoft Fabric Real-Time Intelligence, which component is the primary analytical store that hosts one or more KQL databases optimized for high-volume, time-series and log data?",
+      "question": "Your team is standing up Real-Time Intelligence in Fabric and needs a single item that persists incoming telemetry long-term and can hold several KQL databases that share the same compute and storage allocation. Which item provides this?",
       "options": {
-        "A": "Lakehouse",
-        "B": "Eventhouse",
-        "C": "Warehouse",
+        "A": "Eventhouse",
+        "B": "KQL Queryset",
+        "C": "Lakehouse",
         "D": "Eventstream"
       },
-      "answer": "B",
-      "explanation": "An Eventhouse is the Real-Time Intelligence analytical store designed for streaming, time-series, and log data. It can contain multiple KQL databases that share compute and storage. A Lakehouse and Warehouse are not optimized for KQL/real-time workloads, and an Eventstream is for ingestion/routing, not storage.",
+      "answer": "A",
+      "explanation": "An Eventhouse is the Real-Time Intelligence storage item; it groups one or more KQL databases that share compute and storage. A KQL Queryset only stores and runs queries against an existing database, so it persists nothing itself. An Eventstream moves and shapes data but is not a durable analytical store, and a Lakehouse uses Delta/Parquet rather than the Kusto engine tuned for time-series and log data.",
       "difficulty": "Easy"
     },
     {
       "type": "direct",
-      "question": "You need to ingest streaming events from Azure Event Hubs into a KQL database with no-code configuration, applying simple field filtering before landing the data. Which Fabric item should you use?",
+      "question": "Events arrive from an Azure Event Hub and must be dropped into a KQL database. You want to keep only records where the status field is not null before they land, and you must do this on a drag-and-drop canvas rather than writing Spark or pipeline code. Which item fits?",
       "options": {
-        "A": "Dataflow Gen2",
-        "B": "Data pipeline copy activity",
-        "C": "Eventstream",
-        "D": "Notebook with Spark Structured Streaming"
+        "A": "Spark Structured Streaming notebook",
+        "B": "Eventstream",
+        "C": "Dataflow Gen2 with a custom function",
+        "D": "Data pipeline with a Copy activity and a filter expression"
       },
-      "answer": "C",
-      "explanation": "Eventstream provides a no-code/low-code canvas to connect streaming sources (such as Azure Event Hubs), apply transformations like filtering, and route data to destinations including a KQL database (Eventhouse). Dataflow Gen2 and pipelines are batch-oriented, and a Spark notebook is code-based rather than no-code.",
+      "answer": "B",
+      "explanation": "Eventstream connects to streaming sources such as Azure Event Hubs and offers no-code transformations (including Filter) before routing to an Eventhouse destination. A Copy activity in a pipeline can move data but its mapping does not provide a streaming row-level filter on the canvas, and it is batch-oriented. Dataflow Gen2 and Spark notebooks are not no-code streaming tools; the notebook in particular is code-first.",
       "difficulty": "Easy"
     },
     {
       "type": "direct",
-      "question": "Which KQL operator is used to filter rows based on a boolean predicate, returning only rows that satisfy the condition?",
+      "question": "In KQL you must keep only the rows whose Severity equals \"Critical\" and discard the rest. Which operator does this?",
       "options": {
         "A": "project",
-        "B": "where",
-        "C": "summarize",
-        "D": "extend"
-      },
-      "answer": "B",
-      "explanation": "The where operator filters rows by a predicate, keeping only those that evaluate to true. project selects/renames columns, summarize aggregates, and extend adds calculated columns.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In an Eventstream, which destination should you choose to land processed events so they can be queried using KQL in a Real-Time Dashboard?",
-      "options": {
-        "A": "Lakehouse",
-        "B": "Eventhouse (KQL database)",
-        "C": "Reflex (Activator) only",
-        "D": "Custom endpoint"
-      },
-      "answer": "B",
-      "explanation": "To query events with KQL and build Real-Time Dashboards, the Eventstream destination should be an Eventhouse/KQL database. A Lakehouse stores data in Delta format for Spark/SQL, a custom endpoint exposes data to external consumers, and Activator triggers actions rather than serving as a KQL query store.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which KQL construct provides an always-up-to-date, incrementally maintained aggregation over a source table that is efficient to query for dashboards?",
-      "options": {
-        "A": "Stored function",
-        "B": "Materialized view",
-        "C": "Update policy",
-        "D": "External table"
-      },
-      "answer": "B",
-      "explanation": "A materialized view in KQL maintains a pre-aggregated result that is updated incrementally as new data arrives, making it efficient for repeated dashboard queries. Stored functions encapsulate reusable query logic but are computed at query time, update policies transform data on ingestion, and external tables reference data outside the database.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "When configuring data ingestion into a KQL database, which mechanism automatically transforms or enriches incoming records (for example parsing a raw column into multiple typed columns) at ingestion time?",
-      "options": {
-        "A": "Materialized view",
-        "B": "Update policy",
-        "C": "Stored function used in a dashboard",
-        "D": "Continuous export"
-      },
-      "answer": "B",
-      "explanation": "An update policy runs a query-based transformation automatically when new data is ingested into a source table, writing the transformed output into a target table. Materialized views aggregate existing data, and continuous export moves data out of the database.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which Fabric Real-Time Intelligence component lets you define conditions on streaming or KQL data and automatically trigger actions such as sending an email or starting a Fabric pipeline?",
-      "options": {
-        "A": "Real-Time Dashboard",
-        "B": "Data Activator (Reflex/Activator)",
-        "C": "KQL Queryset",
-        "D": "Eventhouse"
-      },
-      "answer": "B",
-      "explanation": "Data Activator (Activator) monitors data for patterns or thresholds and triggers actions like email, Teams messages, or running pipelines. Real-Time Dashboards visualize data, KQL Querysets store queries, and the Eventhouse stores data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which retention setting in a KQL database controls how long data remains queryable before it is automatically removed?",
-      "options": {
-        "A": "Caching policy (hot cache)",
-        "B": "Retention policy (soft-delete period)",
-        "C": "Sharding policy",
-        "D": "Ingestion batching policy"
-      },
-      "answer": "B",
-      "explanation": "The retention policy (soft-delete period) determines how long data is kept and queryable before deletion. The caching policy controls how much recent data is held in hot cache for fast access but does not delete data; sharding and batching policies govern storage layout and ingestion grouping.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A logistics company streams GPS telemetry from thousands of trucks into an Eventstream. They need to keep raw events in a Lakehouse for batch ML training AND simultaneously land the same events in an Eventhouse for real-time KQL dashboards. What is the most efficient design?",
-      "options": {
-        "A": "Create two separate Eventstreams, each with one source and one destination",
-        "B": "Use a single Eventstream with one source and add both a Lakehouse destination and an Eventhouse destination",
-        "C": "Land data only in the Eventhouse, then use continuous export to copy to the Lakehouse",
-        "D": "Land data only in the Lakehouse, then use a Spark notebook to copy to the Eventhouse every 5 minutes"
-      },
-      "answer": "B",
-      "explanation": "A single Eventstream can fan out one source to multiple destinations. Adding both a Lakehouse and an Eventhouse destination delivers the same events to both targets without duplicating ingestion or building extra pipelines, which is the most efficient option.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A retailer wants near-real-time alerts when any store's transaction error rate exceeds 5% over a 10-minute window. Errors flow through an Eventstream into an Eventhouse. The alert must email the operations team and start a remediation pipeline. Which approach meets the requirement with the least custom code?",
-      "options": {
-        "A": "Schedule a KQL query in a Notebook every 10 minutes and send email via SMTP code",
-        "B": "Build a Real-Time Dashboard tile and have staff watch it continuously",
-        "C": "Create an Activator rule on the stream/KQL data that triggers email and a pipeline run when the condition is met",
-        "D": "Use a Dataflow Gen2 with a conditional refresh to send alerts"
+        "B": "extend",
+        "C": "where",
+        "D": "distinct"
       },
       "answer": "C",
-      "explanation": "Data Activator is purpose-built for detecting conditions in real-time data and triggering actions such as sending email and running a Fabric pipeline, with no custom alerting code. Dashboards only visualize, notebooks/dataflows require custom scheduling and code, and are not designed for low-latency event-driven alerting.",
+      "explanation": "where evaluates a predicate per row and keeps the matching rows. extend adds a computed column without removing rows, project chooses which columns to output (not which rows), and distinct removes duplicate rows rather than applying a predicate.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "An Eventstream must deliver processed events to two places at once: a Lakehouse for batch ML and an Eventhouse for KQL dashboards, all from one source. Which TWO statements about Eventstream destinations are correct? Select all that apply.",
+      "options": {
+        "A": "A single Eventstream can attach multiple destinations that receive data simultaneously without interfering with each other",
+        "B": "Adding a second destination forces the first destination to be removed",
+        "C": "A Lakehouse destination stores events as CSV files only",
+        "D": "The Eventhouse destination offers a direct-ingestion mode and an event-processing-before-ingestion mode",
+        "E": "Each destination requires its own separate Eventstream item"
+      },
+      "answer": [
+        "A",
+        "D"
+      ],
+      "explanation": "An Eventstream supports fan-out: a single Eventstream can attach multiple destinations that receive data simultaneously without interfering with each other, so the claim that each destination requires its own separate Eventstream is false, as is the claim that adding a second destination removes the first. The Eventhouse destination genuinely exposes two ingestion modes, direct ingestion and event processing before ingestion. The Lakehouse destination writes Delta Lake (Parquet), not CSV files only.",
       "difficulty": "Medium"
     },
     {
-      "type": "scenario",
-      "question": "An IoT team ingests raw sensor JSON into a KQL table named RawTelemetry. Analysts repeatedly run dashboard queries that aggregate average temperature per device per hour over the last 24 hours, and dashboard latency is too high. What should you implement to reduce query latency most effectively?",
+      "type": "direct",
+      "question": "A dashboard repeatedly runs the same heavy aggregation over a fast-growing table. You want the engine to keep the aggregated result current as new rows arrive, so the dashboard reads a small precomputed set. Which KQL object should you create?",
       "options": {
-        "A": "Increase the soft-delete retention period on RawTelemetry",
-        "B": "Create a materialized view that aggregates average temperature by device and hour",
-        "C": "Add an update policy that copies all rows into a second identical table",
-        "D": "Disable the hot caching policy to free up resources"
+        "A": "A row-level security policy",
+        "B": "A stored function returning the aggregate",
+        "C": "An update policy targeting a second table",
+        "D": "A materialized view"
       },
-      "answer": "B",
-      "explanation": "A materialized view incrementally maintains the hourly per-device aggregation, so dashboard queries read pre-computed results instead of scanning raw rows, dramatically lowering latency. Retention and caching changes do not pre-aggregate, and an identical copy table does not reduce aggregation cost.",
+      "answer": "D",
+      "explanation": "A materialized view incrementally maintains an aggregation so repeated reads hit precomputed results. A stored function re-computes the aggregate at every query, giving no maintained result. An update policy transforms rows at ingestion into a target table but does not itself maintain a rolling aggregate, and row-level security governs access, not performance.",
       "difficulty": "Medium"
     },
     {
-      "type": "scenario",
-      "question": "Your Eventstream receives events that include a malformed subset (about 2%) failing schema validation. You must route valid events to an Eventhouse and capture invalid events separately for inspection without dropping them. What is the best Eventstream design?",
+      "type": "direct",
+      "question": "Raw records arrive in a KQL table with one packed string column. You want each new row reshaped into typed columns automatically as it is ingested, written into a curated table, with no scheduled job. Which mechanism is designed for this?",
       "options": {
-        "A": "Use a single destination and rely on the Eventhouse to reject bad rows silently",
-        "B": "Add a filter/conditional transformation that splits the stream, sending valid events to the Eventhouse and invalid events to a Lakehouse destination",
-        "C": "Disable schema enforcement so all events land together",
-        "D": "Configure an update policy on ingestion to delete invalid rows"
+        "A": "Update policy",
+        "B": "Materialized view",
+        "C": "Continuous export",
+        "D": "Caching policy"
       },
-      "answer": "B",
-      "explanation": "Eventstream transformations let you branch the stream based on conditions. Routing valid events to the Eventhouse and invalid events to a separate destination (such as a Lakehouse) preserves both sets for downstream use. Silently rejecting or deleting invalid rows loses the data needed for inspection.",
+      "answer": "A",
+      "explanation": "An update policy runs a transformation query whenever data lands in the source table and writes the result to a target table, so reshaping happens at ingestion with no scheduler. A materialized view aggregates existing data rather than reshaping each incoming row into a curated table; continuous export moves data out of the database; the caching policy only governs which data sits in hot cache.",
       "difficulty": "Medium"
     },
     {
-      "type": "scenario",
-      "question": "A security analytics team needs to query 6 months of historical logs but only the most recent 7 days require sub-second interactive performance. They want to minimize cost while keeping all 6 months queryable. How should they configure the KQL database policies?",
+      "type": "direct",
+      "question": "Operations staff want to be notified and have a remediation pipeline started automatically whenever a monitored metric breaches a threshold in streaming data. Which Fabric item is purpose-built to watch the data and act?",
       "options": {
-        "A": "Set retention to 7 days and caching to 6 months",
-        "B": "Set retention to 6 months and the hot caching policy to 7 days",
-        "C": "Set both retention and caching to 6 months",
-        "D": "Set retention to 6 months and disable caching entirely"
+        "A": "Real-Time Dashboard",
+        "B": "Activator",
+        "C": "Eventhouse",
+        "D": "KQL Queryset"
       },
       "answer": "B",
-      "explanation": "Retention must be 6 months so all data stays queryable. The hot caching policy should be 7 days so only recent data is held in fast hot cache for sub-second performance, while older data remains in cold storage (still queryable, slightly slower), minimizing cache cost. Caching longer than needed wastes resources, and disabling caching hurts recent-data performance.",
+      "explanation": "Activator monitors streams or KQL data for conditions and takes actions such as sending alerts or starting a Fabric pipeline or Power Automate flow. A Real-Time Dashboard only visualizes and requires a human to notice; a KQL Queryset stores queries; an Eventhouse stores data but performs no condition-based actions.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "direct",
+      "question": "Which TWO statements correctly describe the relationship between the retention policy and the caching policy in a KQL database? Select all that apply.",
+      "options": {
+        "A": "The caching period must be less than or equal to the retention period",
+        "B": "Hot-cached data sits on local SSD for faster queries while colder data stays in standard storage but is still queryable",
+        "C": "Reducing the caching period removes data permanently from the database",
+        "D": "The retention policy (SoftDeletePeriod) determines how long data stays queryable before automatic removal",
+        "E": "The caching policy determines how long data remains queryable"
+      },
+      "answer": [
+        "B",
+        "D"
+      ],
+      "explanation": "The caching policy decides what is held on fast local SSD as hot for quicker queries while colder data stays in standard storage but remains fully queryable. The retention policy (SoftDeletePeriod) controls how long data stays queryable before it is automatically removed, so it governs queryable lifespan and eventual deletion. The statement that reducing the caching period removes data permanently is false, because shrinking the cache only moves data to standard storage and never deletes it; queryability is governed by retention, not by the caching policy; and although the caching period being less than or equal to the retention period is a real configuration constraint, it describes a limit rather than what each policy fundamentally does.",
       "difficulty": "Hard"
     },
     {
       "type": "scenario",
-      "question": "An Eventstream sources from Azure Event Hubs and must perform a join enrichment between incoming events and a small reference dataset (device metadata) before landing in the Eventhouse. The reference data changes infrequently. Which is the most appropriate approach within Real-Time Intelligence?",
+      "question": "A logistics firm streams truck GPS telemetry into an Eventstream. The same events must be retained raw in a Lakehouse for ML training and also land in an Eventhouse for live KQL dashboards. They want the fewest moving parts. What should they do?",
       "options": {
-        "A": "Perform the enrichment join inside the Eventstream using its lookup/join transformation against the reference data",
-        "B": "Land raw events, then join at query time only using a KQL query in the dashboard",
-        "C": "Use a Dataflow Gen2 to join the streaming and reference data",
-        "D": "Store reference data in the Eventstream itself as a static source and ignore updates"
+        "A": "Build two Eventstreams, each reading the source independently",
+        "B": "Land events in the Lakehouse, then run a notebook every few minutes to push them to the Eventhouse",
+        "C": "Attach both a Lakehouse destination and an Eventhouse destination to the one Eventstream",
+        "D": "Land events in the Eventhouse, then schedule continuous export to copy them into the Lakehouse"
+      },
+      "answer": "C",
+      "explanation": "One Eventstream can fan out to multiple destinations, so attaching both targets delivers the same events to each with no extra copy job. Continuous export and a polling notebook add latency and a second moving part, and two Eventstreams read the source twice and duplicate ingestion cost.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A retailer must alert the operations team and kick off a remediation pipeline whenever any store's error rate stays above 5% across a rolling window. Events already flow through an Eventstream into an Eventhouse. They want minimal custom code. Which approach is best?",
+      "options": {
+        "A": "Pin the metric to a Real-Time Dashboard tile and have staff watch for breaches",
+        "B": "Configure a Dataflow Gen2 that refreshes conditionally and emails on breach",
+        "C": "Create an Activator that triggers on the condition and runs both the alert and the pipeline",
+        "D": "Add a continuous export that writes breach rows to a folder a logic app polls",
+        "E": "Run a KQL query from a scheduled notebook and send mail through SMTP code"
+      },
+      "answer": "C",
+      "explanation": "Activator is built for condition detection on live data and can both alert and start a pipeline with no custom code. A dashboard needs a human watching; a scheduled notebook adds polling latency and bespoke mail code; Dataflow Gen2 is batch and not event-driven; a continuous-export-plus-poller chain adds latency and external glue. Only Activator meets the low-code, low-latency requirement.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Analysts query average temperature per device per hour over the last day, repeatedly, against a raw KQL table, and dashboard latency is unacceptable. Which TWO changes would reduce that latency? Select all that apply.",
+      "options": {
+        "A": "Extend the retention period on the raw table",
+        "B": "Lower the caching period below the queried range so less data is held hot",
+        "C": "Ensure the queried time range stays within the table's hot caching period",
+        "D": "Create a materialized view aggregating average temperature by device and hour",
+        "E": "Add an update policy that copies every raw row into an identical second table"
+      },
+      "answer": [
+        "C",
+        "D"
+      ],
+      "explanation": "Creating a materialized view that aggregates average temperature by device and hour precomputes the result so dashboards read a small maintained set instead of scanning raw rows, and ensuring the queried time range stays within the table's hot caching period serves those reads from fast SSD. Extending the retention period only keeps more data without speeding aggregation; adding an update policy that copies every raw row into an identical second table still requires the same aggregation work at query time; and lowering the caching period below the queried range pushes data to slower cold storage and worsens latency.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "About 2% of incoming events fail schema validation. Valid events should land in the Eventhouse and the malformed ones must be captured separately for later inspection rather than discarded. What is the best Eventstream design?",
+      "options": {
+        "A": "Add a Filter that produces a derived stream of valid events to the Eventhouse and route the non-matching events to a Lakehouse destination",
+        "B": "Turn off schema enforcement so all events land together in the Eventhouse",
+        "C": "Send everything to one Eventhouse destination and let bad rows be rejected",
+        "D": "Add an update policy on the Eventhouse table that deletes invalid rows on ingestion"
       },
       "answer": "A",
-      "explanation": "Eventstream supports stream enrichment/join transformations that look up reference data so events can be enriched before landing. While query-time joins in KQL are possible, performing the enrichment in-stream produces already-enriched, dashboard-ready data. Dataflow Gen2 is batch-oriented and not suited to streaming enrichment.",
+      "explanation": "A Filter operation in the Eventstream branches the data; matching events become a derived stream to the Eventhouse and the remainder can be routed to a Lakehouse, preserving both sets. Letting rows be rejected or deleting them via an update policy loses the malformed data needed for inspection, and disabling enforcement mixes good and bad data with no separation.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A security team must keep 6 months of logs all queryable, but only the most recent 7 days need sub-second interactive response. They want to minimize cost. How should the KQL database policies be set?",
+      "options": {
+        "A": "Retention 6 months, caching 6 months",
+        "B": "Retention 6 months, caching 7 days",
+        "C": "Retention 7 days, caching 6 months",
+        "D": "Retention 6 months, caching disabled"
+      },
+      "answer": "B",
+      "explanation": "Retention must be 6 months so all data stays queryable, and caching set to 7 days keeps only recent data hot for sub-second response while older data remains queryable in cheaper standard storage. Caching for the full 6 months wastes SSD cost; disabling caching slows even recent queries; setting retention to 7 days would delete the older data the team must keep.",
       "difficulty": "Hard"
     },
     {
       "type": "scenario",
-      "question": "A team wants reusable, parameterized KQL logic (for example, a function that returns top-N error codes for a given time range) that multiple dashboards and querysets can call without duplicating code. What should they create in the KQL database?",
+      "question": "Forensic analysts occasionally need fast queries against a single past day that sits well outside the hot caching window, but the team does not want to widen the cache for all old data or export it. Which Eventhouse capability addresses this?",
       "options": {
-        "A": "A materialized view",
-        "B": "A stored function (user-defined function)",
-        "C": "An update policy",
-        "D": "A separate KQL database per dashboard"
+        "A": "Increase the retention period so the day becomes hot again",
+        "B": "Create a continuous export of the cold data to a Lakehouse and query there",
+        "C": "Define a hot window in the caching policy for the targeted past period",
+        "D": "Switch the table's caching policy to Unlimited"
       },
-      "answer": "B",
-      "explanation": "A stored (user-defined) function encapsulates reusable, parameterized KQL logic that can be invoked from many queries, dashboards, and querysets. Materialized views maintain aggregations but are not parameterized, and update policies transform on ingestion rather than encapsulate query logic.",
+      "answer": "C",
+      "explanation": "Hot windows let you mark specific past time ranges of cold data to be cached and queried quickly without widening the cache for everything. Raising retention does not change what is cached; continuous export adds a separate copy and pipeline; setting caching to Unlimited would cache all data and defeats the cost goal.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Incoming events from an Event Hub must be enriched in-flight with attributes from a small, slowly-changing device reference set before they reach the Eventhouse. Which TWO are valid ways to achieve enrichment in Real-Time Intelligence? Select all that apply.",
+      "options": {
+        "A": "Drop the reference set and hardcode the attribute values into each dashboard tile",
+        "B": "Store the reference data inside the Eventstream as a static source and never update it",
+        "C": "Land raw events and resolve the attributes at query time with a KQL join against the reference table",
+        "D": "Use a Dataflow Gen2 to join the streaming events with the reference data continuously",
+        "E": "Use the Eventstream Join transformation to combine the live stream with the reference data"
+      },
+      "answer": [
+        "C",
+        "E"
+      ],
+      "explanation": "Using the Eventstream Join transformation combines the live stream with the reference data in-flight, and landing raw events then resolving the attributes at query time with a KQL join against the reference table is a legitimate alternative when pre-joining is not required. Using a Dataflow Gen2 to join continuously is wrong because Dataflow Gen2 is batch and not a streaming enricher; storing the reference data inside the Eventstream as a static source that never updates ignores the slowly-changing requirement; and hardcoding the attribute values into each dashboard tile is unmaintainable.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Multiple dashboards and querysets need the same parameterized logic, for example top-N error codes for a supplied time range, without each copying the query text. What should be created in the KQL database?",
+      "options": {
+        "A": "A separate KQL database per dashboard",
+        "B": "An update policy",
+        "C": "A materialized view",
+        "D": "A stored function with parameters"
+      },
+      "answer": "D",
+      "explanation": "A stored (user-defined) function takes parameters and can be invoked from many queries, dashboards, and querysets, centralizing the logic. A materialized view maintains a fixed aggregate and is not parameterized; an update policy runs at ingestion, not on demand with arguments; one database per dashboard fragments the data and duplicates effort.",
       "difficulty": "Medium"
     },
     {
       "type": "scenario",
-      "question": "During a Real-Time Dashboard review, stakeholders ask to add an interactive parameter so users can filter all tiles by a selected region without editing each query. How is this best achieved?",
+      "question": "Stakeholders want a Real-Time Dashboard where selecting a region updates every tile at once, without editing individual queries each time. What is the maintainable way to build this?",
       "options": {
-        "A": "Hardcode the region in each tile's KQL query",
-        "B": "Add a dashboard parameter and reference it in each tile's KQL query",
-        "C": "Create a separate dashboard per region",
-        "D": "Use an Activator rule to switch regions"
-      },
-      "answer": "B",
-      "explanation": "Real-Time Dashboards support parameters that users can change interactively. Referencing the parameter in each tile's query lets a single selection filter all tiles. Hardcoding or duplicating dashboards is not maintainable, and Activator triggers actions rather than filtering dashboards.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "Given the KQL query below, what does it return?\n\nTelemetry\n| where Timestamp > ago(1h)\n| summarize AvgTemp = avg(Temperature) by DeviceId, bin(Timestamp, 5m)\n| where AvgTemp > 80\n| order by Timestamp desc",
-      "options": {
-        "A": "The single highest temperature reading per device in the last hour",
-        "B": "Per-device 5-minute average temperatures from the last hour where the average exceeds 80, newest first",
-        "C": "All raw telemetry rows from the last hour with temperature above 80",
-        "D": "The count of devices that reported in the last hour"
-      },
-      "answer": "B",
-      "explanation": "The query filters to the last hour, groups by DeviceId and 5-minute time bins computing avg(Temperature) as AvgTemp, keeps bins where AvgTemp exceeds 80, and orders by Timestamp descending. It returns per-device 5-minute average temperatures over 80, newest first. It does not return raw rows or a simple max/count.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "Consider this KQL snippet that creates a calculated column and projects results:\n\nOrders\n| extend ProfitMargin = (Revenue - Cost) / Revenue\n| where ProfitMargin < 0.1\n| project OrderId, Revenue, ProfitMargin\n\nWhat is the effect of this query?",
-      "options": {
-        "A": "It returns OrderId, Revenue, and ProfitMargin only for orders whose profit margin is below 10%",
-        "B": "It updates the Orders table to add a permanent ProfitMargin column",
-        "C": "It returns all columns plus ProfitMargin for every order",
-        "D": "It aggregates total revenue grouped by ProfitMargin"
+        "A": "Define a dashboard parameter and reference it in each tile's query",
+        "B": "Embed the region as a literal in every tile's query",
+        "C": "Use an Activator rule to swap the region filter",
+        "D": "Create one dashboard per region and switch between them"
       },
       "answer": "A",
-      "explanation": "extend adds a calculated ProfitMargin column for the duration of the query (it does not modify the stored table). where keeps rows with margin below 0.1 (10%), and project restricts output to OrderId, Revenue, and ProfitMargin. There is no aggregation, and extend never persists schema changes.",
+      "explanation": "Real-Time Dashboards support parameters; referencing a single parameter across tiles lets one selection filter them all. Per-region dashboards and hardcoded literals do not respond to a single selection and multiply maintenance, and Activator triggers actions on data rather than filtering dashboard tiles.",
       "difficulty": "Medium"
     },
     {
       "type": "coding",
-      "question": "You need a KQL query that returns, for each status code, the number of requests in the last 24 hours, showing only status codes with more than 1000 requests, sorted from most to least frequent. Which query is correct?",
+      "question": "What does this KQL query return?\n\nTelemetry\n| where Timestamp > ago(1h)\n| summarize AvgTemp = avg(Temperature) by DeviceId, bin(Timestamp, 5m)\n| where AvgTemp > 80\n| order by Timestamp desc",
       "options": {
-        "A": "Requests | where Timestamp > ago(24h) | summarize Count = count() by StatusCode | where Count > 1000 | order by Count desc",
-        "B": "Requests | summarize Count = count() by StatusCode | where Timestamp > ago(24h) | top 1000 by Count",
-        "C": "Requests | where Timestamp > ago(24h) | project StatusCode | count > 1000",
-        "D": "Requests | where Count > 1000 | summarize by StatusCode | order by Timestamp"
+        "A": "The hottest single reading per device in the last hour",
+        "B": "Per-device 5-minute average temperatures over the last hour, keeping only bins above 80, newest first",
+        "C": "A count of devices that reported in the last hour",
+        "D": "Every raw row from the last hour where Temperature exceeds 80"
       },
-      "answer": "A",
-      "explanation": "Option A filters to the last 24 hours first, aggregates count() per StatusCode, then filters groups with Count > 1000, and orders descending by Count. Option B filters on Timestamp after summarize (where Timestamp no longer exists) and misuses top. Options C and D are syntactically and logically invalid for this requirement.",
+      "answer": "B",
+      "explanation": "The query filters to the last hour, groups by DeviceId and 5-minute bins computing avg(Temperature), keeps bins whose average exceeds 80, and sorts newest first, producing per-device 5-minute average temperatures over the last hour, keeping only bins above 80, newest first. It returns averaged bins, not every raw row above 80, not the hottest single reading per device, and not a count of devices.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "You need per StatusCode the request count for the last 24 hours, showing only codes with more than 1000 requests, sorted most frequent first. Which query is correct?",
+      "options": {
+        "A": "Requests | where Timestamp > ago(24h) | summarize Count = count() by StatusCode | top 1000 by Count desc",
+        "B": "Requests | where Count > 1000 | summarize count() by StatusCode | order by Timestamp desc",
+        "C": "Requests | where Timestamp > ago(24h) | project StatusCode | summarize Count = count() | where Count > 1000",
+        "D": "Requests | summarize Count = count() by StatusCode | where Timestamp > ago(24h) | order by Count desc",
+        "E": "Requests | where Timestamp > ago(24h) | summarize Count = count() by StatusCode | where Count > 1000 | order by Count desc"
+      },
+      "answer": "E",
+      "explanation": "The correct query filters to the last 24 hours, aggregates count() per StatusCode, keeps only groups whose Count exceeds 1000, then orders by Count descending. The query using top 1000 by Count returns the 1000 highest-count codes rather than codes whose count exceeds 1000. The query that references Timestamp after summarize fails because that column no longer exists once the data is aggregated. The query that filters on Count before it is computed and orders by the dropped Timestamp column is invalid. The query that projects StatusCode then summarizes count() without a by clause collapses to a single total and loses the per-StatusCode grouping.",
       "difficulty": "Hard"
     }
   ]

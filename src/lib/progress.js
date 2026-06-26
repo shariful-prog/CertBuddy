@@ -9,7 +9,7 @@
  *       completedChapters: string[],          // chapter ids
  *       chapterHighScores: { [chapterId]: pct },
  *       practiceScores:   { [examId]: pct },
- *       finalScore:        pct | undefined
+ *       finalScores:      { [examId]: pct }
  *     }
  *   }
  */
@@ -20,7 +20,7 @@ const emptyCert = () => ({
   completedChapters: [],
   chapterHighScores: {},
   practiceScores: {},
-  finalScore: undefined,
+  finalScores: {},
 });
 
 export function loadAllProgress() {
@@ -51,7 +51,17 @@ export function loadAllProgress() {
 
 export function loadCertProgress(slug) {
   const all = loadAllProgress();
-  return { ...emptyCert(), ...(all[slug] || {}) };
+  const merged = { ...emptyCert(), ...(all[slug] || {}) };
+  merged.finalScores = { ...(merged.finalScores || {}) };
+
+  // Migrate the old single `finalScore` (pre-multi-final-exam) into the map,
+  // keyed by the original final exam's id ("final-exam").
+  if (typeof merged.finalScore === "number" && merged.finalScores["final-exam"] === undefined) {
+    merged.finalScores["final-exam"] = merged.finalScore;
+  }
+  delete merged.finalScore;
+
+  return merged;
 }
 
 export function saveCertProgress(slug, certProgress) {

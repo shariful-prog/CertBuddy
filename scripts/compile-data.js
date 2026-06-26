@@ -125,7 +125,7 @@ function compileChapter(chapterDir, folderName) {
 
 function compilePracticeSection(practiceDir) {
   const practiceExams = [];
-  let finalExam = null;
+  const finalExams = [];
 
   for (const entry of fs.readdirSync(practiceDir)) {
     const sub = path.join(practiceDir, entry);
@@ -147,15 +147,19 @@ function compilePracticeSection(practiceDir) {
         questions: (parsed.questions || []).map(normaliseQuestion),
       };
       if (isFinal) {
-        finalExam = exam;
+        finalExams.push(exam);
       } else {
         practiceExams.push(exam);
       }
     }
   }
 
-  practiceExams.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
-  return { practiceExams, finalExam };
+  const byTitle = (a, b) => a.title.localeCompare(b.title, undefined, { numeric: true });
+  practiceExams.sort(byTitle);
+  finalExams.sort(byTitle);
+
+  // `finalExam` (singular) kept for backward compatibility = the first final exam.
+  return { practiceExams, finalExams, finalExam: finalExams[0] || null };
 }
 
 function compileCert(certDir) {
@@ -164,6 +168,7 @@ function compileCert(certDir) {
 
   const domains = [];
   let practiceExams = [];
+  let finalExams = [];
   let finalExam = null;
 
   for (const entry of fs.readdirSync(certDir)) {
@@ -173,6 +178,7 @@ function compileCert(certDir) {
     if (entry === PRACTICE_DIR_NAME) {
       const result = compilePracticeSection(entryPath);
       practiceExams = result.practiceExams;
+      finalExams = result.finalExams;
       finalExam = result.finalExam;
       continue;
     }
@@ -201,6 +207,7 @@ function compileCert(certDir) {
     description: config.description || '',
     domains,
     practiceExams,
+    finalExams,
     finalExam,
   };
 
@@ -214,7 +221,8 @@ function compileCert(certDir) {
     domainCount: domains.length,
     chapterCount,
     practiceCount: practiceExams.length,
-    hasFinalExam: !!finalExam,
+    finalExamCount: finalExams.length,
+    hasFinalExam: finalExams.length > 0,
   };
 
   return { cert, summary };

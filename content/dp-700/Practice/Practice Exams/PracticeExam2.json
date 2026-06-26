@@ -3,250 +3,268 @@
   "questions": [
     {
       "type": "direct",
-      "question": "In Microsoft Fabric, what is the default and only table storage format used for tables in a Lakehouse?",
+      "question": "A lakehouse contains several tables created by Spark notebooks. A teammate claims they can query these tables with T-SQL through the SQL analytics endpoint, run them in DirectLake from Power BI, and read them from a Synapse Databricks cluster without conversion. Which underlying table format makes all of this possible?",
       "options": {
-        "A": "Apache Parquet without a transaction log",
-        "B": "Delta Lake (Parquet data files plus a _delta_log transaction log)",
-        "C": "Apache Iceberg",
-        "D": "Optimized Row Columnar (ORC)"
+        "A": "Delta Lake on top of Parquet",
+        "B": "Apache Iceberg with a metadata catalog",
+        "C": "Optimized Row Columnar (ORC)",
+        "D": "Partitioned Parquet with an external Hive metastore"
       },
-      "answer": "B",
-      "explanation": "Fabric Lakehouse tables are always stored in the open Delta Lake format, which combines Parquet data files with a _delta_log transaction log that provides ACID guarantees, schema enforcement, and time travel. This is what allows the SQL analytics endpoint to query the tables.",
+      "answer": "A",
+      "explanation": "Lakehouse managed tables are stored as Delta Lake, which is Parquet data files plus a _delta_log transaction log; this open format is what every Fabric engine and external Delta reader can consume. Plain partitioned Parquet with an external Hive metastore lacks the transaction log that provides ACID semantics and the table abstraction the SQL endpoint relies on, and Fabric does not store lakehouse tables as Apache Iceberg or ORC.",
       "difficulty": "Easy"
     },
     {
       "type": "direct",
-      "question": "What does the V-Order optimization do for Delta tables in Microsoft Fabric?",
+      "question": "You enable a particular write-time optimization on gold tables. After enabling it, files written by Spark take noticeably longer, but Power BI DirectLake cold-cache queries over those tables get significantly faster. The files remain readable by any standard Parquet reader. Which feature did you enable?",
       "options": {
-        "A": "It enforces referential integrity between Delta tables",
-        "B": "It applies a special sorting, row group distribution, dictionary encoding, and compression to Parquet files to speed up reads under Fabric engines",
-        "C": "It versions the table so older data can be restored",
-        "D": "It removes data files that are no longer referenced by the transaction log"
+        "A": "Adaptive target file size",
+        "B": "V-Order",
+        "C": "Z-Order clustering on the most-filtered column",
+        "D": "Auto compaction",
+        "E": "Optimized write (pre-write bin-packing)"
       },
       "answer": "B",
-      "explanation": "V-Order is a write-time optimization that applies sorting, row group distribution, dictionary encoding, and compression to Parquet files so that Fabric engines (Power BI, SQL endpoint, Spark) read them much faster. It remains fully compliant with the open Parquet format. VACUUM removes unreferenced files; time travel handles restoration.",
+      "explanation": "V-Order applies special sorting, row-group distribution, encoding, and compression at write time, costing extra write effort while staying fully Parquet-compliant; its biggest payoff is DirectLake/columnar read speed. Optimized write (pre-write bin-packing) and auto compaction address the number and size of files, not internal column encoding; Z-Order clustering targets data skipping for filters rather than columnar load speed; and adaptive target file size only tunes file sizing.",
       "difficulty": "Medium"
     },
     {
       "type": "direct",
-      "question": "Which OneLake feature lets you reference data stored in another lakehouse, an ADLS Gen2 account, or Amazon S3 without physically copying the data into your lakehouse?",
+      "question": "A team must let analysts in your lakehouse read curated files that physically live in an Amazon S3 bucket and in another team's lakehouse, with the read always reflecting the current source contents. Which approach meets this with no scheduled refresh and no second copy of the bytes?",
       "options": {
-        "A": "Mirroring",
-        "B": "Shortcuts",
-        "C": "Pipelines Copy activity",
-        "D": "Dataflows Gen2"
-      },
-      "answer": "B",
-      "explanation": "OneLake shortcuts are pointers to data in another location (another OneLake item, ADLS Gen2, Amazon S3, Google Cloud Storage, or Dataverse). The data is accessed in place without duplication, so it stays current at the source. Copy activity, mirroring, and dataflows all physically move or replicate data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which command physically removes data files that are no longer referenced by the Delta transaction log and are older than the retention threshold?",
-      "options": {
-        "A": "OPTIMIZE",
-        "B": "VACUUM",
-        "C": "REORG",
-        "D": "ANALYZE"
-      },
-      "answer": "B",
-      "explanation": "VACUUM deletes data files that are no longer referenced by the Delta log and are older than the retention period (default 7 days). OPTIMIZE compacts small files into larger ones (bin-compaction) but does not delete old files. Note that VACUUM can break time travel to versions older than the retention window.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "In the medallion architecture commonly implemented in a Fabric lakehouse, which statement best describes the gold layer?",
-      "options": {
-        "A": "Raw, unprocessed data ingested as-is from source systems",
-        "B": "Cleansed, conformed, and validated data with enforced schema",
-        "C": "Business-level aggregates and curated, project-specific tables optimized for reporting and analytics",
-        "D": "Temporary staging files deleted after each pipeline run"
+        "A": "A pipeline Copy activity on a tumbling-window trigger",
+        "B": "A Dataflow Gen2 with incremental refresh",
+        "C": "A OneLake shortcut",
+        "D": "Mirroring of the S3 bucket"
       },
       "answer": "C",
-      "explanation": "In the medallion (bronze/silver/gold) pattern, bronze holds raw ingested data, silver holds cleansed and conformed data, and gold holds business-ready, aggregated, curated data optimized for consumption by reports, dashboards, and ML. Gold tables typically feed Power BI semantic models.",
+      "explanation": "A OneLake shortcut is a metadata pointer to S3 (or another OneLake location); reads resolve to the source, so there is no duplicate storage and no refresh job. Mirroring replicates operational databases such as Azure SQL or Cosmos DB into OneLake and does not target arbitrary object-storage folders, while a Dataflow Gen2 with incremental refresh and a pipeline Copy activity both land a physical copy that must be refreshed.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "After many MERGE and DELETE operations, a Delta table's storage footprint keeps growing because superseded data files are still on disk. You need to reclaim that space. Which operation removes data files that the transaction log no longer references and are past the retention threshold?",
+      "options": {
+        "A": "ALTER TABLE ... RECOMPUTE STATISTICS",
+        "B": "OPTIMIZE",
+        "C": "REORG TABLE ... APPLY (PURGE)",
+        "D": "VACUUM"
+      },
+      "answer": "D",
+      "explanation": "VACUUM physically deletes data files that are no longer referenced by the log and older than the retention period (7 days by default), reclaiming storage. OPTIMIZE compacts small files into larger ones but leaves the old files behind for time travel, so it does not by itself reduce footprint; REORG TABLE ... APPLY (PURGE) is a SQL Server-style operation, not the Delta mechanism used here; and RECOMPUTE STATISTICS only updates statistics.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "In a bronze/silver/gold lakehouse, a Power BI semantic model should be built directly on the layer that holds conformed, business-ready aggregates curated for a specific reporting subject area. Which layer is that, and what is true of it?",
+      "options": {
+        "A": "Gold, because it holds curated, aggregated tables shaped for consumption",
+        "B": "Bronze, because it preserves full source fidelity for any report",
+        "C": "A staging layer that is purged after each run, to keep reports lightweight",
+        "D": "Silver, because schema is enforced and data is deduplicated"
+      },
+      "answer": "A",
+      "explanation": "Gold is the consumption layer: curated, often pre-aggregated, project-specific tables that feed semantic models and dashboards. The silver layer is real and useful but holds cleansed/conformed and deduplicated detail rather than the report-shaped aggregates a semantic model is best built on; the bronze layer is raw ingest, not report-ready; and a purged staging layer would not persist any data for reporting.",
       "difficulty": "Easy"
     },
     {
       "type": "direct",
-      "question": "What capability does the Delta Lake transaction log enable when you need to query a table as it existed at a previous point in time or version number?",
+      "question": "An auditor needs to reproduce exactly what a report showed last Tuesday by reading a Delta table as it stood at a specific commit. Which TWO mechanisms let you read that historical snapshot, assuming the relevant version is still within retention?",
       "options": {
-        "A": "Schema evolution",
-        "B": "Time travel",
-        "C": "Z-Ordering",
-        "D": "Column mapping"
+        "A": "Reading the table after running OPTIMIZE to rebuild it",
+        "B": "Querying with VERSION AS OF the commit number",
+        "C": "Querying with TIMESTAMP AS OF a point in time",
+        "D": "Applying column mapping to rename historical columns",
+        "E": "Enabling schema evolution before reading"
+      },
+      "answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "Delta time travel exposes a historical snapshot either by commit version (VERSION AS OF the commit number) or by point in time (TIMESTAMP AS OF), both backed by the versioned transaction log. Enabling schema evolution and applying column mapping change current table metadata rather than retrieving a past state, and reading the table after running OPTIMIZE only re-lays-out current data; it does not address historical reads.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An external (unmanaged) Delta table in your lakehouse points at a folder under Files. A developer worries that dropping it will delete the curated data another team depends on. Compared with a managed table, what actually happens when each is dropped?",
+      "options": {
+        "A": "Dropping either table deletes the data files, so a backup is required first",
+        "B": "Dropping a managed table removes its data in the managed Tables area, while dropping an external table removes only metadata and leaves the data at its path",
+        "C": "Both managed and external tables leave the data files in place; only metadata is removed",
+        "D": "External tables cannot be dropped while a shortcut references their folder"
       },
       "answer": "B",
-      "explanation": "Delta time travel uses the versioned transaction log to query historical snapshots of a table using VERSION AS OF or TIMESTAMP AS OF. This is useful for auditing, reproducing experiments, and rolling back. The history is only available within the retention window (and after VACUUM removes old files, older versions become unavailable).",
+      "explanation": "A managed table's lifecycle owns its files, so dropping it removes both metadata and data; an external table only records a pointer, so dropping it removes metadata while the underlying files persist at its path. The claim that dropping either table deletes the data files is the trap, because the external table actually leaves its data intact; the claim that both tables leave files in place is also wrong because a managed table does delete its data; and external tables can still be dropped even when a shortcut references their folder.",
       "difficulty": "Medium"
     },
     {
       "type": "direct",
-      "question": "When you create a managed (internal) table in a Fabric Lakehouse versus an external table, what is the key difference?",
+      "question": "A developer wants to run UPDATE and DELETE statements with T-SQL and have the changes persist to the underlying tables. They are connected to a Fabric Lakehouse SQL analytics endpoint and the statements fail. What is the correct explanation and remedy?",
       "options": {
-        "A": "Managed tables cannot be queried by the SQL analytics endpoint",
-        "B": "For a managed table Fabric controls both the metadata and the underlying data files in the managed Tables area, while for an external table the data resides at a location you specify and is not deleted when the table is dropped",
-        "C": "External tables must always use Parquet, while managed tables use CSV",
-        "D": "Managed tables do not support Delta format"
+        "A": "The endpoint requires the tables to be V-Ordered before accepting writes",
+        "B": "The SQL analytics endpoint is read-only over Delta tables; use a Fabric Warehouse for read/write T-SQL",
+        "C": "The endpoint needs the Contributor role granted before DML works",
+        "D": "DML works only after running OPTIMIZE to unlock the tables",
+        "E": "The statements must be wrapped in an explicit BEGIN TRANSACTION block"
       },
       "answer": "B",
-      "explanation": "A managed table has its data stored in the lakehouse-managed Tables location, and dropping the table removes both metadata and data. An external (unmanaged) table points to data at a specified path (often in Files or via a shortcut); dropping it removes only the metadata, leaving the data in place. Both can be Delta and both are queryable via the SQL endpoint.",
+      "explanation": "The Lakehouse SQL analytics endpoint is an auto-generated, read-only T-SQL surface; you can SELECT and create views/functions but not run DML. Writable T-SQL belongs to a Fabric Warehouse. Granting the Contributor role changes workspace permissions but does not make the endpoint writable, which is the tempting near-miss; V-Ordering the tables, running OPTIMIZE, and wrapping statements in BEGIN TRANSACTION likewise do not enable DML on a read-only endpoint.",
       "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Streaming micro-batches land millions of tiny files into a bronze table daily, and scans are now slow. The team wants both a one-time cleanup of the existing fragmentation and a setting so future writes stop producing so many small files. Which TWO actions, used together, best address this?",
+      "options": {
+        "A": "Run OPTIMIZE to compact the existing small files",
+        "B": "Lower the VACUUM retention to 0 hours after each batch",
+        "C": "Switch the table to read-through shortcuts instead of writing",
+        "D": "Increase delta.deletedFileRetentionDuration to keep files longer",
+        "E": "Enable the table property delta.autoOptimize.optimizeWrite for future writes"
+      },
+      "answer": [
+        "A",
+        "E"
+      ],
+      "explanation": "OPTIMIZE compacts the files that already exist, and the delta.autoOptimize.optimizeWrite property does pre-write bin-packing so subsequent micro-batches emit fewer, larger files; together they fix both the backlog and the cause. Raising delta.deletedFileRetentionDuration keeps more old files (the opposite of cleanup), lowering VACUUM retention to 0 hours after each batch is unsafe because it can destroy files still needed for in-flight reads and time travel, and switching to read-through shortcuts does not address a table you must keep writing to.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Curated sales data lives in an ADLS Gen2 account owned by another team. Analysts must join it with lakehouse tables, always see the latest source values, and you must not maintain a copy or a refresh schedule. Which option fits, and why is the closest alternative wrong?",
+      "options": {
+        "A": "Mirroring the ADLS Gen2 account",
+        "B": "A Dataflow Gen2 with scheduled refresh",
+        "C": "A nightly Copy activity into a Delta table, because it standardizes the data",
+        "D": "A OneLake shortcut to the ADLS Gen2 path"
+      },
+      "answer": "D",
+      "explanation": "A OneLake shortcut to the ADLS Gen2 path references the data in place, so reads are always current with no copy and no schedule. Mirroring the ADLS Gen2 account is the closest-sounding alternative but mirroring replicates supported operational databases, not arbitrary ADLS folders; a nightly Copy activity into a Delta table and a Dataflow Gen2 with scheduled refresh both create a copy that goes stale between refreshes.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A bad UPDATE corrupted a gold Delta table 30 minutes ago. Several valid commits have happened since, the table is within default retention, and there is no separate backup. You must return the table to its pre-UPDATE state with minimal effort. What should you do?",
+      "options": {
+        "A": "RESTORE TABLE to the version that preceded the bad UPDATE",
+        "B": "Run OPTIMIZE ZORDER BY on the key columns",
+        "C": "Run VACUUM to purge the corrupted files",
+        "D": "Re-run the source ingestion to overwrite the table"
+      },
+      "answer": "A",
+      "explanation": "Because the change is within retention, RESTORE TABLE to the version that preceded the bad UPDATE (backed by time travel) rolls the table back using the transaction log, the least-effort recovery. Running VACUUM to purge files is the dangerous near-miss: it would delete the older files you need and make the rollback impossible; OPTIMIZE ZORDER BY only re-lays-out data without undoing the bad write; and re-running the source ingestion is far more effort and may not reproduce the prior state.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An IoT pipeline uses Spark Structured Streaming to append sensor events to a bronze Delta table. If a node fails mid-stream and the job restarts, the team needs each event written exactly once. Which TWO elements combine to provide that guarantee?",
+      "options": {
+        "A": "Running OPTIMIZE after every micro-batch",
+        "B": "V-Order encoding applied to the streaming sink",
+        "C": "Delta's atomic transactional commits to the _delta_log",
+        "D": "Setting the trigger to availableNow for batch semantics",
+        "E": "A configured checkpoint location that tracks streaming progress"
+      },
+      "answer": [
+        "C",
+        "E"
+      ],
+      "explanation": "A configured checkpoint location records exactly which offsets have been processed, and Delta's atomic _delta_log commits make each micro-batch all-or-nothing; together they yield exactly-once writes across restarts. V-Order encoding on the sink and running OPTIMIZE after every micro-batch affect file layout, not delivery guarantees, and setting the trigger to availableNow changes scheduling rather than providing exactly-once on its own.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A silver table is large and queries almost always filter on a high-cardinality customer_id, yet matching rows are scattered across most files so little file skipping occurs. Which single action most improves pruning for these filters?",
+      "options": {
+        "A": "Increase the VACUUM retention period",
+        "B": "OPTIMIZE the table with ZORDER BY (customer_id)",
+        "C": "Partition the table by customer_id",
+        "D": "Enable auto compaction on the table"
+      },
+      "answer": "B",
+      "explanation": "OPTIMIZE with ZORDER BY (customer_id) co-locates rows with similar customer_id into the same files and refreshes statistics, so the engine can skip files that cannot match the filter. Partitioning the table by the high-cardinality customer_id is the trap: it would create a huge number of tiny partitions and hurt performance, while enabling auto compaction and increasing the VACUUM retention period do not reorganize data for skipping.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Governance requires that a bronze table support time travel for at least 30 days. The team knows OPTIMIZE and VACUUM run on a schedule. Which configuration ensures the 30-day window survives, and which setting is the distractor people pick?",
+      "options": {
+        "A": "Set spark.databricks.delta.retentionDurationCheck.enabled to false",
+        "B": "Set delta.logRetentionDuration to 30 days; the data files are kept automatically",
+        "C": "Set delta.deletedFileRetentionDuration to at least 30 days and avoid VACUUM with a shorter retention",
+        "D": "Schedule OPTIMIZE daily so more versions accumulate"
+      },
+      "answer": "C",
+      "explanation": "Time travel depends on the underlying data files still existing, which is governed by setting delta.deletedFileRetentionDuration to at least 30 days plus not running VACUUM with a shorter window. Setting delta.logRetentionDuration to 30 days is the classic distractor: it controls how long log/history entries are kept, but if VACUUM has already removed the data files, the history alone cannot reconstruct the snapshot. Disabling retentionDurationCheck and scheduling daily OPTIMIZE do not preserve the data files either.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A Power BI semantic model reads gold lakehouse tables in DirectLake and you want to avoid falling back to DirectQuery while keeping near-import speed. Which TWO table-side practices most help DirectLake load columns efficiently?",
+      "options": {
+        "A": "Enable V-Order on the gold tables",
+        "B": "Define row-level security at the SQL analytics endpoint",
+        "C": "Store the gold tables as many small files to raise parallelism",
+        "D": "Convert the gold tables to views over bronze",
+        "E": "Keep the tables well-compacted with OPTIMIZE"
+      },
+      "answer": [
+        "A",
+        "E"
+      ],
+      "explanation": "Enabling V-Order produces column encoding the DirectLake engine loads quickly, and keeping the tables well-compacted with OPTIMIZE keeps file counts low so column segments load without overhead; both reduce the chance of DirectQuery fallback. Defining row-level security at the SQL analytics endpoint actually forces DirectLake to fall back to DirectQuery, storing the gold tables as many small files degrades load performance, and converting the gold tables to views over bronze prevents DirectLake from reading them as tables.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "In a Fabric notebook you run:\n\n```python\ndf = (spark.read.format(\"delta\")\n        .option(\"versionAsOf\", 3)\n        .load(\"Tables/sales\"))\nprint(df.count())\n```\n\nThe table currently has many more commits than version 3. What does this print?",
+      "options": {
+        "A": "Only the rows inserted in the commit that produced version 3",
+        "B": "A runtime error, because versionAsOf must be combined with timestampAsOf",
+        "C": "The current total row count of sales",
+        "D": "The row count of sales as it existed at commit version 3"
+      },
+      "answer": "D",
+      "explanation": "versionAsOf performs a time-travel read of the full table snapshot at the given commit, so count() returns the row count of sales as it existed at commit version 3, not the current total. The cumulative-snapshot semantics are the key point: versionAsOf returns the entire table state at that version, so the answer that counts only the rows inserted in the commit that produced version 3 is the subtle trap, as is the option claiming the current total row count.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "Consider this query in a Fabric Warehouse, where amount is nullable:\n\n```sql\nSELECT customer_id, COUNT(*) AS rows_cnt, COUNT(amount) AS paid_cnt\nFROM sales\nGROUP BY customer_id\nHAVING COUNT(amount) >= 3;\n```\n\nWhich customers are returned?",
+      "options": {
+        "A": "Customers with at least 3 rows where amount is not NULL",
+        "B": "Customers whose summed amount is at least 3",
+        "C": "All customers, because HAVING cannot reference an aggregate not in WHERE",
+        "D": "Customers with at least 3 rows total, regardless of NULL amounts"
+      },
+      "answer": "A",
+      "explanation": "COUNT(amount) counts only non-NULL values of amount, so HAVING COUNT(amount) >= 3 returns customers with at least 3 rows where amount is not NULL. The option claiming at least 3 rows total regardless of NULL amounts is the trap: it confuses COUNT(*) (which counts every row including NULL amounts) with COUNT(amount), and the two differ exactly when amount is NULL. The summed-amount and the HAVING-can't-reference-an-aggregate options are simply incorrect readings of the query.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A daily job upserts changes into a silver table:\n\n```python\nfrom delta.tables import DeltaTable\ntarget = DeltaTable.forPath(spark, \"Tables/customer\")\n(target.alias(\"t\")\n  .merge(updates.alias(\"s\"), \"t.id = s.id\")\n  .whenMatchedUpdateAll()\n  .whenNotMatchedInsertAll()\n  .whenNotMatchedBySourceDelete()\n  .execute())\n```\n\nA target row whose id is absent from today's `updates` batch will be:",
+      "options": {
+        "A": "Updated to NULL values",
+        "B": "Deleted from the target table",
+        "C": "Left unchanged, because only matched rows are touched",
+        "D": "Duplicated into a new row"
+      },
+      "answer": "B",
+      "explanation": "The whenNotMatchedBySourceDelete() clause deletes target rows that have no matching source row, so an id missing from today's batch is deleted from the target table. The option saying the row is left unchanged because only matched rows are touched is the near-miss that holds only for a plain upsert without the by-source clause; adding whenNotMatchedBySourceDelete() changes the semantics so unmatched target rows are deleted rather than preserved, a common cause of accidental data loss. The row is neither set to NULL nor duplicated.",
+      "difficulty": "Hard"
     },
     {
       "type": "direct",
-      "question": "Which statement about the SQL analytics endpoint of a Fabric Lakehouse is correct?",
+      "question": "Your team manages Dev, Test, and Prod workspaces with a Fabric deployment pipeline. After deploying a notebook to Prod, it must automatically attach to the Prod lakehouse rather than the Dev one it was authored against, without editing the notebook. Which capability achieves this?",
       "options": {
-        "A": "It allows full INSERT, UPDATE, and DELETE T-SQL operations directly against the Delta tables",
-        "B": "It provides read-only T-SQL querying over the lakehouse Delta tables and supports creating views and functions",
-        "C": "It requires data to be copied into a separate dedicated SQL pool",
-        "D": "It can only be accessed through Apache Spark"
+        "A": "A Git branch mapped per stage",
+        "B": "A data source deployment rule on the notebook",
+        "C": "A default lakehouse deployment rule on the notebook in the Prod stage",
+        "D": "A parameter rule that overrides the lakehouse id"
       },
-      "answer": "B",
-      "explanation": "The Lakehouse SQL analytics endpoint is an automatically generated, read-only T-SQL interface over the lakehouse Delta tables. You can run SELECT queries, create views, functions, and apply security, but you cannot perform DML such as INSERT/UPDATE/DELETE there. For writable T-SQL you would use a Fabric Warehouse.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A data engineering team ingests millions of small JSON files into the bronze layer each day. After several weeks, queries against the resulting Delta table have become very slow, and they observe thousands of tiny Parquet files. Which action most directly addresses the small-file problem and improves read performance?",
-      "options": {
-        "A": "Run VACUUM with a 0-hour retention to delete old files",
-        "B": "Run OPTIMIZE on the table to compact small files into larger ones (and optionally apply V-Order)",
-        "C": "Drop and recreate the table as a non-Delta CSV table",
-        "D": "Disable the transaction log to reduce overhead"
-      },
-      "answer": "B",
-      "explanation": "The small-file problem is solved by OPTIMIZE (bin-compaction), which rewrites many small Parquet files into fewer larger files, dramatically improving scan efficiency. V-Order can further improve read speed. VACUUM only removes unreferenced files and does not compact; you also cannot disable the Delta log.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "Your company stores curated sales data in an ADLS Gen2 account that is governed by another team. Analysts using your Fabric Lakehouse need to query this data alongside lakehouse tables, the data must always reflect the latest source values, and you must avoid duplicating storage. What should you implement?",
-      "options": {
-        "A": "A scheduled pipeline Copy activity that loads the data nightly into the lakehouse",
-        "B": "A OneLake shortcut from the lakehouse to the ADLS Gen2 location",
-        "C": "A Dataflow Gen2 that imports the data into a new Delta table",
-        "D": "Mirroring the ADLS Gen2 account into the lakehouse"
-      },
-      "answer": "B",
-      "explanation": "A OneLake shortcut references the ADLS Gen2 data in place, so analysts always see the latest source values with no storage duplication and no copy job to maintain. Copy activity and Dataflow Gen2 both duplicate and require scheduled refresh; mirroring applies to databases, not arbitrary ADLS folders.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A team accidentally ran an UPDATE that corrupted values in a gold Delta table 30 minutes ago. The table has default retention and several versions have been committed since. They need to revert the table to the state before the bad UPDATE with minimal effort and without restoring from a separate backup. What is the best approach?",
-      "options": {
-        "A": "Use Delta time travel to read the prior version (VERSION AS OF or TIMESTAMP AS OF) and RESTORE the table to that version",
-        "B": "Run VACUUM to clean up the bad files",
-        "C": "Run OPTIMIZE to rewrite the table correctly",
-        "D": "Recreate the lakehouse from scratch"
-      },
-      "answer": "A",
-      "explanation": "Because the change was recent and within retention, Delta time travel lets you read the pre-UPDATE version and RESTORE TABLE returns the table to that version using the transaction log. VACUUM would actually destroy the history needed to recover; OPTIMIZE only compacts files and does not undo data changes.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "An IoT solution streams sensor events continuously. The engineering team wants to land the data into a bronze Delta table in near real time using Spark Structured Streaming, ensuring no duplicates and exactly-once processing semantics on writes. Which Delta capability primarily enables reliable, exactly-once streaming writes?",
-      "options": {
-        "A": "The checkpoint location combined with Delta's transactional (ACID) commits to the _delta_log",
-        "B": "V-Order encoding on the streaming output",
-        "C": "Setting the table to CSV format for faster appends",
-        "D": "Running VACUUM after each micro-batch"
-      },
-      "answer": "A",
-      "explanation": "Spark Structured Streaming uses a checkpoint location to track progress, and Delta Lake's atomic, transactional commits to the _delta_log ensure each micro-batch is committed exactly once. Together they provide reliable exactly-once write semantics. V-Order, format choice, and VACUUM are unrelated to streaming delivery guarantees.",
+      "answer": "C",
+      "explanation": "Deployment pipelines support a default lakehouse deployment rule specifically for notebooks, which rebinds the notebook's default lakehouse per stage with no code change. Data source deployment rules and parameter rules apply to items like semantic models and dataflows, not to a notebook's default lakehouse, and a Git branch mapped per stage governs source control, not per-stage binding during a pipeline deploy.",
       "difficulty": "Hard"
-    },
-    {
-      "type": "scenario",
-      "question": "A silver-layer Delta table is frequently filtered on a high-cardinality customer_id column in analytical queries, but query performance is poor because relevant data is spread across many files. Which Delta optimization helps co-locate related data so that file/data skipping prunes irrelevant files for these filters?",
-      "options": {
-        "A": "VACUUM",
-        "B": "OPTIMIZE with Z-Order (ZORDER BY customer_id)",
-        "C": "Increasing the VACUUM retention period",
-        "D": "Converting the table to a view"
-      },
-      "answer": "B",
-      "explanation": "OPTIMIZE ... ZORDER BY clusters related values into the same set of files and updates file statistics, enabling data skipping to prune files that cannot match a filter on the Z-Ordered column. This is the standard technique for improving selective queries on high-cardinality columns. VACUUM and retention settings do not affect data layout for skipping.",
-      "difficulty": "Hard"
-    },
-    {
-      "type": "scenario",
-      "question": "A governance team mandates that historical versions of a bronze Delta table be retained for at least 30 days for audit and that time travel work across that window. By default Fabric/Delta tracks logs but VACUUM defaults to a 7-day retention. What configuration change ensures 30-day time travel is preserved?",
-      "options": {
-        "A": "Set the table property delta.deletedFileRetentionDuration (and ensure VACUUM retention) to at least 30 days, and avoid running VACUUM with a shorter retention",
-        "B": "Run OPTIMIZE daily to keep more versions",
-        "C": "Disable the _delta_log",
-        "D": "Convert the table to Parquet without Delta"
-      },
-      "answer": "A",
-      "explanation": "Time travel availability depends on retaining the underlying data files. Setting delta.deletedFileRetentionDuration (file retention) to 30 days and ensuring VACUUM is not run with a shorter retention preserves the files needed for 30-day time travel. delta.logRetentionDuration governs log/history retention. Disabling the log or dropping Delta would eliminate time travel entirely.",
-      "difficulty": "Hard"
-    },
-    {
-      "type": "scenario",
-      "question": "An organization wants Power BI reports to query gold lakehouse tables with the best possible performance using DirectLake mode, avoiding data import while still getting in-memory-like speed. Which factor most improves DirectLake query performance over the lakehouse Delta tables?",
-      "options": {
-        "A": "Storing the gold tables as CSV files",
-        "B": "Ensuring the Delta tables are V-Ordered and well-compacted (via OPTIMIZE) so columns load efficiently into the engine",
-        "C": "Adding more small files to increase parallelism",
-        "D": "Disabling the SQL analytics endpoint"
-      },
-      "answer": "B",
-      "explanation": "DirectLake reads Delta/Parquet directly into the VertiPaq-style engine without import. V-Order plus compaction (OPTIMIZE) produces well-organized, encoded Parquet that loads quickly and avoids fallback to DirectQuery, maximizing performance. Many tiny files and CSV hurt performance; the SQL endpoint is unrelated to DirectLake.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "In a Fabric notebook (PySpark), you run the following against an existing Delta table:\n\ndf = spark.read.format(\"delta\").option(\"versionAsOf\", 3).load(\"Tables/sales\")\ndf.count()\n\nWhat does this code return?",
-      "options": {
-        "A": "The current row count of the sales table",
-        "B": "The row count of the sales table as it existed at Delta version 3 (a time-travel read)",
-        "C": "An error, because versionAsOf is not a valid option",
-        "D": "Only rows changed in version 3"
-      },
-      "answer": "B",
-      "explanation": "The versionAsOf option performs a Delta time-travel read, returning the table snapshot as of the specified commit version (version 3). count() then returns the number of rows in that historical snapshot, not the current state and not just the delta of changes. versionAsOf is a valid Delta read option.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "You execute the following T-SQL in a Fabric Warehouse:\n\nSELECT customer_id, SUM(amount) AS total\nFROM sales\nGROUP BY customer_id\nHAVING SUM(amount) > 1000\nORDER BY total DESC;\n\nWhich customers appear in the result?",
-      "options": {
-        "A": "All customers, with their total amount",
-        "B": "Only customers whose summed amount across all their rows exceeds 1000, ordered from highest to lowest total",
-        "C": "Only customers who have a single row with amount > 1000",
-        "D": "Customers ordered ascending by total"
-      },
-      "answer": "B",
-      "explanation": "HAVING filters on the aggregated SUM(amount) per customer_id group, so only customers whose total exceeds 1000 are returned. WHERE filters individual rows; HAVING filters groups. ORDER BY total DESC sorts the qualifying customers from highest to lowest total.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "coding",
-      "question": "A Spark job uses the Delta MERGE pattern to upsert daily changes into a silver table:\n\nfrom delta.tables import DeltaTable\ntarget = DeltaTable.forPath(spark, \"Tables/customer\")\n(target.alias(\"t\")\n  .merge(updates.alias(\"s\"), \"t.id = s.id\")\n  .whenMatchedUpdateAll()\n  .whenNotMatchedInsertAll()\n  .execute())\n\nWhat is the effect of this MERGE?",
-      "options": {
-        "A": "It deletes all rows in target that are not in updates",
-        "B": "For each source row, if a matching id exists in target it updates all columns; if no match exists it inserts the row (an upsert)",
-        "C": "It only inserts new rows and ignores existing matches",
-        "D": "It appends all source rows, creating duplicates for existing ids"
-      },
-      "answer": "B",
-      "explanation": "This is a classic Delta upsert. whenMatchedUpdateAll() updates all columns of target rows whose id matches a source row, and whenNotMatchedInsertAll() inserts source rows that have no match. There is no whenNotMatchedBySourceDelete clause, so non-matching target rows are left untouched and no duplicates are created.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which Fabric ingestion option lets you replicate an operational database (for example Azure SQL Database or Cosmos DB) into OneLake as near-real-time Delta tables with minimal configuration and no ETL pipelines to build?",
-      "options": {
-        "A": "OneLake shortcuts",
-        "B": "Mirroring",
-        "C": "OPTIMIZE",
-        "D": "The SQL analytics endpoint"
-      },
-      "answer": "B",
-      "explanation": "Mirroring continuously replicates a source operational database (such as Azure SQL Database, Azure Cosmos DB, or Snowflake) into OneLake as Delta tables in near real time, with little configuration and no custom ETL. Shortcuts reference existing storage rather than replicate a database; OPTIMIZE and the SQL endpoint are not ingestion mechanisms.",
-      "difficulty": "Medium"
     }
   ]
 }

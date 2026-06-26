@@ -23,6 +23,13 @@ export default function CertLanding({ cert }) {
     setProgress(loadCertProgress(cert.slug));
   }, [cert.slug]);
 
+  const finalExams =
+    Array.isArray(cert.finalExams) && cert.finalExams.length
+      ? cert.finalExams
+      : cert.finalExam
+      ? [cert.finalExam]
+      : [];
+
   const totalChapters = cert.domains.reduce((a, d) => a + d.chapters.length, 0);
   const completed = progress.completedChapters.length;
   const pct = totalChapters > 0 ? Math.round((completed / totalChapters) * 100) : 0;
@@ -158,29 +165,40 @@ export default function CertLanding({ cert }) {
         </section>
       )}
 
-      {/* ── Final exam ── */}
-      {cert.finalExam && (
+      {/* ── Final exams ── */}
+      {finalExams.length > 0 && (
         <section className="landing-section">
           <div className="section-head section-head-spread">
-            <h2 className="section-head-title">Final exam</h2>
+            <h2 className="section-head-title">
+              {finalExams.length > 1 ? "Final exams" : "Final exam"}
+            </h2>
           </div>
 
-          <Link href={`/exams/${cert.slug}/final`} className="final-banner">
-            <span className="final-icon"><Icon name="flag" size={24} /></span>
-            <span className="final-copy">
-              <span className="final-name">{cert.finalExam.title}</span>
-              <span className="final-desc">
-                {cert.finalExam.questions.length} questions across the full
-                certification. Take it when you&rsquo;re ready to gauge exam readiness.
-              </span>
-            </span>
-            <span className="final-cta">
-              {progress.finalScore !== undefined
-                ? `Best ${progress.finalScore}% · Retake`
-                : "Start"}
-              <Icon name="arrow" size={16} />
-            </span>
-          </Link>
+          <div className="final-list">
+            {finalExams.map((exam) => {
+              const best = progress.finalScores?.[exam.id];
+              return (
+                <Link
+                  key={exam.id}
+                  href={`/exams/${cert.slug}/final/${exam.id}`}
+                  className="final-banner"
+                >
+                  <span className="final-icon"><Icon name="flag" size={24} /></span>
+                  <span className="final-copy">
+                    <span className="final-name">{exam.title}</span>
+                    <span className="final-desc">
+                      {exam.questions.length} questions across the full
+                      certification. Take it when you&rsquo;re ready to gauge exam readiness.
+                    </span>
+                  </span>
+                  <span className="final-cta">
+                    {best !== undefined ? `Best ${best}% · Retake` : "Start"}
+                    <Icon name="arrow" size={16} />
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </section>
       )}
     </main>

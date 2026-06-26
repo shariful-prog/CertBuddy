@@ -38,3 +38,14 @@ export function findChapter(cert, chapterId) {
 export function findPracticeExam(cert, examId) {
   return cert.practiceExams.find((e) => e.id === examId) || null;
 }
+
+/** All final exams for a cert (back-compatible if only `finalExam` exists). */
+export function getFinalExams(cert) {
+  if (Array.isArray(cert.finalExams) && cert.finalExams.length) return cert.finalExams;
+  return cert.finalExam ? [cert.finalExam] : [];
+}
+
+/** Locate a final exam by id. */
+export function findFinalExam(cert, examId) {
+  return getFinalExams(cert).find((e) => e.id === examId) || null;
+}

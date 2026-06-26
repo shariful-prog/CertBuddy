@@ -56,7 +56,7 @@ export default function CertCatalog({ certifications }) {
 
   const totalChapters = certifications.reduce((a, c) => a + c.chapterCount, 0);
   const totalExams = certifications.reduce(
-    (a, c) => a + c.practiceCount + (c.hasFinalExam ? 1 : 0),
+    (a, c) => a + c.practiceCount + (c.finalExamCount ?? (c.hasFinalExam ? 1 : 0)),
     0
   );
 

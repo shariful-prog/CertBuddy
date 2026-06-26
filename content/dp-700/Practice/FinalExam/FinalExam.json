@@ -3,380 +3,423 @@
   "questions": [
     {
       "type": "direct",
-      "question": "In a Microsoft Fabric workspace, which workspace role provides the minimum permissions required to create and write data into items such as lakehouses and warehouses, but does NOT allow sharing the workspace or managing access for other users?",
+      "question": "You need to grant a teammate the lowest workspace role that still lets them onboard additional collaborators into the Viewer and Contributor roles for that workspace, without giving them the ability to delete the workspace or add other admins. Which role do you assign?",
       "options": {
-        "A": "Viewer",
-        "B": "Contributor",
-        "C": "Member",
-        "D": "Admin"
-      },
-      "answer": "B",
-      "explanation": "The Contributor role can create, edit, and delete most items and write data, but cannot add/remove other users or share the workspace. Member can add others (with lower roles) and Admin has full control, while Viewer is read-only.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A data engineering team stores raw CSV files in an Azure Data Lake Storage Gen2 account that is governed by another department. They want this data to appear inside a Fabric lakehouse and be queryable via the SQL analytics endpoint WITHOUT copying or duplicating the files into OneLake. What should they implement?",
-      "options": {
-        "A": "A Dataflow Gen2 that copies the files into a Delta table",
-        "B": "A OneLake shortcut pointing to the ADLS Gen2 location",
-        "C": "A Copy Data activity in a pipeline scheduled hourly",
-        "D": "A mirrored database connection to the storage account"
-      },
-      "answer": "B",
-      "explanation": "A OneLake shortcut references external data (ADLS Gen2, S3, or other OneLake locations) in place without copying it, and the referenced data becomes accessible to lakehouse engines including the SQL analytics endpoint. The other options all physically copy data.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "You run the following T-SQL on a Fabric warehouse to load data into an existing table:\n\nCOPY INTO dbo.Sales\nFROM 'https://account.blob.core.windows.net/data/sales/*.parquet'\nWITH (FILE_TYPE = 'PARQUET', CREDENTIAL = (IDENTITY = 'Managed Identity'));\n\nWhich statement about this operation is correct?",
-      "options": {
-        "A": "COPY INTO requires the target table to be empty before loading",
-        "B": "COPY INTO can ingest multiple Parquet files matching the wildcard in a single high-throughput bulk load",
-        "C": "COPY INTO automatically creates the dbo.Sales table from the file schema",
-        "D": "COPY INTO is only supported for CSV, not Parquet, in a Fabric warehouse"
-      },
-      "answer": "B",
-      "explanation": "COPY INTO is the recommended high-throughput bulk ingestion command in a Fabric warehouse; it supports wildcards to load many files at once and supports PARQUET and CSV. It appends to an existing table (it does not require the table to be empty) and does not create the table automatically.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "An organization uses Fabric Git integration connected to Azure DevOps for a Development workspace, and a deployment pipeline with Dev, Test, and Production stages. A developer commits a change to a notebook in the Development workspace. What is the correct sequence to promote that change to Production?",
-      "options": {
-        "A": "Commit to Git from Dev, then use the deployment pipeline to deploy Dev to Test, then Test to Production",
-        "B": "Directly deploy from Git to Production using a deployment pipeline",
-        "C": "Manually re-create the notebook in the Production workspace",
-        "D": "Use git integration to sync Production directly with the Dev branch"
+        "A": "Member",
+        "B": "Admin",
+        "C": "Contributor",
+        "D": "Viewer"
       },
       "answer": "A",
-      "explanation": "Git integration handles source control for the Development workspace, while deployment pipelines promote content stage-by-stage (Dev -> Test -> Production). You commit/sync changes in Git, then promote through the pipeline stages in order.",
+      "explanation": "Member is the least-privileged role that can add other people to the workspace at Member level or lower, but cannot delete the workspace or add admins. Contributor can create and write items but cannot add any users, so it fails the onboarding requirement; Admin works but is more than the minimum asked for.",
       "difficulty": "Medium"
     },
     {
-      "type": "direct",
-      "question": "Which Delta Lake maintenance command in a Fabric lakehouse compacts many small Parquet files into fewer larger files and, when combined with V-Order, improves read performance for analytical queries?",
-      "options": {
-        "A": "VACUUM",
-        "B": "DESCRIBE HISTORY",
-        "C": "OPTIMIZE",
-        "D": "REFRESH TABLE"
-      },
-      "answer": "C",
-      "explanation": "OPTIMIZE performs bin-compaction of small files into larger ones and can apply V-Order for Power BI/SQL read optimization. VACUUM removes old unreferenced files, DESCRIBE HISTORY shows the transaction log, and REFRESH TABLE updates metadata cache.",
-      "difficulty": "Easy"
-    },
-    {
       "type": "scenario",
-      "question": "A retail company ingests clickstream events from Azure Event Hubs and needs to filter out test events, then route valid events both to a KQL database for real-time analytics and to a lakehouse Delta table for batch reporting. Which Fabric feature best supports defining the source, the filtering transformation, and the two destinations in one place?",
+      "question": "Raw CSV files sit in an Azure Data Lake Storage Gen2 container owned by a partner team. Your lakehouse must expose those files as Delta-compatible tables that the SQL analytics endpoint can read, but your storage bill must not grow and you must not run a recurring job to keep the files in sync. Which approach meets all of these constraints?",
       "options": {
-        "A": "Dataflow Gen2",
-        "B": "Eventstream",
-        "C": "Data pipeline Copy activity",
-        "D": "Spark Structured Streaming notebook only"
+        "A": "A Dataflow Gen2 with a Lakehouse table destination on a daily schedule",
+        "B": "A OneLake shortcut that targets the ADLS Gen2 path",
+        "C": "A mirrored database pointed at the storage account",
+        "D": "A Copy activity in a pipeline triggered when new blobs arrive"
       },
       "answer": "B",
-      "explanation": "Eventstream (Real-Time Intelligence) connects streaming sources like Event Hubs, supports in-stream transformations such as filtering, and can fan out to multiple destinations including a KQL/Eventhouse database and a lakehouse, all in a single low-code editor.",
+      "explanation": "A OneLake shortcut surfaces the partner data inside the lakehouse and exposes it to the SQL analytics endpoint while leaving the bytes in ADLS Gen2, so no extra storage is consumed and nothing must be re-synced. Mirroring is the strongest distractor, but it continuously replicates into OneLake (consuming storage) and targets operational databases, not a flat-file container.",
       "difficulty": "Medium"
     },
     {
       "type": "coding",
-      "question": "In a KQL database, you write the following query against a table named Events:\n\nEvents\n| where Timestamp > ago(1h)\n| summarize Count = count() by bin(Timestamp, 5m), DeviceId\n\nWhat does this query return?",
+      "question": "You run the following against a Fabric warehouse:\n\n```sql\nCOPY INTO dbo.Sales\nFROM 'https://account.blob.core.windows.net/data/sales/*.parquet'\nWITH (FILE_TYPE = 'PARQUET', CREDENTIAL = (IDENTITY = 'Managed Identity'));\n```\n\nThe dbo.Sales table already exists and already contains last quarter's rows. Which statement about the result is correct?",
       "options": {
-        "A": "A single total count of all events in the last hour",
-        "B": "The count of events per DeviceId across the entire table with no time filter",
-        "C": "Counts of events grouped into 5-minute time buckets per DeviceId for the last hour",
-        "D": "The most recent event for each DeviceId in the last hour"
+        "A": "The existing rows are truncated and replaced by the files matching the wildcard",
+        "B": "The statement fails because the column list and ERRORFILE arguments are required",
+        "C": "The matching files are appended to dbo.Sales in a single parallelized bulk load",
+        "D": "The statement fails because COPY INTO cannot target a table that already has data"
       },
       "answer": "C",
-      "explanation": "The where clause limits to the last hour, bin(Timestamp, 5m) buckets the timestamps into 5-minute intervals, and summarize count() by ... groups by both the time bucket and DeviceId, producing per-device counts per 5-minute window.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which feature of a Fabric warehouse lets you hide portions of sensitive column data (for example showing only the last four digits of a credit card) to users without altering the underlying stored data?",
-      "options": {
-        "A": "Row-level security (RLS)",
-        "B": "Column-level security",
-        "C": "Dynamic data masking",
-        "D": "Object-level security"
-      },
-      "answer": "C",
-      "explanation": "Dynamic data masking obfuscates data in query results based on masking rules (default, partial, email, random) without changing the stored values. RLS restricts which rows a user sees, and column-level security restricts access to entire columns.",
+      "explanation": "COPY INTO is an append-style bulk loader: it reads every file matching the wildcard in parallel and adds the rows to the existing table without removing what is already there. It does not truncate or replace the existing rows, and neither a column list nor an ERRORFILE argument is mandatory, so the load succeeds rather than failing.",
       "difficulty": "Medium"
     },
     {
       "type": "scenario",
-      "question": "A team's Spark jobs in a Fabric notebook are running slowly when reading from a large Delta table. They discover the table has accumulated thousands of tiny files from frequent streaming micro-batches. Besides running OPTIMIZE, which configuration helps prevent the small-file problem going forward for streaming writes?",
+      "question": "Your development workspace is connected to an Azure DevOps repo through Git integration, and a three-stage deployment pipeline (Dev, Test, Prod) is configured. A notebook in Dev references a lakehouse; in Prod it must instead point at the production lakehouse. After committing the notebook change, which TWO actions correctly propagate the work to Prod with the right binding?",
       "options": {
-        "A": "Disabling the Delta transaction log",
-        "B": "Enabling optimized write (auto-compaction / optimizeWrite) on the Delta table",
-        "C": "Setting the table to a CSV format instead of Delta",
-        "D": "Running VACUUM with a retention of 0 hours after every write"
+        "A": "Define a deployment rule on the Prod stage that sets the notebook's default lakehouse",
+        "B": "Deploy directly from the Git repo into Prod, bypassing the Test stage",
+        "C": "Promote the content Dev to Test, then Test to Prod through the deployment pipeline",
+        "D": "Add a parameter rule on the notebook so the lakehouse path is rewritten at commit time",
+        "E": "Connect the Prod workspace's Git to the Dev branch so it always mirrors Dev"
       },
-      "answer": "B",
-      "explanation": "Optimized write (and auto-compaction) reduces the number of small files produced during writes by coalescing them, mitigating the small-file problem at write time. Disabling the log breaks Delta, CSV loses Delta benefits, and aggressive VACUUM only removes old files and risks breaking time travel.",
+      "answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "Git integration is the source-control layer; promotion to Prod is done stage-by-stage through the deployment pipeline (promoting Dev to Test, then Test to Prod), and a per-stage deployment rule on the Prod stage is what rebinds the notebook's default lakehouse to the production lakehouse. Deploying straight from Git into Prod and bypassing Test breaks stage progression, a parameter rule does not apply to notebooks (notebooks support a default-lakehouse rule, not a parameter rule), and pointing Prod's Git at the Dev branch defeats stage isolation.",
       "difficulty": "Hard"
     },
     {
-      "type": "scenario",
-      "question": "A governance team must ensure that all new Fabric workspaces are associated with a specific capacity and that sensitive items are protected by Microsoft Purview sensitivity labels. Which combination correctly reflects how Fabric handles these requirements?",
+      "type": "direct",
+      "question": "After heavy streaming ingestion, a lakehouse Delta table is fragmented into thousands of tiny Parquet files and accumulating obsolete files. As scheduled maintenance you want to first consolidate the live data into fewer, larger read-optimized files and then reclaim storage by purging files no longer referenced. Which TWO commands accomplish this maintenance, run in that order?",
       "options": {
-        "A": "Capacity is assigned at the item level; sensitivity labels are applied per workspace",
-        "B": "Capacity is assigned at the workspace level; sensitivity labels are applied per item and can flow downstream",
-        "C": "Both capacity and sensitivity labels are assigned only at the tenant level",
-        "D": "Capacity is assigned per user; sensitivity labels are managed only in Power BI Desktop"
+        "A": "ANALYZE TABLE ... COMPUTE STATISTICS",
+        "B": "OPTIMIZE",
+        "C": "REORG TABLE ... APPLY (PURGE)",
+        "D": "VACUUM"
       },
-      "answer": "B",
-      "explanation": "In Fabric, a capacity is assigned at the workspace level (all items in the workspace use that capacity). Microsoft Purview sensitivity labels are applied to individual items and support downstream inheritance so derived content keeps the label.",
+      "answer": [
+        "B",
+        "D"
+      ],
+      "explanation": "OPTIMIZE first bin-compacts the many small files into larger, V-Order-optimized files for fast reads, and VACUUM then removes the now-unreferenced files to reclaim storage; running VACUUM after OPTIMIZE is the recommended order. REORG TABLE only rewrites files to materialize deletion-vector deletes and does not consolidate the live data, and ANALYZE TABLE merely refreshes statistics rather than touching the physical files.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A retailer ingests clickstream events from Azure Event Hubs into an Eventstream, applies a filter operator to drop test events, and now needs to fan the surviving events out to persistent destinations: one for ad-hoc KQL analysis and one for next-morning batch reports in the lakehouse. Which TWO destinations can the Eventstream route directly to in this scenario?",
+      "options": {
+        "A": "A Fabric warehouse table via T-SQL INSERT",
+        "B": "A Power BI semantic model import table",
+        "C": "An Eventhouse (KQL database)",
+        "D": "A lakehouse",
+        "E": "An on-premises SQL Server table"
+      },
+      "answer": [
+        "C",
+        "D"
+      ],
+      "explanation": "An Eventstream can fan out to multiple destinations, including an Eventhouse/KQL database for real-time KQL analysis and a lakehouse for batch reporting, all from the no-code editor. Eventstream does not write directly into a semantic model import table or run T-SQL INSERTs into a warehouse, and it cannot push to an on-premises SQL Server as a destination.",
       "difficulty": "Medium"
     },
     {
       "type": "coding",
-      "question": "You execute this PySpark code in a Fabric notebook:\n\ndf = spark.read.format('delta').load('Tables/orders')\nresult = df.filter(df.status == 'shipped') \\\n           .groupBy('region') \\\n           .agg({'amount': 'sum'})\nresult.show()\n\nWhat is the output?",
+      "question": "Against a KQL table named Events that has columns Timestamp, DeviceId, and Status, you run:\n\n```kusto\nEvents\n| where Timestamp > ago(1h)\n| summarize arg_max(Timestamp, Status) by DeviceId\n```\n\nWhat does the query return?",
       "options": {
-        "A": "The sum of the amount column for shipped orders, grouped by region",
-        "B": "All rows where status equals 'shipped' with no aggregation",
-        "C": "The count of orders per region regardless of status",
-        "D": "An error because agg requires a column expression, not a dictionary"
+        "A": "For each DeviceId, the earliest Status recorded in the last hour",
+        "B": "A count of events per DeviceId over the last hour",
+        "C": "The single most recent event across all devices in the last hour",
+        "D": "For each DeviceId, the Status from that device's most recent event in the last hour"
       },
-      "answer": "A",
-      "explanation": "The code filters to shipped orders, groups by region, and aggregates the sum of amount. The dictionary form agg({'amount': 'sum'}) is valid PySpark syntax and produces sum(amount) per region.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which Fabric Real-Time Intelligence component lets you define no-code rules that monitor streaming data and trigger actions such as sending an email or starting a pipeline when a condition is met?",
-      "options": {
-        "A": "Real-Time Dashboard",
-        "B": "Activator (Data Activator / Reflex)",
-        "C": "Materialized view",
-        "D": "KQL queryset"
-      },
-      "answer": "B",
-      "explanation": "Activator (Data Activator) monitors data from Eventstreams, KQL queries, or Power BI and triggers actions (email, Teams, pipeline, custom) when defined conditions occur. Dashboards visualize, materialized views pre-aggregate, and querysets store KQL queries.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A data warehouse developer needs to build a star schema. Sales facts arrive in a staging table, and the dimension tables already exist. They want to create a new fact table by transforming and joining staging data with surrogate keys in a single efficient set-based operation. Which T-SQL approach is most appropriate in a Fabric warehouse?",
-      "options": {
-        "A": "A cursor that inserts rows one at a time",
-        "B": "CREATE TABLE AS SELECT (CTAS) joining staging to dimensions",
-        "C": "A Dataflow Gen2 with manual key lookups",
-        "D": "BULK INSERT from a flat file"
-      },
-      "answer": "B",
-      "explanation": "CTAS (CREATE TABLE AS SELECT) creates and populates a new table from a query in one efficient, parallelized set-based operation, ideal for building fact tables with joins to dimensions for surrogate keys. Cursors are slow and row-by-row; the others don't fit the requirement.",
+      "answer": "D",
+      "explanation": "arg_max(Timestamp, Status) returns the Status value from the row with the maximum Timestamp within each DeviceId group, i.e. the latest Status per device in the window. It is not a count (that would be count()), and it is per device rather than a single global row; arg_min would give the earliest.",
       "difficulty": "Medium"
     },
     {
       "type": "scenario",
-      "question": "An analyst reports that a Fabric warehouse query intermittently runs slowly. You need to investigate which queries consumed the most resources and their execution durations over the past several days using built-in T-SQL views. Which schema/views should you query?",
+      "question": "A warehouse table dbo.Customers stores full email addresses. Support staff should see results where the address renders as a masked value such as aXXX@XXXX.com, but the real values must stay intact in storage and be visible to privileged roles. Which feature implements this with the least change to existing queries?",
       "options": {
-        "A": "sys.dm_exec_requests only",
-        "B": "The queryinsights views (e.g., queryinsights.exec_requests_history)",
-        "C": "INFORMATION_SCHEMA.TABLES",
-        "D": "The Capacity Metrics app is the only option; no T-SQL views exist"
+        "A": "Revoking column SELECT permission on the Email column",
+        "B": "A view that applies LEFT() and CONCAT() to the Email column",
+        "C": "Encrypting the Email column at rest",
+        "D": "A row-level security filter predicate on dbo.Customers",
+        "E": "Dynamic data masking on the Email column"
       },
-      "answer": "B",
-      "explanation": "Fabric warehouse exposes the queryinsights schema with views like exec_requests_history, frequently_run_queries, and long_running_queries that surface historical query performance for analysis. The Capacity Metrics app helps at capacity level but isn't the T-SQL view requested.",
+      "answer": "E",
+      "explanation": "Dynamic data masking applies a masking function (the email mask gives aXXX@XXXX.com) at query time for unprivileged users while leaving the stored value unchanged and the existing query text the same. Revoking column permission (a form of column-level security) blocks the column entirely rather than masking it, and a custom view would force every consumer to query the view instead of the table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A streaming pipeline writes to a Delta table every few seconds, producing many small files. You will run OPTIMIZE periodically, but you also want to cut the number of small files created at write time so each micro-batch emits appropriately sized files. Which TWO settings address the small-file problem at write time?",
+      "options": {
+        "A": "Increase delta.deletedFileRetentionDuration to 30 days",
+        "B": "Set delta.logRetentionDuration to a shorter interval",
+        "C": "Enable auto compaction (autoCompact) for the table",
+        "D": "Enable optimized write (optimizeWrite) on the table"
+      },
+      "answer": [
+        "C",
+        "D"
+      ],
+      "explanation": "Optimized write coalesces data within a write so each commit emits fewer, larger files, and auto compaction runs a small compaction after a write to merge tiny files automatically; together they attack the problem at write time. The retention settings only govern how long old files or log entries survive for time travel and have no effect on small-file creation.",
       "difficulty": "Hard"
     },
     {
-      "type": "direct",
-      "question": "In a Fabric lakehouse, what is the key functional difference between the lakehouse's SQL analytics endpoint and a Fabric warehouse?",
+      "type": "scenario",
+      "question": "A governance lead asks how Fabric attaches compute and how Purview sensitivity labels behave once applied. Which statement is accurate?",
       "options": {
-        "A": "The SQL analytics endpoint is read-only (T-SQL queries/views) over Delta tables, while a warehouse supports full read/write T-SQL DML and DDL",
-        "B": "The warehouse cannot be queried with T-SQL",
-        "C": "The SQL analytics endpoint supports INSERT/UPDATE/DELETE but the warehouse does not",
-        "D": "They are identical and interchangeable in all scenarios"
+        "A": "Compute is assigned per user session, and sensitivity labels are managed exclusively in Power BI Desktop",
+        "B": "Compute is assigned per workspace, and a sensitivity label set on an item can propagate to downstream derived items",
+        "C": "Compute is assigned per item, and a sensitivity label set on a report propagates upstream to its sources",
+        "D": "Compute is assigned per workspace, and sensitivity labels can only be set at the tenant level"
       },
-      "answer": "A",
-      "explanation": "The lakehouse SQL analytics endpoint provides read-only T-SQL querying (SELECT, views) over the lakehouse Delta tables. A Fabric warehouse supports full transactional T-SQL including INSERT, UPDATE, DELETE, and DDL such as CREATE TABLE.",
+      "answer": "B",
+      "explanation": "A capacity is bound at the workspace level so every item inherits that compute, and Purview sensitivity labels are applied per item and flow downstream to content derived from a labeled source. Label inheritance moves downstream (toward consumers); it does not propagate upstream to a report's sources, and labels are not confined to Power BI Desktop or set only at the tenant level.",
       "difficulty": "Medium"
     },
     {
-      "type": "scenario",
-      "question": "Consider this T-SQL executed in a Fabric warehouse to set up security:\n\nCREATE FUNCTION dbo.fn_securitypredicate(@Region AS sysname)\nRETURNS TABLE WITH SCHEMABINDING\nAS RETURN SELECT 1 AS result\nWHERE @Region = USER_NAME() OR USER_NAME() = 'manager';\n\nCREATE SECURITY POLICY dbo.RegionFilter\nADD FILTER PREDICATE dbo.fn_securitypredicate(Region) ON dbo.Sales\nWITH (STATE = ON);\n\nWhat does this implement?",
+      "type": "coding",
+      "question": "You run this PySpark in a Fabric notebook against a Delta table that contains the values 'shipped', 'Shipped', and 'pending' in the status column:\n\n```python\ndf = spark.read.format('delta').load('Tables/orders')\nresult = (df.filter(df.status == 'shipped')\n            .groupBy('region')\n            .agg({'amount': 'sum'}))\nresult.show()\n```\n\nWhich statement best describes the output?",
       "options": {
-        "A": "Dynamic data masking on the Region column",
-        "B": "Column-level security hiding the Region column",
-        "C": "Row-level security so users see only rows matching their region (manager sees all)",
-        "D": "A check constraint preventing inserts to other regions"
+        "A": "Sum of amount per region for both 'shipped' and 'Shipped' rows",
+        "B": "An error, because agg requires a Column expression rather than a dict",
+        "C": "Sum of amount per region for rows where status is exactly 'shipped' (case-sensitive)",
+        "D": "Count of rows per region regardless of status"
       },
       "answer": "C",
-      "explanation": "A security policy with a FILTER PREDICATE implements row-level security. The predicate returns rows only when the Region matches the user's name, except for 'manager' who sees all rows. This filters rows transparently on SELECT.",
-      "difficulty": "Hard"
-    },
-    {
-      "type": "scenario",
-      "question": "A pipeline must run a Copy Data activity to ingest data, and only if it succeeds, run a Notebook activity to transform the data; if the Copy fails, it should send a failure notification. How should the activity dependencies (precedence constraints) be configured?",
-      "options": {
-        "A": "Connect Copy to Notebook with 'On Completion', and Copy to notification with 'On Success'",
-        "B": "Connect Copy to Notebook with 'On Success', and Copy to notification with 'On Failure'",
-        "C": "Connect Copy to both with 'On Completion'",
-        "D": "Use a single activity with no dependencies; pipelines run all activities in parallel by default"
-      },
-      "answer": "B",
-      "explanation": "Pipeline activity dependencies define conditional paths. Using the 'On Success' path from Copy to the Notebook ensures the transform runs only after a successful copy, while the 'On Failure' path to the notification runs only when the copy fails.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which statement accurately describes OneLake in Microsoft Fabric?",
-      "options": {
-        "A": "Each workspace gets a separate, isolated data lake that cannot be shared",
-        "B": "It is a single, unified, tenant-wide logical data lake (one OneLake per tenant) where all Fabric data is stored in open Delta/Parquet format",
-        "C": "It only stores Power BI semantic models, not lakehouse data",
-        "D": "It requires data to be stored in a proprietary closed format"
-      },
-      "answer": "B",
-      "explanation": "OneLake is a single, unified logical data lake automatically provisioned with every Fabric tenant (one per tenant). It stores data in open formats (Delta/Parquet) and underpins all Fabric workloads, enabling a single copy of data across items.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A streaming team needs to capture changes from an operational Azure SQL Database into Fabric with near-real-time replication into Delta tables in OneLake, minimizing ETL development and cost, without building custom CDC pipelines. Which Fabric capability is designed for this?",
-      "options": {
-        "A": "Dataflow Gen2 incremental refresh",
-        "B": "Database mirroring in Fabric",
-        "C": "Manual COPY INTO scheduled every minute",
-        "D": "Eventstream with a SQL source"
-      },
-      "answer": "B",
-      "explanation": "Fabric mirroring continuously replicates an operational database (e.g., Azure SQL Database, Cosmos DB, Snowflake) into OneLake as Delta tables in near real time with no ETL and is free of ingestion cost for the replication, eliminating custom CDC pipelines.",
+      "explanation": "Spark string equality is case-sensitive by default, so the filter matches only 'shipped' and excludes 'Shipped'; the result is sum(amount) grouped by region. The dictionary form of agg is valid syntax, and groupBy keeps one row per region rather than collapsing to a single total.",
       "difficulty": "Hard"
     },
     {
       "type": "direct",
-      "question": "In a KQL database you create:\n\n.create materialized-view DailySales on table Sales\n{\n    Sales\n    | summarize TotalAmount = sum(Amount) by bin(Timestamp, 1d)\n}\n\nWhich statement is true about this materialized view?",
+      "question": "You want a no-code object that watches a metric flowing through an Eventstream and, when a threshold is crossed, sends a Teams message and kicks off a pipeline run. Which item provides this?",
       "options": {
-        "A": "It must be manually refreshed after each ingestion",
-        "B": "It incrementally maintains the daily aggregation as new data is ingested, serving fast pre-aggregated results",
-        "C": "It deletes the source Sales table to save space",
-        "D": "Materialized views in KQL cannot use summarize"
+        "A": "A Real-Time Dashboard",
+        "B": "A Real-Time hub subscription",
+        "C": "A KQL materialized view",
+        "D": "An Activator"
       },
-      "answer": "B",
-      "explanation": "KQL materialized views automatically and incrementally maintain an aggregation (here daily summed Amount) as new data lands in the source table, providing fast queries over pre-aggregated data without manual refresh.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "You are implementing a medallion architecture in a lakehouse. Raw ingested files land in bronze, cleansed/conformed data in silver, and business-level aggregates in gold. Which layer is most appropriate for applying deduplication, data type enforcement, and standardization of column names?",
-      "options": {
-        "A": "Bronze",
-        "B": "Silver",
-        "C": "Gold",
-        "D": "None; these should be done before ingestion only"
-      },
-      "answer": "B",
-      "explanation": "In the medallion pattern, bronze keeps raw data as-is for fidelity. The silver layer is where data is cleansed, deduplicated, type-enforced, and standardized/conformed. Gold holds curated, aggregated business-ready datasets.",
+      "answer": "D",
+      "explanation": "Activator monitors data from Eventstreams, KQL queries, or Power BI and fires actions such as Teams or email alerts and pipeline starts when conditions are met, all without code. A dashboard only visualizes, a materialized view pre-aggregates data, and the Real-Time hub is a discovery surface for streams rather than a rule engine.",
       "difficulty": "Easy"
     },
     {
       "type": "scenario",
-      "question": "A Fabric administrator wants to programmatically list all workspaces, create new ones, and assign them to a capacity as part of an automated provisioning process. Which interface should they use?",
+      "question": "In a Fabric warehouse you must build a new FactSales table by joining a staging table to existing dimensions to resolve surrogate keys, in one set-based pass that also defines the new table's structure. Which approach fits best?",
       "options": {
-        "A": "The Fabric REST APIs (and/or Power BI REST APIs)",
-        "B": "Only the Fabric portal UI; no API exists",
-        "C": "T-SQL DDL against the tenant",
-        "D": "KQL control commands"
+        "A": "CREATE TABLE AS SELECT that joins staging to the dimensions",
+        "B": "INSERT INTO an empty, pre-created FactSales from a SELECT with the joins",
+        "C": "A MERGE from staging into a pre-created FactSales",
+        "D": "A Dataflow Gen2 that performs the dimension lookups"
       },
       "answer": "A",
-      "explanation": "The Fabric REST APIs (along with Power BI REST APIs for some operations) allow programmatic management of workspaces, items, and capacity assignment, enabling automated provisioning and CI/CD scenarios.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "You query Delta table history and want to read the table as it existed 3 versions ago in a Fabric notebook. Which PySpark read correctly performs time travel?",
-      "options": {
-        "A": "spark.read.format('delta').option('versionAsOf', 3).load('Tables/orders')",
-        "B": "spark.read.format('delta').option('timeTravel', '3').load('Tables/orders')",
-        "C": "spark.read.format('parquet').option('version', 3).load('Tables/orders')",
-        "D": "spark.sql('SELECT * FROM orders ROLLBACK 3')"
-      },
-      "answer": "A",
-      "explanation": "Delta time travel is performed with the versionAsOf option (or timestampAsOf for a point in time). 'versionAsOf' 3 reads the snapshot at version 3. The parquet format loses Delta history, and the other syntaxes are invalid.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which monitoring tool in Fabric provides a unified, cross-workload view to track the status, duration, and history of runs such as pipeline runs, dataflow refreshes, Spark jobs, and semantic model refreshes?",
-      "options": {
-        "A": "Capacity Metrics app",
-        "B": "Monitoring hub (Monitor)",
-        "C": "Azure Monitor Log Analytics",
-        "D": "SQL Server Profiler"
-      },
-      "answer": "B",
-      "explanation": "The Monitoring hub provides a centralized view across Fabric workloads to monitor activities like pipeline runs, dataflow refreshes, Spark applications, and dataset refreshes, including status, duration, and history. The Capacity Metrics app focuses on capacity consumption.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A data engineer must ingest data from 200 source tables in an on-premises SQL Server into a Fabric lakehouse on a schedule, with connectivity through the firewall. Which combination is required?",
-      "options": {
-        "A": "A Dataflow Gen2 only, no gateway needed for on-premises sources",
-        "B": "A data pipeline (or Dataflow Gen2) using an on-premises data gateway for connectivity",
-        "C": "A OneLake shortcut directly to the on-premises server",
-        "D": "Eventstream with a SQL Server streaming source"
-      },
-      "answer": "B",
-      "explanation": "Connecting to on-premises data sources from Fabric requires an on-premises data gateway. A data pipeline (Copy activity) or Dataflow Gen2 can then use that gateway connection to ingest the tables on a schedule. Shortcuts and Eventstream do not bridge to on-prem SQL in this way.",
+      "explanation": "CTAS both defines and populates the table from a query in a single parallelized operation, which is the canonical Fabric warehouse pattern for building a fact table from joined sources. INSERT...SELECT and MERGE both require the table to already exist, so they are not one-step table creation, and a Dataflow Gen2 is a separate low-code engine rather than the requested set-based T-SQL pass.",
       "difficulty": "Medium"
     },
     {
       "type": "scenario",
-      "question": "During a Spark notebook run, a job processing a large skewed join is taking far too long, with most tasks finishing quickly but a few running extremely long. Which technique most directly addresses this data skew?",
+      "question": "Users report that a Fabric warehouse occasionally slows down. Using only built-in T-SQL, you must identify which historical queries ran longest and which were run most frequently over recent days. Which object set do you query?",
       "options": {
-        "A": "Reducing the number of executor cores to 1",
-        "B": "Enabling Adaptive Query Execution (AQE) skew join handling / salting the skewed keys",
-        "C": "Switching the file format from Delta to CSV",
-        "D": "Disabling V-Order on the source table"
+        "A": "sys.query_store_runtime_stats",
+        "B": "The queryinsights schema views, such as long_running_queries",
+        "C": "INFORMATION_SCHEMA.ROUTINES",
+        "D": "sys.dm_exec_requests joined to sys.dm_exec_sql_text"
       },
       "answer": "B",
-      "explanation": "Data skew in joins causes a few partitions to be much larger. Spark's Adaptive Query Execution can detect and split skewed partitions, and salting skewed keys redistributes them. The other options don't address skew and can hurt performance.",
+      "explanation": "The Fabric warehouse exposes the queryinsights schema (long_running_queries, frequently_run_queries, exec_requests_history) specifically for historical query performance analysis in T-SQL. The sys.dm_exec_* DMVs only show currently executing or very recent activity, and Query Store is not the surfaced mechanism in the Fabric warehouse.",
       "difficulty": "Hard"
     },
     {
       "type": "direct",
-      "question": "When you grant a user the Viewer role on a Fabric workspace containing a warehouse, what can that user do by default with the warehouse?",
+      "question": "You connect to a lakehouse's SQL analytics endpoint and to a Fabric warehouse from the same SQL client. Which TWO statements about the difference between them are true?",
       "options": {
-        "A": "Read data via the SQL endpoint (subject to SQL permissions) but not modify items or data",
-        "B": "Create and drop tables in the warehouse",
-        "C": "Delete the warehouse",
-        "D": "Add other users to the workspace"
+        "A": "Only the SQL analytics endpoint accepts T-SQL SELECT statements",
+        "B": "The warehouse supports CREATE TABLE, while the SQL analytics endpoint cannot create base tables",
+        "C": "The SQL analytics endpoint can run stored procedures that modify data, the warehouse cannot",
+        "D": "Only the warehouse can enforce row-level security",
+        "E": "The warehouse supports INSERT/UPDATE/DELETE, while the SQL analytics endpoint cannot modify data"
+      },
+      "answer": [
+        "B",
+        "E"
+      ],
+      "explanation": "The warehouse is a full read/write T-SQL engine, so it supports DDL (CREATE TABLE) and DML (INSERT/UPDATE/DELETE); the lakehouse SQL analytics endpoint is read-only over Delta tables, so it can neither create base tables nor modify data. Both surfaces accept SELECT statements and both can enforce row-level security, so the claims that only the endpoint accepts SELECT, that the endpoint can run data-modifying procedures, and that only the warehouse can enforce row-level security are all false.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A Fabric warehouse has this security setup:\n\n```sql\nCREATE FUNCTION dbo.fn_regionfilter(@Region AS sysname)\nRETURNS TABLE WITH SCHEMABINDING\nAS RETURN SELECT 1 AS allow\nWHERE @Region = USER_NAME() OR USER_NAME() = 'manager';\n\nCREATE SECURITY POLICY dbo.RegionPolicy\nADD FILTER PREDICATE dbo.fn_regionfilter(Region) ON dbo.Sales\nWITH (STATE = ON);\n```\n\nAn analyst whose USER_NAME() returns 'east' runs SELECT COUNT(*) FROM dbo.Sales. What happens?",
+      "options": {
+        "A": "The count includes only rows where Region = 'east'",
+        "B": "The query is blocked with a permission error",
+        "C": "The Region column returns NULL but all rows are counted",
+        "D": "Only the Region column is hidden; the count is unaffected",
+        "E": "The count includes every row in dbo.Sales"
       },
       "answer": "A",
-      "explanation": "The Viewer role grants read access to workspace content; for a warehouse this means the ability to connect and read data (subject to the warehouse's own SQL-level permissions), but not to create/modify/delete items or manage workspace membership.",
+      "explanation": "A FILTER PREDICATE implements row-level security: the predicate returns a row only when Region equals the caller's name (or the caller is 'manager'), so the analyst silently sees and counts only the Region = 'east' rows. RLS filters rows transparently rather than raising a permission error, nulling out the Region column, or hiding only the column while counting every row; the 'manager' user would see all rows, but 'east' does not.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "In a data pipeline, a Copy activity ingests data. A Notebook activity must run only when the Copy succeeds, and a separate alert step must run only when the Copy fails. Which dependency configuration on the Copy activity is correct?",
+      "options": {
+        "A": "Completion path to both the Notebook and the alert",
+        "B": "Completion path to the Notebook; Success path to the alert",
+        "C": "Failure path to the Notebook; Success path to the alert",
+        "D": "Success path to the Notebook; Failure path to the alert"
+      },
+      "answer": "D",
+      "explanation": "Wiring the Notebook on the Copy activity's Success path runs it only after a successful Copy, and wiring the alert on the Failure path runs it only when the Copy fails. A Completion path fires regardless of outcome, so any configuration that uses Completion would launch its downstream step on both success and failure, which violates the requirement; mapping the Notebook to Failure and the alert to Success would also invert the intended behavior.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which statement correctly characterizes OneLake in Microsoft Fabric?",
+      "options": {
+        "A": "It is one logical data lake per tenant, storing data in open Delta/Parquet that all workloads share",
+        "B": "It persists data in a proprietary format that requires export before external tools can read it",
+        "C": "It stores Power BI semantic models but lakehouse and warehouse data live in separate storage",
+        "D": "Each workspace receives an isolated lake that cannot be referenced by other workspaces"
+      },
+      "answer": "A",
+      "explanation": "OneLake is provisioned once per tenant as a single logical lake, holds data in open Delta/Parquet, and underpins every Fabric workload so one copy of data serves many engines. Workspaces are organizational folders within that single lake (not isolated lakes), and lakehouse and warehouse data both live in OneLake.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "An operational Azure SQL Database must be reflected in OneLake as Delta tables in near real time so analysts can query it alongside other Fabric data, with essentially no ETL to build or maintain. Which capability is purpose-built for this?",
+      "options": {
+        "A": "A OneLake shortcut to the Azure SQL Database",
+        "B": "Dataflow Gen2 with incremental refresh on a schedule",
+        "C": "An Eventstream with a database change source",
+        "D": "Fabric mirroring of the Azure SQL Database",
+        "E": "A pipeline running COPY INTO every minute"
+      },
+      "answer": "D",
+      "explanation": "Mirroring continuously replicates a supported operational database (Azure SQL DB, Cosmos DB, Snowflake, and others) into OneLake as Delta tables in near real time with no ETL to author. A shortcut cannot target a transactional SQL database as a Delta source, and scheduled Dataflow/COPY INTO would be custom, latency-bound ETL.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "In a KQL database you define:\n\n```kusto\n.create materialized-view DailySales on table Sales\n{\n    Sales\n    | summarize TotalAmount = sum(Amount) by bin(Timestamp, 1d)\n}\n```\n\nWhich statement about this materialized view is correct?",
+      "options": {
+        "A": "It is recomputed in full on every query against the view",
+        "B": "It physically replaces the Sales table to reclaim storage",
+        "C": "It is maintained incrementally as new rows are ingested into Sales",
+        "D": "It must be refreshed manually after each ingestion batch"
+      },
+      "answer": "C",
+      "explanation": "A KQL materialized view incrementally folds newly ingested source rows into the stored aggregate, so queries read pre-aggregated results without a full recomputation or any manual refresh. It coexists with the source table (it does not replace Sales) and continues to reflect data ingested after creation.",
       "difficulty": "Medium"
     },
     {
       "type": "scenario",
-      "question": "A Real-Time Dashboard tile must show the average temperature per sensor for the last 15 minutes, refreshing automatically. Which KQL query backs the tile correctly?",
+      "question": "You are layering a lakehouse with bronze, silver, and gold zones. Incoming files are preserved untouched in bronze; curated, aggregated subject-area marts live in gold. In which zone do you deduplicate records, enforce data types, and standardize column names?",
+      "options": {
+        "A": "Gold",
+        "B": "A separate staging zone outside the medallion layers",
+        "C": "Bronze",
+        "D": "Silver"
+      },
+      "answer": "D",
+      "explanation": "Silver is the cleansing and conforming layer where deduplication, type enforcement, and column standardization occur, producing a validated single source for downstream marts. Bronze deliberately keeps raw data unaltered for fidelity, and gold holds business-ready aggregates rather than the cleansing step.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "As part of CI/CD, an administrator must script the creation of workspaces, list existing ones, and bind each new workspace to a specific capacity. Which interface supports this automation?",
+      "options": {
+        "A": "The Fabric REST APIs",
+        "B": "T-SQL DDL executed against the tenant",
+        "C": "The semantic-link Python library in a notebook",
+        "D": "KQL management (.create) commands"
+      },
+      "answer": "A",
+      "explanation": "The Fabric REST APIs (with Power BI REST APIs for some operations) expose workspace, item, and capacity-assignment operations for automated provisioning and CI/CD. T-SQL DDL and KQL .create commands operate inside data items, not at the workspace/capacity management layer.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "You want to read a Delta table as it existed at a specific past wall-clock time in a Fabric notebook. Which read is correct?",
+      "options": {
+        "A": "spark.read.format('parquet').option('timestampAsOf', '2025-01-01').load('Tables/orders')",
+        "B": "spark.read.format('delta').option('timestampAsOf', '2025-01-01 00:00:00').load('Tables/orders')",
+        "C": "spark.read.format('delta').option('versionAsOf', '2025-01-01').load('Tables/orders')",
+        "D": "spark.read.format('delta').option('asOfTimestamp', '2025-01-01').load('Tables/orders')"
+      },
+      "answer": "B",
+      "explanation": "Point-in-time Delta time travel uses the timestampAsOf option with a timestamp string. versionAsOf expects an integer version number, not a date; asOfTimestamp is not a valid option name; and reading as parquet bypasses the Delta log so time travel is impossible.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "You need one place to see the status, duration, and run history of pipeline runs, dataflow refreshes, Spark applications, and semantic model refreshes across a workspace. Which Fabric experience provides this cross-workload view?",
+      "options": {
+        "A": "The Real-Time hub",
+        "B": "The Capacity Metrics app",
+        "C": "The Monitoring hub",
+        "D": "Azure Monitor Log Analytics"
+      },
+      "answer": "C",
+      "explanation": "The Monitoring hub aggregates run status, duration, and history across Fabric item types (pipelines, dataflows, Spark jobs, dataset refreshes). The Capacity Metrics app reports capacity-unit consumption rather than per-run activity, and the Real-Time hub is for discovering streaming sources.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "Tables in an on-premises SQL Server behind a corporate firewall must be ingested into a Fabric lakehouse on a nightly schedule. You have already installed and registered an on-premises data gateway. Which TWO Fabric items can use that gateway connection to read the on-premises source?",
+      "options": {
+        "A": "Database mirroring of the on-premises SQL Server",
+        "B": "A data pipeline Copy activity",
+        "C": "A Dataflow Gen2",
+        "D": "A OneLake shortcut to the SQL Server instance",
+        "E": "An Eventstream with the SQL Server as a streaming source"
+      },
+      "answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "Both a data pipeline Copy activity and a Dataflow Gen2 can connect to an on-premises source through an on-premises data gateway connection and run on a schedule. A OneLake shortcut cannot target an on-premises SQL Server, mirroring of on-premises SQL Server is not supported in this way, and Eventstream does not consume an on-premises SQL table as a streaming source through the gateway.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Spark notebook join runs for an hour because one join key dominates the data: most tasks finish in seconds while a handful churn on a giant partition. Which TWO techniques most directly relieve this data skew?",
+      "options": {
+        "A": "Set spark.sql.shuffle.partitions to 1 so all data lands in one task",
+        "B": "Broadcast the larger of the two tables to every executor",
+        "C": "Rely on Adaptive Query Execution to split the skewed partitions at runtime",
+        "D": "Add a salt column to the skewed key and join on the salted keys",
+        "E": "Persist both DataFrames with .cache() before the join"
+      },
+      "answer": [
+        "C",
+        "D"
+      ],
+      "explanation": "AQE detects and splits oversized skewed partitions at runtime, and salting spreads the hot key across many reducers; both directly target the skew. Broadcasting only helps when the broadcast side is small (the large table is not a candidate), forcing a single shuffle partition makes skew worse, and caching does not change partition balance.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "A user holds the Viewer role on a workspace that contains a warehouse. With no additional item-level grants, what can that user do with the warehouse by default?",
+      "options": {
+        "A": "Create and drop tables in the warehouse",
+        "B": "Add other users to the workspace as Viewers",
+        "C": "Read data through Spark and the OneLake file APIs",
+        "D": "Connect to the SQL endpoint and read data, subject to SQL-level permissions"
+      },
+      "answer": "D",
+      "explanation": "Viewer grants Read and ReadData, which lets the user connect to the SQL/TDS endpoint and read data (still bounded by the warehouse's own SQL permissions). Viewer does not include ReadAll, so reading through Spark or OneLake APIs is not permitted, and Viewer cannot create objects or manage membership.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A Real-Time Dashboard tile must show the average temperature per sensor over the last 15 minutes and refresh automatically. The Telemetry table has columns Timestamp, SensorId, and Temperature. Which KQL backs the tile correctly?",
       "options": {
         "A": "Telemetry | where Timestamp > ago(15m) | summarize avg(Temperature) by SensorId",
-        "B": "Telemetry | take 15 | project Temperature",
-        "C": "Telemetry | summarize avg(Temperature) | where Timestamp > now()",
-        "D": "Telemetry | order by Timestamp | limit 15m"
+        "B": "Telemetry | where Timestamp > ago(15m) | summarize avg(Temperature)",
+        "C": "Telemetry | summarize avg(Temperature) by SensorId | where Timestamp > ago(15m)",
+        "D": "Telemetry | top 15 by Timestamp | summarize avg(Temperature)"
       },
       "answer": "A",
-      "explanation": "Filtering with where Timestamp > ago(15m) limits to the last 15 minutes, and summarize avg(Temperature) by SensorId computes the per-sensor average. The dashboard's auto-refresh re-runs the query. The other queries are syntactically wrong or don't compute the required result.",
+      "explanation": "Filtering first with where Timestamp > ago(15m), then summarize avg(Temperature) by SensorId, yields one average per sensor over the window, and the tile's auto-refresh re-runs it. Summarizing without 'by SensorId' collapses to a single overall average instead of one per sensor, placing the time filter after summarize fails because Timestamp no longer exists in the aggregated result, and using top 15 by Timestamp keeps only 15 rows rather than the full 15-minute window.",
       "difficulty": "Medium"
     },
     {
       "type": "scenario",
-      "question": "An enterprise wants reusable, low-code data transformation logic (joins, merges, column transformations) that outputs to a lakehouse table and can be authored by analysts familiar with Power Query, while still running on Fabric capacity. Which item best fits, and how does it differ from a data pipeline?",
+      "question": "Analysts comfortable with Power Query need to build reusable transformation logic (merges, joins, column shaping) that writes results into a lakehouse table and runs on Fabric capacity. Which item fits, and how does it relate to a data pipeline?",
       "options": {
-        "A": "A data pipeline, because pipelines provide Power Query transformations",
-        "B": "A Dataflow Gen2, which uses Power Query (M) for transformations; a pipeline orchestrates activities and movement but isn't a transformation engine itself",
-        "C": "A KQL queryset, because it supports Power Query",
-        "D": "A notebook, because it is the only way to transform data in Fabric"
+        "A": "A KQL queryset, because it executes Power Query M against lakehouse tables",
+        "B": "A Dataflow Gen2, which transforms with Power Query (M); a pipeline orchestrates and can invoke the dataflow but is not itself the transformation engine",
+        "C": "A notebook, because Power Query transformations only run inside Spark notebooks",
+        "D": "A data pipeline, because pipeline Copy activities expose Power Query transformations"
       },
       "answer": "B",
-      "explanation": "Dataflow Gen2 provides a low-code Power Query (M) experience for transforming data and writing results to destinations like a lakehouse table, ideal for Power Query-savvy analysts. Data pipelines orchestrate and move data and can call dataflows/notebooks, but the transformation logic lives in the dataflow.",
+      "explanation": "Dataflow Gen2 provides the low-code Power Query (M) authoring experience and can write to a lakehouse destination, which matches Power Query-savvy analysts. A data pipeline orchestrates and moves data and can call a dataflow or notebook, but the transformation logic lives in the dataflow, not in the Copy activity.",
       "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An Eventhouse holds 90 days of telemetry (retention/SoftDeletePeriod = 90d). Most queries only touch the last 7 days, and you want to lower cost while keeping the full 90 days queryable. Which policy change achieves this, and what is the binding constraint?",
+      "options": {
+        "A": "Set delta.deletedFileRetentionDuration to 7 days on the Eventhouse tables",
+        "B": "Set the caching policy to 180 days; a longer cache window reduces cold reads",
+        "C": "Set the caching (hot cache) policy to 7 days; the cache period must be less than or equal to the retention period",
+        "D": "Disable the caching policy entirely so all 90 days stay queryable",
+        "E": "Set the retention policy to 7 days; older data then falls out of the hot cache automatically"
+      },
+      "answer": "C",
+      "explanation": "Lowering the hot-cache period to 7 days keeps recent data on premium SSD (fast and cheaper to cache) while the remaining 83 days sit in standard storage but stay queryable; the cache period must be at or below the retention period. Reducing retention to 7 days would delete the older data entirely, and deletedFileRetentionDuration is a Delta property, not an Eventhouse policy.",
+      "difficulty": "Hard"
     }
   ]
 }

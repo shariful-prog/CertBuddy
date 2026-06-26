@@ -2077,6 +2077,7 @@ body:has(.workspace-container) .header-actions {
 .exam-tile:hover .chapter-arrow { transform: translateX(3px); color: var(--color-indigo); }
 
 /* Final banner */
+.final-list { display: flex; flex-direction: column; gap: var(--space-4); }
 .final-banner {
   display: flex;
   align-items: center;

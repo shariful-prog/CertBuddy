@@ -1,0 +1,426 @@
+{
+  "module": "Final Exam 3",
+  "questions": [
+    {
+      "type": "scenario",
+      "question": "A platform team runs all Spark notebooks on the workspace's prehydrated default compute and is happy with sub-10-second session starts. One nightly job processes a much larger dataset and needs 16-vCore worker nodes with autoscale between 4 and 20 nodes, but the team must not slow down session startup for every other notebook. What should they configure?",
+      "options": {
+        "A": "Raise the max nodes and executors on the starter pool so the large job has room to scale",
+        "B": "Create a custom Spark pool sized to Large nodes with autoscale 4-20 and attach it only to the nightly job",
+        "C": "Switch the whole workspace to a single-node configuration so the driver and executor share one VM",
+        "D": "Set spark.dynamicAllocation.maxExecutors to 20 inline in the nightly notebook only"
+      },
+      "answer": "B",
+      "explanation": "A custom Spark pool lets you pick the node size (Large = 16 vCore) and an autoscale range, and attaching it to just the nightly item leaves the fast starter pool as the default for every other notebook. Editing the starter pool changes the shared default for all notebooks rather than isolating the heavy job, a single-node configuration shrinks compute instead of growing it, and an inline maxExecutors only caps executors within whatever pool is already attached and cannot change node size to Large.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "An analyst opens a Power BI report on a Direct Lake on SQL endpoint semantic model. To diagnose performance, they run:\n\n```dax\nEVALUATE TABLETRAITS()\n```\n\nThe FactOrders row shows a non-None value in the [DirectLakeFallbackInfo] column, while every other table shows None. Which configuration on FactOrders most plausibly forces that single table into DirectQuery?",
+      "options": {
+        "A": "The table was framed by the most recent semantic model refresh",
+        "B": "Object-level security is defined on the table inside the semantic model",
+        "C": "Row-level security is enforced on the table at the SQL analytics endpoint",
+        "D": "V-Order compression was disabled when the table was written"
+      },
+      "answer": "C",
+      "explanation": "A table whose SQL analytics endpoint enforces RLS causes that table's queries to fall back to DirectQuery on a Direct Lake on SQL model, which is exactly the per-table fallback shown. A successfully framed table is what keeps a table in Direct Lake mode rather than pushing it out, semantic-model object-level security returns an error rather than a fallback, and disabling V-Order only affects compression efficiency, not the storage mode.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "When defining variables and parameters on a Fabric data pipeline, which statement reflects how the two differ?",
+      "options": {
+        "A": "Parameters can be reassigned mid-run with a Set Variable activity, while variables are fixed at run start",
+        "B": "Variables support Object and Int data types, while parameters are limited to String only",
+        "C": "Both are immutable once the pipeline starts and can only be overridden by a parent pipeline",
+        "D": "Parameters are fixed for the duration of a run, while variables can be changed during the run via a Set Variable activity"
+      },
+      "answer": "D",
+      "explanation": "Pipeline parameters are passed in at the start of a run and cannot change during execution, whereas variables are mutable and the Set Variable activity updates them as the run proceeds. The claim that parameters are reassignable mid-run inverts the truth, variables are restricted to String, Bool, and Array (it is parameters that also allow Int, Float, Object), and neither is wholly immutable for the run since variables can change.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "Telemetry lands in a KQL source table as a single packed dynamic column. You want every newly ingested row automatically parsed into typed columns and written to a curated table, with no scheduled job or external orchestration, and the curated table is allowed to keep a shorter retention than the raw table. Which mechanism fits?",
+      "options": {
+        "A": "A materialized view over the source table that projects the typed columns",
+        "B": "An update policy on the curated table that runs a parsing function over the source table",
+        "C": "A continuous export rule that writes parsed rows to the curated table",
+        "D": "A scheduled .set-or-append command that reshapes the rows each hour",
+        "E": "An ingestion mapping on the source table that splits the packed column"
+      },
+      "answer": "B",
+      "explanation": "An update policy is defined on the destination (curated) table, names the source table and a transformation function, and fires automatically on every ingestion, and the target can have its own retention policy. A materialized view stores an aggregate and does not write reshaped rows into a separate base table, continuous export sends data out of the Eventhouse rather than to a sibling table, a scheduled command is the orchestration the requirement forbids, and an ingestion mapping only maps fields at load time without running a parsing query.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "You load files into a Fabric warehouse and want malformed CSV rows quarantined to storage instead of failing the whole load. Which COPY statement clause set captures rejected rows to a folder?",
+      "options": {
+        "A": "WITH (FILE_TYPE = 'CSV', MAXERRORS = 0)",
+        "B": "WITH (FILE_TYPE = 'CSV', VALIDATION_MODE = 'SKIP')",
+        "C": "WITH (FILE_TYPE = 'CSV', ON_ERROR = 'IGNORE')",
+        "D": "WITH (FILE_TYPE = 'CSV', ERRORFILE = 'https://acct.blob.core.windows.net/load/errors')"
+      },
+      "answer": "D",
+      "explanation": "The ERRORFILE option directs the COPY statement to write rejected CSV rows and their error detail into a _rejectedrows child directory at the given location, allowing the rest of the load to succeed. MAXERRORS = 0 makes the load fail on the first bad row rather than quarantining anything, and VALIDATION_MODE and ON_ERROR are not COPY options in the Fabric warehouse, so they do not redirect rejected rows.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A lakehouse team must let a contractor read only the Files/curated/exports folder of a lakehouse using a Spark notebook, and nothing else in that lakehouse. The contractor must not be a workspace Contributor or higher. Which TWO steps together grant exactly this access?",
+      "options": {
+        "A": "Add the contractor to the workspace Viewer role to scope folder access",
+        "B": "Grant the contractor item-level Read on the lakehouse via sharing",
+        "C": "Create a OneLake security role scoped to Files/curated/exports and assign the contractor",
+        "D": "Share the lakehouse with ReadAll so the default reader role applies",
+        "E": "Grant the contractor Write limited to the curated folder"
+      },
+      "answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "Item-level Read lets the contractor reach the lakehouse without a workspace role, and a OneLake security role scoped to the single folder confines their Spark and OneLake reads to just that folder. The Viewer workspace role grants read across all items rather than one folder, ReadAll exposes every folder through DefaultReader, and Write both exceeds read-only and is broader than the one folder.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "In a Fabric notebook you add a column to an existing managed Delta table whose writer code now produces an extra field:\n\n```python\n(df.write.format('delta')\n   .mode('append')\n   .option('mergeSchema', 'true')\n   .saveAsTable('sales_silver'))\n```\n\nThe new DataFrame has all the table's original columns plus one new column 'channel'. What happens?",
+      "options": {
+        "A": "The append fails because the DataFrame schema no longer matches the table",
+        "B": "The table is overwritten with only the new DataFrame's schema and rows",
+        "C": "Only the original columns are written and 'channel' is silently dropped",
+        "D": "The 'channel' column is added to the table schema and existing rows show null for it"
+      },
+      "answer": "D",
+      "explanation": "With mergeSchema set to true on an append, Delta evolves the table schema by adding the new column, and rows that predate the column read back as null for it. Without mergeSchema the append would fail on the mismatch, but the option is present here; the write is an append rather than an overwrite so existing data is retained, and the new column is persisted rather than dropped.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A daily pipeline copies a partner extract that is occasionally unavailable for a few minutes due to a flaky network path. You want the Copy activity to re-attempt automatically a few times with a delay before the run is considered failed, without wrapping it in custom looping logic. Which TWO activity-policy settings on the Copy activity together provide this behavior?",
+      "options": {
+        "A": "An Until activity around the Copy that loops while the status is Failed",
+        "B": "The retry count, set to a small positive number of re-attempts",
+        "C": "The retry interval, set to a delay in seconds between attempts",
+        "D": "Fault tolerance configured to skip incompatible rows",
+        "E": "The activity timeout, lowered so the run fails faster"
+      },
+      "answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "The activity's retry policy is made up of a retry count (how many re-attempts) and a retry interval (the delay between them), and together they auto-retry a transient failure with no custom orchestration. An Until loop is the custom looping the requirement avoids, fault tolerance skips bad rows inside a successful copy rather than handling an unreachable source, and lowering the timeout makes the activity give up sooner rather than retry.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A Fabric warehouse query is meant to return, per product category, the total revenue for categories whose total exceeds 100000:\n\n```sql\nSELECT category, SUM(revenue) AS total\nFROM dbo.Sales\nWHERE total > 100000\nGROUP BY category;\n```\n\nWhat is the outcome?",
+      "options": {
+        "A": "It returns categories whose summed revenue exceeds 100000",
+        "B": "It returns every category with its total, ignoring the threshold",
+        "C": "It returns rows where individual revenue values exceed 100000, then groups them",
+        "D": "It errors because the alias 'total' cannot be referenced in WHERE"
+      },
+      "answer": "D",
+      "explanation": "WHERE is evaluated before aggregation and cannot reference the SELECT-list alias 'total', so the statement fails; filtering on an aggregate requires HAVING SUM(revenue) > 100000. It does not silently ignore the predicate or apply it to individual rows, because the alias reference itself is invalid at the WHERE stage.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "A workspace is bound to an F64 capacity. During a sustained spike, interactive report queries begin returning errors while background refreshes still complete. Which throttling stage is the capacity most likely in?",
+      "options": {
+        "A": "Interactive delay, where interactive requests are slowed but still served",
+        "B": "Interactive rejection, where interactive requests are refused while background jobs continue",
+        "C": "Background rejection, where scheduled jobs are refused first",
+        "D": "Smoothing, where future capacity is borrowed to absorb the spike"
+      },
+      "answer": "B",
+      "explanation": "Fabric throttling escalates from interactive delay to interactive rejection (where interactive requests are refused) and finally to background rejection; errors on report queries while refreshes still run match interactive rejection. Interactive delay only adds latency rather than returning errors, background rejection would stop the refreshes first, and smoothing spreads bursty usage over time rather than rejecting requests.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A silver Delta table is queried almost exclusively with predicates on order_date spanning whole months, and the table grows by roughly 50 GB per month. The team wants scans to prune irrelevant data efficiently while avoiding an explosion of tiny files. Which physical layout choice is most appropriate?",
+      "options": {
+        "A": "Partition the table by order_id so each order is isolated",
+        "B": "Partition the table by month derived from order_date",
+        "C": "Leave the table unpartitioned and rely solely on OPTIMIZE ZORDER BY order_id",
+        "D": "Partition the table by a hash of customer_id into 200 buckets"
+      },
+      "answer": "B",
+      "explanation": "Partitioning by a month-grain column derived from order_date aligns partitions with the query predicate so the engine prunes whole months, and the coarse grain keeps partition (and file) counts manageable for a 50 GB/month table. Partitioning by order_id or a high-cardinality hash creates an enormous number of tiny partitions, and leaving it unpartitioned forgoes partition pruning even though ZORDER on an unrelated key would not help the date predicate.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "An organization wants every change pushed to Production to go through pull-request review. The Dev workspace is connected to an Azure DevOps repo via Git integration, and Dev, Test, and Prod are wired into one deployment pipeline. Which TWO practices enforce review-gated promotion to Prod?",
+      "options": {
+        "A": "Require commits to flow through a protected branch with PR approval before they reach the Prod-linked branch",
+        "B": "Connect the Prod workspace directly to the main branch so it auto-syncs approved commits",
+        "C": "Promote to Prod only through the deployment pipeline after content is validated in Test",
+        "D": "Grant developers Admin on Prod so they can hotfix without waiting for review",
+        "E": "Disable Git integration on Dev and edit items directly in each stage"
+      },
+      "answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "A protected branch with mandatory PR approval gates what code is allowed to advance, and promoting to Prod only through the deployment pipeline after a Test validation keeps stage isolation while still letting review govern the content. Auto-syncing Prod to a branch bypasses the staged pipeline, granting developers Admin on Prod invites unreviewed hotfixes, and disabling Git removes source control and review entirely.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "coding",
+      "question": "Against a KQL table Logs(Timestamp, Service, Latency) you want the 95th percentile latency per service over the last day. Which query is correct?",
+      "options": {
+        "A": "Logs | where Timestamp > ago(1d) | summarize percentiles(Service, 95) by Latency",
+        "B": "Logs | summarize percentile(Latency, 95) by Service | where Timestamp > ago(1d)",
+        "C": "Logs | where Timestamp > ago(1d) | top 95 by Latency by Service",
+        "D": "Logs | where Timestamp > ago(1d) | summarize percentile(Latency, 95) by Service"
+      },
+      "answer": "D",
+      "explanation": "Filtering to the last day and then summarizing percentile(Latency, 95) by Service yields one 95th-percentile value per service. Swapping the column and grouping arguments computes percentiles of the service name grouped by latency, which is nonsensical; filtering after summarize fails because Timestamp is gone from the aggregated result; and top 95 returns 95 rows rather than a percentile.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "direct",
+      "question": "Which statement accurately describes how a OneLake shortcut behaves compared with mirroring?",
+      "options": {
+        "A": "A shortcut copies the target data into OneLake on a schedule, while mirroring references it in place",
+        "B": "A shortcut references data in its original location without duplicating bytes, while mirroring replicates a source into OneLake as Delta",
+        "C": "Both physically copy data into OneLake but a shortcut compresses it with V-Order",
+        "D": "A shortcut works only for ADLS Gen2, while mirroring works only for S3"
+      },
+      "answer": "B",
+      "explanation": "A shortcut is a pointer that surfaces data from its source location with no byte duplication, whereas mirroring continuously replicates a supported source database into OneLake as Delta tables. Shortcuts do not copy on a schedule, they do not store a compressed second copy, and shortcuts support multiple targets including ADLS Gen2 and S3 rather than being limited to one provider each.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A finance team needs a service principal in an automated release process to provision a new workspace, attach it to a named capacity, and create items inside it, with no human in the loop. Which combination is required?",
+      "options": {
+        "A": "Service principal authentication against the Fabric REST APIs, with the principal granted the necessary tenant and capacity permissions",
+        "B": "A user account with Power BI Pro running interactive PowerShell against the portal",
+        "C": "T-SQL DDL executed by the service principal against the capacity endpoint",
+        "D": "A deployment pipeline that creates the workspace as a side effect of its first deployment"
+      },
+      "answer": "A",
+      "explanation": "The Fabric REST APIs support service principal authentication and expose workspace creation, capacity assignment, and item operations, provided the principal holds the required tenant and capacity permissions. An interactive user account defeats the no-human requirement, there is no T-SQL DDL surface for workspace or capacity management, and a deployment pipeline promotes content between existing stages rather than provisioning a brand-new workspace and binding capacity.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "A bronze Delta table receives many small appends. You run nightly maintenance and want to (1) coalesce small files using multi-dimensional data clustering on the frequently filtered columns region and product, and (2) afterward reclaim space from files older than the default retention. Which TWO commands, in order, do this?",
+      "options": {
+        "A": "OPTIMIZE bronze",
+        "B": "OPTIMIZE bronze ZORDER BY (region, product)",
+        "C": "VACUUM bronze",
+        "D": "REORG TABLE bronze APPLY (PURGE)",
+        "E": "ANALYZE TABLE bronze COMPUTE STATISTICS"
+      },
+      "answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "OPTIMIZE with ZORDER BY (region, product) both compacts small files and co-locates data on the two filtered columns, and a following VACUUM removes files past the retention window to reclaim storage. Plain OPTIMIZE compacts but skips the requested clustering, REORG only materializes deletion-vector deletes, and ANALYZE merely refreshes statistics without touching files.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An Eventstream ingests order events and must persist them to two places without a downstream notebook: an Eventhouse for ad-hoc KQL analysis and a lakehouse for next-day batch reporting. Which TWO destinations can the Eventstream route to directly?",
+      "options": {
+        "A": "A Power BI semantic model import table",
+        "B": "An on-premises SQL Server table",
+        "C": "An Eventhouse (KQL database)",
+        "D": "A warehouse table via T-SQL INSERT",
+        "E": "A lakehouse"
+      },
+      "answer": [
+        "C",
+        "E"
+      ],
+      "explanation": "An Eventstream can fan out to multiple destinations from the no-code editor, including an Eventhouse for real-time KQL and a lakehouse for batch reporting. It does not write directly into a semantic model import table, it cannot push to an on-premises SQL Server, and it does not run T-SQL INSERTs against a warehouse.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "coding",
+      "question": "You want to read a Delta table exactly as it existed at commit version 7 in a Fabric notebook. Which read is correct?",
+      "options": {
+        "A": "spark.read.format('delta').option('versionAsOf', 7).load('Tables/ledger')",
+        "B": "spark.read.format('delta').option('timestampAsOf', 7).load('Tables/ledger')",
+        "C": "spark.read.format('delta').option('versionAsOf', '2025-03-01').load('Tables/ledger')",
+        "D": "spark.read.format('delta').option('asOfVersion', 7).load('Tables/ledger')"
+      },
+      "answer": "A",
+      "explanation": "versionAsOf takes an integer commit version, so passing 7 reads the table at that exact version. timestampAsOf expects a timestamp rather than a version number, passing a date string to versionAsOf is not a valid version, and asOfVersion is not a recognized Delta read option.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "A semantic model on a gold lakehouse runs in Direct Lake on SQL with DirectLakeBehavior left at its default. During development the lead wants any query that cannot be served from Direct Lake to fail loudly so issues surface immediately, rather than silently degrading. What should they set?",
+      "options": {
+        "A": "Leave DirectLakeBehavior at Automatic and monitor the Capacity Metrics app for fallbacks",
+        "B": "Set DirectLakeBehavior to DirectQueryOnly so all queries take the same path",
+        "C": "Disable the SQL analytics endpoint so fallback has nowhere to go",
+        "D": "Set DirectLakeBehavior to DirectLakeOnly so non-conforming queries return an error"
+      },
+      "answer": "D",
+      "explanation": "DirectLakeOnly makes queries that cannot run in Direct Lake fail with an error, which is the intended development signal. Automatic is the default that silently falls back, DirectQueryOnly forces every query to DirectQuery rather than surfacing fallbacks, and disabling the SQL endpoint would break the model rather than expose fallback conditions.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "You assign a teammate the least-privileged workspace role that lets them create and edit lakehouses, notebooks, and pipelines, but they must not be able to add or remove other users. Which role do you assign?",
+      "options": {
+        "A": "Viewer",
+        "B": "Member",
+        "C": "Contributor",
+        "D": "Admin"
+      },
+      "answer": "C",
+      "explanation": "Contributor can create and modify items such as lakehouses, notebooks, and pipelines but cannot manage workspace membership, matching the requirement at the lowest level. Viewer cannot create items, while Member and Admin both add users and therefore exceed the minimum.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "A Fabric warehouse table Orders has a nullable column discount. An analyst runs:\n\n```sql\nSELECT COUNT(*) AS c1, COUNT(discount) AS c2\nFROM dbo.Orders;\n```\n\nThere are 1000 rows; 250 of them have discount IS NULL. What does the query return?",
+      "options": {
+        "A": "c1 = 1000, c2 = 1000",
+        "B": "c1 = 750, c2 = 750",
+        "C": "c1 = 750, c2 = 1000",
+        "D": "c1 = 1000, c2 = 750"
+      },
+      "answer": "D",
+      "explanation": "COUNT(*) counts every row regardless of nulls (1000), while COUNT(discount) counts only non-null values of that column (1000 minus 250 = 750). The two counts are not equal because of the nulls, and COUNT(*) is unaffected by null columns, so neither value drops to 750 for c1.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A pipeline must copy each table named in a Warehouse control table, one per iteration. A Lookup activity returns the list, and a ForEach iterates it. Inside the loop, a variable must accumulate the names of tables that copied successfully. Diagnostics show occasional duplicate and missing entries in that variable. What is the most likely cause?",
+      "options": {
+        "A": "The Lookup returns rows in nondeterministic order, corrupting the variable",
+        "B": "The ForEach runs iterations in parallel and the shared variable is not thread-safe",
+        "C": "Append Variable cannot be used inside a ForEach activity",
+        "D": "The variable was declared as String instead of Array"
+      },
+      "answer": "B",
+      "explanation": "Pipeline variables are scoped at the pipeline level and are not thread-safe, so a parallel ForEach writing to a shared variable produces race conditions like duplicate or missing entries; setting the ForEach to sequential (or avoiding shared mutation) resolves it. Row order would not create duplicates, Append Variable is valid inside a ForEach, and a String-vs-Array mistake would fail the append outright rather than intermittently corrupt it.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "A team must surface, in one place, the run status and durations of pipeline runs, Dataflow Gen2 refreshes, and Spark notebook jobs across a workspace, drilling into individual failed runs. Which Fabric experience do they use?",
+      "options": {
+        "A": "The Capacity Metrics app",
+        "B": "The Real-Time hub",
+        "C": "The OneLake catalog",
+        "D": "The Monitoring hub"
+      },
+      "answer": "D",
+      "explanation": "The Monitoring hub consolidates run status, duration, and history across item types and lets you drill into individual runs. The Capacity Metrics app reports capacity-unit consumption rather than per-run activity, the Real-Time hub discovers streaming sources, and the OneLake catalog is for finding and governing data items.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "coding",
+      "question": "A nightly notebook upserts a micro-batch into a silver Delta table keyed on customer_id, and source rows can include deletes flagged with is_deleted = true. Which MERGE clause removes those flagged rows from the target while still updating others?",
+      "options": {
+        "A": "WHEN MATCHED AND s.is_deleted = true THEN DELETE",
+        "B": "WHEN NOT MATCHED BY SOURCE THEN DELETE",
+        "C": "WHEN MATCHED THEN DELETE WHERE s.is_deleted = true",
+        "D": "WHEN NOT MATCHED AND s.is_deleted = true THEN INSERT"
+      },
+      "answer": "A",
+      "explanation": "A conditional WHEN MATCHED AND s.is_deleted = true THEN DELETE removes only the matched rows flagged for deletion, leaving other matched rows to be updated by a separate matched clause. WHEN NOT MATCHED BY SOURCE deletes targets absent from the source rather than those flagged, the DELETE ... WHERE form is not valid MERGE syntax, and a NOT MATCHED ... INSERT adds rows instead of deleting them.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "direct",
+      "question": "Which Fabric tool shows capacity-unit consumption over time and the interactive-delay, interactive-rejection, and background-rejection throttling charts for a capacity?",
+      "options": {
+        "A": "The Monitoring hub",
+        "B": "Query insights views in the warehouse",
+        "C": "The Microsoft Fabric Capacity Metrics app",
+        "D": "Azure Monitor Log Analytics"
+      },
+      "answer": "C",
+      "explanation": "The Capacity Metrics app is the dedicated surface for capacity-unit usage over time and the throttling (delay and rejection) charts. The Monitoring hub tracks per-item runs rather than capacity consumption, query insights reports warehouse query history, and Azure Monitor is a general telemetry service not tied to Fabric capacity throttling visuals.",
+      "difficulty": "Easy"
+    },
+    {
+      "type": "scenario",
+      "question": "Curated reference data physically lives in an Amazon S3 bucket maintained by another team and is refreshed there continuously. Analysts must join it with lakehouse tables in Fabric, always seeing the latest S3 content, with no ingestion job and no second copy in OneLake. Which approach fits?",
+      "options": {
+        "A": "A scheduled Dataflow Gen2 that pulls the S3 data into a lakehouse table",
+        "B": "Mirroring of the S3 bucket into OneLake as Delta",
+        "C": "A pipeline Copy activity from S3 on a frequent trigger",
+        "D": "An Eventstream with the S3 bucket as a source",
+        "E": "A OneLake shortcut targeting the S3 location"
+      },
+      "answer": "E",
+      "explanation": "A OneLake shortcut can target an S3 location and surface its current contents in the lakehouse with no copy and no ingestion job, so joins always read the latest data. A scheduled Dataflow or Copy creates a second, latency-bound copy, mirroring targets operational databases rather than an S3 object store, and Eventstream consumes streaming sources rather than a flat S3 bucket as a queryable table.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A Spark job that aggregates a wide silver table fails intermittently with executor out-of-memory errors. The Spark UI shows one stage where a single task processes far more data than its peers, and the job reads from a managed Delta table written by frequent small appends. Which TWO actions most directly address the failure?",
+      "options": {
+        "A": "Enable Adaptive Query Execution so skewed partitions are split at runtime",
+        "B": "Set spark.sql.shuffle.partitions to 1 to reduce shuffle overhead",
+        "C": "Salt the skewed join/group key to spread the hot key across tasks",
+        "D": "Increase delta.logRetentionDuration on the source table",
+        "E": "Cache the source DataFrame before the aggregation"
+      },
+      "answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "AQE detects and splits the oversized skewed partition at runtime, and salting redistributes the dominant key across many tasks; both directly relieve the lopsided task causing the out-of-memory error. Collapsing to a single shuffle partition concentrates even more data in one task, log retention governs time travel rather than runtime memory, and caching does not rebalance partitions.",
+      "difficulty": "Hard"
+    },
+    {
+      "type": "scenario",
+      "question": "Compliance requires that support staff querying a Customers table see masked phone numbers, but the stored values must remain intact and the nightly ETL service principal that reads the table must continue to see the real values. With dynamic data masking applied to the phone column, what additional step guarantees the ETL principal reads unmasked data?",
+      "options": {
+        "A": "Grant the ETL principal the UNMASK permission",
+        "B": "Add the ETL principal to a row-level security allow predicate",
+        "C": "Define a separate column-level security grant on the phone column",
+        "D": "Disable dynamic data masking during the ETL window"
+      },
+      "answer": "A",
+      "explanation": "Dynamic data masking masks output for all users without the UNMASK permission, so granting UNMASK to the ETL principal lets it read the real values while support staff still see the mask. Row-level security filters which rows appear rather than unmasking columns, column-level security blocks the column entirely instead of revealing it, and disabling masking during ETL would expose values to everyone during that window.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "An ingestion design loads a 300 GB daily Parquet drop into a Fabric warehouse fact table at maximum throughput, using only T-SQL, with any malformed rows captured to storage rather than aborting the load. Which approach best fits?",
+      "options": {
+        "A": "A Dataflow Gen2 with error-row output enabled writing to the warehouse",
+        "B": "Row-by-row INSERT statements wrapped in TRY/CATCH",
+        "C": "A pipeline Copy activity with fault tolerance to skip rows",
+        "D": "A BULK INSERT with no error handling so the load is fastest",
+        "E": "The COPY statement with a wildcard source and an ERRORFILE location"
+      },
+      "answer": "E",
+      "explanation": "The COPY statement is the highest-throughput T-SQL bulk loader, reads wildcard Parquet sets in parallel, and its ERRORFILE option quarantines rejected rows so the load continues. A Dataflow is a low-code engine rather than T-SQL, row-by-row INSERTs are far slower and not bulk-parallel, a pipeline Copy activity is orchestration rather than the requested T-SQL statement, and a bare BULK INSERT with no error handling would abort on the first malformed row instead of quarantining it.",
+      "difficulty": "Medium"
+    },
+    {
+      "type": "scenario",
+      "question": "A lakehouse Delta table feeds a Direct Lake semantic model and has accumulated thousands of small Parquet files and many row groups from frequent micro-batch writes, causing the model to fall back to DirectQuery on large queries. Which TWO actions reduce the file and row-group counts so the table fits within the Direct Lake guardrails again?",
+      "options": {
+        "A": "Run OPTIMIZE to bin-compact the small files into larger ones",
+        "B": "Increase delta.logRetentionDuration so old commits survive longer",
+        "C": "Run VACUUM to remove files no longer referenced after compaction",
+        "D": "Switch the semantic model's storage mode to Import",
+        "E": "Raise the capacity's Max Memory setting for the model"
+      },
+      "answer": [
+        "A",
+        "C"
+      ],
+      "explanation": "OPTIMIZE compacts the many small files into fewer, larger ones (reducing file and row-group counts), and VACUUM then purges the superseded files so the physical footprint shrinks toward the guardrail limits. Lengthening log retention keeps more history rather than reducing files, switching to Import abandons Direct Lake instead of fixing the table, and raising Max Memory affects paging but does not change file or row-group counts.",
+      "difficulty": "Medium"
+    }
+  ]
+}
