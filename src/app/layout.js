@@ -20,6 +20,15 @@ const inter = Inter({
 export const metadata = {
   title: "CertBuddy - Microsoft Certification Exam Prep",
   description: "Prepare for your DP-700 and other Microsoft Fabric certifications with high-fidelity study guides and interactive practice quizzes.",
+  appleWebApp: {
+    capable: true,
+    title: "CertBuddy",
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport = {
+  themeColor: "#0e7457",
 };
 
 export default function RootLayout({ children }) {

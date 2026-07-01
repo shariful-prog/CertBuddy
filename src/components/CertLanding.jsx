@@ -138,22 +138,44 @@ export default function CertLanding({ cert }) {
           </p>
 
           <div className="exam-grid">
-            {cert.practiceExams.map((exam) => {
+            {cert.practiceExams.map((exam, ei) => {
               const score = progress.practiceScores[exam.id];
+              const attempted = score !== undefined;
+              const passed = attempted && score >= 70;
               return (
                 <Link
                   key={exam.id}
                   href={`/exams/${cert.slug}/practice/${exam.id}`}
-                  className="exam-tile"
+                  className={`exam-tile ${attempted ? "is-attempted" : ""}`}
                 >
-                  <span className="exam-tile-icon"><Icon name="clipboard" size={20} /></span>
+                  <span className="exam-tile-icon">
+                    <Icon name="clipboard" size={20} />
+                    <span className="exam-tile-num">{pad2(ei + 1)}</span>
+                  </span>
                   <span className="exam-tile-body">
                     <span className="exam-tile-name">{exam.title}</span>
-                    <span className="exam-tile-meta">{exam.questions.length} questions</span>
+                    <span className="exam-tile-meta">
+                      <span className="exam-tile-count">{exam.questions.length} questions</span>
+                      <span
+                        className={`exam-tile-status ${
+                          attempted ? (passed ? "pass" : "retry") : "new"
+                        }`}
+                      >
+                        {attempted ? (passed ? "Passed" : "Keep going") : "Not started"}
+                      </span>
+                    </span>
+                    {attempted && (
+                      <span className="exam-tile-bar" aria-hidden="true">
+                        <span
+                          className={`exam-tile-bar-fill ${passed ? "pass" : ""}`}
+                          style={{ width: `${score}%` }}
+                        />
+                      </span>
+                    )}
                   </span>
                   <span className="exam-tile-end">
-                    {score !== undefined ? (
-                      <span className="exam-tile-score">{score}%</span>
+                    {attempted ? (
+                      <span className={`exam-tile-score ${passed ? "pass" : ""}`}>{score}%</span>
                     ) : (
                       <Icon name="arrow" size={16} className="chapter-arrow" />
                     )}
@@ -183,16 +205,17 @@ export default function CertLanding({ cert }) {
                   href={`/exams/${cert.slug}/final/${exam.id}`}
                   className="final-banner"
                 >
-                  <span className="final-icon"><Icon name="flag" size={24} /></span>
+                  <span className="final-icon"><Icon name="flag" size={20} /></span>
                   <span className="final-copy">
                     <span className="final-name">{exam.title}</span>
                     <span className="final-desc">
-                      {exam.questions.length} questions across the full
-                      certification. Take it when you&rsquo;re ready to gauge exam readiness.
+                      {exam.questions.length} questions · full certification
                     </span>
                   </span>
                   <span className="final-cta">
-                    {best !== undefined ? `Best ${best}% · Retake` : "Start"}
+                    <span className="final-cta-label">
+                      {best !== undefined ? `Best ${best}% · Retake` : "Start"}
+                    </span>
                     <Icon name="arrow" size={16} />
                   </span>
                 </Link>
