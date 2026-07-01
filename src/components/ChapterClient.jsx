@@ -40,7 +40,10 @@ export default function ChapterClient({ cert, chapterId, activeChapter }) {
           aria-selected={activeTab === "learn"}
         >
           <Icon name="book-open" size={16} />
-          <span className="study-tab-label">Study guide</span>
+          <span className="study-tab-label">
+            <span className="study-tab-label-full">Study guide</span>
+            <span className="study-tab-label-short">Study</span>
+          </span>
         </button>
         <button
           className={`study-tab ${activeTab === "quiz" ? "active" : ""}`}
@@ -49,7 +52,10 @@ export default function ChapterClient({ cert, chapterId, activeChapter }) {
           aria-selected={activeTab === "quiz"}
         >
           <Icon name="clipboard" size={16} />
-          <span className="study-tab-label">Practice quiz</span>
+          <span className="study-tab-label">
+            <span className="study-tab-label-full">Practice quiz</span>
+            <span className="study-tab-label-short">Quiz</span>
+          </span>
         </button>
       </div>
     );

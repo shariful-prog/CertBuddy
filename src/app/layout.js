@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { HeaderSlotProvider } from "@/components/HeaderSlot";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import ServiceWorkerRegistrar from "@/components/ServiceWorkerRegistrar";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -28,6 +29,8 @@ export const metadata = {
 };
 
 export const viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: "#0e7457",
 };
 
@@ -35,6 +38,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
       <body>
+        <ServiceWorkerRegistrar />
         <HeaderSlotProvider>
           <SiteHeader />
           <div className="app-layout">

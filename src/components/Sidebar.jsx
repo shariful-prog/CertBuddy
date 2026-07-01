@@ -33,12 +33,15 @@ export default function Sidebar({ cert, activeChapterId, completedChapters, high
           <span className="study-sidebar-title">{title}</span>
         </Link>
         <div className="study-sidebar-progress">
+          <div className="study-sidebar-progress-top">
+            <span className="study-sidebar-progress-count">
+              <strong>{completedCount}</strong>
+              <span className="study-sidebar-progress-total">/ {totalChapters} chapters</span>
+            </span>
+            <span className="study-sidebar-progress-pct">{pct}%</span>
+          </div>
           <div className="track" aria-hidden="true">
             <span className="track-fill" style={{ width: `${pct}%` }} />
-          </div>
-          <div className="study-sidebar-progress-meta">
-            <span><strong>{completedCount}</strong> of {totalChapters} done</span>
-            <span>{pct}%</span>
           </div>
         </div>
       </div>
