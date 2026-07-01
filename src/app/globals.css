@@ -103,7 +103,7 @@ html {
 }
 
 body {
-  min-height: 100%;
+  min-height: 100vh;
   background-color: var(--bg-page);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -111,6 +111,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
   overflow-x: hidden;
+  /* Sticky footer: content grows to fill the viewport so the footer
+     always rests at the bottom, even when a page (e.g. the exam start
+     screen or a short question) is shorter than the screen. */
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -282,6 +287,9 @@ body:has(.workspace-container) .header-actions {
   max-width: none;
   margin: 0 auto;
   padding: 0;
+  /* Fill the space between header and footer so the footer stays pinned
+     to the bottom of the viewport on short pages. */
+  flex: 1 0 auto;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -1555,9 +1563,10 @@ body:has(.workspace-container) .header-actions {
   .study-tab .icon { width: 22px; height: 22px; padding: 4px; }
 }
 
-/* Very narrow: tab labels would crowd the logo — keep just the icons,
-   and drop the "CB" badge so the full "CertBuddy" name stays visible */
-@media (max-width: 420px) {
+/* Phones (incl. large ones like iPhone Pro Max at ~430px): tab labels
+   would crowd the logo and truncate "CertBuddy" — keep just the tab
+   icons, and drop the "CB" badge so the full name stays visible. */
+@media (max-width: 480px) {
   .study-tab { padding: 6px; }
   .study-tab-label { display: none; }
   .logo-icon { display: none; }
@@ -2144,6 +2153,10 @@ body:has(.workspace-container) .header-actions {
 /* Hero collapses to single column; art moves below copy */
 @media (max-width: 960px) {
   .primary-nav { display: none; }
+  /* Large phones (e.g. iPhone Pro Max) should get the same compact
+     header as small phones — logo + single pill — not a shrunken
+     desktop header. Drop the ghost "Certifications" button here. */
+  .header-actions .btn-ghost { display: none; }
 }
 
 @media (max-width: 1100px) {
