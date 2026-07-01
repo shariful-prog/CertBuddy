@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What does a data pipeline define?",
-      "options": {
-        "A": "A single SQL query against a warehouse",
-        "B": "A sequence of activities that orchestrate an overall process, usually extracting data from one or more sources and loading it into a destination, often transforming it along the way",
-        "C": "A row-level security rule set",
-        "D": "A Power BI report layout"
-      },
-      "answer": "B",
-      "explanation": "Data pipelines define a sequence of activities that orchestrate an overall process, usually by extracting data from sources and loading it into a destination, often transforming it along the way.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Pipelines in Microsoft Fabric are commonly used to automate which type of process?",
       "options": {
         "A": "Report rendering",
@@ -25,19 +12,6 @@
       },
       "answer": "B",
       "explanation": "Pipelines are commonly used to automate ETL processes that ingest transactional data from operational data stores into an analytical data store, such as a lakehouse, data warehouse, or SQL database.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which existing Azure service shares the same architecture of connected activities as Fabric data pipelines?",
-      "options": {
-        "A": "Azure Data Factory",
-        "B": "Azure Active Directory",
-        "C": "Azure Functions",
-        "D": "Azure Key Vault"
-      },
-      "answer": "A",
-      "explanation": "If you're already familiar with Azure Data Factory, data pipelines in Microsoft Fabric will be immediately familiar; they use the same architecture of connected activities.",
       "difficulty": "Easy"
     },
     {
@@ -55,32 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "What are the two broad categories of activity in a pipeline?",
-      "options": {
-        "A": "Source activities and destination activities",
-        "B": "Data transformation activities and control flow activities",
-        "C": "Manual activities and scheduled activities",
-        "D": "Internal activities and external activities"
-      },
-      "answer": "B",
-      "explanation": "There are two broad categories of activity in a pipeline: data transformation activities and control flow activities.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is described as a data transformation activity?",
-      "options": {
-        "A": "A loop that iterates over a list of files",
-        "B": "A Copy Data activity that extracts data from a source and loads it to a destination",
-        "C": "A conditional branch activity",
-        "D": "A variable assignment activity"
-      },
-      "answer": "B",
-      "explanation": "Data transformation activities encapsulate data transfer operations, including simple Copy Data activities that extract data from a source and load it to a destination.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is the purpose of control flow activities in a pipeline?",
       "options": {
         "A": "To implement loops, conditional branching, or manage variable and parameter values",
@@ -90,19 +38,6 @@
       },
       "answer": "A",
       "explanation": "Control flow activities are used to implement loops, conditional branching, or manage variable and parameter values, enabling complex pipeline logic.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What can the outcome of a particular activity (success, failure, or completion) be used to do?",
-      "options": {
-        "A": "Delete the pipeline",
-        "B": "Direct the flow to the next activity in the sequence",
-        "C": "Change the workspace permissions",
-        "D": "Refresh a Power BI dataset"
-      },
-      "answer": "B",
-      "explanation": "The outcome of a particular activity (success, failure, or completion) can be used to direct the flow to the next activity in the sequence.",
       "difficulty": "Easy"
     },
     {
@@ -120,32 +55,6 @@
     },
     {
       "type": "direct",
-      "question": "What is initiated each time a pipeline is executed?",
-      "options": {
-        "A": "A new workspace",
-        "B": "A data pipeline run, identified by a unique run ID",
-        "C": "A new semantic model",
-        "D": "A new Spark pool"
-      },
-      "answer": "B",
-      "explanation": "Each time a pipeline is executed, a data pipeline run is initiated; you use the unique run ID to review run details.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How can pipeline runs be initiated?",
-      "options": {
-        "A": "Only on a fixed daily schedule",
-        "B": "On-demand in the Fabric user interface or scheduled to start at a specific frequency",
-        "C": "Only through the Fabric admin portal",
-        "D": "Only by an external trigger from Azure"
-      },
-      "answer": "B",
-      "explanation": "Runs can be initiated on-demand in the Fabric user interface or scheduled to start at a specific frequency.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which activity is described as one of the most common uses of a data pipeline?",
       "options": {
         "A": "The Delete data activity",
@@ -159,19 +68,6 @@
     },
     {
       "type": "direct",
-      "question": "When you add a Copy Data activity to a pipeline, what helps you configure the source and destination?",
-      "options": {
-        "A": "A graphical tool that takes you through the steps required to configure the data source and destination for the copy operation",
-        "B": "A mandatory PowerShell script",
-        "C": "A T-SQL stored procedure",
-        "D": "The Spark catalog"
-      },
-      "answer": "A",
-      "explanation": "When you add a Copy Data activity, a graphical tool takes you through the steps required to configure the data source and destination for the copy operation.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "After completing a pipeline, which option lets you check that the configuration is valid before running it?",
       "options": {
         "A": "Debug",
@@ -181,19 +77,6 @@
       },
       "answer": "B",
       "explanation": "When you complete a pipeline, you can use the Validate option to check that the configuration is valid, and then run it interactively or specify a schedule.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Why does Microsoft Fabric include predefined pipeline templates?",
-      "options": {
-        "A": "To prevent custom pipelines from being created",
-        "B": "Because there are many common pipeline scenarios that you can use and customize as required",
-        "C": "To enforce a single pipeline design across all workspaces",
-        "D": "To replace the need for the Copy Data activity"
-      },
-      "answer": "B",
-      "explanation": "Microsoft Fabric includes predefined pipeline templates for many common pipeline scenarios that you can use and customize as required.",
       "difficulty": "Easy"
     },
     {

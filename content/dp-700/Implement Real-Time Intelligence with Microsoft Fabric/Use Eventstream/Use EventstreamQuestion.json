@@ -3,110 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is the primary purpose of Eventstream in Microsoft Fabric Real-Time Intelligence?",
-      "options": {
-        "A": "To capture, transform, and route real-time events without needing to write any code",
-        "B": "To schedule batch ETL jobs that run nightly against a data warehouse",
-        "C": "To author Power BI reports directly from relational databases",
-        "D": "To manage Spark cluster compute for notebook execution"
-      },
-      "answer": "A",
-      "explanation": "Eventstream in Real-Time Intelligence enables you to capture, transform, and route real-time events without writing any code, by setting up sources, destinations, and transformations.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which feature of Eventstream lets you build event data processing logic without writing code?",
-      "options": {
-        "A": "A T-SQL stored procedure editor",
-        "B": "The drag and drop feature on the eventstream canvas",
-        "C": "A PowerShell deployment script",
-        "D": "A YAML pipeline definition file"
-      },
-      "answer": "B",
-      "explanation": "Eventstream provides a drag and drop feature so you can create your event data processing logic on the visual canvas without writing any code.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What are the three main components of an eventstream?",
-      "options": {
-        "A": "Notebooks, pipelines, and dataflows",
-        "B": "Sources, transformations, and destinations",
-        "C": "Triggers, schedules, and alerts",
-        "D": "Lakehouses, warehouses, and semantic models"
-      },
-      "answer": "B",
-      "explanation": "The main components of an eventstream are sources (where data comes from), transformations (filter, summarize, reshape data), and destinations (where data goes).",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In an eventstream, what do 'sources' represent?",
-      "options": {
-        "A": "The locations where transformed event data is stored",
-        "B": "Where your event data comes from",
-        "C": "The visual editor used to design pipelines",
-        "D": "The rules that trigger automated actions"
-      },
-      "answer": "B",
-      "explanation": "Sources are where your event data comes from. You can stream data from Microsoft sources and also ingest data from non-Microsoft platforms.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is a transformation example explicitly available in an eventstream?",
-      "options": {
-        "A": "Trigger",
-        "B": "Schedule",
-        "C": "Group by",
-        "D": "Semantic model refresh"
-      },
-      "answer": "C",
-      "explanation": "Available transformations include SQL code, filter, manage fields, aggregate, group by, expand, and join. Group by is one of them.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which destination lets you query and analyze ingested real-time data using Kusto Query Language (KQL)?",
-      "options": {
-        "A": "Lakehouse",
-        "B": "Custom endpoint",
-        "C": "Eventhouse",
-        "D": "Fabric Activator"
-      },
-      "answer": "C",
-      "explanation": "The Eventhouse destination lets you ingest real-time event data into an Eventhouse, where you can use Kusto Query Language (KQL) to query and analyze the data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "When real-time events are routed to a Lakehouse destination, into what format are they converted before storage?",
-      "options": {
-        "A": "CSV format",
-        "B": "Delta Lake format",
-        "C": "Parquet without transaction logs",
-        "D": "JSON Lines format"
-      },
-      "answer": "B",
-      "explanation": "The Lakehouse destination converts real-time events into Delta Lake format and then stores them in designated lakehouse tables.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which eventstream destination is described as an event detection engine that automatically triggers actions when specific patterns or conditions are detected?",
-      "options": {
-        "A": "Derived stream",
-        "B": "Eventhouse",
-        "C": "Fabric Activator",
-        "D": "Lakehouse"
-      },
-      "answer": "C",
-      "explanation": "Fabric Activator connects real-time event data to an event detection engine that automatically triggers actions, such as notifications or Power Automate workflows, when patterns or thresholds are detected.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is a derived stream in the context of eventstream destinations?",
       "options": {
         "A": "A backup copy of the entire eventstream configuration",
@@ -120,58 +16,6 @@
     },
     {
       "type": "direct",
-      "question": "Which destination would you use to route real-time events to an external system or custom application outside Microsoft Fabric?",
-      "options": {
-        "A": "Eventhouse",
-        "B": "Custom endpoint",
-        "C": "Lakehouse",
-        "D": "Derived stream"
-      },
-      "answer": "B",
-      "explanation": "The custom endpoint destination is useful when you want to direct real-time data to an external system or custom application outside Microsoft Fabric.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is listed as a Microsoft source for an eventstream?",
-      "options": {
-        "A": "Google Cloud Pub/Sub",
-        "B": "Apache Kafka",
-        "C": "Azure Event Hubs",
-        "D": "MQTT"
-      },
-      "answer": "C",
-      "explanation": "Microsoft sources include Azure Event Hubs, Azure IoT Hubs, Azure Service Bus, and Change Data Capture (CDC) feeds. Kafka, Google Cloud Pub/Sub, and MQTT are listed as external sources.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which transformation creates a new row for each value within an array?",
-      "options": {
-        "A": "Union",
-        "B": "Expand",
-        "C": "Join",
-        "D": "Filter"
-      },
-      "answer": "B",
-      "explanation": "The Expand array transformation creates a new row for each value within an array.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does the 'Manage fields' transformation allow you to do?",
-      "options": {
-        "A": "Combine two streams based on a matching condition",
-        "B": "Add, remove, change data type, or rename fields",
-        "C": "Calculate aggregations over fixed time windows only",
-        "D": "Route subsets of data to different destinations based on content"
-      },
-      "answer": "B",
-      "explanation": "The Manage fields transformation lets you add, remove, change data type, or rename fields coming in from an input or another transformation.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which two time window types does the 'Group by' transformation support?",
       "options": {
         "A": "Tumbling windows and sliding windows",
@@ -182,19 +26,6 @@
       "answer": "A",
       "explanation": "The Group by transformation supports various time windows including tumbling windows (fixed intervals) and sliding windows (overlapping intervals).",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Can an eventstream connect to multiple destinations at the same time?",
-      "options": {
-        "A": "No, only one destination is allowed per eventstream",
-        "B": "Yes, you can attach to multiple destinations at the same time without impacting or colliding with each other",
-        "C": "Yes, but only if all destinations are of the same type",
-        "D": "Yes, but each additional destination requires a separate eventstream"
-      },
-      "answer": "B",
-      "explanation": "You can attach to multiple destinations within an eventstream at the same time without impacting or colliding with each other.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",
@@ -471,19 +302,6 @@
     },
     {
       "type": "scenario",
-      "question": "An engineer claims Eventstream requires provisioning and managing compute infrastructure to run the pipeline. Based on the module, how should this be corrected?",
-      "options": {
-        "A": "The claim is correct; you must size a Spark pool first",
-        "B": "You don't need to write any code or manage any infrastructure to use Eventstream",
-        "C": "You must deploy an Azure VM to host the canvas",
-        "D": "You must configure a Kubernetes cluster for transformations"
-      },
-      "answer": "B",
-      "explanation": "With Eventstream you design pipelines on the visual canvas and do not need to write any code or manage any infrastructure.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A monitoring team wants to keep only events where status equals 'error' for downstream alerting. Which transformation and example condition fits?",
       "options": {
         "A": "Aggregate with Average over a window",
@@ -494,19 +312,6 @@
       "answer": "B",
       "explanation": "Filter keeps only events meeting specific conditions, with examples like status = \"error\", temperature > 80, or customer type = \"premium\".",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A premium-customer marketing flow should process only events where customer type = 'premium'. Which transformation directly supports this kind of value-based row selection?",
-      "options": {
-        "A": "Manage fields",
-        "B": "Filter",
-        "C": "Join",
-        "D": "Group by"
-      },
-      "answer": "B",
-      "explanation": "The Filter transformation keeps only events that meet specific conditions, and the module explicitly lists customer type = \"premium\" as an example.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",

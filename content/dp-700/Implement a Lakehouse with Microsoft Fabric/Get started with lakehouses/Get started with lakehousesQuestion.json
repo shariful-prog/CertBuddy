@@ -3,32 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What two architectural approaches does a lakehouse in Microsoft Fabric combine?",
-      "options": {
-        "A": "The flexible storage of a data lake with the analytical capabilities of a data warehouse",
-        "B": "The transactional processing of an OLTP database with a NoSQL document store",
-        "C": "The streaming capabilities of Event Hubs with a relational SQL database",
-        "D": "The in-memory caching of Redis with a columnar data warehouse"
-      },
-      "answer": "A",
-      "explanation": "A lakehouse combines the flexible and scalable storage of a data lake with the ability to query and analyze data like a data warehouse, providing a unified platform for both structured and unstructured data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which two compute engines does a Fabric lakehouse use to process and analyze data at scale?",
-      "options": {
-        "A": "Apache Spark and SQL",
-        "B": "Apache Hadoop MapReduce and Hive",
-        "C": "Azure Stream Analytics and KQL",
-        "D": "Presto and Flink"
-      },
-      "answer": "A",
-      "explanation": "A lakehouse uses Apache Spark and SQL compute engines to process and analyze data at scale, and is built on the OneLake storage layer.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "On which storage layer is a Microsoft Fabric lakehouse built?",
       "options": {
         "A": "OneLake",
@@ -38,45 +12,6 @@
       },
       "answer": "A",
       "explanation": "A lakehouse is built on the OneLake storage layer, which is the unified storage foundation for Microsoft Fabric.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Into which two main areas does a lakehouse organize data?",
-      "options": {
-        "A": "Tables and Files",
-        "B": "Schemas and Views",
-        "C": "Hot and Cold tiers",
-        "D": "Bronze and Silver layers"
-      },
-      "answer": "A",
-      "explanation": "A lakehouse organizes data into two main areas: Tables (Delta Lake tables that provide structured, queryable data) and Files (raw or semi-structured data in native format).",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What format are tables stored in when you create them in a Fabric lakehouse?",
-      "options": {
-        "A": "Delta format",
-        "B": "Avro format",
-        "C": "ORC format",
-        "D": "Plain CSV format"
-      },
-      "answer": "A",
-      "explanation": "When you create a table in a lakehouse, the data is stored in Delta format in the underlying OneLake storage. Each Delta table consists of Parquet data files plus a transaction log.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which Delta Lake feature lets you query previous versions of your data or roll back changes?",
-      "options": {
-        "A": "Time travel",
-        "B": "Schema enforcement",
-        "C": "ACID transactions",
-        "D": "Column-level security"
-      },
-      "answer": "A",
-      "explanation": "Time travel is the Delta Lake feature that maintains a transaction log letting you query previous versions of your data or roll back changes.",
       "difficulty": "Easy"
     },
     {
@@ -94,45 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "In what mode does the SQL analytics endpoint allow you to query Delta tables using T-SQL?",
-      "options": {
-        "A": "Read-only mode",
-        "B": "Read-write mode",
-        "C": "Append-only mode",
-        "D": "Exclusive lock mode"
-      },
-      "answer": "A",
-      "explanation": "The SQL analytics endpoint queries Delta tables using T-SQL in read-only mode. You can create views, functions, and apply SQL security, but you can't modify the underlying data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which no-code ingestion option creates a Delta table from a selected file or folder in the lakehouse explorer?",
-      "options": {
-        "A": "Load to Table",
-        "B": "Dataflows Gen2",
-        "C": "Copy data activity",
-        "D": "spark.sql()"
-      },
-      "answer": "A",
-      "explanation": "Load to Table is a no-code option that lets you select a file or folder in the lakehouse explorer to create a Delta table. It supports Parquet and CSV files and lets you append or overwrite data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is the primary purpose of a shortcut in a Fabric lakehouse?",
-      "options": {
-        "A": "To integrate data into your lakehouse without copying it",
-        "B": "To compress Delta tables to reduce storage costs",
-        "C": "To automatically schedule pipeline runs",
-        "D": "To enforce schema validation on incoming files"
-      },
-      "answer": "A",
-      "explanation": "Shortcuts let you integrate data into your lakehouse without copying it. A shortcut references data in external storage and makes it appear as a folder in your lakehouse, reducing the number of times you have to copy data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which mode does Power BI use by default when building reports on a lakehouse semantic model?",
       "options": {
         "A": "Direct Lake",
@@ -146,45 +42,6 @@
     },
     {
       "type": "direct",
-      "question": "Which two security types does the SQL analytics endpoint support for controlling what specific users see when querying through SQL?",
-      "options": {
-        "A": "Row-level and column-level security",
-        "B": "Disk encryption and TLS",
-        "C": "Network firewalls and private endpoints",
-        "D": "Multi-factor authentication and SSO"
-      },
-      "answer": "A",
-      "explanation": "For granular control, the SQL analytics endpoint supports row-level and column-level security, so you can restrict what specific users see when they query through SQL.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which Fabric ingestion tool uses the Power Query interface to import and transform data?",
-      "options": {
-        "A": "Dataflows Gen2",
-        "B": "Notebooks",
-        "C": "SQL analytics endpoint",
-        "D": "Shortcuts"
-      },
-      "answer": "A",
-      "explanation": "Dataflows Gen2 import and transform data using Power Query, making them suited for users familiar with Power BI or Excel.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which four-part namespace format is used for cross-workspace queries in a schema-enabled lakehouse?",
-      "options": {
-        "A": "workspace.lakehouse.schema.table",
-        "B": "tenant.workspace.lakehouse.table",
-        "C": "lakehouse.schema.table.column",
-        "D": "server.database.schema.table"
-      },
-      "answer": "A",
-      "explanation": "Schema-enabled lakehouses support cross-workspace queries using the four-part namespace workspace.lakehouse.schema.table.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which characteristic correctly describes files stored in the Files folder of a lakehouse?",
       "options": {
         "A": "They don't enforce a schema and support any file format",
@@ -194,19 +51,6 @@
       },
       "answer": "A",
       "explanation": "Files in the Files folder support any file format (CSV, JSON, Parquet, images, documents), provide flexibility for exploration, can be staged before transformation, and don't enforce schema or support direct SQL queries.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "An organization relies on a traditional data warehouse that handles structured transactional data well but struggles with growing volumes of semi-structured and unstructured data from application logs, IoT devices, and external feeds, creating data silos. Which Fabric solution best addresses this challenge?",
-      "options": {
-        "A": "A lakehouse that handles both structured and unstructured data while maintaining strong analytical capabilities",
-        "B": "Adding more capacity to the existing warehouse and ignoring the unstructured sources",
-        "C": "Maintaining separate systems for each data type to preserve silos",
-        "D": "Migrating everything into a single relational OLTP database"
-      },
-      "answer": "A",
-      "explanation": "A lakehouse is the unified solution that handles both structured and unstructured data while maintaining strong analytical capabilities, eliminating the data silos and complex integration efforts caused by separate systems.",
       "difficulty": "Easy"
     },
     {
@@ -328,19 +172,6 @@
     },
     {
       "type": "scenario",
-      "question": "An analyst wants to quickly investigate lakehouse data to answer a one-off business question and validate transformation results after loading, using familiar T-SQL. Which lakehouse capability fits these needs?",
-      "options": {
-        "A": "The SQL analytics endpoint for ad-hoc queries and data validation",
-        "B": "Dataflows Gen2 for Power Query transformations",
-        "C": "Shortcuts to external storage",
-        "D": "A Data Factory pipeline with the Copy data activity"
-      },
-      "answer": "A",
-      "explanation": "Common use cases for the SQL analytics endpoint include ad-hoc queries to investigate data and data validation to verify transformation results after loading or processing data, all using read-only T-SQL.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A business intelligence developer wants reports to always reflect the current lakehouse data with fast query performance, without importing or copying the data. Which approach satisfies this requirement?",
       "options": {
         "A": "Build the report on a lakehouse semantic model that uses Direct Lake mode",
@@ -377,19 +208,6 @@
       "answer": "A",
       "explanation": "ACID transactions ensure data consistency even when multiple users read and write simultaneously, and schema enforcement validates that data written matches the table schema, preventing corrupt data.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A data engineer prefers a no-code experience using the Power Query interface they know from Excel to transform data before loading it into lakehouse tables. Which tool should they choose?",
-      "options": {
-        "A": "Dataflows Gen2",
-        "B": "Spark notebooks with PySpark",
-        "C": "The SQL analytics endpoint",
-        "D": "Schema shortcuts"
-      },
-      "answer": "A",
-      "explanation": "Dataflows Gen2 are suited for users familiar with Power BI or Excel because they use the Power Query interface, making them ideal for users who prefer a no-code transformation experience.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",
@@ -497,19 +315,6 @@
     },
     {
       "type": "scenario",
-      "question": "A data engineer receives a single supported-format Parquet file and needs to quickly create a Delta table from it without writing any code, with the option to overwrite an existing table. Which method is appropriate?",
-      "options": {
-        "A": "Load to Table, which supports Parquet and CSV and allows append or overwrite",
-        "B": "A Spark notebook with the DataFrame API",
-        "C": "A schema shortcut to ADLS Gen2",
-        "D": "A SQL view in the analytics endpoint"
-      },
-      "answer": "A",
-      "explanation": "Load to Table is the no-code option that supports Parquet and CSV files and lets you append or overwrite data in new or existing tables, ideal for quickly creating a Delta table from a supported file.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A BI analyst wants to connect Excel directly to the lakehouse to retrieve data for a report before any semantic model is built. Which connection path does the lakehouse support for this?",
       "options": {
         "A": "Connect to the SQL analytics endpoint for business intelligence connections",
@@ -546,19 +351,6 @@
       "answer": "A",
       "explanation": "Raw IoT and log files land in the Files folder; Spark notebooks transform them into Delta tables organized by domain schemas; shortcuts reference external cloud storage without copying; schema-level plus row/column-level security through the SQL analytics endpoint restricts what each analyst sees; and a Direct Lake semantic model keeps reports current while enabling Copilot in Power BI to reason over well-structured data. This maps every requirement to the correct lakehouse capability.",
       "difficulty": "Hard"
-    },
-    {
-      "type": "coding",
-      "question": "In a Spark notebook against a schema-enabled lakehouse, which Spark SQL statement correctly retrieves all rows from the customers table in the sales schema?",
-      "options": {
-        "A": "SELECT * FROM sales.customers",
-        "B": "GET ALL FROM sales/customers",
-        "C": "READ TABLE sales:customers",
-        "D": "FETCH * IN sales.customers"
-      },
-      "answer": "A",
-      "explanation": "Spark SQL uses standard SQL syntax within a notebook cell to query lakehouse tables. The pattern SELECT * FROM schema.table retrieves data, so SELECT * FROM sales.customers returns all rows from the customers table in the sales schema.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

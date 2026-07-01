@@ -3,110 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What are the two components of lifecycle management in Fabric that together implement CI/CD?",
-      "options": {
-        "A": "Git integration and Deployment pipelines",
-        "B": "GitHub and Azure DevOps",
-        "C": "REST APIs and Power BI Desktop",
-        "D": "Workspaces and Items"
-      },
-      "answer": "A",
-      "explanation": "The module states that managing the lifecycle of Fabric items using CI/CD has two parts: integration (implemented using Git) and deployment (implemented using Fabric deployment pipelines). Automation is handled via REST APIs.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which version control systems does Microsoft Fabric natively support for Git integration?",
-      "options": {
-        "A": "GitLab and Bitbucket",
-        "B": "GitHub and Azure DevOps",
-        "C": "GitHub and AWS CodeCommit",
-        "D": "Azure DevOps and GitLab"
-      },
-      "answer": "B",
-      "explanation": "The module explicitly states that GitHub and Azure DevOps are the version control systems supported in Fabric.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "At what level is Git integration configured in Microsoft Fabric?",
-      "options": {
-        "A": "Item level",
-        "B": "Tenant level",
-        "C": "Workspace level",
-        "D": "Capacity level"
-      },
-      "answer": "C",
-      "explanation": "The module explicitly states: 'Integration with version control is at the workspace level in Fabric. You can version items you develop within a workspace.'",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is continuous integration (CI)?",
-      "options": {
-        "A": "Automatically deploying code to production once all tests pass",
-        "B": "Frequently committing code to a shared branch, validated by automated build and testing",
-        "C": "Deploying to a staging environment for more testing before production release",
-        "D": "Moving content between development, test, and production stages using pipelines"
-      },
-      "answer": "B",
-      "explanation": "CI involves frequently committing code to a shared code branch in a version control system, where changes are validated by a build process and automated testing, identifying conflicts earlier in the development process.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does the 'Changes' option in the Fabric Source control window do?",
-      "options": {
-        "A": "Pulls new commits from the Git branch into the workspace",
-        "B": "Creates a new branch from the current workspace",
-        "C": "Synchronizes workspace changes to the connected Git branch",
-        "D": "Merges branches in the Git repository"
-      },
-      "answer": "C",
-      "explanation": "When you make workspace changes, you synchronize them with the Git branch using the 'Changes' selection in the Source control window.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does the 'Updates' option in the Fabric Source control window do?",
-      "options": {
-        "A": "Pushes local workspace changes to the Git branch",
-        "B": "Synchronizes new commits from the Git branch into the workspace",
-        "C": "Creates a pull request in Git",
-        "D": "Deletes stale branches from the remote repository"
-      },
-      "answer": "B",
-      "explanation": "When new commits are made in the Git branch, you synchronize them with your workspace using the 'Updates' selection in the Source control window.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does the deployment process do when content is deployed between pipeline stages?",
-      "options": {
-        "A": "Moves content from the source stage and deletes it from the original",
-        "B": "Creates a new pipeline stage automatically",
-        "C": "Clones (copies) all workspace content into the target stage",
-        "D": "Merges content between two stages into a new combined stage"
-      },
-      "answer": "C",
-      "explanation": "The deployment process copies (clones) all of the workspace content into the target stage, typically from development to test and from test to production.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which two tools are listed in the module as client tools for isolated development outside the Fabric web interface?",
-      "options": {
-        "A": "Power BI Desktop and VS Code",
-        "B": "Excel and Power Query Editor",
-        "C": "GitHub Desktop and Azure Data Studio",
-        "D": "SQL Server Management Studio and Postman"
-      },
-      "answer": "A",
-      "explanation": "The module lists Power BI Desktop (for reports and semantic models) and VS Code (for Notebooks) as client tools for isolated development outside the Fabric web interface.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is the difference between continuous delivery and continuous deployment?",
       "options": {
         "A": "Continuous delivery requires manual approval before production; continuous deployment automatically releases to production after tests pass",
@@ -117,19 +13,6 @@
       "answer": "A",
       "explanation": "Continuous delivery deploys code to a staging environment for more automated testing before release to production. Continuous deployment automatically releases updates into production through structured stages once they pass automated tests.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Where is the Git status column visible after connecting a Fabric workspace to Git?",
-      "options": {
-        "A": "Only in the Fabric admin portal",
-        "B": "In the workspace view, showing the sync state of items compared to the remote branch",
-        "C": "Only in the deployment pipeline stage view",
-        "D": "Only in the Source control REST API response"
-      },
-      "answer": "B",
-      "explanation": "After connecting to a repository, the workspace shows a Git status column indicating the sync state of items in the workspace compared to the items in the remote branch.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",
@@ -285,19 +168,6 @@
       },
       "answer": "A",
       "explanation": "The module describes this workflow for client tool development: clone repo locally, develop, push to remote repository, connect the isolated branch to a separate workspace to test, then issue a PR to merge into the main branch.",
-      "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "An admin wants to automate the process of committing all workspace changes to the connected Git branch on a nightly schedule. Which Fabric feature enables this?",
-      "options": {
-        "A": "Deployment pipelines scheduled trigger",
-        "B": "Fabric REST APIs",
-        "C": "Workspace Monitoring",
-        "D": "Power BI Desktop scheduled publish"
-      },
-      "answer": "B",
-      "explanation": "Fabric CI/CD REST APIs can be used to automate the commit process programmatically, including committing workspace changes to the connected remote branch on any schedule.",
       "difficulty": "Medium"
     },
     {

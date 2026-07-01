@@ -3,32 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "Why is it important to monitor a Microsoft Fabric data warehouse?",
-      "options": {
-        "A": "To track and manage costs, identify and resolve query performance issues, and gain insights into how data is being used",
-        "B": "To automatically create new tables when storage runs out",
-        "C": "To replace the need for any indexing strategy",
-        "D": "To convert the warehouse into a lakehouse automatically"
-      },
-      "answer": "A",
-      "explanation": "The introduction states that monitoring a data warehouse is important to track and manage costs, identify and resolve query performance issues, and to gain insights into how your data is being used.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In Microsoft Fabric, what determines the capacity available to an organization?",
-      "options": {
-        "A": "The license used to purchase the service",
-        "B": "The number of users in the tenant",
-        "C": "The size of the largest table in the warehouse",
-        "D": "The number of DMVs queried per day"
-      },
-      "answer": "A",
-      "explanation": "When an organization uses Microsoft Fabric, the license used to purchase the service determines the capacity available, which is a pool of resources used to implement Fabric capabilities.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is a 'capacity' in Microsoft Fabric?",
       "options": {
         "A": "A pool of resources that you can use to implement Fabric capabilities",
@@ -38,45 +12,6 @@
       },
       "answer": "A",
       "explanation": "A capacity is defined as a pool of resources that you can use to implement Fabric capabilities.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "On what basis is the cost of using Microsoft Fabric calculated?",
-      "options": {
-        "A": "Capacity units (CUs)",
-        "B": "Number of warehouses created",
-        "C": "Number of DMV queries executed",
-        "D": "Gigabytes of report exports"
-      },
-      "answer": "A",
-      "explanation": "The cost of using Fabric is based on capacity units (CUs). Each action performed in a Fabric resource can consume CUs for which the organization is billed.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In data warehouse workloads, which activities are significant consumers of capacity units (CUs)?",
-      "options": {
-        "A": "Data read and write activities, including queries and underlying file operations to OneLake storage",
-        "B": "Creating Power BI dashboards only",
-        "C": "Installing the Capacity Metrics app",
-        "D": "Defining database roles and users"
-      },
-      "answer": "A",
-      "explanation": "In data warehouse workloads, CUs are consumed by data read and write activities, so queries and the underlying file operations to OneLake storage are a significant factor in cost.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Who can install the Microsoft Fabric Capacity Metrics app in a Fabric environment?",
-      "options": {
-        "A": "An administrator",
-        "B": "Any anonymous user",
-        "C": "Only Microsoft support",
-        "D": "Any report viewer"
-      },
-      "answer": "A",
-      "explanation": "The Microsoft Fabric Capacity Metrics app is an app that an administrator can install in a Fabric environment and use to monitor capacity utilization.",
       "difficulty": "Easy"
     },
     {
@@ -107,45 +42,6 @@
     },
     {
       "type": "direct",
-      "question": "What is the purpose of dynamic management views (DMVs) in a Fabric data warehouse?",
-      "options": {
-        "A": "To retrieve information about the current state of the data warehouse",
-        "B": "To store historical aggregated query metrics permanently",
-        "C": "To install the Capacity Metrics app",
-        "D": "To manage user licenses"
-      },
-      "answer": "A",
-      "explanation": "DMVs are used to retrieve information about the current state of the data warehouse.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which DMV returns information about data warehouse connections?",
-      "options": {
-        "A": "sys.dm_exec_connections",
-        "B": "sys.dm_exec_sessions",
-        "C": "sys.dm_exec_requests",
-        "D": "queryinsights.exec_requests_history"
-      },
-      "answer": "A",
-      "explanation": "sys.dm_exec_connections returns information about data warehouse connections.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which DMV returns information about authenticated sessions?",
-      "options": {
-        "A": "sys.dm_exec_sessions",
-        "B": "sys.dm_exec_connections",
-        "C": "sys.dm_exec_requests",
-        "D": "queryinsights.frequently_run_queries"
-      },
-      "answer": "A",
-      "explanation": "sys.dm_exec_sessions returns information about authenticated sessions.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which DMV returns information about active requests?",
       "options": {
         "A": "sys.dm_exec_requests",
@@ -155,32 +51,6 @@
       },
       "answer": "A",
       "explanation": "sys.dm_exec_requests returns information about active requests.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What kind of information does the query insights feature provide?",
-      "options": {
-        "A": "Historical, aggregated information about queries that have been run",
-        "B": "Real-time connection IP addresses only",
-        "C": "Capacity unit billing details",
-        "D": "Current throttling status of the capacity"
-      },
-      "answer": "A",
-      "explanation": "Query insights provides historical, aggregated information about the queries that have been run, enabling you to identify frequently used or long-running queries and tune performance.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which query insights view contains details of each completed SQL query?",
-      "options": {
-        "A": "queryinsights.exec_requests_history",
-        "B": "queryinsights.long_running_queries",
-        "C": "queryinsights.frequently_run_queries",
-        "D": "sys.dm_exec_requests"
-      },
-      "answer": "A",
-      "explanation": "queryinsights.exec_requests_history provides details of each completed SQL query.",
       "difficulty": "Easy"
     },
     {

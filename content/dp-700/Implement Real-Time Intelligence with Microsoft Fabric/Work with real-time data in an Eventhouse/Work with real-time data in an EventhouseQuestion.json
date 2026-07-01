@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is an Eventhouse in Microsoft Fabric?",
-      "options": {
-        "A": "A container that houses one or more KQL databases optimized for storing and analyzing real-time data",
-        "B": "A single relational table used to store transactional records",
-        "C": "A Power BI report designed for streaming dashboards",
-        "D": "A connector that links Azure Event Hubs to a Lakehouse"
-      },
-      "answer": "A",
-      "explanation": "An Eventhouse provides a data store for large volumes of data and is a container that houses one or more KQL databases, each optimized for storing and analyzing real-time data arriving continuously from various sources.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "How do KQL databases automatically organize incoming data to make recent data quickly accessible?",
       "options": {
         "A": "By alphabetically sorting on the primary key column",
@@ -25,19 +12,6 @@
       },
       "answer": "B",
       "explanation": "KQL databases automatically partition data by ingestion time, making recent data quickly accessible while storing historical data for trend analysis. Partitioning organizes data into separate storage locations based on when it arrived.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does it mean that real-time events are 'immutable'?",
-      "options": {
-        "A": "Events are encrypted and cannot be read",
-        "B": "Events can be updated only by an administrator",
-        "C": "Events can't be changed once they've occurred because they represent what actually happened at that moment",
-        "D": "Events are automatically deleted after 30 days"
-      },
-      "answer": "C",
-      "explanation": "Immutable means these events can't be changed once they've occurred. For example, a temperature reading at 3:15 PM will always be that reading because it represents what actually happened at that moment.",
       "difficulty": "Easy"
     },
     {
@@ -55,19 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "When you create an Eventhouse, what is automatically created with the same name?",
-      "options": {
-        "A": "A default KQL queryset only",
-        "B": "A default Lakehouse",
-        "C": "A default KQL database",
-        "D": "A default Power BI semantic model"
-      },
-      "answer": "C",
-      "explanation": "When you create an Eventhouse, a default KQL database is automatically created with the same name. You can use the default KQL database or create other KQL databases as needed.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which character does KQL use to pass data from one operation to the next in its pipeline approach?",
       "options": {
         "A": "The semicolon (;)",
@@ -77,19 +38,6 @@
       },
       "answer": "B",
       "explanation": "KQL uses a pipeline approach where data flows from one operation to the next using the pipe (|) character. Each operator filters, rearranges, or summarizes the data before passing it to the next step.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Why does the order of operators matter in a KQL query?",
-      "options": {
-        "A": "Because KQL executes operators in random order",
-        "B": "Because each step works on the results from the previous step",
-        "C": "Because only the last operator is actually executed",
-        "D": "Because operators must be alphabetized"
-      },
-      "answer": "B",
-      "explanation": "The order of operators matters because each step works on the results from the previous step. KQL works like a funnel, where each operator processes the output of the operator before it.",
       "difficulty": "Easy"
     },
     {
@@ -107,19 +55,6 @@
     },
     {
       "type": "direct",
-      "question": "Which two query languages can you use within a KQL queryset to query a KQL database?",
-      "options": {
-        "A": "KQL and T-SQL",
-        "B": "KQL and Python",
-        "C": "T-SQL and DAX",
-        "D": "KQL and Spark SQL"
-      },
-      "answer": "A",
-      "explanation": "To query data in a KQL database, you can use KQL or T-SQL in KQL querysets. The KQL queryset supports T-SQL queries alongside KQL for data analysis.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is the purpose of a database shortcut in an Eventhouse?",
       "options": {
         "A": "To copy data from an external database into the local Eventhouse",
@@ -133,32 +68,6 @@
     },
     {
       "type": "direct",
-      "question": "What does enabling OneLake availability for a KQL database or table accomplish?",
-      "options": {
-        "A": "It deletes historical data to save storage",
-        "B": "It makes the data accessible throughout the Fabric ecosystem for cross-workload integration with Power BI, Warehouse, Lakehouse, and other Fabric services",
-        "C": "It disables KQL querying for the table",
-        "D": "It encrypts the data at rest"
-      },
-      "answer": "B",
-      "explanation": "You can enable OneLake availability for individual KQL databases or tables, making your data accessible throughout the Fabric ecosystem for cross-workload integration with Power BI, Warehouse, Lakehouse, and other Fabric services.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is a materialized view in a KQL database?",
-      "options": {
-        "A": "A temporary table that is deleted after each query",
-        "B": "A precomputed aggregation that stores results and automatically updates them as new data arrives",
-        "C": "A visual chart rendered from query results",
-        "D": "A read-only copy of the entire source table"
-      },
-      "answer": "B",
-      "explanation": "Materialized views are precomputed aggregations that store results and automatically update them as new data arrives. Instead of recalculating metrics from all historical data, the view maintains results and only processes new data to update aggregations.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which two parts make up a materialized view to provide always-current results?",
       "options": {
         "A": "An index part and a cache part",
@@ -168,19 +77,6 @@
       },
       "answer": "B",
       "explanation": "A materialized view consists of a materialized part (precomputed aggregation results from data already processed) and a delta (new data that has arrived since the last background update). The system combines both at query time.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is a key benefit of using stored functions in an Eventhouse?",
-      "options": {
-        "A": "They automatically encrypt query results",
-        "B": "They encapsulate a query so it can be reused, ensuring calculations are performed consistently across different team members",
-        "C": "They replace the need for a KQL database",
-        "D": "They convert streaming data into batch data"
-      },
-      "answer": "B",
-      "explanation": "Stored functions encapsulate a query as a function, making common queries easier to repeat. They help ensure calculations are performed consistently when different team members apply the same logic, and they support parameters for variable values.",
       "difficulty": "Easy"
     },
     {
@@ -380,19 +276,6 @@
     },
     {
       "type": "scenario",
-      "question": "An engineer wants to explore the structure of a potentially very large table without processing all of it. Which KQL operator is most appropriate?",
-      "options": {
-        "A": "summarize",
-        "B": "take",
-        "C": "join",
-        "D": "sort"
-      },
-      "answer": "B",
-      "explanation": "To retrieve a sample of data from potentially large tables, use the take operator (for example TaxiTrips | take 100). This returns a limited number of rows, which is useful for exploring data structure without processing the entire table.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A new KQL database has just been created in an Eventhouse. According to the module, what query workspace is automatically attached for running and saving queries?",
       "options": {
         "A": "A KQL queryset",
@@ -442,19 +325,6 @@
       "answer": "B",
       "explanation": "One benefit of optimization is that queries work reliably with growing data: a query that works on 1 million rows today will still perform well when data grows to 10 million rows, because it processes less data.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A team wants to visualize KQL query results as charts directly while exploring data. Where can they do this according to the module?",
-      "options": {
-        "A": "Only in an external Power BI workspace",
-        "B": "In the KQL queryset, which can render query results as charts, tables, and other visual formats",
-        "C": "Only after exporting results to a Lakehouse",
-        "D": "Visualizations are not possible from KQL results"
-      },
-      "answer": "B",
-      "explanation": "The KQL queryset lets you create data visualizations while exploring your data, rendering query results as charts, tables, and other visual formats.",
-      "difficulty": "Easy"
     },
     {
       "type": "case-study",
@@ -572,19 +442,6 @@
       "answer": "B",
       "explanation": "The parameterized stored function accepts num_passengers (long), filters TaxiTrips to rows where passenger_count >= num_passengers, and projects trip_id and pickup_datetime. Parameters let you repeat the same query with variable values.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "How would you call the stored function trips_by_min_passenger_count to find 10 trips that had at least three passengers?",
-      "options": {
-        "A": "trips_by_min_passenger_count where 3 | take 10",
-        "B": "trips_by_min_passenger_count(3)\n| take 10",
-        "C": "call trips_by_min_passenger_count(3) limit 10",
-        "D": "TaxiTrips | trips_by_min_passenger_count = 3 | top 10"
-      },
-      "answer": "B",
-      "explanation": "To call a stored function, use it like a table. trips_by_min_passenger_count(3) passes 3 as the num_passengers argument, and piping to take 10 returns the first 10 trips with at least three passengers.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

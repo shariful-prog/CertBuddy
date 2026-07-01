@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What type of data source do Real-Time Dashboards in Microsoft Fabric connect to in order to display automatically refreshing visualizations?",
-      "options": {
-        "A": "KQL databases in eventhouses",
-        "B": "SQL Server linked servers",
-        "C": "Excel workbooks stored in OneLake",
-        "D": "Power BI semantic models only"
-      },
-      "answer": "A",
-      "explanation": "Real-Time Dashboards connect to KQL databases in eventhouses and display visualizations that refresh automatically to show current data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "How do Real-Time Dashboards differ from traditional reports?",
       "options": {
         "A": "They can only display a single static chart",
@@ -25,19 +12,6 @@
       },
       "answer": "C",
       "explanation": "Unlike traditional reports that show historical snapshots, Real-Time Dashboards can be configured to refresh frequently, enabling you to monitor changing conditions and respond to current information.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is the fundamental building block that a Real-Time Dashboard is composed of?",
-      "options": {
-        "A": "Workspaces",
-        "B": "Tiles",
-        "C": "Pipelines",
-        "D": "Notebooks"
-      },
-      "answer": "B",
-      "explanation": "Each dashboard consists of one or more tiles, each displaying a real-time data visualization.",
       "difficulty": "Easy"
     },
     {
@@ -55,19 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "Under the 'Pass-through identity' authorization option, whose permissions are used when a person views the dashboard?",
-      "options": {
-        "A": "The dashboard creator's permissions",
-        "B": "The Fabric capacity administrator's permissions",
-        "C": "Each viewer's own permissions",
-        "D": "A shared service account's permissions"
-      },
-      "answer": "C",
-      "explanation": "With Pass-through identity, each person viewing the dashboard accesses data using their own permissions.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Under the 'Dashboard editor's identity' authorization option, whose permissions are used to access the data?",
       "options": {
         "A": "Each viewer's own permissions",
@@ -77,19 +38,6 @@
       },
       "answer": "B",
       "explanation": "With Dashboard editor's identity, everyone viewing the dashboard accesses data using the dashboard creator's permissions.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "By default, how many pages does a Real-Time Dashboard have?",
-      "options": {
-        "A": "Zero",
-        "B": "One",
-        "C": "Three",
-        "D": "Unlimited"
-      },
-      "answer": "B",
-      "explanation": "By default, a Real-Time Dashboard has one page, but you can add more pages as containers for more tiles.",
       "difficulty": "Easy"
     },
     {
@@ -107,19 +55,6 @@
     },
     {
       "type": "direct",
-      "question": "What do parameters add to a Real-Time Dashboard?",
-      "options": {
-        "A": "Automatic creation of new eventhouses",
-        "B": "Flexibility by allowing users to filter the data displayed in tiles",
-        "C": "Permanent storage of historical snapshots",
-        "D": "The ability to write data back to the source table"
-      },
-      "answer": "B",
-      "explanation": "Parameters add flexibility to your dashboard by allowing users to filter the data displayed in tiles, such as viewing a specific time period or subset of data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "How do you reference a parameter's variable name within a tile query?",
       "options": {
         "A": "Using an underscore prefix",
@@ -129,32 +64,6 @@
       },
       "answer": "A",
       "explanation": "Each parameter has a variable name that you can reference in your tile queries using an underscore prefix.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "On what can parameter values be based?",
-      "options": {
-        "A": "Only on the current system clock",
-        "B": "Only on hard-coded numeric constants",
-        "C": "Specific text or the results of a query",
-        "D": "Only on the dashboard's refresh rate"
-      },
-      "answer": "C",
-      "explanation": "Parameter values can be based on specific text or on the results of a query.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does the Auto refresh feature do for a Real-Time Dashboard?",
-      "options": {
-        "A": "It exports the dashboard to PDF on a schedule",
-        "B": "It automatically updates dashboard data without needing to manually reload the page",
-        "C": "It deletes stale tiles from the dashboard",
-        "D": "It rewrites the underlying KQL queries"
-      },
-      "answer": "B",
-      "explanation": "Auto refresh automatically updates your dashboard data without needing to manually reload the page.",
       "difficulty": "Easy"
     },
     {
@@ -172,19 +81,6 @@
     },
     {
       "type": "direct",
-      "question": "What is the main benefit of defining base queries in a Real-Time Dashboard?",
-      "options": {
-        "A": "They increase the maximum number of dashboard pages",
-        "B": "They avoid duplicating the same logic across multiple tiles",
-        "C": "They automatically grant editor permissions to all viewers",
-        "D": "They convert KQL queries into SQL"
-      },
-      "answer": "B",
-      "explanation": "Base queries retrieve a general set of records relevant for multiple tiles and help you avoid duplicating the same logic across multiple tiles by referencing one base query.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "In addition to data visualization tiles, what other kind of tile can you add to provide additional information on a dashboard?",
       "options": {
         "A": "Text tiles",
@@ -194,19 +90,6 @@
       },
       "answer": "A",
       "explanation": "You can also add text tiles to provide additional information on a dashboard.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "An analyst at a bike sharing company needs to monitor current bike availability and dock capacity so operations staff can redistribute bikes to high-demand areas during the day. Which Microsoft Fabric capability is most appropriate for monitoring this constantly changing data?",
-      "options": {
-        "A": "A traditional paginated report refreshed nightly",
-        "B": "A Real-Time Dashboard connected to a KQL database",
-        "C": "A static Excel export emailed each morning",
-        "D": "A data pipeline that loads a warehouse once per day"
-      },
-      "answer": "B",
-      "explanation": "Real-Time Dashboards connect to KQL databases in eventhouses and refresh automatically, making them ideal for monitoring changing conditions like current bike availability and dock capacity.",
       "difficulty": "Easy"
     },
     {
@@ -247,19 +130,6 @@
       "answer": "B",
       "explanation": "With Dashboard editor's identity, everyone viewing the dashboard accesses data using the dashboard creator's permissions, so all viewers see the same data.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "After adding a tile, you notice the bike data is shown as a plain table, but stakeholders prefer to compare the number of bikes and empty docks across neighborhoods visually. What should you do?",
-      "options": {
-        "A": "Delete the tile and recreate the dashboard",
-        "B": "Edit the tile to define a visual such as a bar chart",
-        "C": "Switch the data source authorization mode",
-        "D": "Add a new dashboard page"
-      },
-      "answer": "B",
-      "explanation": "After creating a tile, you can edit it to define a visual in which the data is represented as a chart, map, or other visualization; a bar chart is well suited to comparing bikes and empty docks per neighborhood.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",
@@ -406,19 +276,6 @@
     },
     {
       "type": "scenario",
-      "question": "An editor wants to add explanatory context, such as a heading and notes describing what each chart means, directly on a dashboard page without querying any data. What should they use?",
-      "options": {
-        "A": "A base query",
-        "B": "A parameter",
-        "C": "A text tile",
-        "D": "An additional KQL database"
-      },
-      "answer": "C",
-      "explanation": "Text tiles can be added to provide additional information on a dashboard and do not display query results.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "When you first add a data visualization tile to a dashboard, what should you do before the visualization is finalized?",
       "options": {
         "A": "Publish the dashboard immediately",
@@ -468,19 +325,6 @@
       "answer": "B",
       "explanation": "Setting a default refresh rate gives a baseline, while a minimum refresh rate prevents viewers from refreshing more frequently than allowed, managing system performance.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A new analyst asks why the dashboard's bike numbers keep changing on screen without anyone clicking reload. What is the correct explanation?",
-      "options": {
-        "A": "The KQL database is being rebuilt continuously",
-        "B": "Auto refresh updates dashboard data automatically without manual reload",
-        "C": "Each viewer's pass-through identity reruns queries",
-        "D": "Text tiles regenerate the data"
-      },
-      "answer": "B",
-      "explanation": "Auto refresh automatically updates dashboard data without needing to manually reload the page, which is why values change on screen on their own.",
-      "difficulty": "Easy"
     },
     {
       "type": "case-study",

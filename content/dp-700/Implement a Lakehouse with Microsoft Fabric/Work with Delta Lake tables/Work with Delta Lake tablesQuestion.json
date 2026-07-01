@@ -3,32 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "Tables in a Microsoft Fabric lakehouse are based on which open-source table format?",
-      "options": {
-        "A": "Apache Iceberg",
-        "B": "Linux Foundation Delta Lake",
-        "C": "Apache Hudi",
-        "D": "ORC"
-      },
-      "answer": "B",
-      "explanation": "Tables in a Microsoft Fabric lakehouse are based on the Linux Foundation Delta Lake table format, an open-source storage layer for Spark that enables relational database capabilities for batch and streaming data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What visual indicator signifies that a table in the Fabric lakehouse user interface is a Delta table?",
-      "options": {
-        "A": "A green checkmark icon",
-        "B": "A Parquet 'P' icon",
-        "C": "A triangular Delta (Δ) icon",
-        "D": "A lightning bolt icon"
-      },
-      "answer": "C",
-      "explanation": "Delta tables are signified by the triangular Delta (Δ) icon on tables in the lakehouse user interface.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "For each Delta table, what does the lakehouse store besides the Parquet data files?",
       "options": {
         "A": "A _delta_log folder in which transaction details are logged in JSON format",
@@ -42,45 +16,6 @@
     },
     {
       "type": "direct",
-      "question": "Which set of operations does Delta Lake support on tables, matching a relational database system?",
-      "options": {
-        "A": "Only read operations",
-        "B": "Only insert and select",
-        "C": "CRUD (create, read, update, and delete) operations",
-        "D": "Only append operations"
-      },
-      "answer": "C",
-      "explanation": "With Apache Spark, you can store data in Delta tables that support CRUD (create, read, update, and delete) operations, so you can select, insert, update, and delete rows just as in a relational database system.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In the ACID properties supported by Delta Lake, what does 'durability' mean?",
-      "options": {
-        "A": "Transactions complete as a single unit of work",
-        "B": "Transactions leave the database in a consistent state",
-        "C": "In-process transactions cannot interfere with one another",
-        "D": "When a transaction completes, the changes it made are persisted"
-      },
-      "answer": "D",
-      "explanation": "Durability means that when a transaction completes, the changes it made are persisted. Atomicity, consistency, and isolation are the other ACID properties.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which Delta Lake feature allows you to retrieve a previous version of a row in a query?",
-      "options": {
-        "A": "Time travel",
-        "B": "V-Order",
-        "C": "OptimizeWrite",
-        "D": "Vacuum"
-      },
-      "answer": "A",
-      "explanation": "Because all transactions are logged in the transaction log, you can track multiple versions of each table row and use the time travel feature to retrieve a previous version of a row in a query.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "In what format is the underlying data for Delta tables stored?",
       "options": {
         "A": "Avro",
@@ -90,19 +25,6 @@
       },
       "answer": "B",
       "explanation": "The underlying data for Delta tables is stored in Parquet format, which is commonly used in data lake ingestion pipelines, providing standard formats and interoperability.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which API can be used to query Delta tables in SQL for a Microsoft Fabric lakehouse?",
-      "options": {
-        "A": "The SQL analytics endpoint",
-        "B": "The Delta REST API",
-        "C": "The Parquet query engine",
-        "D": "The Kafka connector"
-      },
-      "answer": "A",
-      "explanation": "You can use the SQL analytics endpoint for the Microsoft Fabric lakehouse to query Delta tables in SQL.",
       "difficulty": "Easy"
     },
     {
@@ -130,19 +52,6 @@
       "answer": "B",
       "explanation": "For an external table, the relational table definition is mapped to an alternative file storage location. Deleting an external table from the metastore doesn't delete the associated data files.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which Delta Lake feature reduces the number of files as they are written by writing fewer, larger files?",
-      "options": {
-        "A": "OptimizeWrite",
-        "B": "Vacuum",
-        "C": "Time travel",
-        "D": "Partitioning"
-      },
-      "answer": "A",
-      "explanation": "OptimizeWrite is a feature of Delta Lake that reduces the number of files as they're written. Instead of writing many small files, it writes fewer larger files, helping to prevent the small files problem.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",
@@ -195,19 +104,6 @@
       "answer": "C",
       "explanation": "When using a Delta table as a streaming source, only append operations can be included in the stream. Data modifications can cause an error unless you specify the ignoreChanges or ignoreDeletes option.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A data engineer wants to combine the advantages of a relational database system (transactions, schema enforcement, SQL semantics) with the flexibility of file storage in a data lake on Microsoft Fabric. Which architecture does Delta Lake enable to meet this goal?",
-      "options": {
-        "A": "A pure NoSQL document store",
-        "B": "A lakehouse architecture supporting SQL-based data manipulation semantics in Spark",
-        "C": "A row-based OLTP-only system with no file storage",
-        "D": "A flat-file archive with no transactional support"
-      },
-      "answer": "B",
-      "explanation": "By using Delta Lake, you can implement a lakehouse architecture to support SQL-based data manipulation semantics in Spark with support for transactions and schema enforcement, producing an analytical data store with relational advantages and data lake flexibility.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",
@@ -380,19 +276,6 @@
     },
     {
       "type": "scenario",
-      "question": "A near-real-time pipeline starts a streaming write to a Delta table to support a dashboard. Once the demonstration is complete, what should the engineer do to avoid unnecessary processing costs?",
-      "options": {
-        "A": "Run VACUUM on the table",
-        "B": "Call the stop method on the streaming query (for example, deltastream.stop())",
-        "C": "Delete the checkpoint folder while streaming",
-        "D": "Disable V-Order"
-      },
-      "answer": "B",
-      "explanation": "When finished, you should stop the streaming data to avoid unnecessary (excessive) processing costs by using the stop method, for example deltastream.stop().",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A data engineer needs to track which operations (such as UPDATE, WRITE, CREATE TABLE) were applied to a Delta table and when. Which command provides this information?",
       "options": {
         "A": "SELECT COUNT(*) FROM the table",
@@ -457,19 +340,6 @@
       "difficulty": "Medium"
     },
     {
-      "type": "scenario",
-      "question": "A pipeline needs to fully replace the existing contents of a delta folder with a new dataframe on each run, rather than adding to it. Which write mode should be used?",
-      "options": {
-        "A": "append",
-        "B": "overwrite",
-        "C": "ignore",
-        "D": "errorIfExists"
-      },
-      "answer": "B",
-      "explanation": "You can replace the contents of an existing folder with the data in a dataframe by using the overwrite mode: new_df.write.format(\"delta\").mode(\"overwrite\").save(delta_path).",
-      "difficulty": "Easy"
-    },
-    {
       "type": "case-study",
       "question": "Contoso Cycles operates a Microsoft Fabric lakehouse for its analytics platform. The data engineering team ingests raw sales CSV files daily into the Files area, transforms them in Spark, and persists curated results as managed Delta tables in the Tables area. They face several issues: (1) Daily incremental appends have created thousands of tiny Parquet files, slowing analytical queries. (2) Power BI and SQL analysts complain that reads are slower than expected. (3) Finance requires the ability to reproduce the sales table exactly as it appeared at the end of each prior quarter for at least 90 days, but storage costs from accumulating old files are rising. (4) A new IoT initiative streams shop-floor sensor readings that must land in a Delta table in near real time, surviving job restarts. Given the module content, which combination of measures BEST addresses all four issues?",
       "options": {
@@ -482,19 +352,6 @@
       "answer": "A",
       "explanation": "OPTIMIZE consolidates the many small Parquet files (addressing the small files problem) and V-Order speeds reads from Fabric engines like Power BI and SQL via Verti-Scan. VACUUM removes old files to control storage cost, but the retention period must be at least as long as the required time-travel window (90 days) because you can't time travel earlier than the retention period; the default minimum is 7 days. Writing the IoT stream to a Delta sink with a checkpointLocation lets stream processing recover from failure at the point it left off. The other options use unsupported short retention, lose time travel, abuse high-cardinality partitioning, or store data as CSV, all contrary to the module guidance.",
       "difficulty": "Hard"
-    },
-    {
-      "type": "coding",
-      "question": "Consider the following PySpark code:\n\ndf.write.format(\"delta\").mode(\"append\").saveAsTable(\"sales\")\n\nThe table 'sales' already contains 100 rows, and df contains 25 rows. What is the result?",
-      "options": {
-        "A": "The table is replaced and contains only the 25 new rows",
-        "B": "The 25 rows are added to the existing data, so the table now contains 125 rows",
-        "C": "An error is raised because the table already exists",
-        "D": "Only matching rows are updated"
-      },
-      "answer": "B",
-      "explanation": "The append mode adds rows from the dataframe to the existing table data. With 100 existing rows plus 25 appended rows, the table contains 125 rows. Overwrite mode would have replaced the contents instead.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

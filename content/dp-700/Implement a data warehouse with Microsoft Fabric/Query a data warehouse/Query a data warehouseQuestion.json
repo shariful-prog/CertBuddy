@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "In a star schema data warehouse, what type of data do fact tables store?",
-      "options": {
-        "A": "Descriptive attributes such as customer names and product categories",
-        "B": "Measurable, quantitative data such as quantities sold and revenue",
-        "C": "Connection strings and authentication metadata",
-        "D": "Power BI report definitions"
-      },
-      "answer": "B",
-      "explanation": "Fact tables store the measurable, quantitative data about a business, such as quantities sold and revenue. Dimension tables contain the descriptive attributes that give that numeric data context.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is the primary purpose of dimension tables in a data warehouse?",
       "options": {
         "A": "To store the numeric measures of business transactions",
@@ -25,19 +12,6 @@
       },
       "answer": "B",
       "explanation": "Dimension tables contain descriptive attributes related to fact data. Without the dimension tables, the numbers in the fact table have no context (who, what, where, when, how much).",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which language does Microsoft Fabric Data Warehouse fully support, including its complete transactional capabilities?",
-      "options": {
-        "A": "DAX",
-        "B": "KQL",
-        "C": "T-SQL",
-        "D": "PySpark"
-      },
-      "answer": "C",
-      "explanation": "The data warehouse in Microsoft Fabric supports the full transactional T-SQL capabilities of an enterprise data warehouse, including advanced query processing.",
       "difficulty": "Easy"
     },
     {
@@ -55,19 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "Which T-SQL ranking function returns the ordinal position of a row within its partition (1, 2, 3, and so on)?",
-      "options": {
-        "A": "RANK",
-        "B": "DENSE_RANK",
-        "C": "ROW_NUMBER",
-        "D": "NTILE"
-      },
-      "answer": "C",
-      "explanation": "ROW_NUMBER returns the ordinal position of the row within the partition: the first row is numbered 1, the second 2, and so on, with no ties.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which function uses a HyperLogLog algorithm to return an approximate distinct count?",
       "options": {
         "A": "COUNT(DISTINCT ...)",
@@ -77,19 +38,6 @@
       },
       "answer": "B",
       "explanation": "The APPROX_COUNT_DISTINCT function uses a HyperLogLog algorithm to retrieve an approximate count, guaranteed to have a maximum error rate of 2% with 97% probability.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "When you launch the SQL query editor by selecting a warehouse from its workspace, what connection information must you provide?",
-      "options": {
-        "A": "A server name and database name",
-        "B": "A SQL connection string copied from the ellipsis menu",
-        "C": "None — it connects automatically without requiring any connection information",
-        "D": "A Microsoft Entra service principal and secret"
-      },
-      "answer": "C",
-      "explanation": "The SQL query editor connects automatically when you select your warehouse from the workspace, without requiring any connection information.",
       "difficulty": "Easy"
     },
     {
@@ -120,19 +68,6 @@
     },
     {
       "type": "direct",
-      "question": "What interface does the visual query editor in Microsoft Fabric provide?",
-      "options": {
-        "A": "A command-line interface for executing scripts",
-        "B": "An intuitive, graphical, no-code interface for building queries",
-        "C": "A REST API for programmatic access",
-        "D": "A natural language chat-only interface"
-      },
-      "answer": "B",
-      "explanation": "The visual query editor provides an intuitive, graphical, no-code interface for building queries by dragging and dropping tables onto a canvas.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "In the visual query editor, how do you join two tables that have been dragged onto the canvas?",
       "options": {
         "A": "Right-click a table and select Merge queries",
@@ -142,19 +77,6 @@
       },
       "answer": "A",
       "explanation": "Once tables are on the canvas, you join them by right-clicking a table and selecting Merge queries, then choosing the common key column in each table and a join type.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which authentication method does Microsoft Fabric support for connecting to a data warehouse?",
-      "options": {
-        "A": "SQL authentication only",
-        "B": "Microsoft Entra ID authentication only",
-        "C": "Both SQL and Microsoft Entra authentication",
-        "D": "Windows NTLM authentication only"
-      },
-      "answer": "B",
-      "explanation": "Microsoft Fabric supports Microsoft Entra ID authentication only; SQL authentication isn't supported.",
       "difficulty": "Easy"
     },
     {
@@ -195,19 +117,6 @@
       "answer": "B",
       "explanation": "Open in Excel opens the query as a live connection in Microsoft Excel (not a static file download), loading the data as a connected query that you can refresh.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A data analyst wants to report total sales revenue broken down by calendar year and quarter. The numeric SalesAmount is stored in FactSales and the calendar attributes are in DimDate. What is the recommended T-SQL pattern?",
-      "options": {
-        "A": "Select all rows from FactSales and filter in Power BI",
-        "B": "Join FactSales to DimDate on the date key, then SUM the SalesAmount grouped by the year and quarter attributes",
-        "C": "Use APPROX_COUNT_DISTINCT on SalesAmount grouped by date",
-        "D": "Use ROW_NUMBER partitioned by SalesAmount"
-      },
-      "answer": "B",
-      "explanation": "A common pattern is to join a fact table to one or more dimension tables, then aggregate a numeric measure (SUM of SalesAmount) grouped by dimension attributes such as CalendarYear and CalendarQuarter.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",
@@ -354,19 +263,6 @@
     },
     {
       "type": "scenario",
-      "question": "A junior engineer is asked to understand an unfamiliar, complex T-SQL query and wants natural language annotations explaining what each part does, without changing the logic. Which Copilot quick action helps?",
-      "options": {
-        "A": "Fix query errors",
-        "B": "Explain query",
-        "C": "Visualize results",
-        "D": "Save as view"
-      },
-      "answer": "B",
-      "explanation": "Explain query adds natural language comments to your query describing what each part does, without modifying the query logic.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A user wants to copy a result grid into another document but needs only the underlying data values, not the column headers. Which feature should they use?",
       "options": {
         "A": "Open in Excel",
@@ -376,19 +272,6 @@
       },
       "answer": "B",
       "explanation": "The Copy dropdown lets you copy results with column names, results only, or column names only. To get just the data values, you choose 'results only'.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A new query item created via 'New SQL query' in the warehouse Explorer — where is it stored, and does it need manual saving?",
-      "options": {
-        "A": "It is stored in a shared workspace folder and must be saved manually",
-        "B": "It is created automatically in the My queries folder in the Explorer and saved as you work",
-        "C": "It is held only in memory until you export it",
-        "D": "It is saved as a table in the dbo schema"
-      },
-      "answer": "B",
-      "explanation": "Either creation method places a new query item in the My queries folder in the Explorer, and it is saved automatically as you work.",
       "difficulty": "Easy"
     },
     {
@@ -468,19 +351,6 @@
       "answer": "A",
       "explanation": "Option A correctly applies every concept: SUM aggregations with the required fact-to-dimension joins (including traversing DimProduct to reach DimCategory in the snowflake), APPROX_COUNT_DISTINCT for fast approximate counts on huge tables, the no-code visual query editor for business users, and SSMS using Microsoft Entra ID authentication with TCP port 1433 open. The other options misuse joins, ranking/percentile functions, counting, or rely on unsupported SQL authentication.",
       "difficulty": "Hard"
-    },
-    {
-      "type": "coding",
-      "question": "Consider this query:\n\nSELECT dates.CalendarYear, SUM(sales.SalesAmount) AS TotalSales\nFROM dbo.FactSales AS sales\nJOIN dbo.DimDate AS dates ON sales.OrderDateKey = dates.DateKey\nGROUP BY dates.CalendarYear\nORDER BY dates.CalendarYear;\n\nWhat does this query return?",
-      "options": {
-        "A": "One row per individual sale with its year",
-        "B": "One row per calendar year with the total SalesAmount for that year, ordered by year",
-        "C": "The count of distinct years only",
-        "D": "An error, because SalesAmount is not in the GROUP BY"
-      },
-      "answer": "B",
-      "explanation": "The query joins the fact table to DimDate, sums SalesAmount grouped by CalendarYear, and orders by year. SalesAmount is correctly inside an aggregate (SUM), so it doesn't need to appear in GROUP BY. The result is one total per year.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

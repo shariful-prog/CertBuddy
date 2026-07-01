@@ -3,32 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is the primary purpose of a data warehouse?",
-      "options": {
-        "A": "Handle day-to-day business transactions at high speed",
-        "B": "Centralize data from multiple sources for analytical queries and reporting",
-        "C": "Process real-time event streams from IoT devices",
-        "D": "Manage NoSQL document-based storage"
-      },
-      "answer": "B",
-      "explanation": "A data warehouse is a centralized, structured store designed specifically for analytical queries and reporting. Unlike operational databases (which handle day-to-day transactions), it consolidates data from multiple sources into a format optimized for analysis.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In dimensional modeling, what do fact tables primarily contain?",
-      "options": {
-        "A": "Descriptive information about entities such as customer names and addresses",
-        "B": "Unique key columns used to join dimension tables",
-        "C": "Numerical data (measures) to be analyzed, such as sales amounts",
-        "D": "Metadata about the warehouse schema and object definitions"
-      },
-      "answer": "C",
-      "explanation": "Fact tables contain the numerical data (measures) that you want to analyze. They typically have a large number of rows and are the primary source of data for analysis — for example, storing sales amounts per order.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is a surrogate key in a dimension table?",
       "options": {
         "A": "A natural business key imported directly from the source system",
@@ -38,19 +12,6 @@
       },
       "answer": "B",
       "explanation": "A surrogate key is a unique identifier for each row in the dimension table, typically an integer value generated automatically by the database. It is specific to the data warehouse and helps maintain consistency and accuracy within it.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is the purpose of an alternate key in a dimension table?",
-      "options": {
-        "A": "To serve as a backup in case the surrogate key is deleted",
-        "B": "To maintain traceability between the warehouse and the source system",
-        "C": "To uniquely identify rows using a warehouse-generated integer",
-        "D": "To act as the primary key for the fact table"
-      },
-      "answer": "B",
-      "explanation": "An alternate key is a natural or business key from the source system (such as a product code or customer ID). Its purpose is to maintain traceability between the data warehouse and the originating source system.",
       "difficulty": "Easy"
     },
     {
@@ -65,32 +26,6 @@
       "answer": "B",
       "explanation": "In a snowflake schema, dimension tables are further normalized into separate sub-dimension tables. For example, a DimProduct table might split into DimProduct, DimCategory, and DimSupplier. A star schema keeps all dimension attributes in a single table, connecting directly to the fact table.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "In what data format does Microsoft Fabric store data warehouse data on OneLake?",
-      "options": {
-        "A": "CSV (Comma-Separated Values)",
-        "B": "Avro",
-        "C": "Delta (Parquet)",
-        "D": "ORC (Optimized Row Columnar)"
-      },
-      "answer": "C",
-      "explanation": "Fabric warehouse data is stored in open Delta format on OneLake. This means other Fabric workloads can access the same data without duplication, and Power BI semantic models can read it directly via Direct Lake mode.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which capability is available in a Fabric data warehouse but NOT in the SQL analytics endpoint?",
-      "options": {
-        "A": "Reading data using SELECT statements",
-        "B": "Creating views and stored procedures",
-        "C": "Writing data using INSERT, UPDATE, DELETE, and MERGE",
-        "D": "Connecting via TDS (Tabular Data Stream) connections"
-      },
-      "answer": "C",
-      "explanation": "The SQL analytics endpoint is read-only — it does not support INSERT, UPDATE, DELETE, or MERGE (DML write operations). A Fabric warehouse supports full read/write T-SQL capabilities including all DML and DDL statements.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",
@@ -117,45 +52,6 @@
       "answer": "C",
       "explanation": "A table clone copies table metadata but still references the same underlying OneLake data files. No data is physically duplicated, which keeps storage costs low. It is useful for development, testing, and preserving data at a point in time.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "How long does Query insights retain historical query data in a Fabric data warehouse?",
-      "options": {
-        "A": "7 days",
-        "B": "14 days",
-        "C": "30 days",
-        "D": "90 days"
-      },
-      "answer": "C",
-      "explanation": "Query insights retains historical query data for 30 days. It provides a central location for historical query data and actionable performance information, helping you identify long-running queries and understand resource consumption.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which workspace role is required to run the KILL command to terminate long-running sessions in a Fabric warehouse?",
-      "options": {
-        "A": "Contributor",
-        "B": "Member",
-        "C": "Viewer",
-        "D": "Admin"
-      },
-      "answer": "D",
-      "explanation": "Only workspace Admins can run the KILL command to terminate long-running sessions. Members, Contributors, and Viewers can only see their own query results and cannot terminate other users' sessions.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is a slowly changing dimension (SCD)?",
-      "options": {
-        "A": "A dimension table that is created very slowly due to large data volumes",
-        "B": "A dimension that tracks changes to attributes over time, such as a customer's address changing",
-        "C": "A dimension table with only a few rows that rarely needs querying",
-        "D": "A dimension containing only numeric values that changes infrequently"
-      },
-      "answer": "B",
-      "explanation": "A slowly changing dimension tracks changes to dimension attributes over time, such as a customer's address or a product's price. They are important in data warehouses because they allow you to analyze historical data accurately and understand how things have changed.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",
@@ -247,19 +143,6 @@
       "answer": "C",
       "explanation": "The ReadData permission allows users to read data from any table or view in the warehouse. Without it, the user can connect (Read permission allows the SQL connection) but cannot actually retrieve table data.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "Analysts on your team constantly write the same JOIN between FactSales and DimCustomer every time they query sales data. You want to standardize this logic so all analysts use a consistent, pre-joined dataset. What is the best approach?",
-      "options": {
-        "A": "Create a stored procedure that returns the joined data",
-        "B": "Create a view that encapsulates the JOIN logic and expose it as a reusable query object",
-        "C": "Copy the joined result into a new physical table daily",
-        "D": "Use OPENROWSET each time to query both tables simultaneously"
-      },
-      "answer": "B",
-      "explanation": "Views encapsulate JOIN logic, filters, and column selections into a reusable query that consumers can reference like a table. This standardizes access, eliminates repetition, and ensures consistency. Copilot and Fabric IQ data agents can also query views like tables.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",
@@ -468,19 +351,6 @@
       "answer": "A",
       "explanation": "Option A satisfies all requirements: COPY INTO bulk loads CSV files efficiently; a star schema supports the dimensional model; RLS restricts row visibility by region; DDM masks email values without blocking queries; Direct Lake mode gives always-fresh Power BI data with no refresh overhead; business-friendly names and descriptions maximize Copilot accuracy; and Query insights provides 30-day historical query monitoring. Options B, C, and D each fail on multiple requirements (wrong security feature for the requirement, wrong Power BI mode, or missing email masking).",
       "difficulty": "Hard"
-    },
-    {
-      "type": "coding",
-      "question": "What type of warehouse object does the following T-SQL create, and what is its primary purpose?\n\nCREATE TABLE dbo.FactSales (\n    SalesKey    INT           NOT NULL,\n    CustomerKey INT           NOT NULL,\n    SalesAmount DECIMAL(10,2) NOT NULL,\n    Quantity    INT           NOT NULL\n);",
-      "options": {
-        "A": "A dimension table that stores descriptive customer and product attributes",
-        "B": "A fact table that stores numerical measures (sales amounts and quantities) for analysis",
-        "C": "A staging table used as a temporary holding area during ETL processing",
-        "D": "A view that aggregates sales data across multiple dimension tables"
-      },
-      "answer": "B",
-      "explanation": "The table is named FactSales and contains numerical measure columns (SalesAmount, Quantity) along with foreign key columns (CustomerKey, SalesKey). These characteristics identify it as a fact table — the primary source of quantitative data for analysis in a dimensional model.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

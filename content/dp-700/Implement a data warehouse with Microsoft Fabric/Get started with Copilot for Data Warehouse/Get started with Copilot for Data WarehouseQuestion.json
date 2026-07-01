@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is the primary purpose of Copilot in the Microsoft Fabric Data Warehouse workload?",
-      "options": {
-        "A": "To replace the SQL query editor with a no-code visual designer",
-        "B": "To apply AI to data warehousing tasks such as generating T-SQL, providing code completions, and surfacing information based on warehouse schema and metadata",
-        "C": "To automatically scale capacity SKUs based on query load",
-        "D": "To migrate on-premises SQL Server databases into Fabric"
-      },
-      "answer": "B",
-      "explanation": "Copilot in Fabric's Data Warehouse applies AI to data warehousing tasks: it can generate T-SQL queries, provide code completions, and surface information based on your warehouse schema and metadata.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which capability lets users describe what they want in plain English and have Copilot produce T-SQL?",
       "options": {
         "A": "Natural language to SQL",
@@ -29,19 +16,6 @@
     },
     {
       "type": "direct",
-      "question": "How does Copilot code completion display its real-time suggestions in the SQL editor?",
-      "options": {
-        "A": "As a pop-up dialog box",
-        "B": "As dimmed ghost text inline in the editor",
-        "C": "As a separate read-only results pane",
-        "D": "As highlighted red error squiggles"
-      },
-      "answer": "B",
-      "explanation": "With completions enabled, Copilot provides real-time suggestions as dimmed ghost text as you type your query.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which keyboard key accepts a full Copilot code-completion suggestion?",
       "options": {
         "A": "Enter",
@@ -51,19 +25,6 @@
       },
       "answer": "C",
       "explanation": "You can accept a Copilot completion suggestion by pressing Tab, or dismiss it by continuing to type.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which shortcut accepts only the next word of a Copilot completion suggestion (on Windows)?",
-      "options": {
-        "A": "Ctrl+Right",
-        "B": "Ctrl+Enter",
-        "C": "Alt+Tab",
-        "D": "Shift+Right"
-      },
-      "answer": "A",
-      "explanation": "To accept only part of a suggestion, use Ctrl+Right (Cmd+Right on macOS) to accept the next word.",
       "difficulty": "Easy"
     },
     {
@@ -94,19 +55,6 @@
     },
     {
       "type": "direct",
-      "question": "In code completion, how can you guide Copilot toward a specific query using natural language inside the editor?",
-      "options": {
-        "A": "By prefixing text with /generate",
-        "B": "By leaving a comment in the query using --",
-        "C": "By renaming the query tab",
-        "D": "By selecting a stored procedure template"
-      },
-      "answer": "B",
-      "explanation": "You can leave comments in your query using -- (for example, -- What is the distribution of trips by hour on working days?) to prompt Copilot to generate a corresponding query.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which of the following is a key capability of the Copilot chat pane in Fabric's Data Warehouse?",
       "options": {
         "A": "Provisioning new Fabric capacities",
@@ -120,19 +68,6 @@
     },
     {
       "type": "direct",
-      "question": "Which slash command generates a SQL query from a provided prompt in the Copilot chat pane?",
-      "options": {
-        "A": "/explain",
-        "B": "/question",
-        "C": "/generate-sql",
-        "D": "/help"
-      },
-      "answer": "C",
-      "explanation": "The /generate-sql command generates a SQL query from the provided prompt.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What does the /explain chat command do?",
       "options": {
         "A": "Generates a natural language response to a general prompt",
@@ -142,19 +77,6 @@
       },
       "answer": "C",
       "explanation": "The /explain command provides an explanation for the query in the active query tab.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which chat command would you use to generate a natural language (non-SQL) answer to a question such as 'what types of security are supported for this warehouse?'",
-      "options": {
-        "A": "/question",
-        "B": "/generate-sql",
-        "C": "/fix",
-        "D": "/explain"
-      },
-      "answer": "A",
-      "explanation": "The /question command generates a natural language response to the prompt, such as /question what types of security are supported for this warehouse?",
       "difficulty": "Easy"
     },
     {
@@ -182,19 +104,6 @@
       "answer": "B",
       "explanation": "The Fix button is only enabled after you run a query that returns an error; Copilot automatically uses that error message as context, so no extra input is needed.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which language does Copilot's natural language to SQL feature currently support for prompts?",
-      "options": {
-        "A": "Any language supported by the tenant",
-        "B": "English to T-SQL",
-        "C": "T-SQL to Python",
-        "D": "Spanish and English"
-      },
-      "answer": "B",
-      "explanation": "Currently, natural language to SQL supports English to T-SQL, so prompts should be written in English to take full advantage of the feature.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",
@@ -328,19 +237,6 @@
     },
     {
       "type": "scenario",
-      "question": "A user writes long, ambiguous, overly complex prompts and gets poor results. What does the best-practices guidance recommend?",
-      "options": {
-        "A": "Add as many adjectives as possible",
-        "B": "Start with a clear and concise description and avoid ambiguous or overly complex language",
-        "C": "Always use ALL CAPS",
-        "D": "Provide prompts only as SQL"
-      },
-      "answer": "B",
-      "explanation": "Crafting effective prompts means starting with a clear and concise description, avoiding ambiguous or overly complex language while maintaining clarity.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A developer wants Copilot to better understand the intent of a multi-table query directly within the query they are building. Which technique is recommended?",
       "options": {
         "A": "Add comments at the top of the query using -- to guide Copilot on intent",
@@ -445,19 +341,6 @@
     },
     {
       "type": "scenario",
-      "question": "After Copilot adds inline explanatory comments to a query, a developer disagrees with one comment's wording. What can they do?",
-      "options": {
-        "A": "Nothing; Copilot comments are locked",
-        "B": "Edit or delete the comments as needed",
-        "C": "They must regenerate the entire warehouse",
-        "D": "Only an admin can change comments"
-      },
-      "answer": "B",
-      "explanation": "The comments appear next to the relevant lines of code and you can edit or delete the comments as needed.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A workspace's tenant restricts data processing to specific geographic regions. The team plans to roll out Copilot. What must they confirm?",
       "options": {
         "A": "That all users are in the same time zone",
@@ -507,19 +390,6 @@
       "answer": "B",
       "explanation": "The WHERE YEAR(D.[Date]) = 2013 clause filters to only records from the year 2013, matching the style of inline comment Copilot's Explain action produces.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "A user issues the chat command: '/generate-sql select numbers 1 through 10'. Which result best reflects what Copilot is being asked to produce?",
-      "options": {
-        "A": "A query/result that returns the integers 1 through 10",
-        "B": "A query that deletes rows 1 through 10",
-        "C": "A query that returns the top 10 customers",
-        "D": "A stored procedure that loops 10 times silently"
-      },
-      "answer": "A",
-      "explanation": "The /generate-sql command produces SQL from the prompt; 'select numbers 1 through 10' asks for a query that returns the numbers 1 through 10, as shown in the module's example.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

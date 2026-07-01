@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is the primary characteristic of real-time analytics as defined in the module?",
-      "options": {
-        "A": "Processing, analyzing, and acting on data as it is generated, typically within seconds to minutes of when events occur",
-        "B": "Processing large historical datasets stored in a data warehouse on a nightly schedule",
-        "C": "Generating reports overnight from static snapshots of data",
-        "D": "Manually reviewing log files once a problem has been reported"
-      },
-      "answer": "A",
-      "explanation": "Real-time analytics is the practice of processing, analyzing, and acting on data as it is generated, typically within seconds to minutes of when events occur, operating on data that is actively flowing through systems rather than static historical snapshots.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Why is real-time analytics also commonly referred to as 'near real-time' analytics?",
       "options": {
         "A": "Because there is always some degree of processing and network latency involved",
@@ -25,32 +12,6 @@
       },
       "answer": "A",
       "explanation": "The approach is known as near real-time analytics because there is always some degree of processing and network latency involved, so insights arrive within seconds to minutes rather than truly instantaneously.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In the context of real-time analytics, what is an 'event'?",
-      "options": {
-        "A": "A record of something that happens in a system, capturing a moment when something occurs, changes, or is completed",
-        "B": "A scheduled batch job that runs at a fixed interval",
-        "C": "A permanent table stored in a relational database",
-        "D": "A dashboard tile that displays aggregated data"
-      },
-      "answer": "A",
-      "explanation": "Events are records of things that happen in a system. They capture moments when something occurs, changes, or is completed, such as website clicks, stock price changes, or sensor readings.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How is a 'stream' best described in real-time analytics?",
-      "options": {
-        "A": "A sequence of events, typically ordered by the time an event occurred",
-        "B": "A single static record stored in a KQL database",
-        "C": "A precalculated summary stored in a materialized view",
-        "D": "A Power BI report connected to a lakehouse"
-      },
-      "answer": "A",
-      "explanation": "A stream is essentially a sequence of events, typically ordered by the time an event occurred. Streams are the delivery mechanism that carries events from where they happen to where they need to be processed.",
       "difficulty": "Easy"
     },
     {
@@ -68,32 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "Where does Real-Time Intelligence store data using KQL databases?",
-      "options": {
-        "A": "In an Eventhouse",
-        "B": "In a Real-Time Dashboard",
-        "C": "In Activator",
-        "D": "In the Real-Time hub"
-      },
-      "answer": "A",
-      "explanation": "Real-Time Intelligence stores data in KQL (Kusto Query Language) databases in Eventhouses. These databases are designed for time-series data and fast ingestion of streaming data, and integrate with OneLake.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does the Real-Time hub provide in Microsoft Fabric?",
-      "options": {
-        "A": "A central location to discover and manage all data-in-motion you have access to, and to subscribe to Azure and Fabric events",
-        "B": "A relational database for storing transactional records",
-        "C": "A tool for building Power BI semantic models from batch data",
-        "D": "A spreadsheet interface for manual data entry"
-      },
-      "answer": "A",
-      "explanation": "The Real-Time hub is a central location where you can discover and manage all data-in-motion you have access to. It lets you ingest streaming data from Azure and external sources and subscribe to Azure and Fabric events, acting as a streaming data catalog.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which component continuously monitors streaming data against user-defined rules and thresholds to trigger automated actions?",
       "options": {
         "A": "Activator",
@@ -103,32 +38,6 @@
       },
       "answer": "A",
       "explanation": "Activator continuously monitors streaming data against user-defined rules and thresholds. When conditions are met, it can send notifications, trigger Power Automate workflows, or execute Fabric data pipelines or notebooks.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which three main components make up an Eventstream?",
-      "options": {
-        "A": "Sources, transformations, and destinations",
-        "B": "Tables, functions, and materialized views",
-        "C": "Events, objects, and properties",
-        "D": "Tiles, queries, and dashboards"
-      },
-      "answer": "A",
-      "explanation": "An Eventstream has three main components: sources where data originates, transformations (optional processing applied to the data), and destinations where the processed data is sent.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is a valid destination for data in an eventstream?",
-      "options": {
-        "A": "A KQL database in an Eventhouse",
-        "B": "A Power BI workspace setting",
-        "C": "A Fabric capacity SKU",
-        "D": "A Microsoft Entra security group"
-      },
-      "answer": "A",
-      "explanation": "Eventstream destinations include a KQL database in an Eventhouse, a Lakehouse, a derived stream, Fabric Activator, or a custom endpoint. These are where processed data becomes available for queries, dashboards, alerts, or integration.",
       "difficulty": "Easy"
     },
     {
@@ -146,19 +55,6 @@
     },
     {
       "type": "direct",
-      "question": "What are the four core concepts on which Activator operates?",
-      "options": {
-        "A": "Events, Objects, Properties, and Rules",
-        "B": "Sources, Transformations, Destinations, and Tiles",
-        "C": "Tables, Functions, Views, and Shortcuts",
-        "D": "Ingestion, Storage, Visualization, and Automation"
-      },
-      "answer": "A",
-      "explanation": "Activator operates based on four core concepts: Events (records in a stream), Objects (business entities represented by event data), Properties (fields mapped to aspects of an object's state), and Rules (conditions that trigger actions).",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is each individual visualization element on a Real-Time Dashboard called?",
       "options": {
         "A": "A tile",
@@ -168,32 +64,6 @@
       },
       "answer": "A",
       "explanation": "Real-Time Dashboards are composed of one or more tiles, each containing a visualization based on a KQL query expression. By default a tile shows results as a table, but it can be customized.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Besides Real-Time Dashboards, what other tool can be used to visualize real-time data from KQL database data?",
-      "options": {
-        "A": "Power BI reports",
-        "B": "Azure Synapse Studio",
-        "C": "Microsoft Excel macros",
-        "D": "Azure Logic Apps designer"
-      },
-      "answer": "A",
-      "explanation": "In addition to Real-Time Dashboards, you can create Power BI reports from your KQL database data to visualize real-time data in Fabric.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which AI capability is included in Microsoft Fabric to help write queries that extract insights from Eventhouse data?",
-      "options": {
-        "A": "Copilot for Real-Time Intelligence",
-        "B": "Azure Machine Learning Studio",
-        "C": "Cognitive Services Text Analytics",
-        "D": "Power Automate AI Builder"
-      },
-      "answer": "A",
-      "explanation": "Microsoft Fabric includes Copilot for Real-Time Intelligence, which uses AI to understand what you are looking for and can generate the required query code to extract insights from Eventhouse data.",
       "difficulty": "Easy"
     },
     {
@@ -207,32 +77,6 @@
       },
       "answer": "A",
       "explanation": "Real-Time Intelligence in Microsoft Fabric lets the company work with streaming data from GPS trackers, scanners, and notification platforms as events occur, enabling them to spot delays quickly and set up automated customer notifications, unlike overnight batch reporting.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A manufacturing team wants to prevent costly equipment breakdowns by tracking machine temperature and reacting before failures occur. Which Real-Time Intelligence use case does this represent?",
-      "options": {
-        "A": "Equipment monitoring",
-        "B": "Fraud detection",
-        "C": "Website performance",
-        "D": "System health"
-      },
-      "answer": "A",
-      "explanation": "Equipment monitoring is the use case that tracks machine temperature to prevent costly breakdowns, allowing teams to respond to conditions before equipment fails.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A retailer needs to analyze purchase patterns and block suspicious transactions immediately as they occur. Which Real-Time Intelligence use case best matches this requirement?",
-      "options": {
-        "A": "Fraud detection",
-        "B": "Delivery tracking",
-        "C": "Website performance",
-        "D": "Equipment monitoring"
-      },
-      "answer": "A",
-      "explanation": "Fraud detection analyzes purchase patterns to block suspicious transactions immediately, which is exactly what the retailer needs to do in real time.",
       "difficulty": "Easy"
     },
     {
@@ -419,32 +263,6 @@
     },
     {
       "type": "scenario",
-      "question": "A streaming pipeline must continuously collect data simultaneously from CDC database changes, sensors, applications, system logs, and APIs as information is generated. Which capability of a real-time analytics solution does this represent?",
-      "options": {
-        "A": "Real-time data ingestion",
-        "B": "Interactive dashboards",
-        "C": "Automated decision making",
-        "D": "Low-latency storage"
-      },
-      "answer": "A",
-      "explanation": "Real-time data ingestion is the capability that collects data from multiple sources simultaneously as information is generated, including database change data capture, sensors, applications, system logs, and APIs.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "An architect needs storage designed to handle high-velocity data writes while still providing fast query responses for streaming telemetry. Which real-time analytics capability is required?",
-      "options": {
-        "A": "Low-latency storage",
-        "B": "Interactive dashboards",
-        "C": "Stream processing",
-        "D": "Automated decision making"
-      },
-      "answer": "A",
-      "explanation": "Low-latency storage uses specialized databases and storage systems designed to handle high-velocity data writes and provide fast query responses, which matches the streaming telemetry storage requirement.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A bank wants Activator to send an alert whenever a customer's account balance crosses a certain threshold. In Activator terms, what does the account balance field represent?",
       "options": {
         "A": "A property of the account object",
@@ -572,19 +390,6 @@
       "answer": "A",
       "explanation": "The where operator filters to rows where status equals 'Delayed', summarize count() by route counts those delayed rows per route, and project returns the route and delayedCount columns. This produces a per-route count of delayed deliveries.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "A KQL database also supports a subset of T-SQL. Which T-SQL statement returns the first 10 rows of the stock table, equivalent in intent to 'stock | take 10' in KQL?",
-      "options": {
-        "A": "SELECT TOP 10 * FROM stock;",
-        "B": "SELECT * FROM stock LIMIT 10;",
-        "C": "FETCH FIRST 10 ROWS FROM stock;",
-        "D": "SELECT * FROM stock SAMPLE 10;"
-      },
-      "answer": "A",
-      "explanation": "KQL databases in Eventhouses support a subset of common T-SQL expressions. The module shows 'SELECT TOP 10 * FROM stock;' as the T-SQL way to return 10 rows, analogous to the KQL 'stock | take 10'.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

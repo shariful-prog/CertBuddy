@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is Apache Spark described as in the module?",
-      "options": {
-        "A": "A relational database engine",
-        "B": "An open source parallel processing framework for large-scale data processing and analytics",
-        "C": "A reporting and dashboard tool",
-        "D": "A no-code ETL designer"
-      },
-      "answer": "B",
-      "explanation": "Apache Spark is an open source parallel processing framework for large-scale data processing and analytics, popular in big data scenarios.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is a cluster of compute nodes called in Microsoft Fabric?",
       "options": {
         "A": "A Spark pool",
@@ -25,45 +12,6 @@
       },
       "answer": "A",
       "explanation": "Spark coordinates work across multiple processing nodes in a cluster, known in Microsoft Fabric as a Spark pool.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which two kinds of node does a Spark pool contain?",
-      "options": {
-        "A": "Primary and secondary nodes",
-        "B": "A head node (coordinating processes through a driver program) and multiple worker nodes (on which executor processes perform the actual data processing)",
-        "C": "Read nodes and write nodes",
-        "D": "Manager and agent nodes"
-      },
-      "answer": "B",
-      "explanation": "A Spark pool contains a head node that coordinates distributed processes through a driver program, and multiple worker nodes on which executor processes perform the actual data processing tasks.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which combination of languages is stated to accomplish most data engineering and analytics workloads in Spark?",
-      "options": {
-        "A": "Java and Scala",
-        "B": "PySpark and Spark SQL",
-        "C": "Spark R and Java",
-        "D": "C# and T-SQL"
-      },
-      "answer": "B",
-      "explanation": "Spark can run code in Java, Scala, Spark R, Spark SQL, and PySpark; in practice most workloads use a combination of PySpark and Spark SQL.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does Microsoft Fabric provide in each workspace to enable Spark jobs to start quickly with minimal setup?",
-      "options": {
-        "A": "A custom pool",
-        "B": "A starter pool",
-        "C": "A driver pool",
-        "D": "A capacity pool"
-      },
-      "answer": "B",
-      "explanation": "Microsoft Fabric provides a starter pool in each workspace, enabling Spark jobs to be started and run quickly with minimal setup and configuration.",
       "difficulty": "Easy"
     },
     {
@@ -81,45 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "What does a Spark 'runtime' determine?",
-      "options": {
-        "A": "The number of worker nodes only",
-        "B": "The version of Apache Spark, Delta Lake, Python, and other core software components that are installed",
-        "C": "The workspace permissions",
-        "D": "The pipeline schedule"
-      },
-      "answer": "B",
-      "explanation": "The Spark runtime determines the version of Apache Spark, Delta Lake, Python, and other core software components that are installed.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "When you want to use Spark to explore and analyze data interactively, what should you use?",
-      "options": {
-        "A": "A Spark job definition",
-        "B": "A notebook",
-        "C": "A pipeline template",
-        "D": "A semantic model"
-      },
-      "answer": "B",
-      "explanation": "When you want to use Spark to explore and analyze data interactively, use a notebook, which combines text, images, and code in cells and shows results immediately.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is the most commonly used data structure for working with structured data in Spark?",
-      "options": {
-        "A": "A resilient distributed dataset (RDD)",
-        "B": "A dataframe, provided as part of the Spark SQL library",
-        "C": "A Pandas Series",
-        "D": "A Delta log"
-      },
-      "answer": "B",
-      "explanation": "While Spark natively uses RDDs, the most commonly used data structure for structured data is the dataframe, provided as part of the Spark SQL library.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What is a notebook 'magic' such as %%pyspark or %%sql used for?",
       "options": {
         "A": "To delete a cell",
@@ -129,32 +38,6 @@
       },
       "answer": "B",
       "explanation": "A magic (e.g., %%pyspark, %%spark, %%sql) tells Spark the language used in that cell and can override the notebook's default language choice for a specific cell.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is the Spark catalog?",
-      "options": {
-        "A": "A list of available Spark pools",
-        "B": "A metastore for relational data objects such as views and tables",
-        "C": "A library of Python packages",
-        "D": "A pipeline run history store"
-      },
-      "answer": "B",
-      "explanation": "The Spark catalog is a metastore for relational data objects such as views and tables, which the Spark runtime can use to integrate code with SQL expressions.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is the preferred table format in Microsoft Fabric for tables in the Spark catalog?",
-      "options": {
-        "A": "CSV",
-        "B": "Parquet",
-        "C": "Delta (Delta Lake)",
-        "D": "JSON"
-      },
-      "answer": "C",
-      "explanation": "The preferred format in Microsoft Fabric is delta, the format for Delta Lake, which supports transactions, versioning, and streaming data.",
       "difficulty": "Easy"
     },
     {

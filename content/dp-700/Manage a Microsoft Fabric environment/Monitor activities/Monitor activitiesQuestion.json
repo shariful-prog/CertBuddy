@@ -3,32 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is the primary purpose of monitoring in Microsoft Fabric?",
-      "options": {
-        "A": "To manage user licenses and assign workspace permissions",
-        "B": "To collect data about system activities to determine whether they succeed, fail, or degrade over time",
-        "C": "To deploy content between development and production environments",
-        "D": "To configure tenant-wide settings in the Fabric admin portal"
-      },
-      "answer": "B",
-      "explanation": "The module defines monitoring as the process of collecting data about your system's activities so you can determine whether those activities succeed, fail, or degrade over time.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How do you open the monitoring hub in the Microsoft Fabric portal?",
-      "options": {
-        "A": "Select 'Settings' from the top navigation bar",
-        "B": "Select 'Monitor' from the navigation pane on the left side of the Fabric portal",
-        "C": "Open the Fabric admin portal and navigate to the Monitoring section",
-        "D": "Navigate to workspace settings and select the Monitoring tab"
-      },
-      "answer": "B",
-      "explanation": "To open the monitoring hub, select 'Monitor' from the navigation pane on the left side of the Fabric portal. The main view displays a table of recent activities.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which of the following is NOT a valid activity status shown in the Fabric monitoring hub?",
       "options": {
         "A": "Succeeded",
@@ -42,71 +16,6 @@
     },
     {
       "type": "direct",
-      "question": "What does the 'Cancelled' status in the monitoring hub indicate?",
-      "options": {
-        "A": "The activity encountered a fatal error and did not complete",
-        "B": "Someone or something stopped the activity before it finished",
-        "C": "The activity completed without any errors",
-        "D": "The activity is currently running and consuming resources"
-      },
-      "answer": "B",
-      "explanation": "Cancelled means someone or something stopped the activity before it finished. The module advises checking whether the cancellation was intentional or caused by a timeout or capacity limit.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How many days of run history does the monitoring hub retain for a specific activity?",
-      "options": {
-        "A": "7 days",
-        "B": "14 days",
-        "C": "30 days",
-        "D": "90 days"
-      },
-      "answer": "C",
-      "explanation": "The monitoring hub displays up to 30 days of run history for a specific item when you select 'Historical runs' via the More options menu.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What minimum workspace role is required to configure failure notifications on the monitoring hub's Schedule failures page?",
-      "options": {
-        "A": "Viewer",
-        "B": "Contributor",
-        "C": "Member",
-        "D": "Admin"
-      },
-      "answer": "B",
-      "explanation": "You need at least the Contributor role in the workspace to configure notifications on the Schedule failures page.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does enabling Workspace Monitoring create in your Fabric workspace?",
-      "options": {
-        "A": "A new deployment pipeline for log shipping",
-        "B": "An Eventhouse database that continuously collects diagnostic logs and metrics from your Fabric items",
-        "C": "A new Power BI report dashboard showing recent activity",
-        "D": "A Git repository connection for audit history"
-      },
-      "answer": "B",
-      "explanation": "When you enable workspace monitoring, Fabric creates an Eventhouse database in your workspace that continuously collects diagnostic logs and metrics from your Fabric items.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which query languages can be used to analyze data in the workspace monitoring Eventhouse database?",
-      "options": {
-        "A": "Python and R",
-        "B": "KQL or SQL",
-        "C": "DAX and M",
-        "D": "JSON and XML"
-      },
-      "answer": "B",
-      "explanation": "Workspace monitoring stores raw log data that you can query with KQL or SQL, enabling advanced analysis beyond what the monitoring hub's visual dashboard provides.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Under which tab in workspace settings is Workspace Monitoring enabled?",
       "options": {
         "A": "Git integration",
@@ -116,19 +25,6 @@
       },
       "answer": "C",
       "explanation": "You enable workspace monitoring in the workspace settings under the Monitoring tab.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which optional monitoring hub column shows who or what triggered an activity run?",
-      "options": {
-        "A": "Duration",
-        "B": "Submitted by",
-        "C": "End time",
-        "D": "Location"
-      },
-      "answer": "B",
-      "explanation": "The 'Submitted by' column shows who or what triggered the activity — a user, a schedule, or a pipeline. It can be added via the Column options button.",
       "difficulty": "Easy"
     },
     {
@@ -169,19 +65,6 @@
       "answer": "C",
       "explanation": "Unlike batch activities that run and complete, Eventstreams are designed to run continuously, ingesting real-time data from sources like IoT devices, Azure Event Hubs, and custom applications. You monitor throughput, latency, and error rates rather than individual run completions.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "What monitoring hub filter would you apply to focus only on failed activities?",
-      "options": {
-        "A": "Item type filter set to 'Failed'",
-        "B": "Status filter set to 'Failed'",
-        "C": "Submitted by filter set to 'System'",
-        "D": "Location filter set to the target workspace"
-      },
-      "answer": "B",
-      "explanation": "The Status filter can be used to show only failed activities to focus on problems, or only succeeded activities to verify routine operations.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",

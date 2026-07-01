@@ -3,71 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What type of tool are Dataflows Gen2 described as in Microsoft Fabric?",
-      "options": {
-        "A": "A real-time streaming engine",
-        "B": "A cloud-based ETL (Extract, Transform, Load) tool for building and executing scalable data transformation processes",
-        "C": "A reporting and visualization tool",
-        "D": "A relational database management system"
-      },
-      "answer": "B",
-      "explanation": "The module defines dataflows as a type of cloud-based ETL (Extract, Transform, Load) tool for building and executing scalable data transformation processes.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which technology do Dataflows Gen2 use to provide a visual interface for performing data transformation tasks?",
-      "options": {
-        "A": "Power BI Desktop",
-        "B": "Power Query Online",
-        "C": "Apache Spark notebooks",
-        "D": "T-SQL query editor"
-      },
-      "answer": "B",
-      "explanation": "Dataflows Gen2 use Power Query Online, which provides a visual interface to extract, transform, and load data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "According to the module, what does adding a data destination to your dataflow constitute?",
-      "options": {
-        "A": "A mandatory first step before any transformation",
-        "B": "An optional step, while the dataflow preserves all transformation steps",
-        "C": "A step that deletes all transformation logic",
-        "D": "A step that is only available in Power BI Desktop"
-      },
-      "answer": "B",
-      "explanation": "The module states that adding a data destination to your dataflow is optional, and the dataflow preserves all transformation steps regardless.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is listed as a benefit of using Dataflows Gen2?",
-      "options": {
-        "A": "It supports row-level security on all data",
-        "B": "It replaces the need for a data warehouse",
-        "C": "It optimizes performance by enabling data to be extracted once for reuse, reducing data refresh time for slower sources",
-        "D": "It removes the requirement for a Fabric capacity workspace"
-      },
-      "answer": "C",
-      "explanation": "A listed benefit is optimizing performance with dataflows, which enable extracting data once for reuse, reducing data refresh time for slower sources.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is explicitly listed as a limitation of Dataflows Gen2?",
-      "options": {
-        "A": "Row-level security isn't supported",
-        "B": "They cannot connect to relational databases",
-        "C": "They cannot be scheduled to refresh",
-        "D": "They do not support Power Query transformations"
-      },
-      "answer": "A",
-      "explanation": "The limitations listed include that dataflows aren't a replacement for a data warehouse, row-level security isn't supported, and a Fabric capacity workspace is required.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "In which Fabric experiences can you create a Dataflow Gen2?",
       "options": {
         "A": "Only in the Power BI workspace",
@@ -77,58 +12,6 @@
       },
       "answer": "C",
       "explanation": "The module states you can create a Dataflow Gen2 in the Data Factory workload or Power BI workspace, or directly in the lakehouse.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In the Power Query Online interface, what is shown in the Queries pane?",
-      "options": {
-        "A": "The applied transformation steps for the selected query",
-        "B": "The different data sources, now called queries (which become tables when loaded to a data store)",
-        "C": "A subset of the actual data rows",
-        "D": "The M code for the dataflow"
-      },
-      "answer": "B",
-      "explanation": "The Queries pane shows the different data sources, now called queries; these queries are called tables when loaded to your data store.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is the purpose of the Diagram View in the Dataflows Gen2 interface?",
-      "options": {
-        "A": "To write and edit M code directly",
-        "B": "To visually see how the data sources are connected and the different applied transformations",
-        "C": "To schedule the dataflow refresh",
-        "D": "To assign row-level security to queries"
-      },
-      "answer": "B",
-      "explanation": "The Diagram View allows you to visually see how the data sources are connected and the different applied transformations, with each query represented as a shape.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does the Data Preview pane in Dataflows Gen2 display?",
-      "options": {
-        "A": "The complete dataset for the selected query",
-        "B": "Only a subset of data to allow you to see which transformations to make and how they affect the data",
-        "C": "Only the column headers without any rows",
-        "D": "The refresh schedule history"
-      },
-      "answer": "B",
-      "explanation": "The Data Preview pane only shows a subset of data to allow you to see which transformations you should make and how they affect the data.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Where in the Query Settings pane are the individual transformations represented, and what are they called?",
-      "options": {
-        "A": "In the Diagram View, called nodes",
-        "B": "In the Applied Steps section, where each transformation is represented as a step",
-        "C": "In the Data Preview pane, called previews",
-        "D": "In the Power Query ribbon, called commands"
-      },
-      "answer": "B",
-      "explanation": "The Query Settings pane includes the Applied Steps, where each transformation is represented as a step; most steps have a gear icon to modify them.",
       "difficulty": "Easy"
     },
     {
@@ -169,32 +52,6 @@
       "answer": "B",
       "explanation": "You can duplicate or reference a query if you need multiple copies of the same data, such as creating a star schema and splitting data into separate, smaller tables.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is a transformation explicitly listed as available in Dataflows Gen2?",
-      "options": {
-        "A": "Train a machine learning model",
-        "B": "Pivot and Unpivot",
-        "C": "Deploy to production pipeline",
-        "D": "Configure row-level security"
-      },
-      "answer": "B",
-      "explanation": "The listed transformations include Filter and Sort rows, Pivot and Unpivot, Merge and Append queries, Split, Replace values, Remove duplicates, and others.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How can a Dataflow Gen2 be run, according to the module?",
-      "options": {
-        "A": "Only manually",
-        "B": "Only as part of a data pipeline",
-        "C": "Manually, on a refresh schedule, or as part of a data pipeline orchestration",
-        "D": "Only through Power BI Desktop"
-      },
-      "answer": "C",
-      "explanation": "Dataflows offer a wide variety of transformations and can be run manually, on a refresh schedule, or as part of a data pipeline orchestration.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",

@@ -3,58 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "How many levels does Fabric's security model evaluate sequentially before granting data access?",
-      "options": {
-        "A": "Two (Microsoft Entra ID authentication + Fabric access)",
-        "B": "Three (Microsoft Entra ID authentication, Fabric access, and Data security)",
-        "C": "Four (Entra ID, workspace, item, and column levels)",
-        "D": "Five (tenant, domain, workspace, item, and row levels)"
-      },
-      "answer": "B",
-      "explanation": "Fabric evaluates access sequentially across three levels: (1) Microsoft Entra ID authentication, (2) Fabric access, and (3) Data security. The third level, data security, contains four primary access controls.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which workspace role allows a user to create, view, modify, share, and manage all content and permissions?",
-      "options": {
-        "A": "Member",
-        "B": "Contributor",
-        "C": "Viewer",
-        "D": "Admin"
-      },
-      "answer": "D",
-      "explanation": "Admin can create, view, modify, share, and manage all content and data in the workspace, and manage permissions — the broadest workspace role.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which workspace role allows a user to create, view, and modify content but NOT share it or manage permissions?",
-      "options": {
-        "A": "Admin",
-        "B": "Member",
-        "C": "Contributor",
-        "D": "Viewer"
-      },
-      "answer": "C",
-      "explanation": "Contributor can create, view, and modify all content and data in the workspace, but cannot share items or manage workspace permissions.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "By default, what OneLake data access do Viewer workspace role users have?",
-      "options": {
-        "A": "Read access to all OneLake data in the workspace",
-        "B": "Read and write access to all OneLake data",
-        "C": "No access to the underlying data stored in OneLake",
-        "D": "Read access to OneLake data via the SQL analytics endpoint only"
-      },
-      "answer": "C",
-      "explanation": "The module states: 'Viewers can see Fabric items listed in the workspace, but have no access to the underlying data stored in OneLake by default. Use OneLake security roles to grant Viewers access to specific tables or folders.'",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "When sharing a lakehouse with item permissions, which permission is always granted by default?",
       "options": {
         "A": "Read all SQL endpoint data",
@@ -81,32 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "Which Data Control Language (DCL) commands are used to apply T-SQL granular permissions in Fabric?",
-      "options": {
-        "A": "SELECT, INSERT, UPDATE",
-        "B": "GRANT, DENY, REVOKE",
-        "C": "CREATE, ALTER, DROP",
-        "D": "BEGIN, COMMIT, ROLLBACK"
-      },
-      "answer": "B",
-      "explanation": "T-SQL permissions for the SQL analytics endpoint are applied using Data Control Language commands: GRANT, DENY, and REVOKE. These can also be combined with row-level security, column-level security, and dynamic data masking.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How many components does each OneLake security role have?",
-      "options": {
-        "A": "Two (Data and Permission)",
-        "B": "Three (Data, Permission, Members)",
-        "C": "Four (Data, Permission, Members, Constraints)",
-        "D": "Five (Data, Permission, Members, Constraints, Audit)"
-      },
-      "answer": "C",
-      "explanation": "Each OneLake security role has four components: Data (the tables or folders), Permission (Read or ReadWrite), Members (users or groups), and Constraints (optional row or column filters).",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which workspace roles can create or modify OneLake security roles?",
       "options": {
         "A": "Admin, Member, and Contributor",
@@ -117,19 +39,6 @@
       "answer": "B",
       "explanation": "The module states: 'Only workspace Admin and Member roles can create or modify OneLake security roles.'",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which security principle does the module recommend when assigning Fabric permissions?",
-      "options": {
-        "A": "Principle of maximum availability",
-        "B": "Principle of least privilege",
-        "C": "Principle of centralized control",
-        "D": "Principle of shared access"
-      },
-      "answer": "B",
-      "explanation": "The module repeatedly emphasizes the principle of least privilege — restricting each user's access to only what they need to perform their job.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",
@@ -442,19 +351,6 @@
       "answer": "B",
       "explanation": "Group A: Contributor gives create/modify without over-permissioning to Admin/Member. Group B: Viewer + OneLake security role restricts to specific tables via all engines. Group C: Viewer + SQL endpoint item permission scopes access to T-SQL only; T-SQL GRANT on InsuranceClaims + dynamic data masking hides SSN. Group D: Viewer + Build reports permission grants report access without any raw data access. Each group receives exactly what they need — no more.",
       "difficulty": "Hard"
-    },
-    {
-      "type": "coding",
-      "question": "A SQL analyst runs the following T-SQL command on a lakehouse's SQL analytics endpoint:\n\nGRANT SELECT ON dbo.PatientRecords TO [analyst@company.com];\n\nWhat does this command do?",
-      "options": {
-        "A": "Removes the analyst's access to the PatientRecords table",
-        "B": "Grants the analyst read (SELECT) access to the PatientRecords table via T-SQL",
-        "C": "Creates a new table called PatientRecords for the analyst",
-        "D": "Grants the analyst write access to the PatientRecords table"
-      },
-      "answer": "B",
-      "explanation": "GRANT SELECT on a table gives the specified user the ability to query (read) data from that table via T-SQL through the SQL analytics endpoint.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",

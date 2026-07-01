@@ -3,32 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "Which security layer in a Fabric warehouse provides fine-grained control at the object, column, and row level using T-SQL without requiring application changes?",
-      "options": {
-        "A": "Workspace roles",
-        "B": "Item permissions",
-        "C": "Data protection",
-        "D": "Encryption"
-      },
-      "answer": "C",
-      "explanation": "Data protection uses T-SQL commands (dynamic data masking, RLS, CLS, granular permissions) to give fine-grained control at the object, column, and row level without requiring application changes. It is the focus of this module.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What are the four workspace roles that control who can access and manage items within a Fabric workspace?",
-      "options": {
-        "A": "Owner, Editor, Reader, Guest",
-        "B": "Admin, Member, Contributor, Viewer",
-        "C": "Doctor, Nurse, Receptionist, Patient",
-        "D": "Admin, Reader, Writer, Auditor"
-      },
-      "answer": "B",
-      "explanation": "Workspace roles are Admin, Member, Contributor, and Viewer. They are the first line of access control before a user ever touches a warehouse.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "By default, how is all data in a Fabric warehouse encrypted at rest?",
       "options": {
         "A": "It is not encrypted unless customer-managed keys are configured",
@@ -38,58 +12,6 @@
       },
       "answer": "C",
       "explanation": "All warehouse data is encrypted at rest by default using Microsoft-managed keys. For greater control you can configure customer-managed keys (CMK) through Azure Key Vault.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which capability captures user activity such as logins, queries, and permission changes for compliance reporting?",
-      "options": {
-        "A": "Dynamic data masking",
-        "B": "SQL audit logs",
-        "C": "Row-level security",
-        "D": "Item permissions"
-      },
-      "answer": "B",
-      "explanation": "SQL audit logs capture user activity including logins, queries, and permission changes. Audit data is available through Microsoft Purview and PowerShell and is essential for compliance reporting and detecting unauthorized access.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What does dynamic data masking (DDM) do to sensitive column values?",
-      "options": {
-        "A": "Permanently encrypts the values in storage",
-        "B": "Deletes the values for nonprivileged users",
-        "C": "Obscures column values in query results without changing the underlying data",
-        "D": "Prevents nonprivileged users from querying the column at all"
-      },
-      "answer": "C",
-      "explanation": "DDM obscures column values in query results without changing the underlying data. Masking happens at query time, not at the storage layer, so the actual values stay intact in storage.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which dynamic data masking type shows the first character and appends a fixed .com suffix?",
-      "options": {
-        "A": "Default",
-        "B": "Email",
-        "C": "Custom text",
-        "D": "Random"
-      },
-      "answer": "B",
-      "explanation": "The Email masking type, defined with email(), shows the first character and appends a fixed .com suffix. For example johndoe@contoso.com becomes j*****@contoso.com.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "With the Default masking function, what does a numeric value become for a nonprivileged user?",
-      "options": {
-        "A": "XXXX",
-        "B": "1900-01-01",
-        "C": "0",
-        "D": "A random number within a range"
-      },
-      "answer": "C",
-      "explanation": "The Default masking type fully replaces the value based on the data type: numbers become 0, strings become XXXX, and dates become 1900-01-01.",
       "difficulty": "Easy"
     },
     {
@@ -107,32 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "Which permission allows a data engineer to add or remove masks from columns without granting admin rights?",
-      "options": {
-        "A": "UNMASK",
-        "B": "ALTER ANY MASK",
-        "C": "CONTROL",
-        "D": "ALTER ANY SECURITY POLICY"
-      },
-      "answer": "B",
-      "explanation": "To add or remove masks from columns, a user needs the ALTER ANY MASK permission. This lets a data engineer manage masking rules without being granted admin rights.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which two components work together to implement row-level security (RLS) in a Fabric warehouse?",
-      "options": {
-        "A": "Masking rules and UNMASK permissions",
-        "B": "Filter predicates and security policies",
-        "C": "Roles and DENY statements",
-        "D": "Workspace roles and item permissions"
-      },
-      "answer": "B",
-      "explanation": "RLS uses filter predicates (an inline table-valued function returning true/false per row) and security policies (which bind one or more filter predicates to specific tables).",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "Which operations are affected by an RLS filter predicate?",
       "options": {
         "A": "SELECT, UPDATE, and DELETE",
@@ -146,19 +42,6 @@
     },
     {
       "type": "direct",
-      "question": "What happens when a user without permission to a column tries to SELECT that column under column-level security (CLS)?",
-      "options": {
-        "A": "They see a NULL value for that column",
-        "B": "They see a masked value such as XXXX",
-        "C": "They receive a permission error, while the rest of the table remains accessible",
-        "D": "The entire query is silently filtered to zero rows"
-      },
-      "answer": "C",
-      "explanation": "Under CLS, users without permission to a column receive an error if they try to select it, while the rest of the table remains accessible to them normally.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "When a user has both a GRANT and a DENY on the same permission from different roles, which one takes effect?",
       "options": {
         "A": "GRANT always wins",
@@ -169,19 +52,6 @@
       "answer": "B",
       "explanation": "When a user has both a GRANT and a DENY on the same permission, DENY always wins. This is why CLS works by granting broad table access and then denying access to sensitive columns.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "Which permission lets a user run a function or stored procedure?",
-      "options": {
-        "A": "CONTROL",
-        "B": "ALTER",
-        "C": "EXECUTE",
-        "D": "SELECT"
-      },
-      "answer": "C",
-      "explanation": "For functions and stored procedures, EXECUTE allows a user to run the object, ALTER allows modifying its definition, and CONTROL grants full ownership-level rights.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",
@@ -406,19 +276,6 @@
     },
     {
       "type": "scenario",
-      "question": "A team plans to add dynamic data masking to a large existing warehouse that is already in production. What makes DDM practical to adopt here?",
-      "options": {
-        "A": "It requires rebuilding the table with new encrypted columns",
-        "B": "Masking happens at query time, so it can be added without schema changes or application modifications",
-        "C": "It physically rewrites stored values during a maintenance window",
-        "D": "It only works on newly created tables"
-      },
-      "answer": "B",
-      "explanation": "Because masking happens at query time and not at the storage layer, DDM is easy to add to an existing warehouse without schema changes or application modifications.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A salesperson queries a shared Sales table protected by RLS so each person sees only their own orders. From the salesperson's perspective, how do their application queries change?",
       "options": {
         "A": "They must add a WHERE clause filtering on their own name",
@@ -455,19 +312,6 @@
       "answer": "B",
       "explanation": "GRANT ALTER ANY MASK lets a data engineer add or remove masks from columns without granting admin rights. UNMASK only allows seeing unmasked data, not managing masks.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "scenario",
-      "question": "A nonprivileged user runs SELECT against a Customers table with the Email column masked by email(). The stored value is johndoe@contoso.com. What does the user see in the result?",
-      "options": {
-        "A": "XXXX",
-        "B": "johndoe@contoso.com",
-        "C": "j*****@contoso.com",
-        "D": "NULL"
-      },
-      "answer": "C",
-      "explanation": "The email() masking function shows the first character and appends a fixed .com suffix, so johndoe@contoso.com appears as j*****@contoso.com to a nonprivileged user.",
-      "difficulty": "Easy"
     },
     {
       "type": "scenario",

@@ -3,58 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What are the five levels of the Microsoft Fabric hierarchy, listed from highest to lowest scope?",
-      "options": {
-        "A": "User → Group → Workspace → Capacity → Tenant",
-        "B": "Tenant → Capacity → Domain → Workspace → Items",
-        "C": "Items → Workspace → Domain → Capacity → Tenant",
-        "D": "Tenant → Domain → Workspace → Capacity → Items"
-      },
-      "answer": "B",
-      "explanation": "Microsoft Fabric operates on a five-level architecture: Tenant (entire environment), Capacity (dedicated compute), Domain (logical grouping of workspaces), Workspace (collaboration container), and Items (data assets like lakehouses and notebooks).",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "In Microsoft Entra ID, what is the Fabric admin role listed as?",
-      "options": {
-        "A": "Fabric Administrator",
-        "B": "Power BI Administrator",
-        "C": "Azure Data Administrator",
-        "D": "Microsoft Fabric Admin"
-      },
-      "answer": "B",
-      "explanation": "The module notes: 'Microsoft Entra ID lists the Fabric admin role as Power BI Administrator. When you assign this role, look for that name.'",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which admin role manages workspaces assigned to a specific compute resource and monitors its performance?",
-      "options": {
-        "A": "Fabric admin",
-        "B": "Domain admin",
-        "C": "Capacity admin",
-        "D": "Workspace admin"
-      },
-      "answer": "C",
-      "explanation": "Capacity admin manages workspaces assigned to a specific capacity, monitors resource consumption, and reassigns workspaces when needed.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is a domain in Microsoft Fabric?",
-      "options": {
-        "A": "A dedicated compute and storage resource that powers Fabric workloads",
-        "B": "A logical grouping of workspaces that reflects organizational structure",
-        "C": "A security group that controls item-level permissions",
-        "D": "A layer of the Fabric multi-level security model"
-      },
-      "answer": "B",
-      "explanation": "A domain is a logical grouping that reflects how an organization structures its business. Domains help enforce governance boundaries and allow different policies to be applied to different groups of workspaces.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "How long can tenant setting changes take to propagate across the Fabric tenant after being saved?",
       "options": {
         "A": "Immediately — changes are instant",
@@ -64,32 +12,6 @@
       },
       "answer": "C",
       "explanation": "The module states: 'Changes can take up to 15 minutes to take effect across the tenant.'",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Where does a Fabric admin assign Power BI Pro licenses to users?",
-      "options": {
-        "A": "Fabric admin portal under Users",
-        "B": "Microsoft 365 admin center under Billing > Licenses",
-        "C": "Microsoft Entra ID portal under Identity",
-        "D": "Workspace settings in the Fabric portal"
-      },
-      "answer": "B",
-      "explanation": "Alex assigns licenses from the Microsoft 365 admin center, not the Fabric admin portal. Licensing is an M365 administration responsibility, and Fabric honors the licenses assigned there.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which per-user license is automatically assigned the first time a user signs into the Fabric portal (when Fabric is enabled in the tenant)?",
-      "options": {
-        "A": "Power BI Pro",
-        "B": "Power BI Premium Per User (PPU)",
-        "C": "Fabric Free",
-        "D": "Fabric Capacity license"
-      },
-      "answer": "C",
-      "explanation": "Fabric Free is automatically assigned the first time a user signs into the Fabric portal, if Fabric is enabled in the tenant. Alex doesn't need to pre-assign Free licenses.",
       "difficulty": "Easy"
     },
     {
@@ -120,19 +42,6 @@
     },
     {
       "type": "direct",
-      "question": "What does the admin monitoring workspace contain for tracking platform-wide Fabric usage?",
-      "options": {
-        "A": "The Microsoft Fabric Capacity Metrics app",
-        "B": "The Feature Usage and Adoption report",
-        "C": "The monitoring hub audit log viewer",
-        "D": "The workspace monitoring Eventhouse database"
-      },
-      "answer": "B",
-      "explanation": "The admin monitoring workspace is a dedicated workspace accessible to tenant admins by default, containing the Feature Usage and Adoption report and its underlying semantic model — used for understanding feature adoption across the organization.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What does the Microsoft Fabric Capacity Metrics app measure?",
       "options": {
         "A": "User login frequency across the tenant",
@@ -143,19 +52,6 @@
       "answer": "B",
       "explanation": "Consumption in Fabric is measured in capacity units (CUs). The Microsoft Fabric Capacity Metrics app lets admins visualize CU consumption across their capacity to decide when to scale up or scale out.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "direct",
-      "question": "What is the purpose of audit logs in the Fabric admin portal?",
-      "options": {
-        "A": "To monitor real-time capacity unit consumption",
-        "B": "To record user activities across the Fabric tenant for compliance and security investigations",
-        "C": "To configure tenant settings for different security groups",
-        "D": "To track Git commit history for Fabric workspace items"
-      },
-      "answer": "B",
-      "explanation": "Audit logs record user activities across the Fabric tenant. They capture who viewed or exported a report, who shared content externally, who modified workspace permissions, and who deleted Fabric items — providing evidence for security and compliance questions.",
-      "difficulty": "Easy"
     },
     {
       "type": "direct",

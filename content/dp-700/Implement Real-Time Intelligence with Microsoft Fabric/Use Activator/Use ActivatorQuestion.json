@@ -3,19 +3,6 @@
   "questions": [
     {
       "type": "direct",
-      "question": "What is Activator in Microsoft Fabric?",
-      "options": {
-        "A": "A batch data warehousing engine for historical reporting",
-        "B": "Microsoft Fabric's event detection and rules engine within Real-Time Intelligence",
-        "C": "A data modeling tool for creating star schemas",
-        "D": "A service for managing OneLake storage permissions"
-      },
-      "answer": "B",
-      "explanation": "Activator is described as Microsoft Fabric's event detection and rules engine within Real-Time Intelligence. It connects to real-time data, evaluates conditions through rules, and triggers actions when those conditions are met.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "In what order do you use Activator to respond to streaming data?",
       "options": {
         "A": "Create actions, then connect data sources, then build rules",
@@ -25,19 +12,6 @@
       },
       "answer": "B",
       "explanation": "To use Activator you first connect to real-time data sources, then create rules to check for specific conditions, and when those conditions are met Activator executes actions such as sending alerts or running workflows.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which of the following is an example action that Activator can execute when a rule condition is met?",
-      "options": {
-        "A": "Compiling a Spark job into a JAR file",
-        "B": "Sending email alerts, posting Teams messages, starting Power Automate flows, or running Fabric notebooks",
-        "C": "Provisioning a new capacity unit",
-        "D": "Encrypting OneLake files at rest"
-      },
-      "answer": "B",
-      "explanation": "When conditions are met, Activator executes actions like sending email alerts, posting Teams messages, starting Power Automate flows, or running Fabric notebooks.",
       "difficulty": "Easy"
     },
     {
@@ -55,19 +29,6 @@
     },
     {
       "type": "direct",
-      "question": "In Activator's business objects model, what are 'properties'?",
-      "options": {
-        "A": "The actions that run when a rule fires",
-        "B": "The specific data attributes for each instance, such as Temperature, City, DeliveryState, and HoursInTransit",
-        "C": "The workspace permissions granted to users",
-        "D": "The historical window size used for summarization"
-      },
-      "answer": "B",
-      "explanation": "Properties represent the data attributes for each instance, such as Temperature, City, DeliveryState, and HoursInTransit.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What do 'events' contain in the Activator business objects model?",
       "options": {
         "A": "The rule definitions and action configurations",
@@ -77,32 +38,6 @@
       },
       "answer": "B",
       "explanation": "Events contain the actual data values that flow in from your data sources. Activator uses this incoming data to automatically update property values for each object.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "Which three sections of the rule Definition pane are configured before Actions?",
-      "options": {
-        "A": "Source, Schema, and Output",
-        "B": "Monitor, Condition, and Property filter",
-        "C": "Trigger, Schedule, and Notification",
-        "D": "Attribute, Window, and Step"
-      },
-      "answer": "B",
-      "explanation": "When creating a rule, the Definition pane opens with sections to configure. The module focuses on the first three - Monitor, Condition, and Property filter - and covers Actions separately.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "What is configured in the Monitor section of a rule?",
-      "options": {
-        "A": "The email recipients for the alert",
-        "B": "An Attribute (the specific property from your event data) and optional Summarization",
-        "C": "The Power Automate flow to start",
-        "D": "The number of objects allowed in the workspace"
-      },
-      "answer": "B",
-      "explanation": "The Monitor section directs Activator to watch specific data properties. You select an Attribute - the specific property from your event data - and can add Summarization.",
       "difficulty": "Easy"
     },
     {
@@ -120,19 +55,6 @@
     },
     {
       "type": "direct",
-      "question": "In summarization timing settings, what does 'Window size' control?",
-      "options": {
-        "A": "How often Activator recalculates the value",
-        "B": "How much historical data to include, for example 10 minutes of temperature readings",
-        "C": "The maximum number of filters allowed",
-        "D": "The threshold value that triggers the alert"
-      },
-      "answer": "B",
-      "explanation": "Window size controls how much historical data to include, such as 10 minutes of temperature readings. Step size controls how often to recalculate.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
       "question": "What does 'Step size' control in summarization?",
       "options": {
         "A": "How much historical data to include",
@@ -142,32 +64,6 @@
       },
       "answer": "B",
       "explanation": "Step size controls how often to recalculate the value, for example every 5 minutes for near real-time monitoring.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How many filters can you combine in the Property filter section to create precise targeting?",
-      "options": {
-        "A": "Up to one",
-        "B": "Up to two",
-        "C": "Up to three",
-        "D": "Unlimited"
-      },
-      "answer": "C",
-      "explanation": "You can combine up to three filters in the Property filter section to create precise targeting of which events get evaluated.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "direct",
-      "question": "How many types of actions does Activator offer?",
-      "options": {
-        "A": "Two",
-        "B": "Three",
-        "C": "Four",
-        "D": "Five"
-      },
-      "answer": "C",
-      "explanation": "Activator offers four types of actions: Email actions, Teams actions, Power Automate actions, and Fabric item actions.",
       "difficulty": "Easy"
     },
     {
@@ -198,19 +94,6 @@
     },
     {
       "type": "scenario",
-      "question": "A logistics company transports temperature-sensitive medicines and must take immediate action when temperature variances threaten medicine safety. Which Fabric capability best matches this need?",
-      "options": {
-        "A": "A Lakehouse for batch storage of shipment archives",
-        "B": "Activator, to automatically evaluate conditions and trigger actions like alerting dispatch when problems occur",
-        "C": "A Dataflow Gen2 for nightly ETL of delivery records",
-        "D": "A semantic model for monthly delivery reporting"
-      },
-      "answer": "B",
-      "explanation": "Activator automatically evaluates conditions on real-time data and triggers actions such as alerting the dispatch team or starting workflows when temperature variances threaten medicine safety.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "A manufacturing plant wants maintenance teams alerted automatically when equipment temperatures exceed safe operating ranges. Which approach aligns with Activator's intended use?",
       "options": {
         "A": "Manually reviewing daily batch reports for high temperatures",
@@ -220,19 +103,6 @@
       },
       "answer": "B",
       "explanation": "Activator is designed for scenarios where timely responses matter, such as automatically alerting maintenance teams when equipment temperatures exceed safe operating ranges through a rule that triggers an action.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A retail operations team wants inventory reorders triggered automatically when stock levels fall below a critical threshold in real time. How would Activator support this?",
-      "options": {
-        "A": "By scheduling a weekly stock report",
-        "B": "By creating a threshold rule on the stock level property that triggers an action when the value falls below the limit",
-        "C": "By manually checking dashboards each morning",
-        "D": "By archiving stock data to OneLake without alerting"
-      },
-      "answer": "B",
-      "explanation": "Activator can trigger inventory reorders when stock levels fall below critical thresholds. A threshold rule on the stock-level property fires an action automatically when the condition is met.",
       "difficulty": "Easy"
     },
     {
@@ -367,32 +237,6 @@
     },
     {
       "type": "scenario",
-      "question": "A dispatch team needs to discuss and coordinate a quick response among themselves the moment a problem occurs. Which Activator action type is most appropriate?",
-      "options": {
-        "A": "Email actions",
-        "B": "Teams actions",
-        "C": "Fabric item actions",
-        "D": "Power Automate actions"
-      },
-      "answer": "B",
-      "explanation": "Teams actions send immediate messages to channels or individuals and are used when you need quick responses and team coordination, letting teams discuss and coordinate their response.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
-      "question": "A compliance officer needs comprehensive context about a flagged shipment and can respond within hours, not seconds. Which action type best fits?",
-      "options": {
-        "A": "Teams actions",
-        "B": "Email actions",
-        "C": "Power Automate actions",
-        "D": "Fabric item actions"
-      },
-      "answer": "B",
-      "explanation": "Email actions send detailed information that people can review and respond to within hours or days, ideal when the recipient needs comprehensive context and immediate response is not critical.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "scenario",
       "question": "When a rule fires, you need to automatically run a multi-step business process that updates a CRM, creates a ticket, and notifies a partner system. Which action type is designed for this?",
       "options": {
         "A": "Email actions",
@@ -523,19 +367,6 @@
     },
     {
       "type": "coding",
-      "question": "Express the threshold condition for the rule 'alert when package temperature exceeds the safe limit of 68 degrees F.' Which expression matches the threshold monitoring approach described?",
-      "options": {
-        "A": "Temperature is greater than 68",
-        "B": "Temperature equals 'medicine'",
-        "C": "HoursInTransit is greater than 68",
-        "D": "No new events for more than 68"
-      },
-      "answer": "A",
-      "explanation": "Threshold monitoring alerts when values cross safety limits. The condition 'Temperature is greater than 68' (degrees F) matches the documented threshold example.",
-      "difficulty": "Easy"
-    },
-    {
-      "type": "coding",
       "question": "You want a missing-data rule that fires when a sensor has not reported for over 30 minutes. Which condition expression represents this?",
       "options": {
         "A": "Temperature is greater than 30",
@@ -598,19 +429,6 @@
       "answer": "B",
       "explanation": "The 'When it has been true for' occurrence identifies persistent problems, such as a condition staying true (high) for 15 minutes, instead of firing every time.",
       "difficulty": "Medium"
-    },
-    {
-      "type": "coding",
-      "question": "Map the requirement 'add up values when counting events rather than measuring a level' to the correct summarization function.",
-      "options": {
-        "A": "Average",
-        "B": "Minimum/Maximum",
-        "C": "Total",
-        "D": "Count"
-      },
-      "answer": "C",
-      "explanation": "Total adds up values when you are counting events rather than measuring levels, per the summarization options described.",
-      "difficulty": "Easy"
     },
     {
       "type": "coding",
