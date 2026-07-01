@@ -1,108 +1,192 @@
-# Study Guide: Administer a Microsoft Fabric Environment
+# Administer a Microsoft Fabric Environment
 
-This study guide explains how to configure, manage, and govern a Microsoft Fabric environment. It covers the administration model, tenant settings, licensing structures, monitoring tools, and tenant-wide governance strategies.
+Fabric administration is three jobs: **configure** the platform, **manage** who can do what, and **govern** it so it stays compliant — all without the tenant admin becoming the bottleneck every request routes through.
 
----
+## The Hierarchy: Five Levels of "Who Owns This?"
 
-## 1. The Microsoft Fabric Administration & Delegation Model
+Every setting and permission in Fabric lives at one of five levels. Know where something lives and you know who's responsible for it.
 
-### Architectural Hierarchy
-Microsoft Fabric organizes its platform-wide architecture into five logical layers:
-1.  **Tenant:** The highest level of the environment, representing the organization’s entire Fabric boundary. It aligns directly with the Microsoft Entra ID directory. Tenant settings apply globally.
-2.  **Capacity:** Dedicated compute and storage resources (e.g., F64 capacity) that power all active workloads.
-3.  **Domain:** A logical grouping of workspaces designed to mirror organizational structures (e.g., Finance, Risk, Marketing domains).
-4.  **Workspace:** A collaboration container where team members build, store, and share items.
-5.  **Item:** Individual data assets created by users (e.g., lakehouses, warehouses, notebooks, semantic models, reports).
+- **Tenant** — the organization's entire Fabric world. Maps **1:1** to the Microsoft Entra ID directory, so everyone signing in with a company account shares one tenant. Settings here hit _everyone_.
+- **Capacity** — dedicated compute + storage (e.g., F64). Every query, model refresh, and report run burns capacity. Run out, and work stops.
+- **Domain** — a logical bundle of workspaces that mirrors the business (Finance domain, Risk domain). The home for governance policy and delegation.
+- **Workspace** — a team's collaboration container, where lakehouses, notebooks, and reports get built and shared.
+- **Item** — the assets themselves: lakehouses, warehouses, notebooks, semantic models, reports. The Fabric admin **never** touches these directly — workspace admins do.
 
-### Administrative Roles & Delegation
-Fabric delegates control using a four-tier model, preventing tenant administrators from becoming operational bottlenecks:
-*   **Fabric Administrator:** Controls tenant-wide settings, provisions capacities and domains, and assigns top-level roles. *(Note: Registered as "Power BI Administrator" in Microsoft Entra ID).*
-*   **Capacity Administrator:** Monitors resource consumption for specific capacities and manages workspace assignments to keep systems running smoothly.
-*   **Domain Administrator:** Manages workspaces within a specific domain and enforces localized policies.
-*   **Workspace Administrator:** Manages day-to-day access, user roles, and item creation within individual workspaces.
+Two rules to memorize: **one tenant = one Entra ID directory**, and **the Fabric admin sets up the environment but stays out of individual workspaces**.
 
-### Management Toolset
-*   **Fabric Admin Portal:** The central web-based interface for configuring tenant settings, managing capacities, creating domains, auditing, and monitoring.
-*   **Microsoft 365 Admin Center & Entra ID:** Used to allocate licenses, manage identities, and handle group memberships.
-*   **PowerShell & REST APIs:** Utilized by admins to automate provisioning, configuration updates, and reporting tasks.
+## Delegation: The Four-Tier Admin Model
 
-### Crucial Implementation Rules
-*   **Administrative Separation:** Fabric Admins manage platform configuration; they do not manage individual workspace permissions or data items directly.
-*   **Identity Mapping:** One tenant maps to one Microsoft Entra ID directory.
+Control is handed out through four roles so the tenant admin isn't a human bottleneck.
+
+- **Fabric admin** — rules the **entire tenant**: tenant settings, all capacities and domains, and appointing every other admin.
+- **Capacity admin** — rules **one capacity**: watches performance, reassigns workspaces, alerts when limits get close.
+- **Domain admin** — rules **one domain**: runs the workspaces in it, enforces policy, and overrides delegated settings.
+- **Workspace admin** — rules **one workspace**: day-to-day access, item management, and member permissions.
+
+> ⚠️ **The name trap:** In Microsoft Entra ID, the Fabric admin role is labeled **Power BI Administrator**. That's the name you assign — don't hunt for "Fabric admin."
 
 ---
 
-## 2. Tenant Settings, Domains, and Governance Delegation
+## The Toolbox
 
-### Tenant Settings and Feature Governance
-Tenant settings in the Fabric Admin Portal control user capabilities globally. Features can be enabled/disabled for the entire organization, specific security groups, or with security group exclusions.
-*   **Policy vs. Security:** Tenant settings are interface governance policies rather than true security boundaries. For instance, disabling "Export data" in tenant settings hides the export button in the UI, but users with read access can still query the semantic model via Python or Excel. True data security must be enforced using item permissions and sensitivity labels.
+The **Fabric admin portal** is home base, but not the only tool.
 
-### Designing Domains
-Domains create logical governance boundaries around workspaces. Assigning a workspace to a domain organizes policies but does *not* restrict data access. Workspace roles and item permissions still control access.
-*   **Workspace Assignment:** Can be done manually, via pattern matching on workspace names, or dynamically based on the workspace administrator. Using the workspace administrator is the most scalable approach.
-*   **Subdomains:** Can be created underneath parent domains to handle specialized sub-department compliance needs.
+**Inside the admin portal:**
 
-### Policy Delegation
-Tenant administrators can delegate specific tenant settings, allowing Domain Admins to override them.
-*   **Target Customizations:** Typical delegated settings include **Certification** policies (allowing departments to define their own data certifiers) and **Default Sensitivity Labels** (e.g., forcing a "Confidential" label in the Finance domain while keeping Marketing "Public").
+- **Tenant settings** — turn features on/off across the org.
+- **Capacity settings** — create, view, and assign workspaces to capacities.
+- **Domains** — build domains, appoint domain admins, organize by function.
+- **Users** — hand out Fabric/capacity/domain admin roles.
+- **Audit logs** — the compliance and security paper trail.
+- **Monitoring** — usage and performance trends.
 
----
+**Outside it:**
 
-## 3. User Access, Licensing, and Distribution
-
-### The Two Licensing Pillars
-Fabric access is governed by the interaction between compute resources (Capacity) and individual user access (Per-User Licenses):
-1.  **Capacity Licenses:** Provisioned at the organizational level (e.g., F64 capacity) to power the compute and storage needs of all workspaces.
-2.  **Per-User Licenses:** Determine what individuals can create or view:
-    *   **Fabric Free:** Automatically assigned upon login. Enables users to create and share non-Power BI items (like lakehouses, notebooks, pipelines) in workspaces backed by an F capacity.
-    *   **Power BI Pro:** Required to create, publish, and share Power BI reports.
-    *   **Power BI Premium Per User (PPU):** Offers Premium features individually but does not provision a Fabric capacity. PPU users cannot build Fabric items (like lakehouses) without an F capacity backing.
-
-### The F64 Threshold Rule
-The size of your Fabric capacity impacts per-user licensing costs significantly:
-*   **F64 and Larger:** Fabric Free users can view Power BI reports and dashboards in shared workspaces, provided they have a "Viewer" role. No Power BI Pro licenses are required for read-only consumers.
-*   **Smaller than F64:** *All* users must have a Power BI Pro or PPU license to view Power BI content, even if they are only read-only viewers.
-
-### License Management Best Practice
-Licenses should be managed via Entra ID security groups in the Microsoft 365 Admin Center rather than assigned to individuals. This ensures that permissions adjust dynamically as users join or leave departments.
-
-### Content Distribution Patterns
-*   **Workspace Apps:** The recommended method for large, read-only consumer audiences. Apps publish finished reports without exposing the workspace environment, items, or work-in-progress to the audience.
-*   **Workspace Roles (Admin, Member, Contributor, Viewer):** Best for collaboration and development. Workspace viewers can see all items and drafts in progress, which is not suitable for general business consumers.
+- **Microsoft 365 admin center** — for licenses.
+- **Microsoft Entra ID** — for identity and group membership.
+- **PowerShell / REST APIs** — to automate provisioning, config, and reporting.
 
 ---
 
-## 4. Operational Monitoring and Capacity Management
+## Tenant Settings: Powerful, But Not a Lock
 
-### centralized Troubleshooting: The Monitoring Hub
-The Monitoring Hub is a reactive tool providing a tenant-wide view of Fabric job execution health.
-*   **Capabilities:** Tracks jobs (running, succeeded, failed) over a rolling 30-day period. Admins can filter by status, item type, submitter, and workspace location to diagnose failures.
-*   **Schedule Failures View:** Provides a centralized view of scheduled item refresh alerts.
+Tenant settings decide which Fabric features exist for users. Each one sits in one of **four states**:
 
-### Strategic Adoption Tracking: Admin Monitoring Workspace
-Unlike the Monitoring Hub, the Admin Monitoring Workspace is a strategic tool designed to evaluate adoption.
-*   **Core Feature:** Contains the **Feature Usage and Adoption** report, highlighting which departments are actively using Fabric items and where training gaps or adoption barriers exist.
+1. Off for the whole org.
+2. On for everyone.
+3. On for **specific security groups** only.
+4. On for **everyone except** certain groups.
 
-### Compute Optimization: Fabric Capacity Metrics App
-Compute capacity is measured in **Capacity Units (CUs)**. Exceeding capacity limits causes Fabric to throttle background jobs to protect performance.
-*   **Performance Mitigation:** Fabric capacity can be scaled up dynamically (e.g., from F64 to F128) during heavy processing windows (like quarter-end financial closing) and scaled back down afterward.
-*   **Cost Control:** Development and test capacities can be paused overnight or over weekends. Pausing makes all data on that capacity unavailable, so it should only be done on non-production capacities.
+Changes take **up to 15 minutes** to propagate across the tenant. The big one is **"Users can create Fabric items"** — the master on/off switch for the platform. No switch, no lakehouses, no warehouses, nothing. Capacity admins can override it at the capacity level for tighter control.
+
+> 🔒 **Read this twice:** Tenant settings are **UI governance, not security.** Turn off **Export data** and the export button vanishes — but a user with read access can still pull that semantic model into Excel or Python. Real security = **item permissions + sensitivity labels.**
+
+Typical configuration moves:
+
+- Enable **"Users can create Fabric items"** org-wide.
+- Restrict **Export to Excel** by enabling it for everyone _except_ a "restricted" security group.
+- Enable **Certification** but limit it to a designated data-steward group.
 
 ---
 
-## 5. Security Auditing and Item Endorsement
+## Domains: Governance Boundaries, Not Walls
 
-### Compliance: Audit Logs
-Audit logs in the admin portal capture security and compliance evidence. They record operations such as who viewed or exported a report, external sharing events, permission modifications, and item deletions.
+Domains group workspaces to match the org chart so different policies apply to different departments without exceptions scattered everywhere.
 
-### Data Trust: Endorsement Badges
-To help users locate reliable datasets in the OneLake Catalog, Fabric supports two endorsement levels:
-1.  **Promoted:** Applied by workspace contributors/admins to highlight quality items.
-2.  **Certified:** Requires formal validation by authorized certifiers (configured via the Certification tenant setting). Certified items display a distinct trust badge.
+The part everyone gets wrong: **a domain organizes governance, it does not restrict access.** Dropping a workspace into the Finance domain does **not** lock it to Finance users — workspace roles and item permissions still decide who sees what. Domains are about _policy_, not _walls_.
 
-### Governance Snapshot: OneLake Catalog Govern Tab
-The Govern tab provides Fabric Admins with a tenant-wide governance overview. It tracks:
-*   **Sensitivity Label Coverage:** The percentage of items that have security labels applied.
-*   **Endorsement Coverage:** The ratio of promoted/certified items to unendorsed items.
-*   **Actionable Remediation:** Identifies workspaces requiring immediate security or governance improvements.
+**Assigning workspaces to a domain — two ways:**
+
+- **By name** — pattern-match anything with a keyword (e.g., "Finance") in the title.
+- **By workspace admin** — grab every workspace whose admin is a given person. **This one scales**: new workspaces auto-join the domain the moment they're created.
+
+Domain admins can name **domain contributors** (workspace admins allowed to pull their own workspaces in), and you can nest **subdomains** for specialized needs (e.g., an **Audit** subdomain under Finance). Start flat; add subdomains as complexity grows.
+
+**Delegated settings** let domain admins customize policy the tenant admin chooses to hand down:
+
+- **Certification** — a domain names its own certifiers, separate from others.
+- **Default sensitivity label** — one domain forces **Confidential** on everything while another defaults to **Public**.
+
+---
+
+## Put Workspaces on a Capacity
+
+All Fabric work runs on a capacity, assigned from the **Capacity settings** tab. Skip it and a workspace falls back to **shared capacity** — limited, and no place for production.
+
+Deliberate call worth making: **keep dev/test off the production capacity.** Experimenting with pipelines and training sessions eats serious compute; a test run shouldn't starve production dashboards. Put dev work on a separate trial/test capacity.
+
+---
+
+## Licensing: Where the Money Hides
+
+Two license types stack together — **capacity** (the org's compute) and **per-user** (what each person can do).
+
+A **capacity license** (e.g., F64) is shared org-wide; nobody gets an individual one, workspaces just get assigned to it.
+
+**Per-user licenses come in three flavors:**
+
+- **Fabric Free** — auto-granted on first sign-in. Create/share **non-Power BI** items (lakehouses, notebooks, warehouses, pipelines) on an F capacity. Power BI items only in your personal **My workspace**.
+- **Power BI Pro** — needed to create and share Power BI reports/dashboards. On capacities **below F64**, also needed just to _view_ them.
+- **Power BI Premium Per User (PPU)** — Premium features per person, but it **doesn't** provision a capacity. No F capacity backing = no lakehouses/warehouses/notebooks.
+
+### 🎯 The F64 Threshold — the rule that saves real money
+
+- **F64 or bigger:** **Free** users can _view_ Power BI reports with a **Viewer** role. **No Pro needed** for read-only consumers.
+- **Below F64:** **everyone** who views needs Pro or PPU — even pure viewers.
+
+The payoff: on an F64+, report _viewers_ need only Free licenses — only the people who _build and publish_ Power BI content need Pro. That's the difference between licensing 30 creators and licensing 200 people.
+
+**License by role:**
+
+- Builds lakehouses/notebooks/pipelines → **Free** (Free + F capacity covers non-Power BI items).
+- Builds & publishes Power BI reports → **Pro** (or PPU) — required to create/share Power BI content.
+- Views Power BI reports on F64+ → **Free** + Viewer role (F64 threshold unlocks free viewing).
+- Views dashboards on F64+ → **Free** + Viewer role (no Pro on F64 or larger).
+
+---
+
+## Handing Out Licenses & Sharing Content
+
+Licenses get assigned in the **Microsoft 365 admin center** — not the Fabric portal. Licensing is an M365 job; Fabric just honors whatever's set there.
+
+Key practices:
+
+- **Assign by group, not by person.** Make Entra ID groups (e.g., "Fabric-Pro-Users") and license the _group_ under **Billing > Licenses**. People join or leave, licenses follow automatically.
+- **Free licenses need no pre-assignment** — they land on first sign-in.
+- **License + workspace type work together** — a Pro user on an F capacity can build everything; a Free user in that same workspace builds Fabric items but no Power BI.
+
+**Getting content to people — two patterns:**
+
+- **Workspace apps** — best for big read-only audiences. Ship finished reports **without** exposing the workspace or works-in-progress. The production-ready choice.
+- **Workspace roles** (Admin/Member/Contributor/Viewer) — best for collaborators and builders. Direct access to the workspace; even a **Viewer** sees _everything_, including half-finished drafts.
+
+**Least privilege wins:** consumers get the **app**, builders get workspace access. For **external** partners, tenant **Export and sharing settings** rule — recipients need a proper license, or you embed the content in an app that authenticates via **Microsoft Entra B2B**.
+
+---
+
+## Monitoring: Three Tools, Three Questions
+
+Once the platform's live, the job becomes _"what's actually happening in here?"_ Three tools, each answering a different question — don't mix them up.
+
+**🔧 Monitoring Hub — _"What broke, and when?"_**
+Reactive and operational. A tenant-wide view of every Fabric job's status (**running / succeeded / failed**) with a **30-day history**, error details, and location. Open it via **Monitor** in the nav pane; regular users see only their own items, the Fabric admin sees all of it. Filter by status, item type, start time, submitter, and workspace. A **schedule-failures view (preview)** rounds up refresh-failure alerts in one place.
+
+**📈 Admin Monitoring Workspace — _"Is anyone actually using this?"_**
+Strategic, about adoption. A workspace tenant admins get by default, home to the **Feature Usage and Adoption** report (and its semantic model). Shows usage trends over time, the most-active users and departments, and where capacity is underused or adoption is low.
+
+**⚙️ Fabric Capacity Metrics App — _"Is the capacity healthy?"_**
+Consumption is measured in **Capacity Units (CUs)**. Blow past the limit and Fabric **throttles background jobs** to protect everyone. Watching CU trends tells you when to:
+
+- **Scale up** — bump the SKU (e.g., F64 → **F128** for a quarter-end crunch, then back down).
+- **Scale out** — move workspaces to another capacity to spread the load.
+
+You can also **pause** non-production capacities (dev/test overnight or weekends) to save money — but pausing makes **all content on it unavailable**, so it's non-prod only, with a heads-up to users first.
+
+---
+
+## Governance: Compliant and Trusted
+
+**📋 Audit logs — the paper trail.** In the admin portal, logs record _what_ users did, _when_, and _from where_: who viewed or exported a report, who shared externally, who changed permissions, who deleted an item. Filter by activity type and user to answer compliance questions (e.g., "did anyone export sensitive data to Excel last month?").
+
+**🏅 Endorsement — helping people trust the right data.** Two levels:
+
+- **Promoted** — applied by any workspace **Contributor/Admin** to their own items. Signals "this is good, quality work."
+- **Certified** — applied by an **authorized certifier** after a formal review, gated by the **Certification** tenant setting. Signals "this is the authoritative source."
+
+Certified items surface in the **OneLake catalog** with a distinct badge, so consumers filtering by domain instantly see which models are safe to reuse.
+
+**🗺️ OneLake Catalog — Govern tab — the aerial view.** A tenant-wide governance snapshot showing:
+
+- **Sensitivity-label coverage** — the % of items with labels applied.
+- **Endorsement coverage** — promoted/certified vs. bare items.
+- **Recommended actions** — where to focus next (e.g., a domain sitting at 30% label coverage), which can then be delegated to the relevant domain admin.
+
+---
+
+## Quick Recap
+
+1. **Map the terrain** — five-level hierarchy, four-tier delegation; appoint capacity, domain, and workspace admins.
+2. **Configure** — master switch on, exports locked down where needed, certification gated; build domains, delegate settings, put production on a dedicated capacity and dev/test elsewhere.
+3. **License smart** — group-based assignment via M365, exploit the F64 threshold to skip needless Pro licenses, ship apps to consumers.
+4. **Monitor** — Hub for failures, Admin Monitoring Workspace for adoption, Capacity Metrics for CUs; scale up/out and pause as needed.
+5. **Govern** — audit logs, endorsement badges, and the OneLake Govern tab keep it compliant and trusted.
